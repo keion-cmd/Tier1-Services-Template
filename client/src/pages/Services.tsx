@@ -1,19 +1,24 @@
 /**
- * Reference-led electric-blue veterinary UI: large numbering, white sculptural cards, and a gallery-like service stage.
+ * Cross-page consistency pass: service content lives in the same blue editorial field and shared gallery as the homepage.
  */
 import { Link } from "wouter";
-import { Activity, ArrowUpRight, Heart, ShieldCheck, Smile, Sparkles, Stethoscope } from "lucide-react";
+import { ArrowUpRight, PawPrint } from "lucide-react";
+import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
-import { assets, services } from "@/lib/clinic-content";
-
-const icons = { stethoscope: Stethoscope, shield: ShieldCheck, sparkles: Sparkles, heart: Heart, smile: Smile, activity: Activity };
+import { assets } from "@/lib/clinic-content";
 
 export default function Services() {
-  return <main className="neo-main neo-services-page">
-    <PageMeta title="Services — Paws+Pine Veterinary Clinic Demo" description="Six fictional veterinary service paths shown through a high-contrast Tier 1 website demonstration." />
-    <section className="services-title-stage"><div><span className="neo-overline">Paws+Pine Clinic · Tier 1</span><h1>Care paths<br /><em>with intent.</em></h1><p>These six service blocks are fictional demo content. A real project publishes only its approved services, details, images, and contact path.</p></div><img src={assets.serviceExam} alt="Fictional dog receiving a veterinary examination" /></section>
-    <section className="service-editorial-intro"><p><strong>06 services.</strong> One clear structure. No extra pages, unsupported claims, made-up pricing, or fictional testimonials.</p><Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link></section>
-    <section className="neo-all-services">{services.map((service, index) => { const Icon = icons[service.icon]; return <article key={service.title} className={`neo-all-service service-${index + 1}`}><div className="service-count">{service.number}.</div><div className="service-icon"><Icon size={25} strokeWidth={1.6} /></div><div className="service-content"><h2>{service.title}</h2><p>{service.detail}</p></div><Link href="/request" className="service-action" aria-label={`Request a visit about ${service.title}`}>Ask about this <ArrowUpRight size={18} /></Link></article>; })}</section>
-    <section className="services-endcap"><span>Tier 1 service page</span><h2>Simple to navigate.<br /><em>Easy to make your own.</em></h2><Link href="/request" className="lime-cta">Begin a visit request <ArrowUpRight size={17} /></Link></section>
+  return <main className="neo-main pp-services-page">
+    <PageMeta title="Services — Paws+Pine Veterinary Clinic" description="Explore six thoughtfully organized veterinary care pathways at Paws and Pine." />
+    <section className="pp-page-hero pp-services-hero pp-reveal">
+      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><h1>Care paths<br /><em>with intent.</em></h1><p>Every path begins with a conversation, then makes space for the questions that matter to you and your pet.</p><Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link></div>
+      <div className="pp-services-hero-image"><img src={assets.serviceExam} alt="Veterinarian examining a dog at Paws and Pine" /></div>
+    </section>
+
+    <section className="pp-services-intro pp-reveal"><div className="pp-services-intro-count"><strong>06</strong><span>care paths</span></div><p>From the first question to a more detailed conversation, our service overview helps make the next step feel clearer.</p><Link href="/request" className="pp-text-action">Find your starting point <ArrowUpRight size={17} /></Link></section>
+
+    <section className="pp-services-gallery-section"><InteractiveServiceGallery variant="services" /></section>
+
+    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Care that makes room<br />for <em>every question.</em></h2><Link href="/request" className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link></section>
   </main>;
 }

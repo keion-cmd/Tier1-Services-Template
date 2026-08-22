@@ -1,18 +1,14 @@
 /**
  * Fidelity-pass design reminder: integrated title-to-pet hero, image-led About, and bottom-aligned interactive service cards.
  */
-import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowUpRight, HeartPulse, PawPrint, ShieldCheck, Sparkles, Stethoscope } from "lucide-react";
+import { ArrowUpRight, PawPrint } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
-import { assets, faqs, services } from "@/lib/clinic-content";
-
-const serviceVisuals = [assets.serviceExam, assets.dogCare, assets.catCare, assets.clinicHero];
-const serviceIcons = [Stethoscope, ShieldCheck, Sparkles, HeartPulse];
+import { assets, faqs } from "@/lib/clinic-content";
 
 export default function Home() {
-  const [activeService, setActiveService] = useState<number | null>(null);
   return <main className="neo-main fidelity-home">
     <PageMeta title="Paws+Pine Veterinary Clinic" description="Thoughtful veterinary care conversations, clear service pathways, and a simple visit request process." />
     <section className="fidelity-hero">
@@ -23,7 +19,9 @@ export default function Home() {
 
     <section className="fidelity-about"><div className="fidelity-about-visual"><img src={assets.aboutPup} alt="A small dog in a lime green sweater" /></div><div className="fidelity-about-copy"><span className="fidelity-kicker">About Paws+Pine</span><h2>Gentle care begins with <em>clear conversations.</em></h2><p>From routine visits to moments that need a closer look, Paws+Pine gives pet parents an easier way to understand their options and choose a next step.</p><div className="fidelity-metrics"><div><strong>06</strong><span>care pathways</span></div><div><strong>01</strong><span>clear starting point</span></div><div><strong>03</strong><span>thoughtful steps</span></div></div></div></section>
 
-    <section className="fidelity-services"><div className="fidelity-services-heading"><div><span className="fidelity-kicker fidelity-kicker-light">How we can help</span><h2>Our services<span>.</span></h2></div><div><p>Explore the care paths that make a future visit easier to understand. Each one starts with a conversation.</p><Link href="/services" className="lime-link">See all services <ArrowUpRight size={15} /></Link></div></div><div className="fidelity-service-stage">{services.slice(0,4).map((service,index) => { const Icon = serviceIcons[index]; const isActive = activeService === index; return <article key={service.title} className={`fidelity-service-card ${isActive ? "is-active" : ""}`} onMouseEnter={() => setActiveService(index)} onMouseLeave={() => setActiveService(null)} onFocus={() => setActiveService(index)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setActiveService(null); }}><div className="service-card-head"><span>{service.number} · Care path</span><Link href="/services" aria-label={`Explore ${service.title}`}><ArrowUpRight size={17} /></Link></div><div className="service-card-visual"><img src={serviceVisuals[index]} alt={`${service.title} at Paws and Pine`} /></div><div className="service-card-body"><Icon size={20} strokeWidth={1.65} /><h3>{service.title}</h3><p>{service.short}</p></div><strong className="service-card-index">{service.number}.</strong></article>; })}</div></section>
+    <section className="fidelity-services"><div className="fidelity-services-heading"><div><span className="fidelity-kicker fidelity-kicker-light">How we can help</span><h2>Our services<span>.</span></h2></div><div><p>Explore the care paths that make a future visit easier to understand. Each one starts with a conversation.</p><Link href="/services" className="lime-link">See all services <ArrowUpRight size={15} /></Link></div></div><InteractiveServiceGallery variant="home" count={4} /></section>
+
+    <div className="pp-marquee" aria-label="Paws and Pine care paths"><span>Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span><span aria-hidden="true">Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span></div>
 
     <section className="fidelity-faq"><div><span className="fidelity-kicker">A few helpful answers</span><h2>Everything starts with <em>one good question.</em></h2><p>We keep the details clear so you can feel more prepared for the conversation ahead.</p></div><Accordion type="single" collapsible className="fidelity-faq-list">{faqs.map((faq,index) => <AccordionItem value={`faq-${index}`} key={faq.question}><AccordionTrigger>{faq.question}</AccordionTrigger><AccordionContent>{faq.answer}</AccordionContent></AccordionItem>)}</Accordion></section>
 

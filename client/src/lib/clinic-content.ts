@@ -30,5 +30,7 @@ export const assets = {
   dogCare: "/manus-storage/paws-pine-dog-care_a22a2df2.jpg",
   catCare: "/manus-storage/paws-pine-cat-care_7c4ca6cf.jpg",
   clinicHero: "/manus-storage/paws-pine-hero_7806da61.jpg",
+  dentalCare: "/manus-storage/paws-pine-dental-care_69f1729e.jpg",
+  diagnosticsCare: "/manus-storage/paws-pine-diagnostics-care_5f460451.jpg",
   seal: "/manus-storage/paws-pine-seal_41d53572.png",
 };
