@@ -41,7 +41,7 @@ function doPost(event) {
         normalise(request.preferredDate, 32),
         normalise(request.message, 2000),
         request.consentConfirmed === true ? 'Yes' : 'No',
-        'Hayop Kalinga website',
+        'Paws+Pine website',
         '',
         ''
       ]);

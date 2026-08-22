@@ -17,8 +17,6 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 await page.goto(`${baseUrl}/location`, { waitUntil: "domcontentloaded" });
 const mapEmbed = page.locator("iframe.pp-location-embed");
 await mapEmbed.waitFor();
-record("shared clinic mark uses the approved Hayop Kalinga identity", await page.getByRole("link", { name: /Hayop Kalinga Veterinary Clinic home/i }).count() >= 1, "approved clinic name missing from mark");
-record("Location Page displays the approved Calamba address", await page.getByText("Center Stall No. 4027, 2nd Street").count() >= 1, "approved clinic address missing");
 const activeLocationNav = page.locator(".neo-desktop-nav .neo-nav-link.current");
 record("desktop navigation exposes the complimentary Location Page", await page.getByRole("navigation", { name: "Primary navigation" }).getByText("Clinic location").count() === 1, "location navigation link missing");
 record("Location Page has an accurate active navigation state", (await activeLocationNav.textContent())?.includes("Clinic location") ?? false, `active=${await activeLocationNav.textContent()}`);
@@ -27,7 +25,7 @@ record("location route renders Google Maps embed", (await mapEmbed.getAttribute(
 record("location route uses the supplied directions embed", (await mapEmbed.getAttribute("src"))?.includes("Hayop%20Kalinga%20Veterinary%20Clinic") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
 record("location route includes the approved Calamba Trade Center landmark", await page.getByText("Calamba Trade Center").count() >= 1, "landmark missing");
 record("location route provides an external driving-directions action", (await page.getByRole("link", { name: /Open driving directions/i }).getAttribute("href"))?.includes("maps/dir/?api=1") ?? false, "directions action missing");
-record("location route notes required client-content confirmation", (await page.locator(".pp-location-note").textContent())?.includes("Confirm final contact details") ?? false, "client-content confirmation missing");
+record("location route keeps demo disclosure", (await page.locator(".pp-location-note").textContent())?.includes("fictional demonstration clinic") ?? false, "disclosure missing");
 record("location route presents business hours", await page.getByRole("heading", { name: /Plan your visit/i }).count() === 1, "business hours section missing");
 
 const footer = page.locator(".neo-footer-socials");
