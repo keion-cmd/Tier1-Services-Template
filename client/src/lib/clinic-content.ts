@@ -6,6 +6,8 @@ export const clinic = {
   phone: "(demo) 02 0000 0000",
   email: "hello@pawsandpine.example",
   hours: "Mon–Fri 8:30–18:00 · Sat 9:00–13:00",
+  // Add only client-approved profiles. The fictional demo intentionally has none.
+  socialLinks: [] as { label: string; href: string }[],
 };
 
 export const services = [
@@ -20,7 +22,7 @@ export const services = [
 export const faqs = [
   { question: "What happens after I request a visit?", answer: "A care-team conversation begins with the details you choose to share. The next appropriate step is confirmed directly, rather than assumed online." },
   { question: "Can I choose a care path before I visit?", answer: "Yes. The service overview helps you recognize which conversation may be most helpful, while leaving room for the clinic team to guide the final next step." },
-  { question: "How does this request page work?", answer: "It is designed to gather the useful essentials first. This showcase keeps submissions inside the browser; a production version connects its approved fields to the clinic’s configured follow-up process." },
+  { question: "How does this request page work?", answer: "A successful request is recorded securely for staff review. It does not reserve a time or confirm an appointment; the clinic follows up directly about the next step." },
 ] as const;
 
 export const assets = {

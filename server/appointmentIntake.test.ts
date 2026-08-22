@@ -33,4 +33,29 @@ describe("forwardAppointmentRequest", () => {
       expect.objectContaining({ method: "POST" }),
     );
   });
+
+  it("rejects an unexpected intake status without implying that an appointment was created", async () => {
+    vi.stubEnv("GOOGLE_APPS_SCRIPT_INTAKE_URL", "https://example.test/intake");
+    vi.stubEnv("APPOINTMENT_INTAKE_SECRET", "test-only-shared-secret");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ ok: true, requestId: "req_456", status: "Confirmed" }), { status: 200 }),
+      ),
+    );
+
+    await expect(
+      forwardAppointmentRequest({
+        name: "Alex Visitor",
+        email: "alex@example.test",
+        phone: "555-0100",
+        petName: "Milo",
+        message: "Routine wellness question.",
+        consentConfirmed: true,
+      }),
+    ).rejects.toMatchObject({
+      code: "BAD_GATEWAY",
+      message: expect.stringContaining("No appointment was created"),
+    });
+  });
 });

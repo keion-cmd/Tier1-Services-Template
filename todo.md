@@ -169,3 +169,55 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Define a complete shared footer inclusion for every tier: approved logo/business name, quick links, contact details, social links, legal/privacy links, copyright, and appropriate primary CTA.
 - [x] Preserve exact public-page limits by treating footer destinations only as approved existing routes or external links, never as automatic new public pages.
 - [x] Update the Tier 3 and all-tier offer documents with the revised location-page and footer value wording.
+
+## Tier 1 Live Google Sheet Form Revision
+
+- [x] Define Tier 1’s selectable live booking-request and live service-request form modes, both writing securely to the client-approved Google Sheet.
+- [x] Define the Tier 1 Google Sheet schema, server-mediated write path, validation, consent, on-screen success/error treatment, and fallback contact path.
+- [x] State that Tier 1 creates a live recorded request, not a live-reserved calendar slot, unless a separately scoped live-availability engine is implemented.
+- [x] Update the revised three-tier offer and supporting Tier 3 reference to describe the expanded Tier 1 form capability accurately.
+
+## Tier 1 Services-Only Correction
+
+- [x] Remove Tier 1 product, order, quantity, and product-catalogue language from the offer and supporting scope descriptions.
+- [x] Limit Tier 1’s live Google Sheet form to service enquiry, service request, appointment request, or meeting request information.
+- [x] Replace the Tier 1 fixed page label with Services and Contact / Book Request while retaining the exact three-page limit.
+- [x] Deliver the corrected services-only offer file.
+
+## All-Tier Services-Only Correction
+
+- [x] Remove product, ordering, quantity, catalogue, fulfillment, and commerce terminology from Tier 1, Tier 2, and Tier 3 customer-facing scope.
+- [x] Define Tier 1 as live service enquiry or appointment/meeting request intake to Google Sheets; Tier 2 as external service booking/inquiry; and Tier 3 as custom live service booking and operations.
+- [x] Replace all public page labels with service-focused wording while preserving the original fixed page counts: 3, 9, and 11.
+- [x] Rewrite the customer-ready offer and detailed Tier 3 plan as a consistent services-only package family.
+
+## Complete Consolidated Services-Only Tier Plan
+
+- [x] Consolidate every approved Tier 1, Tier 2, and Tier 3 services-only decision into one complete operational and commercial plan.
+- [x] Include all fixed page structures, location-page option, complete footer scope, form/booking workflows, data destinations, role boundaries, security, QA, delivery, and exclusions.
+- [x] Review the consolidated plan for consistent services-only wording, page counts, pricing, and confirmation claims.
+- [x] Deliver the complete tier-plan file rather than only the customer-facing package matrix.
+
+## Sample-Aligned Complete Tier Plan
+
+- [x] Review the supplied sample offer-plan structure and presentation conventions without copying obsolete scope.
+- [x] Reformat the complete services-only Tier 1–3 plan to use the sample’s decision-ready package-plan structure.
+- [x] Preserve the approved Location Page, all-tier complete footer, Tier 1 Google Sheet intake, Tier 2 external service booking, and Tier 3 live service-booking dashboard decisions.
+- [x] Deliver the reformatted complete tier-plan file.
+
+## Template-Based Fast Delivery and Provider-Led Setup Correction
+
+- [x] Set the delivery target for Tier 1, Tier 2, and Tier 3 to 1–5 business days after complete approved tier-specific inputs are received.
+- [x] Explain that an existing approved website and dashboard template foundation enables the Tier 3 1–5 business-day target while preserving the stated fixed scope.
+- [x] Prominently state the free optional Location Page, free SSL/HTTPS, free Launch-Ready SEO Setup, and free `.com` domain for one year in the all-tier value section.
+- [x] Clarify that the provider completes agreed setup work—including domain registration, approved Google Sheet setup/integration, configuration, and launch checks—while the client supplies complete tier-specific information and approvals.
+- [x] Deliver the corrected sample-aligned complete tier-plan file.
+
+## Updated Tier 1 Project Completion
+
+- [x] Audit the existing three public routes, live Google Sheet request workflow, service-only wording, and shared footer against the approved Tier 1 package plan.
+- [x] Preserve exactly three public pages—Home, Services, and Contact / Book Request—while aligning each route with the updated service-only conversion path.
+- [x] Complete the approved-content footer with contact, social, policy, copyright, and route-appropriate service CTA behavior without inventing client data.
+- [x] Confirm the live Google Sheet form remains server-mediated, validates approved fields, records requests honestly, and does not promise a reserved slot or confirmed appointment.
+- [x] Determine a scope-safe implementation of the optional Location Page without increasing the Tier 1 public page count unless the user explicitly authorizes a separate property.
+- [x] Add or update Vitest coverage and run build, workflow, and responsive visual checks before saving the completed Tier 1 update.
