@@ -403,6 +403,6 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 ## GitHub Sync and Vercel Handoff
 
-- [ ] Sync the verified project to the private `keion-cmd/Tier1-Vet-Demo` GitHub repository.
-- [ ] Provide the exact Vercel import and deployment handoff for a project named `Tier1-Vet-Demo`; direct deployment is not performed from this workflow.
+- [x] Sync the verified project to the private `keion-cmd/Tier1-Vet-Demo` GitHub repository.
+- [x] Provide the exact Vercel import and deployment handoff for a project named `Tier1-Vet-Demo`; direct deployment is not performed from this workflow.
 
