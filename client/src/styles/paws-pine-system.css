@@ -165,3 +165,29 @@
   .neo-header, .neo-header.is-scrolled { padding: 0; } .neo-nav-wrap { min-height: 60px; padding: 0 16px; border-radius: 0; } .neo-header.is-scrolled .neo-nav-wrap { border-bottom-color: rgba(10,10,12,.06); }
   .fidelity-hero { border-radius: 0 0 var(--pp-stage-radius-mobile) var(--pp-stage-radius-mobile); } .fidelity-about { width: calc(100% - 8px); margin-top: -12px; border-radius: 24px; } .fidelity-faq { width: calc(100% - 8px); border-radius: 24px 24px 0 0; }
 }
+
+/* Cross-page readability pass: preserve the editorial hierarchy while giving support copy,
+   operational details, and primary actions a practical reading and touch size. */
+.fidelity-kicker, .pp-page-eyebrow { font-size: 12px; }
+.hero-value { max-width: 300px; } .hero-value p { margin-bottom: 20px; font-size: clamp(32px,2.8vw,40px); line-height: .98; } .hero-value .lime-link { min-height: 46px; padding: 0 19px; font-size: 14px; }
+.fidelity-about-copy > p { max-width: 660px; font-size: 18px; line-height: 1.55; } .fidelity-metrics span { font-size: 14px; line-height: 1.35; }
+.fidelity-services-heading p { font-size: 16px; line-height: 1.5; } .fidelity-faq > div > p { font-size: 16px; line-height: 1.5; }
+.lime-link, .lime-cta, .pp-text-action, .pp-location-hero-cta, .pp-map-open, .pp-submit { min-height: 46px; font-size: 14px; }
+.lime-link, .lime-cta, .pp-location-hero-cta, .pp-map-open, .pp-submit { padding-inline: 18px; }
+.pp-page-hero-copy p, .pp-services-intro p { font-size: 18px; line-height: 1.5; } .pp-text-action { gap: 9px; font-weight: 800; }
+.pp-service-card-top > span { font-size: 13px; } .pp-service-card-top a { width: 34px; height: 34px; } .pp-service-card-copy p { font-size: 14px; line-height: 1.45; }
+.pp-page-outro h2 + .lime-cta { margin-top: 8px; }
+.pp-request-hero > div:first-child > p { max-width: 430px; font-size: 17px; line-height: 1.55; }
+.pp-request-rail { padding: 32px 26px; } .pp-request-rail strong { font-size: 16px; } .pp-request-rail li p, .pp-rail-contact p { font-size: 14px; line-height: 1.5; } .pp-rail-contact > span { font-size: 12px; }
+.pp-form-heading > span, .pp-form-field > span, .pp-slot-field > span { font-size: 15px; } .pp-form-field .pp-form-control { height: 60px; font-size: 17px; } .pp-message-field .pp-form-control { min-height: 150px; } .pp-slot-controls label > span { font-size: 13px; } .pp-slot-field > p, .pp-form-submission > p, .pp-consent { font-size: 14px; line-height: 1.55; } .pp-form-field small, .pp-slot-field > small, .pp-submit-error, .pp-submit-progress { font-size: 13px !important; } .pp-consent input { width: 19px; height: 19px; }
+.pp-location-hero p { max-width: 385px; font-size: 16px; line-height: 1.55; } .pp-location-fact span, .pp-directions-grid span, .pp-map-heading span { font-size: 11px; } .pp-location-fact p { font-size: 15px; line-height: 1.55; } .pp-location-note { font-size: 13px; line-height: 1.55; } .pp-map-heading strong { font-size: 19px; } .pp-map-caption p, .pp-directions-grid p { font-size: 14px; line-height: 1.55; } .pp-directions-grid h3 { font-size: 22px; }
+.neo-footer { padding: 66px 48px 26px; } .neo-footer-top { gap: 38px; padding-bottom: 44px; } .neo-footer-top > :is(div,nav) > span { font-size: 11px; } .neo-footer-top > div > p, .neo-footer-brand > p { font-size: 14px; line-height: 1.6; } .neo-footer-links { gap: 12px; } .neo-footer-links a, .neo-footer-top > div > a, .neo-policy-trigger, .neo-footer-cta { font-size: 14px; line-height: 1.45; } .neo-footer-hours { font-size: 13px; line-height: 1.55; } .neo-footer-cta { min-height: 38px; } .neo-footer-bottom { padding-top: 20px; font-size: 10px; line-height: 1.45; } .neo-social-icon { width: 23px; height: 23px; } .neo-social-icon svg { width: 14px; height: 14px; } .neo-footer-socials small { font-size: 9px; }
+
+@media (max-width: 768px) {
+  .hero-value { max-width: 220px; } .hero-value p { margin-bottom: 16px; font-size: 29px; } .hero-value .lime-link { min-height: 44px; padding: 0 17px; font-size: 13px; }
+  .fidelity-about-copy > p, .fidelity-services-heading p, .fidelity-faq > div > p, .pp-page-hero-copy p, .pp-services-intro p { font-size: 16px; }
+  .pp-request-rail { padding: 28px 22px; } .pp-request-rail strong { font-size: 15px; } .pp-request-rail li p, .pp-rail-contact p { font-size: 13px; }
+  .pp-form-card { padding: 30px 22px; } .pp-form-field .pp-form-control { height: 56px; font-size: 16px; } .pp-message-field .pp-form-control { min-height: 136px; }
+  .pp-location-hero p { font-size: 15px; } .pp-location-fact p, .pp-map-caption p, .pp-directions-grid p { font-size: 14px; }
+  .neo-footer { padding: 52px 24px 22px; } .neo-footer-top { grid-template-columns: 1fr; gap: 30px; padding-bottom: 34px; } .neo-footer-top > div > p, .neo-footer-brand > p, .neo-footer-links a, .neo-footer-top > div > a, .neo-policy-trigger, .neo-footer-cta { font-size: 15px; } .neo-footer-hours { font-size: 14px; } .neo-footer-bottom { font-size: 10px; }
+}

@@ -363,3 +363,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 ## Centered Bold Hero Title Refinement
 
 - [x] Center the homepage hero headline and increase its scale and weight while preserving mobile readability and the pet-image composition.
+
+## Cross-Page Readability Refinement
+
+- [x] Increase homepage supporting copy and action control sizes, including the hero value message and Explore services action.
+- [x] Increase footer text, navigation, social, policy, and request-detail readability without changing the footer’s information architecture.
+- [x] Raise the minimum readable size of important supporting details and actions across Services, Clinic location, and Request a visit pages.
+- [x] Validate readable text hierarchy and controls across desktop and mobile public routes.

@@ -32,6 +32,7 @@ const directionsActionBox = await page.getByRole("link", { name: /Open driving d
 record("Google Maps fills the complete right-hand map card", Boolean(mapCardBox && mapBox && Math.abs(mapCardBox.height - mapBox.height) < 3), JSON.stringify({ mapCardBox, mapBox }));
 record("driving-route label is positioned on the right side of the map", Boolean(mapBox && routeLabelBox && routeLabelBox.x > mapBox.x + mapBox.width / 2), "route label overlays the left map area");
 record("directions action is centered inside the lower map area", Boolean(mapCardBox && mapBox && directionsActionBox && directionsActionBox.y >= mapBox.y + mapBox.height * 0.7 && directionsActionBox.y + directionsActionBox.height <= mapBox.y + mapBox.height - 8 && Math.abs((directionsActionBox.x + directionsActionBox.width / 2) - (mapCardBox.x + mapCardBox.width / 2)) < 12), JSON.stringify({ mapCardBox, mapBox, directionsActionBox }));
+record("location driving action has a readable touch target", Boolean(directionsActionBox && directionsActionBox.height >= 44), JSON.stringify(directionsActionBox));
 record("location route keeps demo disclosure", (await page.locator(".pp-location-note").textContent())?.includes("fictional demonstration clinic") ?? false, "disclosure missing");
 record("location route presents business hours", await page.getByRole("heading", { name: /Plan your visit/i }).count() === 1, "business hours section missing");
 
@@ -48,6 +49,13 @@ await page.setViewportSize({ width: 1280, height: 900 });
 
 await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
 record("homepage hero uses the revised care-focused headline", await page.getByRole("heading", { name: /Your best friend deserves care/i }).count() === 1, "revised hero headline missing");
+const heroSupport = page.locator(".hero-value p");
+const heroSupportSize = Number.parseFloat(await heroSupport.evaluate(element => getComputedStyle(element).fontSize));
+const heroActionBox = await page.locator(".hero-value .lime-link").boundingBox();
+const footerActionSize = Number.parseFloat(await page.locator(".neo-footer-cta").evaluate(element => getComputedStyle(element).fontSize));
+record("homepage support message uses readable display text", heroSupportSize >= 32, `font-size=${heroSupportSize}`);
+record("homepage Explore services action has a readable touch target", Boolean(heroActionBox && heroActionBox.height >= 44), JSON.stringify(heroActionBox));
+record("footer action uses enlarged readable text", footerActionSize >= 14, `font-size=${footerActionSize}`);
 record("homepage uses client-ready Reviews language", await page.getByText("Reviews", { exact: true }).count() >= 1, "Reviews heading missing");
 record("homepage explains authentic Google Reviews pathway", await page.getByText("Share an authentic experience directly on Google. Google manages sign-in, review publication, and its own community safeguards.").count() === 1, "Google Reviews disclosure missing");
 const googleReviewLink = page.getByRole("link", { name: /Review us on Google Maps/i });
@@ -58,6 +66,8 @@ record("homepage has no temporary review form", await page.locator('input[name="
 await page.goto(`${baseUrl}/request`, { waitUntil: "domcontentloaded" });
 const email = page.locator('input[name="email"]');
 const phone = page.locator('input[name="phone"]');
+const requestSubmitBox = await page.locator(".pp-submit").boundingBox();
+record("request submit action has a readable touch target", Boolean(requestSubmitBox && requestSubmitBox.height >= 44), JSON.stringify(requestSubmitBox));
 await email.fill("not-an-email");
 await email.blur();
 record("invalid email shows inline error", (await page.locator(".pp-form-field").filter({ has: email }).locator("small").textContent())?.includes("valid email") ?? false, "email error missing");
