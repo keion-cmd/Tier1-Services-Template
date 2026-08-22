@@ -400,3 +400,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Add regression coverage for route changes from a scrolled position and verify the refreshed route begins at the top.
 - [x] Validate the fix across desktop and mobile navigation before checkpointing.
 
+
+## GitHub Sync and Vercel Handoff
+
+- [ ] Sync the verified project to the private `keion-cmd/Tier1-Vet-Demo` GitHub repository.
+- [ ] Provide the exact Vercel import and deployment handoff for a project named `Tier1-Vet-Demo`; direct deployment is not performed from this workflow.
+
