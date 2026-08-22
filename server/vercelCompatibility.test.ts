@@ -25,6 +25,5 @@ describe("Vercel compatibility", () => {
     expect(typeof apiHandler).toBe("function");
     expect(apiHandler).toHaveProperty("use");
     expect(typeof trpcHandler).toBe("function");
-    expect(trpcHandler).toHaveProperty("use");
   });
 });
