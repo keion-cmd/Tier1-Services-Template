@@ -131,3 +131,34 @@ The six-viewport Playwright sweep passed at 1440×1000, 1280×800, 1024×768, 76
 - [x] Push the commit to the target repository and verify the remote branch points to it.
 
 The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote verification confirmed commit `dc463aad4efaf1bea576ff10dcf4221a3a6862e8` matches the local export commit.
+
+## Tier 3 Offer Redesign Planning
+
+- [x] Reconfirm the Tier 2 price and current Tier 3 inclusions, third-party links, and renewal assumptions.
+- [x] Define the proposed Tier 3 custom admin and staff dashboard roles, service-operation workflows, booking metrics, and data boundaries without e-commerce.
+- [x] Calculate the exact Tier 3 price at three times Tier 2 and document payment, checkout, catalogue, delivery, and maintenance exclusions.
+- [x] Present a decision-ready Tier 3 scope, architecture, milestones, and approval questions before implementation.
+
+**Confirmed direction:** The revised Tier 3 offer is a services-operations website and dashboard only. It excludes products, e-commerce sales, checkout, payment processing, inventory, fulfillment, order tracking, and commerce platform integrations.
+
+## All-Tier Google Location and Tier 3 Booking System Revision
+
+- [x] Define the exact free one-page Google Location deliverable, ownership model, and how it remains separate from each tier’s fixed website page count.
+- [x] Add the optional AI-generated location-site inclusion and its approved address/service-area, map, hours, brand, media, and deployment inputs to Tier 1, Tier 2, and Tier 3.
+- [x] Define the fixed Tier 3 booking lifecycle for requests, meetings, service bookings, staff assignment, schedule management, confirmation, completion, and cancellation.
+- [x] Define Tier 3 owner/admin and staff dashboard permissions, booking metrics, schedule views, notification boundaries, and record-retention rules.
+- [x] Reconcile the ₱44,700 Tier 3 price with the approved fixed booking-system scope, exclusions, delivery timeline, and maintenance boundary.
+- [x] Present a revised decision-ready three-tier package matrix and implementation approval checklist.
+
+## Confirmed Location Site and Live-Slot Booking Decisions
+
+- [x] Define the optional AI-generated one-page location site as a separate deliverable, not a Google Business Profile and not part of the fixed public-page count.
+- [x] Set the minimum client-owned domain/hosting, approved map/address, brand, accessibility, and content requirements for the optional location site.
+- [x] Replace Tier 3 request-only booking with direct public selection from live available slots, with transactional conflict prevention and secure dashboard capture.
+- [x] Specify the dashboard-only notification model and public on-screen booking confirmation language; exclude email notifications from the fixed scope.
+- [x] Recommend and obtain approval for the Tier 3 staff-user cap, including the owner/admin account and boundaries for later additional users.
+
+## Approved Tier 3 Staffing Cap
+
+- [x] Fix the Tier 3 launch capacity at one owner/admin plus up to five active staff accounts, with up to five bookable staff/resource calendars.
+- [x] Define the onboarding, permission, availability, and role-change rules for the approved six-user maximum.
