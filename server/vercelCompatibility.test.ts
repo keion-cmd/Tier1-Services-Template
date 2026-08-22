@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import apiHandler from "../api/[...path]";
 import trpcHandler from "../api/trpc/[...path]";
+import explicitTrpcHandler from "../api/trpc";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 
@@ -15,6 +16,7 @@ describe("Vercel compatibility", () => {
 
     expect(config.outputDirectory).toBe("dist/public");
     expect(config.rewrites).toEqual([
+      { source: "/api/trpc/:path*", destination: "/api/trpc?path=:path*" },
       { source: "/services", destination: "/index.html" },
       { source: "/location", destination: "/index.html" },
       { source: "/request", destination: "/index.html" },
@@ -25,5 +27,6 @@ describe("Vercel compatibility", () => {
     expect(typeof apiHandler).toBe("function");
     expect(apiHandler).toHaveProperty("use");
     expect(typeof trpcHandler).toBe("function");
+    expect(typeof explicitTrpcHandler).toBe("function");
   });
 });
