@@ -125,7 +125,9 @@ The six-viewport Playwright sweep passed at 1440×1000, 1280×800, 1024×768, 76
 
 ## GitHub Export
 
-- [ ] Verify the target `keion-cmd/Tier1-Vet-Demo` repository and local project state.
-- [ ] Resolve the `403 Write access to repository not granted` response for the target GitHub repository or provide a writable replacement repository.
-- [ ] Commit the current validated project with generated outputs, credentials, and local QA artifacts excluded.
-- [ ] Push the commit to the target repository and verify the remote branch points to it.
+- [x] Verify the target `keion-cmd/Tier1-Vet-Demo` repository and local project state.
+- [x] Resolve the `403 Write access to repository not granted` response for the target GitHub repository or provide a writable replacement repository.
+- [x] Commit the current validated project with generated outputs, credentials, and local QA artifacts excluded.
+- [x] Push the commit to the target repository and verify the remote branch points to it.
+
+The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote verification confirmed commit `dc463aad4efaf1bea576ff10dcf4221a3a6862e8` matches the local export commit.
