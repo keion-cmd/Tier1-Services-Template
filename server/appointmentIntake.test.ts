@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { forwardAppointmentRequest } from "./appointmentIntake";
+import { appointmentRequestInput, forwardAppointmentRequest } from "./appointmentIntake";
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -7,6 +7,19 @@ afterEach(() => {
 });
 
 describe("forwardAppointmentRequest", () => {
+  it("requires a phone number with at least seven digits before forwarding a request", () => {
+    const result = appointmentRequestInput.safeParse({
+      name: "Alex Visitor",
+      email: "alex@example.test",
+      phone: "12-34",
+      petName: "Milo",
+      message: "Routine wellness question.",
+      consentConfirmed: true,
+    });
+
+    expect(result.success).toBe(false);
+  });
+
   it("sends a validated pending-review request to the configured server-only intake endpoint", async () => {
     vi.stubEnv("GOOGLE_APPS_SCRIPT_INTAKE_URL", "https://example.test/intake");
     vi.stubEnv("APPOINTMENT_INTAKE_SECRET", "test-only-shared-secret");

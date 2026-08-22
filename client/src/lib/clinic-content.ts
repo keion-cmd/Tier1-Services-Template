@@ -6,8 +6,12 @@ export const clinic = {
   phone: "(demo) 02 0000 0000",
   email: "hello@pawsandpine.example",
   hours: "Mon–Fri 8:30–18:00 · Sat 9:00–13:00",
-  // Add only client-approved profiles. The fictional demo intentionally has none.
-  socialLinks: [] as { label: string; href: string }[],
+  // Clearly labelled platform-homepage placeholders for the fictional demo.
+  // Replace these with client-approved business-profile URLs before launch.
+  socialLinks: [
+    { label: "Facebook", href: "https://www.facebook.com/", placeholder: true },
+    { label: "Instagram", href: "https://www.instagram.com/", placeholder: true },
+  ] as { label: string; href: string; placeholder: boolean }[],
 };
 
 export const services = [

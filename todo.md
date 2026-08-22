@@ -221,3 +221,11 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Confirm the live Google Sheet form remains server-mediated, validates approved fields, records requests honestly, and does not promise a reserved slot or confirmed appointment.
 - [x] Determine a scope-safe implementation of the optional Location Page without increasing the Tier 1 public page count unless the user explicitly authorizes a separate property.
 - [x] Add or update Vitest coverage and run build, workflow, and responsive visual checks before saving the completed Tier 1 update.
+
+## Tier 1 Social, Location, and Form-Validation Extension
+
+- [x] Add clearly labelled placeholder Facebook and Instagram icon links to the shared footer without representing them as verified clinic profiles.
+- [x] Activate the approved optional Location Page as a separate public route and add a Google Maps search embed for the approved fictional clinic address.
+- [x] Add the Location Page to navigation/footer only as an authorized optional-page extension, preserving the original three-route Tier 1 core distinction.
+- [x] Add live inline email and phone validation in the request form, plus matching server-side phone-format validation before Google Sheet forwarding.
+- [x] Add or update Vitest coverage and run build, route, map, footer, form-validation, and responsive visual checks before checkpointing.

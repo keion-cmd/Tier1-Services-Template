@@ -4,7 +4,7 @@ import { z } from "zod";
 export const appointmentRequestInput = z.object({
   name: z.string().trim().min(1).max(120),
   email: z.string().trim().email().max(254),
-  phone: z.string().trim().min(1).max(60),
+  phone: z.string().trim().min(1).max(60).refine((value) => value.replace(/\D/g, "").length >= 7, "Please provide at least 7 phone digits."),
   petName: z.string().trim().min(1).max(120),
   service: z.string().trim().max(120).optional(),
   preferredDate: z.string().trim().max(32).optional(),
