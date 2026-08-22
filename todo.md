@@ -162,3 +162,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 - [x] Fix the Tier 3 launch capacity at one owner/admin plus up to five active staff accounts, with up to five bookable staff/resource calendars.
 - [x] Define the onboarding, permission, availability, and role-change rules for the approved six-user maximum.
+
+## Client-Ready Location Page and All-Tier Footer Value
+
+- [x] Replace customer-facing references to AI-generated location pages with polished optional one-page location-site language.
+- [x] Define a complete shared footer inclusion for every tier: approved logo/business name, quick links, contact details, social links, legal/privacy links, copyright, and appropriate primary CTA.
+- [x] Preserve exact public-page limits by treating footer destinations only as approved existing routes or external links, never as automatic new public pages.
+- [x] Update the Tier 3 and all-tier offer documents with the revised location-page and footer value wording.
