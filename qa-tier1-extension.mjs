@@ -55,8 +55,13 @@ const heroActionBox = await page.locator(".hero-value .lime-link").boundingBox()
 const footerActionSize = Number.parseFloat(await page.locator(".neo-footer-cta").evaluate(element => getComputedStyle(element).fontSize));
 const firstServiceAction = page.locator(".pp-service-card-top a").first();
 const firstServiceActionBox = await firstServiceAction.boundingBox();
+const heroAction = page.locator(".hero-value .lime-link");
+await heroAction.hover();
+await page.waitForTimeout(220);
+const heroActionHoverState = await heroAction.evaluate(element => ({ transform: getComputedStyle(element).transform, boxShadow: getComputedStyle(element).boxShadow }));
 record("homepage support message uses readable display text", heroSupportSize >= 32, `font-size=${heroSupportSize}`);
 record("homepage Explore services action has a readable touch target", Boolean(heroActionBox && heroActionBox.height >= 44), JSON.stringify(heroActionBox));
+record("desktop hero action has visible hover feedback", heroActionHoverState.transform !== "none" && heroActionHoverState.boxShadow !== "none", JSON.stringify(heroActionHoverState));
 record("footer action uses enlarged readable text", footerActionSize >= 14, `font-size=${footerActionSize}`);
 record("service cards expose readable labelled request actions", await page.getByText("Start a request", { exact: true }).count() >= 4, "service-card action labels missing");
 record("service-card request action has an enlarged touch target", Boolean(firstServiceActionBox && firstServiceActionBox.height >= 40), JSON.stringify(firstServiceActionBox));

@@ -377,3 +377,7 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Increase the mobile minimum size of important supporting text, detail labels, form instructions, footer content, and every section-level action.
 - [x] Improve interactive affordances for mobile navigation, service cards, accordion content, map/directions, and primary actions while respecting reduced motion.
 - [x] Validate all public pages on desktop and mobile with interaction and touch-target QA.
+
+## Desktop Action Hover Feedback
+
+- [x] Add consistent desktop hover lift, color/shadow response, arrow motion, and active press feedback to enlarged public action controls without affecting touch devices or reduced-motion users.
