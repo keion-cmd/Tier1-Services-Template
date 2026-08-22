@@ -237,3 +237,11 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Add a client-approved cancellation and contact policy link to the footer and a simple accessible policy presentation with demo-only content clearly labelled.
 - [x] Improve the optional demo Location Page composition, map framing, and address information so it aligns with the established Paws+Pine UI/UX.
 - [x] Add or update non-submitting browser checks and run tests, build, policy, feedback, location, and responsive visual validation before checkpointing.
+
+## Tier 1 Preferred Slot and Approved Calamba Location
+
+- [x] Add preferred appointment date and time controls to the live request form, preserving the staff-reviewed and no-confirmation boundary.
+- [x] Carry the approved preferred time safely through the server-side Google Sheet intake contract and tests.
+- [x] Replace the fictional location content and Google Maps destination with Center Stall No. 4027, 2nd Street, Calamba, Laguna.
+- [x] Add a polished, accessible business-hours section to the Location Page using the approved clinic hours.
+- [x] Run type checks, request-contract tests, non-writing browser QA, map/address checks, and responsive visual validation before checkpointing.

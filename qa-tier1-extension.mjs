@@ -18,7 +18,9 @@ await page.goto(`${baseUrl}/location`, { waitUntil: "domcontentloaded" });
 const mapEmbed = page.locator("iframe.pp-location-embed");
 await mapEmbed.waitFor();
 record("location route renders Google Maps embed", (await mapEmbed.getAttribute("src"))?.includes("google.com/maps") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
+record("location route uses the approved Calamba address", (await mapEmbed.getAttribute("src"))?.includes("Center%20Stall%20No.%204027%2C%202nd%20Street%2C%20Calamba%2C%20Laguna") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
 record("location route keeps demo disclosure", (await page.locator(".pp-location-note").textContent())?.includes("fictional demonstration clinic") ?? false, "disclosure missing");
+record("location route presents business hours", await page.getByRole("heading", { name: /Plan your visit/i }).count() === 1, "business hours section missing");
 
 const footer = page.locator(".neo-footer-socials");
 record("footer renders Facebook placeholder icon", await footer.getByLabel("Facebook placeholder profile").count() === 1, "Facebook placeholder missing");
@@ -55,6 +57,8 @@ await page.route("**/api/trpc/appointmentRequest.submit**", async route => {
 await page.locator('input[name="name"]').fill("Alex Visitor");
 await page.locator('input[name="petName"]').fill("Milo");
 await page.locator('textarea[name="message"]').fill("Routine wellness question.");
+await page.locator('input[name="date"]').fill("2030-08-30");
+await page.locator('input[name="time"]').fill("10:30");
 await page.locator('input[name="consentConfirmed"]').check();
 await page.getByRole("button", { name: "Send visit request" }).click();
 record("request submission shows loading feedback", await page.getByText("Sending securely to the clinic’s staff-review workflow…").count() === 1, "loading feedback missing");

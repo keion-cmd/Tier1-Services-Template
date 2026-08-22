@@ -35,7 +35,7 @@ describe("forwardAppointmentRequest", () => {
         phone: "555-0100",
         petName: "Milo",
         service: "Wellness visits",
-        preferredDate: "2026-08-30",
+        preferredDate: "2026-08-30 at 10:30",
         message: "Routine wellness question.",
         consentConfirmed: true,
       }),

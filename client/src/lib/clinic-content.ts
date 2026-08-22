@@ -1,11 +1,16 @@
 export const clinic = {
   name: "Paws+Pine",
   descriptor: "Veterinary Clinic",
-  address: "124 Cedar Lane, Willow District",
-  city: "Cedarfield",
+  address: "Center Stall No. 4027, 2nd Street",
+  city: "Calamba, Laguna",
   phone: "(demo) 02 0000 0000",
   email: "hello@pawsandpine.example",
   hours: "Mon–Fri 8:30–18:00 · Sat 9:00–13:00",
+  businessHours: [
+    { days: "Monday–Friday", hours: "8:30 AM–6:00 PM" },
+    { days: "Saturday", hours: "9:00 AM–1:00 PM" },
+    { days: "Sunday", hours: "Closed" },
+  ] as { days: string; hours: string }[],
   // Clearly labelled platform-homepage placeholders for the fictional demo.
   // Replace these with client-approved business-profile URLs before launch.
   socialLinks: [
