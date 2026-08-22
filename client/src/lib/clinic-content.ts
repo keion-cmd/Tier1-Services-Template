@@ -35,13 +35,13 @@ export const faqs = [
 ] as const;
 
 export const assets = {
-  heroPets: "/manus-storage/paws-pine-blue-hero-pets_3d556a25.png",
-  aboutPup: "/manus-storage/paws-pine-blue-about-pup_b0373fc3.png",
-  serviceExam: "/manus-storage/paws-pine-blue-service-exam_9e31f9d3.jpg",
-  dogCare: "/manus-storage/paws-pine-dog-care_a22a2df2.jpg",
-  catCare: "/manus-storage/paws-pine-cat-care_7c4ca6cf.jpg",
-  clinicHero: "/manus-storage/paws-pine-hero_7806da61.jpg",
-  dentalCare: "/manus-storage/paws-pine-dental-care_69f1729e.jpg",
-  diagnosticsCare: "/manus-storage/paws-pine-diagnostics-care_5f460451.jpg",
-  seal: "/manus-storage/paws-pine-seal_41d53572.png",
+  heroPets: "/manus-storage/paws-pine-blue-hero-pets_3d556a25_eb9a2d53.png",
+  aboutPup: "/manus-storage/paws-pine-blue-about-pup_b0373fc3_ded316fc.png",
+  serviceExam: "/manus-storage/paws-pine-blue-service-exam_9e31f9d3_458297ec.jpg",
+  dogCare: "/manus-storage/paws-pine-dog-care_a22a2df2_8c1663ae.jpg",
+  catCare: "/manus-storage/paws-pine-cat-care_7c4ca6cf_1d554374.jpg",
+  clinicHero: "/manus-storage/paws-pine-hero_7806da61_45c5e0a7.jpg",
+  dentalCare: "/manus-storage/paws-pine-dental-care_69f1729e_de14d776.jpg",
+  diagnosticsCare: "/manus-storage/paws-pine-diagnostics-care_5f460451_16dca677.jpg",
+  seal: "/manus-storage/paws-pine-seal_41d53572_66643ab8.png",
 };
