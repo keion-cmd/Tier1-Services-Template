@@ -441,3 +441,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 - [x] Prepare the corrected Vercel deployment state and provide the final user-controlled publish action; do not trigger production publish from this session.
 
+
+## GitHub Sync and Vercel Redeploy Request
+
+- [x] Inspect the target GitHub repository and local corrected-file diff.
+- [x] Commit and push the corrected files to a reviewable non-production branch without publishing from this session.
+- [x] Verify the GitHub commit and provide the exact Vercel redeploy handoff.
+
