@@ -300,3 +300,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Define a staff-approved public-review workflow that renders only genuine, explicitly approved submissions and never fabricates review content.
 - [x] Preserve immediate submission acknowledgement while making public visibility dependent on explicit staff approval.
 - [x] Add tests and documentation for the approval-to-public-display boundary before checkpointing.
+
+## Immediate Reviews Display Simplification
+
+- [x] Remove the separate publication checkbox and staff-approval dependency from the review submission form and public display flow.
+- [x] Make each successfully submitted genuine review appear in the homepage Reviews section immediately after the secure Google Sheet write returns.
+- [x] Preserve clear data minimization by displaying only the review name, rating, and review text; never display email or staff notes.
+- [x] Update Apps Script status/columns, tests, copy, and browser QA for the streamlined immediate-display workflow before checkpointing.

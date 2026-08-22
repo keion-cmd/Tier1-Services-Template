@@ -6,8 +6,7 @@ import { ArrowUpRight, PawPrint } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
-import { ApprovedReviews } from "@/components/ApprovedReviews";
-import { ReviewForm } from "@/components/ReviewForm";
+import { ReviewsSection } from "@/components/ReviewsSection";
 import { assets, faqs } from "@/lib/clinic-content";
 
 export default function Home() {
@@ -27,7 +26,7 @@ export default function Home() {
 
     <div className="pp-marquee" aria-label="Paws and Pine care paths"><span>Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span><span aria-hidden="true">Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span></div>
 
-    <section className="pp-reviews-section"><div className="pp-reviews-intro"><span className="fidelity-kicker">Reviews</span><h2>Tell us how<br /><em>care felt.</em></h2><p>Share your experience with the clinic. Genuine reviews appear here only after the reviewer gives permission and staff approves them.</p></div><div className="pp-reviews-content"><ApprovedReviews /><ReviewForm /></div></section>
+    <ReviewsSection />
 
     <section className="fidelity-faq"><div><span className="fidelity-kicker">A few helpful answers</span><h2>Everything starts with <em>one good question.</em></h2><p>We keep the details clear so you can feel more prepared for the conversation ahead.</p></div><Accordion type="single" collapsible className="fidelity-faq-list">{faqs.map((faq,index) => <AccordionItem value={`faq-${index}`} key={faq.question}><AccordionTrigger>{faq.question}</AccordionTrigger><AccordionContent>{faq.answer}</AccordionContent></AccordionItem>)}</Accordion></section>
 

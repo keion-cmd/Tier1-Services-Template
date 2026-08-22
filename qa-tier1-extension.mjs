@@ -47,7 +47,7 @@ await page.getByRole("button", { name: "Close menu" }).click();
 await page.setViewportSize({ width: 1280, height: 900 });
 
 let mockReviewMutationSeen = false;
-await page.route("**/api/trpc/reviewSubmission.listApproved**", async route => {
+await page.route("**/api/trpc/reviewSubmission.listDisplayed**", async route => {
   await route.fulfill({ contentType: "application/json", body: JSON.stringify([{ result: { data: { json: [] } } }]) });
 });
 await page.route("**/api/trpc/reviewSubmission.submit**", async route => {
@@ -55,26 +55,27 @@ await page.route("**/api/trpc/reviewSubmission.submit**", async route => {
   await new Promise(resolve => setTimeout(resolve, 300));
   await route.fulfill({
     contentType: "application/json",
-    body: JSON.stringify([{ result: { data: { json: { requestId: "qa_review_001", status: "Pending staff review" } } } }]),
+    body: JSON.stringify([{ result: { data: { json: { requestId: "qa_review_001", status: "Displayed on website" } } } }]),
   });
 });
 
 await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
 record("homepage uses client-ready Reviews language", await page.getByText("Reviews", { exact: true }).count() >= 1, "Reviews heading missing");
-record("homepage explains approved-review publication boundary", await page.getByText("Genuine reviews appear here only after the reviewer gives permission and staff approves them.").count() === 1, "approved-review disclosure missing");
-record("homepage has no fabricated approved reviews before approval", await page.getByText("No approved reviews are published yet.").count() === 1, "empty approved-review state missing");
+record("homepage explains immediate Reviews display", await page.getByText("Your name, rating, and review can appear in this section after you send it; your email stays private.").count() === 1, "immediate-display disclosure missing");
+record("homepage has no fabricated reviews before a real submission", await page.getByText("Be the first to share a review.").count() === 1, "empty reviews state missing");
+record("review form has no separate publication checkbox", await page.locator('input[name="reviewDisplayConsent"]').count() === 0, "obsolete publication checkbox still present");
 await page.locator('input[name="reviewerName"]').fill("Alex Visitor");
 await page.locator('input[name="reviewerEmail"]').fill("alex@example.test");
 await page.getByRole("button", { name: "5 out of 5 stars" }).click();
-await page.locator('textarea[name="reviewFeedback"]').fill("The team was kind and clear.");
+await page.locator('textarea[name="reviewFeedback"]').fill("QA review payload.");
 await page.locator('input[name="reviewConsent"]').check();
-await page.locator('input[name="reviewDisplayConsent"]').check();
 await page.getByRole("button", { name: "Send review" }).click();
-record("review submission shows staff-review loading feedback", await page.getByRole("button", { name: /Sending review/i }).count() === 1, "review loading feedback missing");
-await page.getByText("Review received").waitFor();
+record("review submission shows loading feedback", await page.getByRole("button", { name: /Sending review/i }).count() === 1, "review loading feedback missing");
+await page.getByText("Review posted").waitFor();
 record("review submission uses mocked non-writing intake", mockReviewMutationSeen, "review mutation route not seen");
-record("review success retains staff approval boundary", (await page.locator(".pp-review-success").textContent())?.includes("staff approves it") ?? false, "review success disclosure missing");
+record("review success confirms immediate Reviews-section display", (await page.locator(".pp-review-success").textContent())?.includes("now appears in the Reviews section") ?? false, "immediate display message missing");
 record("review success displays returned review reference", (await page.locator(".pp-review-success .pp-request-reference").textContent())?.includes("qa_review_001") ?? false, "review reference missing");
+record("submitted review appears in the Reviews section", await page.locator(".pp-approved-reviews article").count() === 1, "immediate review card missing");
 
 await page.goto(`${baseUrl}/request`, { waitUntil: "domcontentloaded" });
 const email = page.locator('input[name="email"]');

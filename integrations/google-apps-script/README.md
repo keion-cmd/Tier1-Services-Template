@@ -1,6 +1,6 @@
 # Paws+Pine Tier 1 staff-review intake
 
-This bound Google Apps Script accepts **server-mediated** appointment requests and review submissions. Appointment requests append to `Appointment Requests`; review submissions append to a separate `Review Submissions` tab. Both begin with `Pending staff review`. The script never creates a calendar event, confirms an appointment, or publishes a review automatically.
+This bound Google Apps Script accepts **server-mediated** appointment requests and review submissions. Appointment requests append to `Appointment Requests` with `Pending staff review`; review submissions append to a separate `Review Submissions` tab with `Displayed on website` after the sender selects the required display agreement. The script never creates a calendar event or confirms an appointment.
 
 ## One-time deployment
 
@@ -16,9 +16,7 @@ The handler writes a UTC timestamp, request ID, `Pending staff review` status, c
 
 ## Review submission columns
 
-On the first valid review submission, the script creates the `Review Submissions` tab with UTC timestamp, review ID, pending-review status, name, email, rating, review text, review consent, display consent, source, staff notes, publication approval, and public display name columns.
-
-To show a genuine review on the homepage, an authorized staff member must set **Status** to `Approved for website`, **Publication Approval** to `Yes`, and supply a non-empty **Public Display Name**. The reviewer must have selected display consent. The public website receives only review ID, public display name, rating, and review text; it never reads email or staff notes. There are no invented or placeholder reviews.
+On the first valid review submission, the script creates the `Review Submissions` tab with UTC timestamp, review ID, displayed-on-website status, name, email, rating, review text, display agreement, source, and staff notes. The public website receives only review ID, name, rating, and review text; it never reads email or staff notes. There are no invented or placeholder reviews.
 
 ## Required update before using custom reviews
 
