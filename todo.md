@@ -403,6 +403,54 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 ## GitHub Sync and Vercel Handoff
 
-- [ ] Sync the verified project to the private `keion-cmd/Tier1-Vet-Demo` GitHub repository.
-- [ ] Provide the exact Vercel import and deployment handoff for a project named `Tier1-Vet-Demo`; direct deployment is not performed from this workflow.
+- [x] Sync the verified project to the private `keion-cmd/Tier1-Vet-Demo` GitHub repository.
+- [x] Provide the exact Vercel import and deployment handoff for a project named `Tier1-Vet-Demo`; direct deployment is not performed from this workflow.
+
+
+## Vercel Environment Configuration
+
+- [x] Inventory environment variables actually referenced by the current full-stack project and classify them as server-only or browser-exposed.
+- [x] Document the correct Vercel scopes, sources, and deployment compatibility requirements without exposing secret values.
+- [x] Guide post-configuration verification for build, OAuth, tRPC, appointment intake, and browser functionality.
+
+
+## CLI Vercel Environment Setup
+
+- [x] Check Vercel CLI authentication, team, and `Tier1-Vet-Demo` project linkage without exposing credentials.
+- [x] Compare required environment-variable names with securely available values.
+- [x] Add only verified variables through CLI and document any missing values or full-stack deployment blockers.
+
+
+## Vercel Deployment Verification
+
+- [x] Inspect the current Vercel deployment status and recent deployment details.
+- [x] Run non-destructive checks against the live site and configured routes.
+- [x] Check for backend routing or runtime blockers without publishing.
+- [x] Report the verification results and the remaining user-controlled publish action.
+
+
+## Vercel Compatibility Fix
+
+- [x] Add direct-route SPA rewrites for Home, Services, Clinic location, and Request a visit.
+- [x] Add a Vercel-compatible serverless Express/tRPC entrypoint while preserving the existing local server.
+- [x] Add or update Vitest coverage for route fallback and API handler behavior.
+- [x] Run checks, sync the deploy-ready changes, and save a checkpoint without publishing.
+
+
+## User-Authorized Deployment Request
+
+- [x] Prepare the corrected Vercel deployment state and provide the final user-controlled publish action; do not trigger production publish from this session.
+
+
+## GitHub Sync and Vercel Redeploy Request
+
+- [x] Inspect the target GitHub repository and local corrected-file diff.
+- [x] Commit and push the corrected files to a reviewable non-production branch without publishing from this session.
+- [x] Verify the GitHub commit and provide the exact Vercel redeploy handoff.
+
+
+## Vercel Preview Output Fix
+
+- [ ] Set Vercel’s output directory to `dist/public` so the client HTML shell is served at `/` instead of the bundled server entry.
+- [ ] Validate the corrected preview root, public routes, and API function after the configuration update.
 
