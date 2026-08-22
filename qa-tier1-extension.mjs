@@ -48,22 +48,11 @@ await page.setViewportSize({ width: 1280, height: 900 });
 
 await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
 record("homepage uses client-ready Reviews language", await page.getByText("Reviews", { exact: true }).count() >= 1, "Reviews heading missing");
-record("homepage explains session-only Reviews display", await page.getByText("Your name, rating, and review appear immediately in this page only; your email remains private and nothing is saved after refresh.").count() === 1, "session-only disclosure missing");
-record("homepage has no stored reviews before a session submission", await page.getByText("Share the first review in this browser session.").count() === 1, "session empty state missing");
-record("review form has no separate publication checkbox", await page.locator('input[name="reviewDisplayConsent"]').count() === 0, "obsolete publication checkbox still present");
-await page.locator('input[name="reviewerName"]').fill("Alex Visitor");
-await page.locator('input[name="reviewerEmail"]').fill("alex@example.test");
-await page.getByRole("button", { name: "5 out of 5 stars" }).click();
-await page.locator('textarea[name="reviewFeedback"]').fill("QA browser-session payload.");
-await page.locator('input[name="reviewConsent"]').check();
-await page.getByRole("button", { name: "Send review" }).click();
-record("review submission shows loading feedback", await page.getByRole("button", { name: /Showing review/i }).count() === 1, "review loading feedback missing");
-record("review submission announces page-only progress", await page.getByText("Adding your review to this page…").count() === 1, "page-only progress missing");
-await page.getByText("Review shown").waitFor();
-record("review success confirms no external storage", (await page.locator(".pp-review-success").textContent())?.includes("not sent to Google Sheets or stored") ?? false, "no-storage success message missing");
-record("submitted review appears in the Reviews section", await page.locator(".pp-approved-reviews article").count() === 1, "immediate review card missing");
-await page.reload({ waitUntil: "domcontentloaded" });
-record("review clears after refresh", await page.getByText("Share the first review in this browser session.").count() === 1, "review persisted after refresh");
+record("homepage explains authentic Google Reviews pathway", await page.getByText("Share an authentic experience directly on Google. Google manages sign-in, review publication, and its own community safeguards.").count() === 1, "Google Reviews disclosure missing");
+const googleReviewLink = page.getByRole("link", { name: /Review us on Google Maps/i });
+record("homepage exposes the approved Google review action", await googleReviewLink.count() === 1, "Google review CTA missing");
+record("Google review CTA opens the supplied destination in a new tab", await googleReviewLink.getAttribute("href") === "https://maps.app.goo.gl/NJJubY67EdFb4NEs9" && await googleReviewLink.getAttribute("target") === "_blank", "Google review destination or new-tab behavior missing");
+record("homepage has no temporary review form", await page.locator('input[name="reviewerName"]').count() === 0 && await page.locator('textarea[name="reviewFeedback"]').count() === 0, "temporary review form still present");
 
 await page.goto(`${baseUrl}/request`, { waitUntil: "domcontentloaded" });
 const email = page.locator('input[name="email"]');

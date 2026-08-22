@@ -321,3 +321,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Display a visitor-submitted review immediately in the current homepage session only, with no persistence after refresh.
 - [x] Keep clear loading and success feedback while removing unnecessary rate-limit and external-review deployment dependencies.
 - [x] Update tests, QA, and copy to state the accurate browser-session-only retention boundary.
+
+## Complimentary All-Tier Google Reviews Pathway
+
+- [x] Replace the temporary browser-session Reviews form with a polished Google Business Profile review CTA that does not fabricate or scrape reviews.
+- [x] Add a complimentary Google Reviews pathway to the Tier 1, Tier 2, and Tier 3 offer scope, including the client-provided review destination requirement.
+- [x] Validate the review CTA across desktop/mobile using the client-provided Google Maps destination.

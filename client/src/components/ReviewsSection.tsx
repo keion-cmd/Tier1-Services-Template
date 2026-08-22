@@ -1,9 +1,6 @@
-import { useState } from "react";
-import type { SessionReview } from "@/lib/sessionReview";
-import { ApprovedReviews } from "@/components/ApprovedReviews";
-import { ReviewForm } from "@/components/ReviewForm";
+import { ExternalLink, MapPin, Star } from "lucide-react";
+import { approvedGoogleReviewUrl } from "@/lib/googleReview";
 
 export function ReviewsSection() {
-  const [latestReview, setLatestReview] = useState<SessionReview | null>(null);
-  return <section className="pp-reviews-section"><div className="pp-reviews-intro"><span className="fidelity-kicker">Reviews</span><h2>Tell us how<br /><em>care felt.</em></h2><p>Share your experience with the clinic. Your name, rating, and review appear immediately in this page only; your email remains private and nothing is saved after refresh.</p></div><div className="pp-reviews-content"><ApprovedReviews latestReview={latestReview} /><ReviewForm onDisplayed={setLatestReview} /></div></section>;
+  return <section className="pp-reviews-section"><div className="pp-reviews-intro"><span className="fidelity-kicker">Reviews</span><h2>Tell us how<br /><em>care felt.</em></h2><p>Share an authentic experience directly on Google. Google manages sign-in, review publication, and its own community safeguards.</p></div><div className="pp-reviews-content"><aside className="pp-google-review-card" aria-label="Google review invitation"><div className="pp-google-review-icon"><Star size={22} fill="currentColor" /></div><span className="pp-page-eyebrow"><MapPin size={14} /> Google Maps</span><h3>Help other pet parents<br /><em>find their way.</em></h3><p>Open the clinic’s Google Maps listing to write a review. Reviews are submitted to Google, not this website.</p><a className="lime-cta" href={approvedGoogleReviewUrl} target="_blank" rel="noopener noreferrer" aria-label="Review us on Google Maps (opens in a new tab)">Review us on Google <ExternalLink size={17} /></a><small>Opens Google Maps in a new tab.</small></aside></div></section>;
 }
