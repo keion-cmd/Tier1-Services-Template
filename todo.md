@@ -370,3 +370,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Increase footer text, navigation, social, policy, and request-detail readability without changing the footer’s information architecture.
 - [x] Raise the minimum readable size of important supporting details and actions across Services, Clinic location, and Request a visit pages.
 - [x] Validate readable text hierarchy and controls across desktop and mobile public routes.
+
+## Complete Mobile Usability and Interaction Pass
+
+- [x] Audit Home, Services, Clinic location, Request a visit, mobile navigation, and footer for small text, contrast, overflow, and undersized tap targets.
+- [x] Increase the mobile minimum size of important supporting text, detail labels, form instructions, footer content, and every section-level action.
+- [x] Improve interactive affordances for mobile navigation, service cards, accordion content, map/directions, and primary actions while respecting reduced motion.
+- [x] Validate all public pages on desktop and mobile with interaction and touch-target QA.
