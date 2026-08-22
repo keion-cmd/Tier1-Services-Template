@@ -252,3 +252,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Use concise included-benefit wording that makes the location entry discoverable without crowding the Tier 1 navigation.
 - [x] Refine the Location Page navigation CTA and visual hierarchy to align with the Paws+Pine UI/UX system.
 - [x] Validate desktop and mobile navigation, location active state, keyboard interaction, overflow, and responsive page presentation before checkpointing.
+
+## Supplied Directions and Landmark Enhancement
+
+- [x] Replace the generic Google Maps search frame with the user-supplied directions embed for the approved clinic and Calamba Trade Center route.
+- [x] Add Calamba Trade Center as the approved nearby landmark and present a concise directions action without inventing additional driving guidance.
+- [x] Preserve accessible iframe labelling, external-map access, and responsive map/directions layout.
+- [x] Run type checks, browser checks, embed/landmark verification, and responsive visual validation before checkpointing.
