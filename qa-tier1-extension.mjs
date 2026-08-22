@@ -42,8 +42,13 @@ record("footer renders Instagram placeholder icon", await footer.getByLabel("Ins
 
 await page.setViewportSize({ width: 390, height: 844 });
 await page.getByRole("button", { name: "Open menu" }).click();
+const mobileNav = page.locator(".neo-mobile-nav");
+const mobileNavMetrics = await mobileNav.evaluate(element => { const style = getComputedStyle(element); const rect = element.getBoundingClientRect(); return { position: style.position, zIndex: style.zIndex, background: style.backgroundColor, top: rect.top, width: rect.width, height: rect.height, viewportWidth: window.innerWidth, viewportHeight: window.innerHeight }; });
+const mobileHeaderTransform = await page.locator(".neo-header").evaluate(element => getComputedStyle(element).transform);
 record("mobile menu exposes the complimentary Location Page", await page.getByRole("navigation", { name: "Mobile navigation" }).getByText("Clinic location").count() === 1, "mobile location navigation missing");
 record("mobile menu omits the removed complimentary label", await page.getByText("Complimentary page").count() === 0, "mobile benefit label still visible");
+record("mobile overlay covers the viewport with an opaque layer", mobileNavMetrics.position === "fixed" && mobileNavMetrics.top === 0 && mobileNavMetrics.width === mobileNavMetrics.viewportWidth && mobileNavMetrics.height >= mobileNavMetrics.viewportHeight && mobileNavMetrics.background !== "rgba(0, 0, 0, 0)", JSON.stringify(mobileNavMetrics));
+record("mobile header does not create a transformed stacking trap", mobileHeaderTransform === "none", `transform=${mobileHeaderTransform}`);
 const mobileNavLinkBox = await page.locator(".neo-mobile-link").first().boundingBox();
 const mobileNavCtaBox = await page.locator(".neo-mobile-cta").boundingBox();
 record("mobile navigation links have enlarged touch targets", Boolean(mobileNavLinkBox && mobileNavLinkBox.height >= 60), JSON.stringify(mobileNavLinkBox));

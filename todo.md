@@ -384,6 +384,12 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 ## Scroll Reveals and Mobile Interface Refinement
 
+## Mobile Navigation Overlay Bug Fix
+
+- [x] Fix mobile menu stacking and overflow so navigation content is not overlapped by page/footer content.
+- [x] Validate close control, link spacing, scroll behavior, and menu readability at 360px, 390px, and 430px widths.
+
+
 - [x] Add accessible, reduced-motion-safe scroll-based section reveals to the public pages.
 - [x] Improve the mobile interface hierarchy, navigation controls, spacing, and visual feedback across Home, Services, Clinic location, and Request a visit.
 - [x] Validate scrolling, reveal behavior, mobile navigation, touch controls, and readable layout at mobile and desktop breakpoints.
