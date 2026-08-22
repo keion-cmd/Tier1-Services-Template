@@ -331,3 +331,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 ## Clinic Location Navigation Label
 
 - [x] Remove the FREE label from the desktop and mobile Clinic location navigation item without changing its route or map content.
+
+## Complete Updated Tier Plan File
+
+- [x] Consolidate the approved Tier 1, Tier 2, and Tier 3 services-only scope, pricing, page structure, inclusions, exclusions, delivery, and client-input requirements.
+- [x] Add the complimentary Google Reviews pathway, optional Location Page, complete footer, SSL/HTTPS, SEO setup, and one-year domain inclusion consistently across all tiers.
+- [x] Deliver a new client-ready complete tier plan file with accurate Google Sheet, external booking, and Tier 3 live-slot/dashboard boundaries.
