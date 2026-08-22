@@ -384,6 +384,6 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 ## Scroll Reveals and Mobile Interface Refinement
 
-- [ ] Add accessible, reduced-motion-safe scroll-based section reveals to the public pages.
-- [ ] Improve the mobile interface hierarchy, navigation controls, spacing, and visual feedback across Home, Services, Clinic location, and Request a visit.
-- [ ] Validate scrolling, reveal behavior, mobile navigation, touch controls, and readable layout at mobile and desktop breakpoints.
+- [x] Add accessible, reduced-motion-safe scroll-based section reveals to the public pages.
+- [x] Improve the mobile interface hierarchy, navigation controls, spacing, and visual feedback across Home, Services, Clinic location, and Request a visit.
+- [x] Validate scrolling, reveal behavior, mobile navigation, touch controls, and readable layout at mobile and desktop breakpoints.
