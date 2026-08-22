@@ -381,3 +381,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 ## Desktop Action Hover Feedback
 
 - [x] Add consistent desktop hover lift, color/shadow response, arrow motion, and active press feedback to enlarged public action controls without affecting touch devices or reduced-motion users.
+
+## Scroll Reveals and Mobile Interface Refinement
+
+- [ ] Add accessible, reduced-motion-safe scroll-based section reveals to the public pages.
+- [ ] Improve the mobile interface hierarchy, navigation controls, spacing, and visual feedback across Home, Services, Clinic location, and Request a visit.
+- [ ] Validate scrolling, reveal behavior, mobile navigation, touch controls, and readable layout at mobile and desktop breakpoints.

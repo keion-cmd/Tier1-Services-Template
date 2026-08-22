@@ -44,6 +44,10 @@ await page.setViewportSize({ width: 390, height: 844 });
 await page.getByRole("button", { name: "Open menu" }).click();
 record("mobile menu exposes the complimentary Location Page", await page.getByRole("navigation", { name: "Mobile navigation" }).getByText("Clinic location").count() === 1, "mobile location navigation missing");
 record("mobile menu omits the removed complimentary label", await page.getByText("Complimentary page").count() === 0, "mobile benefit label still visible");
+const mobileNavLinkBox = await page.locator(".neo-mobile-link").first().boundingBox();
+const mobileNavCtaBox = await page.locator(".neo-mobile-cta").boundingBox();
+record("mobile navigation links have enlarged touch targets", Boolean(mobileNavLinkBox && mobileNavLinkBox.height >= 60), JSON.stringify(mobileNavLinkBox));
+record("mobile navigation CTA has an enlarged touch target", Boolean(mobileNavCtaBox && mobileNavCtaBox.height >= 52), JSON.stringify(mobileNavCtaBox));
 await page.getByRole("button", { name: "Close menu" }).click();
 await page.setViewportSize({ width: 1280, height: 900 });
 
@@ -71,6 +75,12 @@ const googleReviewLink = page.getByRole("link", { name: /Review us on Google Map
 record("homepage exposes the approved Google review action", await googleReviewLink.count() === 1, "Google review CTA missing");
 record("Google review CTA opens the supplied destination in a new tab", await googleReviewLink.getAttribute("href") === "https://maps.app.goo.gl/NJJubY67EdFb4NEs9" && await googleReviewLink.getAttribute("target") === "_blank", "Google review destination or new-tab behavior missing");
 record("homepage has no temporary review form", await page.locator('input[name="reviewerName"]').count() === 0 && await page.locator('textarea[name="reviewFeedback"]').count() === 0, "temporary review form still present");
+const revealCount = await page.locator(".pp-reveal").count();
+record("homepage marks multiple sections for scroll reveal", revealCount >= 5, `reveal-count=${revealCount}`);
+const faqReveal = page.locator(".fidelity-faq.pp-reveal");
+await faqReveal.scrollIntoViewIfNeeded();
+await page.waitForTimeout(180);
+record("scrolling reveals the FAQ section", await faqReveal.evaluate(element => element.classList.contains("is-revealed")), "FAQ reveal class missing after scroll");
 
 await page.goto(`${baseUrl}/request`, { waitUntil: "domcontentloaded" });
 const email = page.locator('input[name="email"]');

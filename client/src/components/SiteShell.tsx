@@ -46,6 +46,31 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const revealTargets = Array.from(document.querySelectorAll<HTMLElement>(".pp-reveal"));
+    if (!revealTargets.length) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      revealTargets.forEach((target) => target.classList.add("is-revealed"));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    const frame = requestAnimationFrame(() => revealTargets.forEach((target, index) => {
+      target.style.setProperty("--pp-reveal-delay", `${Math.min(index % 3, 2) * 70}ms`);
+      observer.observe(target);
+    }));
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [location]);
+
+  useEffect(() => {
     if (!open) return;
     const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
     const originalOverflow = document.body.style.overflow;
