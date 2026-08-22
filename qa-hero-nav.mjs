@@ -18,17 +18,29 @@ const pets = page.locator(".fidelity-pets");
 const navBox = await navbar.boundingBox();
 const titleBox = await title.boundingBox();
 const petBox = await pets.boundingBox();
+const headerCta = page.locator(".neo-header-cta");
+const aboutStage = page.locator(".fidelity-about");
+const faqStage = page.locator(".fidelity-faq");
 const horizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
 const overlaps = Boolean(titleBox && petBox && titleBox.x < petBox.x + petBox.width && titleBox.x + titleBox.width > petBox.x && titleBox.y < petBox.y + petBox.height && titleBox.y + titleBox.height > petBox.y);
-record("desktop floating navbar height", Boolean(navBox && navBox.height >= 64 && navBox.height <= 76), `height=${navBox?.height}`);
+const navbarStyle = await navbar.evaluate((node) => getComputedStyle(node));
+const aboutBox = await aboutStage.boundingBox();
+const faqBox = await faqStage.boundingBox();
+const ctaBox = await headerCta.boundingBox();
+record("desktop integrated navbar height", Boolean(navBox && navBox.height >= 58 && navBox.height <= 64), `height=${navBox?.height}`);
+record("navbar is no longer a rounded floating container", navbarStyle.borderRadius === "0px", `borderRadius=${navbarStyle.borderRadius}`);
+record("navbar CTA is restrained", Boolean(ctaBox && ctaBox.height >= 38 && ctaBox.height <= 42), `height=${ctaBox?.height}`);
+record("About stage uses minimal page inset", Boolean(aboutBox && aboutBox.x <= 14 && aboutBox.width >= 1410), `x=${aboutBox?.x}, width=${aboutBox?.width}`);
+record("FAQ stage uses minimal page inset", Boolean(faqBox && faqBox.x <= 14 && faqBox.width >= 1410), `x=${faqBox?.x}, width=${faqBox?.width}`);
 record("desktop hero has no horizontal overflow", !horizontalOverflow, `overflow=${horizontalOverflow}`);
 record("title overlaps the pet composition", overlaps, `title=${JSON.stringify(titleBox)}, pets=${JSON.stringify(petBox)}`);
 await page.screenshot({ path: `${outputDir}/hero-desktop-1440.png`, fullPage: false });
 
 await page.evaluate(() => window.scrollTo(0, 120));
 await page.waitForTimeout(80);
-record("navbar applies sticky scroll state", await page.locator(".neo-header").evaluate((node) => node.classList.contains("is-scrolled")), "is-scrolled class was not applied after scrolling");
-record("navbar keeps editorial blur after scrolling", await navbar.evaluate((node) => getComputedStyle(node).backdropFilter.includes("blur")), `backdrop-filter=${await navbar.evaluate((node) => getComputedStyle(node).backdropFilter)}`);
+const header = page.locator(".neo-header");
+record("navbar applies sticky scroll state", await header.evaluate((node) => node.classList.contains("is-scrolled")), "is-scrolled class was not applied after scrolling");
+record("navbar keeps editorial blur after scrolling", await header.evaluate((node) => getComputedStyle(node).backdropFilter.includes("blur")), `backdrop-filter=${await header.evaluate((node) => getComputedStyle(node).backdropFilter)}`);
 
 for (const [width, height] of [[1280, 800], [1024, 768], [768, 1024], [430, 932], [390, 844], [360, 800]]) {
   await page.setViewportSize({ width, height });

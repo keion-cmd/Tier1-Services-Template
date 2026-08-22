@@ -61,4 +61,20 @@ The fresh storage upload restored the approved transparent pet cutout without mi
 ## Final Technical Validation
 
 The final TypeScript check, Vite production build, and focused hero/navigation Playwright suite all pass. The automated suite covers the desktop floating-navbar dimensions, title-to-pet overlap, sticky scroll state, backdrop blur, responsive overflow at six requested breakpoints, mobile menu visibility, expanded state, focus transfer, Escape close, focus return, and reduced-motion handling.
+
+## Final Navigation and Light-Stage Fidelity Pass
+
+- [ ] Replace the shared header’s floating rounded container with a quieter integrated bar, without changing its navigation destinations or mobile-menu behavior.
+- [ ] Introduce one major structural-radius token for hero, About, and FAQ stages while preserving distinct smaller service-card radii.
+- [ ] Remove excessive outer gutters around the About and FAQ off-white stages so they read as page architecture rather than floating cards.
+- [ ] Preserve all approved hero, pet, service, FAQ, CTA, footer, and content behavior while validating desktop and mobile geometry.
+- [ ] Run final visual, TypeScript, build, and navigation interaction checks; save a checkpoint without publishing.
+
+## Precision Fidelity Verification
+
+The desktop review confirms that the header is now a flat, quiet line integrated with the hero rather than a floating white SaaS panel. The hero spans the full page width with lower-only curvature, while About and FAQ use the shared structural-radius language with minimal side insets instead of large blue gutters. The mobile review confirms a 60px integrated header and near-edge-to-edge light stages with 24px structural curvature. Hero, services, FAQ, CTA, footer, content ordering, and interactive cards were not altered.
+
+## Final Precision QA
+
+TypeScript and production builds pass. The updated Playwright suite confirms the 58–64px desktop integrated header, zero-radius navigation bar, restrained 38–42px CTA, minimal About and FAQ insets, title-pet overlap, sticky scroll state with header blur, no horizontal overflow at all requested widths, accessible mobile menu/focus/Escape behavior, and reduced-motion support.
 ***

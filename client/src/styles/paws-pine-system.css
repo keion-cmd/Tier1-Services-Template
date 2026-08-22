@@ -9,6 +9,8 @@
   --pp-page-width: 1280px;
   --pp-gutter: clamp(20px, 3.6vw, 46px);
   --pp-arch-radius: 30px;
+  --pp-section-radius-lg: 30px;
+  --pp-stage-inset: clamp(0px, .8vw, 12px);
   --pp-card-radius: 15px;
   --pp-image-radius: 10px;
   --pp-display-xl: clamp(64px, 8vw, 132px);
@@ -141,3 +143,20 @@
 }
 @media (max-width: 390px) { .fidelity-title-stack h1 { font-size: 70px; } .fidelity-pets { bottom: 130px; width: 136vw; } .hero-value { bottom: 35px; } .hero-proof { right: 12px; bottom: 39px; } }
 @media (prefers-reduced-motion: reduce) { .neo-header, .fidelity-title-stack h1, .fidelity-pets, .hero-value, .hero-proof { animation: none; } }
+
+/* Final fidelity geometry: large light regions are architectural stages, while service cards retain the smaller --pp-card-radius language. */
+.neo-header { padding: 0 20px; background: var(--pp-offwhite); }
+.neo-nav-wrap { width: min(100%, 1440px); min-height: 62px; padding: 0 20px; border: 0; border-bottom: 1px solid rgba(10,10,12,.05); border-radius: 0; background: transparent; box-shadow: none; }
+.neo-header.is-scrolled { padding: 0 20px; background: rgba(245,245,248,.90); border-bottom: 1px solid rgba(10,10,12,.06); backdrop-filter: blur(12px); }
+.neo-header.is-scrolled .neo-nav-wrap { background: transparent; box-shadow: none; backdrop-filter: none; }
+.neo-mark { min-width: 148px; } .neo-mark img { width: 29px; height: 29px; }
+.neo-desktop-nav { gap: clamp(28px,2.55vw,36px); } .neo-nav-link { padding: 22px 0 20px; font-size: 14px; } .neo-nav-link::after { bottom: 11px; height: 1.5px; }
+.neo-header-cta { min-height: 40px; padding: 0 19px; border-radius: 20px; font-size: 13px; }
+.fidelity-hero { width: 100%; max-width: none; margin: 0; border-radius: 0 0 var(--pp-section-radius-lg) var(--pp-section-radius-lg); }
+.fidelity-about { width: calc(100% - (var(--pp-stage-inset) * 2)); max-width: none; margin: -18px auto 0; border-radius: var(--pp-section-radius-lg); }
+.fidelity-faq { width: calc(100% - (var(--pp-stage-inset) * 2)); max-width: none; margin: 0 auto; border-radius: var(--pp-section-radius-lg) var(--pp-section-radius-lg) 0 0; }
+
+@media (max-width: 768px) {
+  .neo-header, .neo-header.is-scrolled { padding: 0; } .neo-nav-wrap { min-height: 60px; padding: 0 16px; border-radius: 0; } .neo-header.is-scrolled .neo-nav-wrap { border-bottom-color: rgba(10,10,12,.06); }
+  .fidelity-hero { border-radius: 0 0 24px 24px; } .fidelity-about { width: calc(100% - 8px); margin-top: -12px; border-radius: 24px; } .fidelity-faq { width: calc(100% - 8px); border-radius: 24px 24px 0 0; }
+}
