@@ -359,3 +359,7 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 ## Homepage Hero Copy Refinement
 
 - [x] Replace the redundant homepage hero headline with a warm, care-focused message and supporting line while preserving the existing primary CTA.
+
+## Centered Bold Hero Title Refinement
+
+- [x] Center the homepage hero headline and increase its scale and weight while preserving mobile readability and the pet-image composition.
