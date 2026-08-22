@@ -1,10 +1,10 @@
 # Reference-Led Veterinary UI Redesign
 
-- [ ] Replace the field-guide palette and typography with the supplied reference’s electric-blue, white, black, and lime visual system.
-- [ ] Add a custom dog-and-cat hero asset plus a second supporting pet portrait that fit the new composition.
-- [ ] Recompose Home, Services, and Request pages with oversized wordmarks, sculptural rounded panels, sparse navigation, and editorial service cards.
-- [ ] Preserve the exact Tier 1 three-page scope, fictional-demo disclosure, no-testimonial rule, and non-live request-form behavior.
-- [ ] Run TypeScript/build/route checks, review all three pages visually, save a checkpoint, and deliver the redesign.
+- [x] Replace the field-guide palette and typography with the supplied reference’s electric-blue, white, black, and lime visual system.
+- [x] Add a custom dog-and-cat hero asset plus a second supporting pet portrait that fit the new composition.
+- [x] Recompose Home, Services, and Request pages with oversized wordmarks, sculptural rounded panels, sparse navigation, and editorial service cards.
+- [x] Preserve the exact Tier 1 three-page scope, fictional-demo disclosure, no-testimonial rule, and staff-reviewed pending-request behavior.
+- [x] Run TypeScript/build/route checks, review all three pages visually, save a checkpoint, and deliver the redesign.
 
 ## Validation Notes
 
@@ -12,11 +12,11 @@ Desktop and mobile visual checks confirm that the redesign applies the requested
 
 ## Homepage Fidelity and Interaction Pass
 
-- [ ] Integrate the pet cutout across the white title plane and blue stage without increasing overall hero height.
-- [ ] Reduce visible fictional-demo wording to an unobtrusive footer disclosure while keeping the request-form notice explicit.
-- [ ] Recompose the About panel with a larger pet image field, stronger headline, readable supporting copy, and prominent metrics.
-- [ ] Add desktop hover/focus service-card expansion with image reveal, while retaining an accessible static mobile card presentation.
-- [ ] Validate the refined homepage at desktop and mobile sizes, then save and deliver a checkpoint.
+- [x] Integrate the pet cutout across the white title plane and blue stage without increasing overall hero height.
+- [x] Reduce visible fictional-demo wording to an unobtrusive footer disclosure while keeping the request-form notice explicit.
+- [x] Recompose the About panel with a larger pet image field, stronger headline, readable supporting copy, and prominent metrics.
+- [x] Add desktop hover/focus service-card expansion with image reveal, while retaining an accessible static mobile card presentation.
+- [x] Validate the refined homepage at desktop and mobile sizes, then save and deliver a checkpoint.
 
 ## Fidelity Pass Results
 
@@ -24,11 +24,11 @@ The refined homepage has passed desktop and mobile visual checks. The pet cutout
 
 ## Cross-Page UI/UX Correction
 
-- [ ] Consolidate homepage-derived layout, type, color, radius, spacing, and motion values into reusable tokens.
-- [ ] Rebuild the Services page as a 3-column interactive service gallery with content-preserving per-service imagery and keyboard-accessible expansion.
-- [ ] Apply the same signature interaction to the homepage’s four service cards while reducing excess vertical spacing.
-- [ ] Compact and rebalance the Request hero, convert the lime sidebar to a restrained information rail, and refine form sizing and focus behavior.
-- [ ] Validate Services and Request desktop/mobile behavior, interaction states, type checking, production build, and cross-page visual consistency.
+- [x] Consolidate homepage-derived layout, type, color, radius, spacing, and motion values into reusable tokens.
+- [x] Rebuild the Services page as a 3-column interactive service gallery with content-preserving per-service imagery and keyboard-accessible expansion.
+- [x] Apply the same signature interaction to the homepage’s four service cards while reducing excess vertical spacing.
+- [x] Compact and rebalance the Request hero, convert the lime sidebar to a restrained information rail, and refine form sizing and focus behavior.
+- [x] Validate Services and Request desktop/mobile behavior, interaction states, type checking, production build, and cross-page visual consistency.
 
 ## Cross-Page Desktop Audit
 
@@ -40,11 +40,11 @@ Mobile review at 390px confirms that Services uses a one-column image-visible ga
 
 ## Hero and Navigation Refinement
 
-- [ ] Recompose the homepage hero as one off-white and blue visual canvas with pets bridging the background title and blue field.
-- [ ] Increase pet prominence while removing the visible magenta fringing and retaining clean, natural cutout edges.
-- [ ] Rebalance the lower-left message, lime CTA, and right-side pathway annotation without adding visual clutter.
-- [ ] Upgrade the shared navbar’s scale, spacing, active indicator, mobile behavior, and subtle sticky scroll treatment.
-- [ ] Validate the refined hero and header at desktop and mobile widths, then save and deliver a checkpoint without publishing.
+- [x] Recompose the homepage hero as one off-white and blue visual canvas with pets bridging the background title and blue field.
+- [x] Increase pet prominence while removing the visible magenta fringing and retaining clean, natural cutout edges.
+- [x] Rebalance the lower-left message, lime CTA, and right-side pathway annotation without adding visual clutter.
+- [x] Upgrade the shared navbar’s scale, spacing, active indicator, mobile behavior, and subtle sticky scroll treatment.
+- [x] Validate the refined hero and header at desktop and mobile widths, then save and deliver a checkpoint without publishing.
 
 ## Hero Audit Findings
 
@@ -64,11 +64,11 @@ The final TypeScript check, Vite production build, and focused hero/navigation P
 
 ## Final Navigation and Light-Stage Fidelity Pass
 
-- [ ] Replace the shared header’s floating rounded container with a quieter integrated bar, without changing its navigation destinations or mobile-menu behavior.
-- [ ] Introduce one major structural-radius token for hero, About, and FAQ stages while preserving distinct smaller service-card radii.
-- [ ] Remove excessive outer gutters around the About and FAQ off-white stages so they read as page architecture rather than floating cards.
-- [ ] Preserve all approved hero, pet, service, FAQ, CTA, footer, and content behavior while validating desktop and mobile geometry.
-- [ ] Run final visual, TypeScript, build, and navigation interaction checks; save a checkpoint without publishing.
+- [x] Replace the shared header’s floating rounded container with a quieter integrated bar, without changing its navigation destinations or mobile-menu behavior.
+- [x] Introduce one major structural-radius token for hero, About, and FAQ stages while preserving distinct smaller service-card radii.
+- [x] Remove excessive outer gutters around the About and FAQ off-white stages so they read as page architecture rather than floating cards.
+- [x] Preserve all approved hero, pet, service, FAQ, CTA, footer, and content behavior while validating desktop and mobile geometry.
+- [x] Run final visual, TypeScript, build, and navigation interaction checks; save a checkpoint without publishing.
 
 ## Precision Fidelity Verification
 
@@ -77,4 +77,32 @@ The desktop review confirms that the header is now a flat, quiet line integrated
 ## Final Precision QA
 
 TypeScript and production builds pass. The updated Playwright suite confirms the 58–64px desktop integrated header, zero-radius navigation bar, restrained 38–42px CTA, minimal About and FAQ insets, title-pet overlap, sticky scroll state with header blur, no horizontal overflow at all requested widths, accessible mobile menu/focus/Escape behavior, and reduced-motion support.
-***
+
+## Functional Appointment Workflow
+
+- [x] Inspect available project capabilities and connected integrations for secure appointment-request handling.
+- [x] Confirm whether submissions should create staff-reviewed requests in Google Sheets, a connected scheduling platform, or another explicitly approved destination.
+- [x] Upgrade the static project to a server-backed workflow if required and configure only the approved destination.
+- [x] Replace the showcase-only request handling with validated live submission, honest pending-approval messaging, and appropriate privacy guidance.
+- [x] Test success and failure states without submitting fabricated appointments, then save and present the completed workflow.
+- [x] Resolve the full-stack upgrade merge conflicts while preserving the approved three-page Paws+Pine site and shared visual system.
+
+## Confirmed Tier 1 Booking Direction
+
+The selected scope is a **staff-reviewed Google Sheet appointment request**, not self-service slot booking. Each valid request will be recorded with a pending status for clinic staff follow-up. The public flow must not claim confirmation, calendar reservation, payment processing, or real-time availability.
+
+## Apps Script Intake Revision
+
+- [x] Create a Google Apps Script project bound to the approved appointment-request Sheet and configure its narrow write-only intake behavior.
+- [x] Require a server-held shared secret on all website-to-script requests; do not expose Google credentials or the secret in browser code.
+- [x] Store the deployed Apps Script URL and shared secret as project secrets, then connect the existing request form through a server-side procedure.
+
+## Appointment Workflow Verification
+
+The browser form now uses the live server-side submission path and clearly states that a request does not reserve a time or confirm a visit. Desktop and 390px mobile checks show the consent control, pending-review notice, and submit state are readable within the existing Paws+Pine layout. No browser submission was made, so no fictitious appointment or request row was created. The server-side unit test passed, and the live credential probe used a deliberately incomplete request that Apps Script rejected before any Sheet row could be appended.
+
+- [x] Submit one clearly labelled, non-appointment integration-test row through the deployed server and verify its pending-review row in the approved Google Sheet before checkpointing.
+
+## Live Sheet Verification
+
+With explicit approval, the server-side intake submitted reference `9a80f23f-7be8-4a72-be35-ad5279649c6f`. The approved Google Sheet records it as `Pending staff review`, with the test-only labels, an empty preferred date, no staff note, and no confirmed appointment value. This confirms the production website path reaches the Apps Script endpoint and Sheet while preserving the no-confirmation Tier 1 boundary.

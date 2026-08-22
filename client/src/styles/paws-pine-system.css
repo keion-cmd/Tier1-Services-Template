@@ -102,6 +102,8 @@
 .pp-form-submission { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 26px 0 22px; padding-top: 20px; border-top: 1px solid var(--pp-divider); } .pp-consent { display: flex; align-items: flex-start; gap: 9px; color: var(--pp-muted); font-size: 14px; line-height: 1.45; } .pp-consent input { width: 17px; height: 17px; margin: 2px 0 0; accent-color: var(--pp-blue); } .pp-form-submission > p { margin: 0; color: var(--pp-muted); font-size: 13px; line-height: 1.42; }
 .pp-submit { display: inline-flex; min-height: 48px; align-items: center; gap: 8px; border-radius: 999px; background: var(--pp-blue); color: #fff; font-size: 14px; font-weight: 800; transition: transform var(--motion-micro) var(--ease-editorial), background var(--motion-micro) ease; } .pp-submit:hover { background: #073fba; transform: translateY(-2px); } .pp-submit:active { transform: scale(.97); }
 .pp-success-state { display: grid; min-height: 432px; align-content: center; justify-items: start; } .pp-success-state > svg { color: var(--pp-blue); } .pp-success-state h2 { margin: 18px 0; } .pp-success-state p { max-width: 615px; color: var(--pp-muted); font-size: var(--pp-body); line-height: 1.5; }
+.pp-request-reference { margin: 4px 0 21px !important; color: var(--pp-blue) !important; font-size: var(--pp-meta) !important; font-weight: 800; letter-spacing: .03em; }
+.pp-submit-error { color: #9b241f !important; font-size: 13px !important; font-weight: 700; }
 
 @media (max-width: 900px) {
   .pp-page-hero { grid-template-columns: minmax(0,1fr) minmax(290px,.75fr); min-height: 340px; } .pp-services-hero-image { min-height: 340px; } .pp-services-intro { grid-template-columns: 122px 1fr; } .pp-services-intro .pp-text-action { grid-column: 2; }
