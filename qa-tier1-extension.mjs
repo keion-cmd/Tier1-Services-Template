@@ -20,7 +20,7 @@ await mapEmbed.waitFor();
 const activeLocationNav = page.locator(".neo-desktop-nav .neo-nav-link.current");
 record("desktop navigation exposes the complimentary Location Page", await page.getByRole("navigation", { name: "Primary navigation" }).getByText("Clinic location").count() === 1, "location navigation link missing");
 record("Location Page has an accurate active navigation state", (await activeLocationNav.textContent())?.includes("Clinic location") ?? false, `active=${await activeLocationNav.textContent()}`);
-record("location navigation labels the included benefit", await activeLocationNav.getByText("Free").count() === 1, "free benefit label missing");
+record("location navigation omits the removed FREE label", await activeLocationNav.getByText("Free").count() === 0, "free benefit label still visible");
 record("location route renders Google Maps embed", (await mapEmbed.getAttribute("src"))?.includes("google.com/maps") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
 record("location route uses the supplied directions embed", (await mapEmbed.getAttribute("src"))?.includes("Hayop%20Kalinga%20Veterinary%20Clinic") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
 record("location route includes the approved Calamba Trade Center landmark", await page.getByText("Calamba Trade Center").count() >= 1, "landmark missing");
@@ -42,7 +42,7 @@ record("footer renders Instagram placeholder icon", await footer.getByLabel("Ins
 await page.setViewportSize({ width: 390, height: 844 });
 await page.getByRole("button", { name: "Open menu" }).click();
 record("mobile menu exposes the complimentary Location Page", await page.getByRole("navigation", { name: "Mobile navigation" }).getByText("Clinic location").count() === 1, "mobile location navigation missing");
-record("mobile menu labels the complimentary Location Page", await page.getByText("Complimentary page").count() === 1, "mobile benefit label missing");
+record("mobile menu omits the removed complimentary label", await page.getByText("Complimentary page").count() === 0, "mobile benefit label still visible");
 await page.getByRole("button", { name: "Close menu" }).click();
 await page.setViewportSize({ width: 1280, height: 900 });
 

@@ -327,3 +327,7 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Replace the temporary browser-session Reviews form with a polished Google Business Profile review CTA that does not fabricate or scrape reviews.
 - [x] Add a complimentary Google Reviews pathway to the Tier 1, Tier 2, and Tier 3 offer scope, including the client-provided review destination requirement.
 - [x] Validate the review CTA across desktop/mobile using the client-provided Google Maps destination.
+
+## Clinic Location Navigation Label
+
+- [x] Remove the FREE label from the desktop and mobile Clinic location navigation item without changing its route or map content.
