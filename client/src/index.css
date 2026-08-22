@@ -144,3 +144,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .pp-supplied-map .pp-map-open { position: absolute; z-index: 5; bottom: 24px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 @media (max-width: 860px) { .pp-supplied-map { min-height: 400px; } .pp-supplied-map .pp-map-frame, .pp-supplied-map .pp-location-map { height: 400px !important; min-height: 400px; } }
 @media (max-width: 540px) { .pp-supplied-map { min-height: 410px; } .pp-supplied-map .pp-map-frame, .pp-supplied-map .pp-location-map { height: 410px !important; min-height: 410px; } }
+
+/* When the adjacent location card is taller, the map frame must stretch with its grid cell rather than leaving a blue remainder. */
+.pp-supplied-map .pp-map-frame { position: absolute; inset: 0; height: auto !important; min-height: 0 !important; }
+.pp-supplied-map .pp-location-map { height: 100% !important; min-height: 0 !important; }

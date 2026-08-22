@@ -279,3 +279,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Return the Open driving directions action to the inside of the embedded map card, centered along its lower edge.
 - [x] Keep the driving-route label right-aligned and ensure the in-map action avoids Google Maps zoom, attribution, and keyboard controls.
 - [x] Update browser geometry checks and validate desktop/mobile map-card behavior before checkpointing.
+
+## Full-Height Google Maps Card Refinement
+
+- [x] Make the supplied Google Maps iframe fill the entire right-hand map card without an empty lower area.
+- [x] Preserve the right-aligned driving-route label and centered lower in-map directions action inside the full-height map.
+- [x] Update browser geometry checks and validate the full map-card layout at desktop and mobile sizes before checkpointing.

@@ -29,6 +29,7 @@ const mapCardBox = await page.locator(".pp-supplied-map").boundingBox();
 const mapBox = await mapEmbed.boundingBox();
 const routeLabelBox = await page.locator(".pp-supplied-map .pp-map-heading").boundingBox();
 const directionsActionBox = await page.getByRole("link", { name: /Open driving directions/i }).boundingBox();
+record("Google Maps fills the complete right-hand map card", Boolean(mapCardBox && mapBox && Math.abs(mapCardBox.height - mapBox.height) < 3), JSON.stringify({ mapCardBox, mapBox }));
 record("driving-route label is positioned on the right side of the map", Boolean(mapBox && routeLabelBox && routeLabelBox.x > mapBox.x + mapBox.width / 2), "route label overlays the left map area");
 record("directions action is centered inside the lower map area", Boolean(mapCardBox && mapBox && directionsActionBox && directionsActionBox.y >= mapBox.y + mapBox.height * 0.7 && directionsActionBox.y + directionsActionBox.height <= mapBox.y + mapBox.height - 8 && Math.abs((directionsActionBox.x + directionsActionBox.width / 2) - (mapCardBox.x + mapCardBox.width / 2)) < 12), JSON.stringify({ mapCardBox, mapBox, directionsActionBox }));
 record("location route keeps demo disclosure", (await page.locator(".pp-location-note").textContent())?.includes("fictional demonstration clinic") ?? false, "disclosure missing");
