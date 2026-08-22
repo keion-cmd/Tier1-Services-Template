@@ -229,3 +229,11 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Add the Location Page to navigation/footer only as an authorized optional-page extension, preserving the original three-route Tier 1 core distinction.
 - [x] Add live inline email and phone validation in the request form, plus matching server-side phone-format validation before Google Sheet forwarding.
 - [x] Add or update Vitest coverage and run build, route, map, footer, form-validation, and responsive visual checks before checkpointing.
+
+## Tier 1 Request Feedback, Policy, and Location Refinement
+
+- [x] Add an accessible in-form loading treatment during the live Google Sheet submission without implying that a request is an appointment confirmation.
+- [x] Strengthen the successful submission state to state that the request was received by the secure staff-review workflow and include the request reference.
+- [x] Add a client-approved cancellation and contact policy link to the footer and a simple accessible policy presentation with demo-only content clearly labelled.
+- [x] Improve the optional demo Location Page composition, map framing, and address information so it aligns with the established Paws+Pine UI/UX.
+- [x] Add or update non-submitting browser checks and run tests, build, policy, feedback, location, and responsive visual validation before checkpointing.
