@@ -428,3 +428,16 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Check for backend routing or runtime blockers without publishing.
 - [x] Report the verification results and the remaining user-controlled publish action.
 
+
+## Vercel Compatibility Fix
+
+- [x] Add direct-route SPA rewrites for Home, Services, Clinic location, and Request a visit.
+- [x] Add a Vercel-compatible serverless Express/tRPC entrypoint while preserving the existing local server.
+- [x] Add or update Vitest coverage for route fallback and API handler behavior.
+- [x] Run checks, sync the deploy-ready changes, and save a checkpoint without publishing.
+
+
+## User-Authorized Deployment Request
+
+- [ ] Prepare the corrected Vercel deployment state and provide the final user-controlled publish action; do not trigger production publish from this session.
+
