@@ -454,3 +454,11 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Set Vercel’s output directory to `dist/public` so the client HTML shell is served at `/` instead of the bundled server entry.
 - [x] Validate the corrected preview root, public routes, and API function after the configuration update.
 
+
+## Production tRPC API Fix
+
+- [ ] Compare the production alias with the corrected preview deployment and identify why `/api/trpc` is unavailable.
+- [ ] Correct the Vercel serverless API routing and add regression coverage.
+- [ ] Validate the production-compatible API locally, sync the fix, and verify a new preview.
+- [ ] Document the production promotion requirement after the API fix is ready.
+
