@@ -74,4 +74,8 @@ The wordmark uses a high-contrast editorial serif, paired with a bold symbol: a 
 ## Demo Content Boundary
 
 All clinic names, people, addresses, availability language, services, results, and contact details used in this site are **fictional demonstration content**. The site will use no fabricated customer reviews, ratings, or testimonials, and the request form will clearly state that it is a prototype without live booking or Google Sheets connectivity.
+
+## Style Decisions
+
+The supplied veterinary UI reference is the ground-truth visual direction for this revision. The redesign will replace the previous field-guide feel with a **high-contrast electric-blue interface**, oversized sans-serif headline geometry, low-density white navigation, graphic lime accents, expansive pet cutouts, and large white panels with broad rounded lower corners. Information will be presented through art-directed image composition, precise scale shifts, generous empty space, and a small number of sculptural service cards rather than generic card grids. The reference establishes the visual language only; the demo retains its own fictional brand name, Tier 1 page limit, honest request behavior, and explicit non-live disclosure.
 ***
