@@ -46,6 +46,30 @@ record("mobile menu labels the complimentary Location Page", await page.getByTex
 await page.getByRole("button", { name: "Close menu" }).click();
 await page.setViewportSize({ width: 1280, height: 900 });
 
+let mockReviewMutationSeen = false;
+await page.route("**/api/trpc/reviewSubmission.submit**", async route => {
+  mockReviewMutationSeen = true;
+  await new Promise(resolve => setTimeout(resolve, 300));
+  await route.fulfill({
+    contentType: "application/json",
+    body: JSON.stringify([{ result: { data: { json: { requestId: "qa_review_001", status: "Pending staff review" } } } }]),
+  });
+});
+
+await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
+record("homepage explains that submitted feedback is not public", await page.getByText("No visitor reviews, ratings, or testimonials are shown on this page.").count() === 1, "non-publication disclosure missing");
+await page.locator('input[name="reviewerName"]').fill("Alex Visitor");
+await page.locator('input[name="reviewerEmail"]').fill("alex@example.test");
+await page.getByRole("button", { name: "5 out of 5 stars" }).click();
+await page.locator('textarea[name="reviewFeedback"]').fill("The team was kind and clear.");
+await page.locator('input[name="reviewConsent"]').check();
+await page.getByRole("button", { name: "Send feedback" }).click();
+record("review submission shows staff-review loading feedback", await page.getByRole("button", { name: /Recording feedback/i }).count() === 1, "review loading feedback missing");
+await page.getByText("Feedback received").waitFor();
+record("review submission uses mocked non-writing intake", mockReviewMutationSeen, "review mutation route not seen");
+record("review success avoids public-display claims", (await page.locator(".pp-review-success").textContent())?.includes("not displayed publicly or published automatically") ?? false, "review success disclosure missing");
+record("review success displays returned feedback reference", (await page.locator(".pp-review-success .pp-request-reference").textContent())?.includes("qa_review_001") ?? false, "review reference missing");
+
 await page.goto(`${baseUrl}/request`, { waitUntil: "domcontentloaded" });
 const email = page.locator('input[name="email"]');
 const phone = page.locator('input[name="phone"]');

@@ -6,6 +6,7 @@ import { ArrowUpRight, PawPrint } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
+import { ReviewForm } from "@/components/ReviewForm";
 import { assets, faqs } from "@/lib/clinic-content";
 
 export default function Home() {
@@ -24,6 +25,8 @@ export default function Home() {
     <section className="fidelity-services"><div className="fidelity-services-heading"><div><span className="fidelity-kicker fidelity-kicker-light">How we can help</span><h2>Our services<span>.</span></h2></div><div><p>Explore the care paths that make a future visit easier to understand. Each one starts with a conversation.</p><Link href="/services" className="lime-link">See all services <ArrowUpRight size={15} /></Link></div></div><InteractiveServiceGallery variant="home" count={4} /></section>
 
     <div className="pp-marquee" aria-label="Paws and Pine care paths"><span>Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span><span aria-hidden="true">Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span></div>
+
+    <section className="pp-reviews-section"><div className="pp-reviews-intro"><span className="fidelity-kicker">Custom feedback</span><h2>Tell us how<br /><em>care felt.</em></h2><p>Your feedback goes to the clinic team for private review. No visitor reviews, ratings, or testimonials are shown on this page.</p></div><ReviewForm /></section>
 
     <section className="fidelity-faq"><div><span className="fidelity-kicker">A few helpful answers</span><h2>Everything starts with <em>one good question.</em></h2><p>We keep the details clear so you can feel more prepared for the conversation ahead.</p></div><Accordion type="single" collapsible className="fidelity-faq-list">{faqs.map((faq,index) => <AccordionItem value={`faq-${index}`} key={faq.question}><AccordionTrigger>{faq.question}</AccordionTrigger><AccordionContent>{faq.answer}</AccordionContent></AccordionItem>)}</Accordion></section>
 

@@ -285,3 +285,11 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Make the supplied Google Maps iframe fill the entire right-hand map card without an empty lower area.
 - [x] Preserve the right-aligned driving-route label and centered lower in-map directions action inside the full-height map.
 - [x] Update browser geometry checks and validate the full map-card layout at desktop and mobile sizes before checkpointing.
+
+## Custom Staff-Reviewed Reviews Section
+
+- [x] Define a custom review form with only approved fields, consent for staff follow-up, clear privacy language, and no automatic public display.
+- [x] Add a homepage Reviews section and accessible custom feedback form without fabricated ratings, testimonials, or review content.
+- [x] Extend the existing server-mediated Google Sheet/App Script workflow to store review submissions in a separate staff-review tab with an explicit pending status.
+- [x] Add unit and non-writing browser coverage for review validation, pending-review confirmation, and absence of public-review claims.
+- [x] Document the required Apps Script deployment update and verify the build, tests, responsive homepage layout, and live-flow boundary before checkpointing.

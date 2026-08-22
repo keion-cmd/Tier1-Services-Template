@@ -148,3 +148,25 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* When the adjacent location card is taller, the map frame must stretch with its grid cell rather than leaving a blue remainder. */
 .pp-supplied-map .pp-map-frame { position: absolute; inset: 0; height: auto !important; min-height: 0 !important; }
 .pp-supplied-map .pp-location-map { height: 100% !important; min-height: 0 !important; }
+
+.pp-reviews-section { display: grid; grid-template-columns: .78fr 1.22fr; gap: 34px; max-width: 1280px; margin: 22px auto 0; padding: 56px 46px; border-radius: 30px; background: #e9f0e5; color: #0a0a0c; }
+.pp-reviews-intro { max-width: 390px; }
+.pp-reviews-intro h2 { margin: 14px 0 18px; font-size: clamp(48px,5.6vw,76px); font-weight: 500; letter-spacing: -.1em; line-height: .82; }
+.pp-reviews-intro h2 em { color: #0957f6; font-style: normal; }
+.pp-reviews-intro p { margin: 0; color: #414149; font-size: 15px; line-height: 1.55; }
+.pp-review-form { display: grid; gap: 16px; padding: 25px; border-radius: 20px; background: #fff; box-shadow: 0 18px 48px rgba(15, 27, 14, .09); }
+.pp-review-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pp-review-rating { margin: 0; padding: 0; border: 0; }
+.pp-review-rating legend { margin-bottom: 8px; color: #202027; font-size: 12px; font-weight: 800; }
+.pp-review-rating [role="radiogroup"] { display: flex; gap: 6px; }
+.pp-review-rating button { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid #d9ded7; border-radius: 50%; background: #fff; color: #c5ccc2; cursor: pointer; transition: transform 160ms cubic-bezier(.23,1,.32,1), background 160ms cubic-bezier(.23,1,.32,1), color 160ms cubic-bezier(.23,1,.32,1); }
+.pp-review-rating button:hover, .pp-review-rating button.is-selected { background: #b7f75c; border-color: #b7f75c; color: #0a0a0c; transform: translateY(-2px); }
+.pp-review-rating small, .pp-review-submit > small { display: block; margin-top: 6px; color: #b42318; font-size: 11px; }
+.pp-review-submit { display: grid; gap: 10px; }
+.pp-review-submit > p { margin: 0; color: #555660; font-size: 11px; line-height: 1.45; }
+.pp-review-success { display: grid; gap: 13px; align-content: center; min-height: 380px; padding: 28px; border-radius: 20px; background: #fff; box-shadow: 0 18px 48px rgba(15, 27, 14, .09); }
+.pp-review-success > svg { color: #0957f6; }
+.pp-review-success h3 { margin: 0; font-size: clamp(34px,3.7vw,52px); font-weight: 500; letter-spacing: -.08em; line-height: .86; }
+.pp-review-success h3 em { color: #0957f6; font-style: normal; }
+.pp-review-success p { margin: 0; color: #474750; line-height: 1.55; }
+@media (max-width: 860px) { .pp-reviews-section { grid-template-columns: 1fr; gap: 28px; margin: 14px 12px 0; padding: 40px 25px; } .pp-review-form-grid { grid-template-columns: 1fr; } }

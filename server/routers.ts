@@ -1,5 +1,5 @@
 import { COOKIE_NAME } from "@shared/const";
-import { appointmentRequestInput, forwardAppointmentRequest } from "./appointmentIntake";
+import { appointmentRequestInput, forwardAppointmentRequest, forwardReviewSubmission, reviewSubmissionInput } from "./appointmentIntake";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
@@ -20,6 +20,11 @@ export const appRouter = router({
   appointmentRequest: router({
     submit: publicProcedure.input(appointmentRequestInput).mutation(async ({ input }) => {
       return forwardAppointmentRequest(input);
+    }),
+  }),
+  reviewSubmission: router({
+    submit: publicProcedure.input(reviewSubmissionInput).mutation(async ({ input }) => {
+      return forwardReviewSubmission(input);
     }),
   }),
 });
