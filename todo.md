@@ -122,3 +122,10 @@ At 1440px, Home, Services, and Request now use the same integrated header and fu
 ## Internal Page Shell Final Validation
 
 The six-viewport Playwright sweep passed at 1440×1000, 1280×800, 1024×768, 768×1024, 430×932, and 390×844 for Home, Services, and Request. It confirms identical 62px desktop/60px mobile header geometry, expected active links, full-width hero stages, lower-only curvature, no horizontal overflow, and sticky headers remaining at the viewport top after scroll. The `neo-site` wrapper now clips horizontally without creating a vertical scroll container, preserving the shared header behavior. TypeScript, all appointment-workflow regression tests, and the production build pass.
+
+## GitHub Export
+
+- [ ] Verify the target `keion-cmd/Tier1-Vet-Demo` repository and local project state.
+- [ ] Resolve the `403 Write access to repository not granted` response for the target GitHub repository or provide a writable replacement repository.
+- [ ] Commit the current validated project with generated outputs, credentials, and local QA artifacts excluded.
+- [ ] Push the commit to the target repository and verify the remote branch points to it.
