@@ -451,6 +451,6 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 ## Vercel Preview Output Fix
 
-- [ ] Set Vercel’s output directory to `dist/public` so the client HTML shell is served at `/` instead of the bundled server entry.
-- [ ] Validate the corrected preview root, public routes, and API function after the configuration update.
+- [x] Set Vercel’s output directory to `dist/public` so the client HTML shell is served at `/` instead of the bundled server entry.
+- [x] Validate the corrected preview root, public routes, and API function after the configuration update.
 
