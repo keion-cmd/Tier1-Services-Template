@@ -164,6 +164,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .pp-review-rating small, .pp-review-submit > small { display: block; margin-top: 6px; color: #b42318; font-size: 11px; }
 .pp-review-submit { display: grid; gap: 10px; }
 .pp-review-submit > p { margin: 0; color: #555660; font-size: 11px; line-height: 1.45; }
+.pp-review-progress { display: inline-flex; align-items: center; gap: 7px; color: #0957f6 !important; font-weight: 700; }
 .pp-review-success { display: grid; gap: 13px; align-content: center; min-height: 380px; padding: 28px; border-radius: 20px; background: #fff; box-shadow: 0 18px 48px rgba(15, 27, 14, .09); }
 .pp-review-success > svg { color: #0957f6; }
 .pp-review-success h3 { margin: 0; font-size: clamp(34px,3.7vw,52px); font-weight: 500; letter-spacing: -.08em; line-height: .86; }

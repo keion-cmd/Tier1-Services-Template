@@ -1,24 +1,9 @@
 const APPOINTMENT_SHEET_NAME = 'Appointment Requests';
 const APPOINTMENT_STATUS = 'Pending staff review';
-const REVIEW_SHEET_NAME = 'Review Submissions';
-const REVIEW_STATUS = 'Displayed on website';
-const REVIEW_HEADERS = ['UTC Timestamp', 'Review ID', 'Status', 'Name', 'Email', 'Rating', 'Review', 'Display Consent', 'Source', 'Staff Notes'];
 
 function doPost(event) {
-  try { const payload = JSON.parse(event?.postData?.contents || '{}'); if (!isAuthorized(payload.intakeSecret)) return jsonResponse({ ok: false, error: 'unauthorized' }); return payload.kind === 'review' ? recordReview(payload.review || {}) : recordAppointment(payload.request || {}); }
+  try { const payload = JSON.parse(event?.postData?.contents || '{}'); if (!isAuthorized(payload.intakeSecret)) return jsonResponse({ ok: false, error: 'unauthorized' }); if (payload.kind !== 'appointment') return jsonResponse({ ok: false, error: 'unsupported_kind' }); return recordAppointment(payload.request || {}); }
   catch (error) { console.error(error); return jsonResponse({ ok: false, error: 'invalid_request' }); }
-}
-
-function doGet(event) {
-  try {
-    if (!isAuthorized(event?.parameter?.intakeSecret)) return jsonResponse({ ok: false, error: 'unauthorized' });
-    if (event?.parameter?.action !== 'displayedReviews') return jsonResponse({ ok: false, error: 'unsupported_action' });
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(REVIEW_SHEET_NAME);
-    if (!sheet || sheet.getLastRow() < 2) return jsonResponse({ ok: true, reviews: [] });
-    const rows = sheet.getDataRange().getValues(); const index = indexHeaders(rows[0]);
-    const reviews = rows.slice(1).flatMap((row) => { const status = normalise(row[index['Status']]).toLowerCase(); const id = normalise(row[index['Review ID']], 120); const displayName = normalise(row[index['Name']], 120); const rating = Number(row[index['Rating']]); const feedback = normalise(row[index['Review']], 2000); if (status !== 'displayed on website' || !id || !displayName || !feedback || !Number.isInteger(rating) || rating < 1 || rating > 5) return []; return [{ id, displayName, rating, feedback }]; });
-    return jsonResponse({ ok: true, reviews });
-  } catch (error) { console.error(error); return jsonResponse({ ok: false, error: 'invalid_request' }); }
 }
 
 function recordAppointment(request) {
@@ -28,14 +13,7 @@ function recordAppointment(request) {
   finally { lock.releaseLock(); }
 }
 
-function recordReview(review) {
-  const required = ['name', 'email', 'feedback']; const missing = required.filter((key) => !normalise(review[key])); const rating = Number(review.rating); if (missing.length || !Number.isInteger(rating) || rating < 1 || rating > 5 || review.consentConfirmed !== true) return jsonResponse({ ok: false, error: 'invalid_review_submission', fields: missing });
-  const lock = LockService.getScriptLock(); if (!lock.tryLock(5000)) return jsonResponse({ ok: false, error: 'temporarily_unavailable' });
-  try { const spreadsheet = SpreadsheetApp.getActiveSpreadsheet(); let sheet = spreadsheet.getSheetByName(REVIEW_SHEET_NAME); if (!sheet) { sheet = spreadsheet.insertSheet(REVIEW_SHEET_NAME); sheet.appendRow(REVIEW_HEADERS); sheet.setFrozenRows(1); } const requestId = Utilities.getUuid(); sheet.appendRow([new Date().toISOString(), requestId, REVIEW_STATUS, normalise(review.name, 120), normalise(review.email, 254), rating, normalise(review.feedback, 2000), 'Yes', 'Paws+Pine website', '']); return jsonResponse({ ok: true, requestId, status: REVIEW_STATUS }); }
-  finally { lock.releaseLock(); }
-}
-
 function isAuthorized(secret) { return !!secret && secret === PropertiesService.getScriptProperties().getProperty('APPOINTMENT_INTAKE_SECRET'); }
-function indexHeaders(headers) { return headers.reduce((map, header, index) => { map[String(header)] = index; return map; }, {}); }
 function normalise(value, maxLength) { const text = String(value || '').trim(); return maxLength ? text.slice(0, maxLength) : text; }
 function jsonResponse(payload) { return ContentService.createTextOutput(JSON.stringify(payload)).setMimeType(ContentService.MimeType.JSON); }
+***

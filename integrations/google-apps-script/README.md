@@ -1,6 +1,6 @@
-# Paws+Pine Tier 1 staff-review intake
+# Paws+Pine Tier 1 appointment-request intake
 
-This bound Google Apps Script accepts **server-mediated** appointment requests and review submissions. Appointment requests append to `Appointment Requests` with `Pending staff review`; review submissions append to a separate `Review Submissions` tab with `Displayed on website` after the sender selects the required display agreement. The script never creates a calendar event or confirms an appointment.
+This bound Google Apps Script accepts **server-mediated appointment requests only**. It appends valid requests to `Appointment Requests` with `Pending staff review`; it never creates a calendar event or confirms an appointment.
 
 ## One-time deployment
 
@@ -14,10 +14,6 @@ This bound Google Apps Script accepts **server-mediated** appointment requests a
 
 The handler writes a UTC timestamp, request ID, `Pending staff review` status, contact and pet details, care path, preferred date, request context, consent, source, and blank staff-only follow-up columns. Keep Sheet editing limited to approved clinic staff.
 
-## Review submission columns
+## Reviews
 
-On the first valid review submission, the script creates the `Review Submissions` tab with UTC timestamp, review ID, displayed-on-website status, name, email, rating, review text, display agreement, source, and staff notes. The public website receives only review ID, name, rating, and review text; it never reads email or staff notes. There are no invented or placeholder reviews.
-
-## Required update before using custom reviews
-
-After copying the updated `Code.gs`, choose **Deploy → Manage deployments → Edit**, select the new version, and redeploy the web app. The existing project endpoint and server-only secret can remain unchanged. Do not use the review form on a production site until that deployment update is complete.
+The homepage Reviews form has no Google Sheet, server, or external storage path. It shows a submitted review only in the visitor’s current browser session and clears it on refresh. The form never sends the review email, name, rating, or review text to Apps Script.

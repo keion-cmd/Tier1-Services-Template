@@ -307,3 +307,17 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Make each successfully submitted genuine review appear in the homepage Reviews section immediately after the secure Google Sheet write returns.
 - [x] Preserve clear data minimization by displaying only the review name, rating, and review text; never display email or staff notes.
 - [x] Update Apps Script status/columns, tests, copy, and browser QA for the streamlined immediate-display workflow before checkpointing.
+
+## Reviews Abuse Protection and Live-Path Verification
+
+- [x] Superseded the proposed server-side rate limit when the user changed Reviews to a browser-display-only feature with no submission endpoint.
+- [x] Refine review-form loading and success feedback for immediate browser-session display without a secure write.
+- [x] Run non-writing validation for session-only display, refresh clearing, and private-field boundaries.
+- [x] Stop live Sheet-path review testing after the user removed Google Sheet from the Reviews feature.
+
+## Display-Only Reviews Revision
+
+- [x] Remove Google Sheet and server-side storage from review submission and public review retrieval.
+- [x] Display a visitor-submitted review immediately in the current homepage session only, with no persistence after refresh.
+- [x] Keep clear loading and success feedback while removing unnecessary rate-limit and external-review deployment dependencies.
+- [x] Update tests, QA, and copy to state the accurate browser-session-only retention boundary.

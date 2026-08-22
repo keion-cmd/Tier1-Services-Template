@@ -1,0 +1,1 @@
+DROP TABLE `review_submission_rate_limits`;
