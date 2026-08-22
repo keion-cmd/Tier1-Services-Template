@@ -31,7 +31,7 @@ describe("Vercel compatibility", () => {
 
   it("uses uploaded hashed asset keys for all image references", () => {
     expect(Object.values(assets)).toHaveLength(9);
-    expect(Object.values(assets).every((src) => src.startsWith("/manus-storage/") && src.split("/").pop()?.includes("_"))).toBe(true);
+    expect(Object.values(assets).every((src) => src.startsWith("https://files.manuscdn.com/") && src.split("/").pop()?.includes("."))).toBe(true);
   });
 
   it("exports Express-compatible API handlers for catch-all and tRPC paths", () => {

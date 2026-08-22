@@ -35,13 +35,13 @@ export const faqs = [
 ] as const;
 
 export const assets = {
-  heroPets: "/manus-storage/paws-pine-blue-hero-pets_3d556a25_eb9a2d53.png",
-  aboutPup: "/manus-storage/paws-pine-blue-about-pup_b0373fc3_ded316fc.png",
-  serviceExam: "/manus-storage/paws-pine-blue-service-exam_9e31f9d3_458297ec.jpg",
-  dogCare: "/manus-storage/paws-pine-dog-care_a22a2df2_8c1663ae.jpg",
-  catCare: "/manus-storage/paws-pine-cat-care_7c4ca6cf_1d554374.jpg",
-  clinicHero: "/manus-storage/paws-pine-hero_7806da61_45c5e0a7.jpg",
-  dentalCare: "/manus-storage/paws-pine-dental-care_69f1729e_de14d776.jpg",
-  diagnosticsCare: "/manus-storage/paws-pine-diagnostics-care_5f460451_16dca677.jpg",
-  seal: "/manus-storage/paws-pine-seal_41d53572_66643ab8.png",
+  heroPets: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/QIFiAEAkzojmOWyq.png",
+  aboutPup: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/gxfDSdEuEMcvCNZD.png",
+  serviceExam: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/tZrJrjlYhJUEPsuF.jpg",
+  dogCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/sReyFxXTOZUMnDdX.jpg",
+  catCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/tFvKKOWqRtINcxSU.jpg",
+  clinicHero: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/NMymCvSdJzRaedlt.jpg",
+  dentalCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/jKJAZemUJEByvNjO.jpg",
+  diagnosticsCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/bDWSKfDPDwSbwKMc.jpg",
+  seal: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/GDXOEaCkzyTwwmpA.png",
 };
