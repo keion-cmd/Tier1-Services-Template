@@ -349,3 +349,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Reformat the PDF’s Final Package Comparison in the supplied compact four-column offer-table style.
 - [x] Populate every comparison row with complete current Tier 1, Tier 2, and Tier 3 values, including the ₱44,700 Tier 3 operations dashboard scope.
 - [x] Recompile, verify, and visually review the corrected comparison before delivering the replacement PDF.
+
+## Editable Raw Tier Plan with FREE Comparison
+
+- [x] Create a raw editable complete tier-plan file instead of a PDF.
+- [x] Use a compact Final Package Comparison table matching the supplied reference structure with every approved FREE inclusion visible for Tier 1, Tier 2, and Tier 3.
+- [x] Verify the raw file includes the complete current services-only scope and deliver only the raw file.
