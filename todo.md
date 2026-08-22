@@ -293,3 +293,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Extend the existing server-mediated Google Sheet/App Script workflow to store review submissions in a separate staff-review tab with an explicit pending status.
 - [x] Add unit and non-writing browser coverage for review validation, pending-review confirmation, and absence of public-review claims.
 - [x] Document the required Apps Script deployment update and verify the build, tests, responsive homepage layout, and live-flow boundary before checkpointing.
+
+## Approved Reviews Display Workflow
+
+- [x] Replace “Custom feedback” wording with client-ready Reviews language across the homepage form and success state.
+- [x] Define a staff-approved public-review workflow that renders only genuine, explicitly approved submissions and never fabricates review content.
+- [x] Preserve immediate submission acknowledgement while making public visibility dependent on explicit staff approval.
+- [x] Add tests and documentation for the approval-to-public-display boundary before checkpointing.

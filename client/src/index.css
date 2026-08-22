@@ -169,4 +169,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .pp-review-success h3 { margin: 0; font-size: clamp(34px,3.7vw,52px); font-weight: 500; letter-spacing: -.08em; line-height: .86; }
 .pp-review-success h3 em { color: #0957f6; font-style: normal; }
 .pp-review-success p { margin: 0; color: #474750; line-height: 1.55; }
+.pp-reviews-content { display: grid; gap: 16px; }
+.pp-approved-reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.pp-approved-reviews article, .pp-approved-reviews-state { margin: 0; padding: 20px; border-radius: 17px; background: #f7f9f6; }
+.pp-approved-review-stars { display: flex; gap: 3px; color: #0957f6; }
+.pp-approved-reviews article p { margin: 14px 0; color: #27272d; font-size: 14px; line-height: 1.55; }
+.pp-approved-reviews article strong { font-size: 12px; }
+.pp-approved-reviews-state { color: #565761; font-size: 13px; line-height: 1.5; }
 @media (max-width: 860px) { .pp-reviews-section { grid-template-columns: 1fr; gap: 28px; margin: 14px 12px 0; padding: 40px 25px; } .pp-review-form-grid { grid-template-columns: 1fr; } }

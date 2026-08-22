@@ -1,6 +1,6 @@
 # Paws+Pine Tier 1 staff-review intake
 
-This bound Google Apps Script accepts **server-mediated** appointment requests and custom review submissions. Appointment requests append to `Appointment Requests`; review submissions append to a separate `Review Submissions` tab. Both begin with `Pending staff review`. The script never creates a calendar event, confirms an appointment, or publishes a review automatically.
+This bound Google Apps Script accepts **server-mediated** appointment requests and review submissions. Appointment requests append to `Appointment Requests`; review submissions append to a separate `Review Submissions` tab. Both begin with `Pending staff review`. The script never creates a calendar event, confirms an appointment, or publishes a review automatically.
 
 ## One-time deployment
 
@@ -16,7 +16,9 @@ The handler writes a UTC timestamp, request ID, `Pending staff review` status, c
 
 ## Review submission columns
 
-On the first valid review submission, the script creates the `Review Submissions` tab with UTC timestamp, review ID, pending-review status, name, email, rating, feedback, consent, source, staff notes, and publication approval columns. Review text remains staff-only until an authorized person explicitly approves any separate publication workflow. The website itself does not display submitted feedback as reviews or testimonials.
+On the first valid review submission, the script creates the `Review Submissions` tab with UTC timestamp, review ID, pending-review status, name, email, rating, review text, review consent, display consent, source, staff notes, publication approval, and public display name columns.
+
+To show a genuine review on the homepage, an authorized staff member must set **Status** to `Approved for website`, **Publication Approval** to `Yes`, and supply a non-empty **Public Display Name**. The reviewer must have selected display consent. The public website receives only review ID, public display name, rating, and review text; it never reads email or staff notes. There are no invented or placeholder reviews.
 
 ## Required update before using custom reviews
 
