@@ -5,11 +5,27 @@ import { registerStorageProxy } from "./_core/storageProxy";
 import { createContext } from "./_core/context";
 import { appRouter } from "./routers";
 
-export function createApiApp(): Express {
-  const app = express();
-
+function configureBodyParsing(app: Express) {
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+}
+
+export function createTrpcApp(): Express {
+  const app = express();
+  configureBodyParsing(app);
+  app.use(
+    "/",
+    createExpressMiddleware({
+      router: appRouter,
+      createContext,
+    }),
+  );
+  return app;
+}
+
+export function createApiApp(): Express {
+  const app = express();
+  configureBodyParsing(app);
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   app.use(
@@ -17,8 +33,7 @@ export function createApiApp(): Express {
     createExpressMiddleware({
       router: appRouter,
       createContext,
-    })
+    }),
   );
-
   return app;
 }

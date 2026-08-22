@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { createApiApp } from "../../server/app";
+import { createTrpcApp } from "../../server/app";
 
-const app = createApiApp();
+const app = createTrpcApp();
 
 export default app;
