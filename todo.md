@@ -266,3 +266,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Keep Hayop Kalinga Veterinary Clinic, Center Stall No. 4027, 2nd Street, Calamba, Laguna only in the Location Page address, map, driving directions, and landmark context.
 - [x] Confirm that homepage, Services, request flow, shared header/footer, metadata, and Google Sheet source remain Paws+Pine branded.
 - [x] Validate the restored brand and accurate Location Page details before checkpointing.
+
+## Location Map Visibility Refinement
+
+- [x] Move the driving-route label to the right side of the embedded map so it does not conceal the clinic location.
+- [x] Move the Open driving directions action into a centered control below the map, away from Google Maps controls and content.
+- [x] Preserve accessible map labelling, external directions access, and responsive desktop/mobile layout.
+- [x] Run visual and browser checks for map visibility and action placement before checkpointing.

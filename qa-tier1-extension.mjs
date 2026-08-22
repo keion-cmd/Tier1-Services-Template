@@ -25,6 +25,12 @@ record("location route renders Google Maps embed", (await mapEmbed.getAttribute(
 record("location route uses the supplied directions embed", (await mapEmbed.getAttribute("src"))?.includes("Hayop%20Kalinga%20Veterinary%20Clinic") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
 record("location route includes the approved Calamba Trade Center landmark", await page.getByText("Calamba Trade Center").count() >= 1, "landmark missing");
 record("location route provides an external driving-directions action", (await page.getByRole("link", { name: /Open driving directions/i }).getAttribute("href"))?.includes("maps/dir/?api=1") ?? false, "directions action missing");
+const mapCardBox = await page.locator(".pp-supplied-map").boundingBox();
+const mapBox = await mapEmbed.boundingBox();
+const routeLabelBox = await page.locator(".pp-supplied-map .pp-map-heading").boundingBox();
+const directionsActionBox = await page.getByRole("link", { name: /Open driving directions/i }).boundingBox();
+record("driving-route label is positioned on the right side of the map", Boolean(mapBox && routeLabelBox && routeLabelBox.x > mapBox.x + mapBox.width / 2), "route label overlays the left map area");
+record("directions action is centered below the map", Boolean(mapCardBox && mapBox && directionsActionBox && directionsActionBox.y >= mapBox.y + mapBox.height && Math.abs((directionsActionBox.x + directionsActionBox.width / 2) - (mapCardBox.x + mapCardBox.width / 2)) < 12), "directions action is not centered below the map");
 record("location route keeps demo disclosure", (await page.locator(".pp-location-note").textContent())?.includes("fictional demonstration clinic") ?? false, "disclosure missing");
 record("location route presents business hours", await page.getByRole("heading", { name: /Plan your visit/i }).count() === 1, "business hours section missing");
 
