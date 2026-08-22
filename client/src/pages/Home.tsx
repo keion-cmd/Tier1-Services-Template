@@ -14,9 +14,9 @@ export default function Home() {
     <PageMeta title="Paws+Pine Veterinary Clinic" description="Thoughtful veterinary care conversations, clear service pathways, and a simple visit request process." />
     <section className="fidelity-hero pp-major-light-stage">
       <div className="fidelity-blue-field" aria-hidden="true" />
-      <div className="fidelity-title-stack"><span className="fidelity-kicker"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><div className="fidelity-title-mask"><h1>Paws+Pine <span>Clinic</span></h1></div></div>
+      <div className="fidelity-title-stack"><span className="fidelity-kicker"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><div className="fidelity-title-mask"><h1>Your best friend<br /><span>deserves care.</span></h1></div></div>
       <img className="fidelity-pets" src={assets.heroPets} width="2560" height="1440" fetchPriority="high" alt="Paws and Pine clinic dog and cat" />
-      <div className="hero-value"><p>Care that feels easier<br />to understand.</p><Link href="/services" className="lime-link">Explore services <ArrowUpRight size={15} /></Link></div>
+      <div className="hero-value"><p>Kind, clear support<br />for every visit.</p><Link href="/services" className="lime-link">Explore services <ArrowUpRight size={15} /></Link></div>
       <div className="hero-proof"><strong>06</strong><span>care pathways<br />to explore</span></div>
     </section>
 

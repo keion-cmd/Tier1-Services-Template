@@ -355,3 +355,7 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Create a raw editable complete tier-plan file instead of a PDF.
 - [x] Use a compact Final Package Comparison table matching the supplied reference structure with every approved FREE inclusion visible for Tier 1, Tier 2, and Tier 3.
 - [x] Verify the raw file includes the complete current services-only scope and deliver only the raw file.
+
+## Homepage Hero Copy Refinement
+
+- [x] Replace the redundant homepage hero headline with a warm, care-focused message and supporting line while preserving the existing primary CTA.

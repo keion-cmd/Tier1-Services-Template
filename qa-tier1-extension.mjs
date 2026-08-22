@@ -47,6 +47,7 @@ await page.getByRole("button", { name: "Close menu" }).click();
 await page.setViewportSize({ width: 1280, height: 900 });
 
 await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded" });
+record("homepage hero uses the revised care-focused headline", await page.getByRole("heading", { name: /Your best friend deserves care/i }).count() === 1, "revised hero headline missing");
 record("homepage uses client-ready Reviews language", await page.getByText("Reviews", { exact: true }).count() >= 1, "Reviews heading missing");
 record("homepage explains authentic Google Reviews pathway", await page.getByText("Share an authentic experience directly on Google. Google manages sign-in, review publication, and its own community safeguards.").count() === 1, "Google Reviews disclosure missing");
 const googleReviewLink = page.getByRole("link", { name: /Review us on Google Maps/i });
