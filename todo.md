@@ -448,3 +448,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Commit and push the corrected files to a reviewable non-production branch without publishing from this session.
 - [x] Verify the GitHub commit and provide the exact Vercel redeploy handoff.
 
+
+## Vercel Preview Output Fix
+
+- [ ] Set Vercel’s output directory to `dist/public` so the client HTML shell is served at `/` instead of the bundled server entry.
+- [ ] Validate the corrected preview root, public routes, and API function after the configuration update.
+

@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "dist/public",
   "rewrites": [
     { "source": "/services", "destination": "/index.html" },
     { "source": "/location", "destination": "/index.html" },
