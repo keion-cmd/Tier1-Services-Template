@@ -106,3 +106,19 @@ The browser form now uses the live server-side submission path and clearly state
 ## Live Sheet Verification
 
 With explicit approval, the server-side intake submitted reference `9a80f23f-7be8-4a72-be35-ad5279649c6f`. The approved Google Sheet records it as `Pending staff review`, with the test-only labels, an empty preferred date, no staff note, and no confirmed appointment value. This confirms the production website path reaches the Apps Script endpoint and Sheet while preserving the no-confirmation Tier 1 boundary.
+
+## Internal Page Hero Shell Alignment
+
+- [x] Remove route-specific internal-page hero container geometry and reuse one full-width off-white stage shell with shared lower-only curvature.
+- [x] Apply the homepage-equivalent sticky navbar and divider behavior uniformly to Home, Services, and Request.
+- [x] Connect Services and Request light hero stages directly to their blue content stages with no detached outer gutters or page gap.
+- [x] Preserve Services image/copy/cards and the Request form/progress rail/appointment workflow unchanged.
+- [x] Validate all three routes at desktop and mobile widths, including sticky scroll behavior and active navigation states, then save a checkpoint without publishing.
+
+## Shared Shell Desktop Comparison
+
+At 1440px, Home, Services, and Request now use the same integrated header and full-width off-white architectural stage. Services and Request no longer carry the previous blue line or side gutter around their hero shells; their blue page surfaces meet the shared lower-only curved boundary directly. The page-specific hero content, Services imagery and cards, Request form and progress rail, active nav links, CTA, and appointment workflow are unchanged. Mobile and sticky-scroll validation remain.
+
+## Internal Page Shell Final Validation
+
+The six-viewport Playwright sweep passed at 1440×1000, 1280×800, 1024×768, 768×1024, 430×932, and 390×844 for Home, Services, and Request. It confirms identical 62px desktop/60px mobile header geometry, expected active links, full-width hero stages, lower-only curvature, no horizontal overflow, and sticky headers remaining at the viewport top after scroll. The `neo-site` wrapper now clips horizontally without creating a vertical scroll container, preserving the shared header behavior. TypeScript, all appointment-workflow regression tests, and the production build pass.

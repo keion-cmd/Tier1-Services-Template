@@ -11,7 +11,7 @@ import { assets, faqs } from "@/lib/clinic-content";
 export default function Home() {
   return <main className="neo-main fidelity-home">
     <PageMeta title="Paws+Pine Veterinary Clinic" description="Thoughtful veterinary care conversations, clear service pathways, and a simple visit request process." />
-    <section className="fidelity-hero">
+    <section className="fidelity-hero pp-major-light-stage">
       <div className="fidelity-blue-field" aria-hidden="true" />
       <div className="fidelity-title-stack"><span className="fidelity-kicker"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><div className="fidelity-title-mask"><h1>Paws+Pine <span>Clinic</span></h1></div></div>
       <img className="fidelity-pets" src={assets.heroPets} width="2560" height="1440" fetchPriority="high" alt="Paws and Pine clinic dog and cat" />

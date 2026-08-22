@@ -12,7 +12,7 @@ button, input, textarea, select { font: inherit; }
 button:not(:disabled), [role="button"]:not([aria-disabled="true"]), [type="button"]:not(:disabled), [type="submit"]:not(:disabled), a[href], select:not(:disabled), input, textarea { cursor: pointer; }
 a { color: inherit; text-decoration: none; } img { display: block; max-width: 100%; } h1,h2,h3,p { margin-top: 0; }
 button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #b7f75c; outline-offset: 4px; }
-.neo-site { overflow: hidden; background: #0957f6; }
+.neo-site { overflow-x: clip; overflow-y: visible; background: #0957f6; }
 .neo-header { position: sticky; top: 0; z-index: 50; padding: 13px 20px 0; background: #0957f6; }
 .neo-nav-wrap { display: flex; align-items: center; gap: 25px; min-height: 55px; max-width: 1220px; margin: auto; padding: 8px 13px 8px 16px; border-radius: 0 0 20px 20px; background: #fff; }
 .neo-mark { display: inline-flex; align-items: center; gap: 8px; min-width: max-content; }

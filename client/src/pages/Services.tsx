@@ -10,7 +10,7 @@ import { assets } from "@/lib/clinic-content";
 export default function Services() {
   return <main className="neo-main pp-services-page">
     <PageMeta title="Services — Paws+Pine Veterinary Clinic" description="Explore six thoughtfully organized veterinary care pathways at Paws and Pine." />
-    <section className="pp-page-hero pp-services-hero pp-reveal">
+    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
       <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><h1>Care paths<br /><em>with intent.</em></h1><p>Every path begins with a conversation, then makes space for the questions that matter to you and your pet.</p><Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link></div>
       <div className="pp-services-hero-image"><img src={assets.serviceExam} alt="Veterinarian examining a dog at Paws and Pine" /></div>
     </section>
