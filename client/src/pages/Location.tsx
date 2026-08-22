@@ -10,7 +10,7 @@ const suppliedDirectionsEmbed = "https://www.google.com/maps/embed?pb=!1m28!1m12
 const directionsUrl = "https://www.google.com/maps/dir/?api=1&origin=Center+Stall+No.+4027,+2nd+Street,+Calamba,+Laguna&destination=Calamba+Trade+Center,+JP+Rizal+Street,+Calamba,+Laguna&travelmode=driving";
 
 function ClinicMap() {
-  return <div className="pp-location-map-card pp-supplied-map"><div className="pp-map-heading"><span>Driving route</span><strong>Clinic ↔ Trade Center</strong></div><iframe className="pp-location-map pp-location-embed" title="Google Maps driving directions between Hayop Kalinga Veterinary Clinic and Calamba Trade Center" src={suppliedDirectionsEmbed} loading="lazy" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /><div className="pp-map-action-row"><a className="pp-map-open" href={directionsUrl} target="_blank" rel="noreferrer">Open driving directions <ArrowUpRight size={14} /></a></div></div>;
+  return <div className="pp-location-map-card pp-supplied-map"><div className="pp-map-frame"><div className="pp-map-heading"><span>Driving route</span><strong>Clinic ↔ Trade Center</strong></div><iframe className="pp-location-map pp-location-embed" title="Google Maps driving directions between Hayop Kalinga Veterinary Clinic and Calamba Trade Center" src={suppliedDirectionsEmbed} loading="lazy" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /><a className="pp-map-open" href={directionsUrl} target="_blank" rel="noreferrer">Open driving directions <ArrowUpRight size={14} /></a></div></div>;
 }
 
 export default function Location() {

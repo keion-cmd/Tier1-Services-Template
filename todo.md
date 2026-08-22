@@ -273,3 +273,9 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Move the Open driving directions action into a centered control below the map, away from Google Maps controls and content.
 - [x] Preserve accessible map labelling, external directions access, and responsive desktop/mobile layout.
 - [x] Run visual and browser checks for map visibility and action placement before checkpointing.
+
+## In-Map Directions Action Correction
+
+- [x] Return the Open driving directions action to the inside of the embedded map card, centered along its lower edge.
+- [x] Keep the driving-route label right-aligned and ensure the in-map action avoids Google Maps zoom, attribution, and keyboard controls.
+- [x] Update browser geometry checks and validate desktop/mobile map-card behavior before checkpointing.
