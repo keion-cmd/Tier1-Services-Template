@@ -45,6 +45,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
+  const routePath = location.split("#")[0];
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }));
+    return () => cancelAnimationFrame(frame);
+  }, [routePath]);
+
   useEffect(() => {
     const revealTargets = Array.from(document.querySelectorAll<HTMLElement>(".pp-reveal"));
     if (!revealTargets.length) return;

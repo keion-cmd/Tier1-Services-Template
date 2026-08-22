@@ -393,3 +393,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Add accessible, reduced-motion-safe scroll-based section reveals to the public pages.
 - [x] Improve the mobile interface hierarchy, navigation controls, spacing, and visual feedback across Home, Services, Clinic location, and Request a visit.
 - [x] Validate scrolling, reveal behavior, mobile navigation, touch controls, and readable layout at mobile and desktop breakpoints.
+
+## Route Navigation Scroll Reset
+
+- [x] Reset scroll to the first section whenever visitors navigate between Home, Services, Clinic location, and Request a visit on desktop and mobile.
+- [x] Add regression coverage for route changes from a scrolled position and verify the refreshed route begins at the top.
+- [x] Validate the fix across desktop and mobile navigation before checkpointing.
+

@@ -15,6 +15,18 @@ const browser = await chromium.launch({ executablePath: "/usr/bin/chromium", hea
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 
 await page.goto(`${baseUrl}/location`, { waitUntil: "domcontentloaded" });
+await page.evaluate(() => window.scrollTo(0, 900));
+await page.goto(`${baseUrl}/services`, { waitUntil: "domcontentloaded" });
+await page.waitForTimeout(60);
+record("services route resets to its first section", await page.evaluate(() => window.scrollY < 4), `scrollY=${await page.evaluate(() => window.scrollY)}`);
+await page.evaluate(() => window.scrollTo(0, 900));
+await page.goto(`${baseUrl}/request`, { waitUntil: "domcontentloaded" });
+await page.waitForTimeout(60);
+record("request route resets to its first section", await page.evaluate(() => window.scrollY < 4), `scrollY=${await page.evaluate(() => window.scrollY)}`);
+await page.goto(`${baseUrl}/request#request-privacy`, { waitUntil: "domcontentloaded" });
+await page.waitForTimeout(60);
+record("request privacy hash remains addressable", await page.locator("#request-privacy").count() === 1, "privacy anchor missing");
+await page.goto(`${baseUrl}/location`, { waitUntil: "domcontentloaded" });
 const mapEmbed = page.locator("iframe.pp-location-embed");
 await mapEmbed.waitFor();
 const activeLocationNav = page.locator(".neo-desktop-nav .neo-nav-link.current");
