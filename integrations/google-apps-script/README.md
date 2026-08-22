@@ -1,10 +1,10 @@
-# Paws+Pine Tier 1 appointment intake
+# Hayop Kalinga Tier 1 appointment intake
 
 This bound Google Apps Script accepts **server-mediated** appointment requests and appends them to the `Appointment Requests` tab with a `Pending staff review` status. It never creates a calendar event or represents a request as confirmed.
 
 ## One-time deployment
 
-1. Open [Paws+Pine Tier 1 Appointment Requests](https://docs.google.com/spreadsheets/d/1pKfxKgk2tzNaXRzyFKjFTuiVacrmxlvTR6NMbyoUlIw/edit), then choose **Extensions → Apps Script**.
+1. Open the client-approved appointment request Sheet, then choose **Extensions → Apps Script**.
 2. Replace the default `Code.gs` with the supplied `Code.gs` file and replace the manifest with `appsscript.json`.
 3. In **Project Settings → Script properties**, add `APPOINTMENT_INTAKE_SECRET` with a long random value. Do not put this value in the script source or public website code.
 4. Choose **Deploy → New deployment → Web app**. Set **Execute as** to the deploying account and set access so the website's server can call it. Deploy and authorize the requested spreadsheet permissions.
