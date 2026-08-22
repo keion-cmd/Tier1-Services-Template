@@ -259,3 +259,10 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Add Calamba Trade Center as the approved nearby landmark and present a concise directions action without inventing additional driving guidance.
 - [x] Preserve accessible iframe labelling, external-map access, and responsive map/directions layout.
 - [x] Run type checks, browser checks, embed/landmark verification, and responsive visual validation before checkpointing.
+
+## Scope Correction: Paws+Pine Brand with Accurate Location Only
+
+- [x] Roll back the site-wide Hayop Kalinga rebrand to the pre-rebrand Paws+Pine checkpoint.
+- [x] Keep Hayop Kalinga Veterinary Clinic, Center Stall No. 4027, 2nd Street, Calamba, Laguna only in the Location Page address, map, driving directions, and landmark context.
+- [x] Confirm that homepage, Services, request flow, shared header/footer, metadata, and Google Sheet source remain Paws+Pine branded.
+- [x] Validate the restored brand and accurate Location Page details before checkpointing.
