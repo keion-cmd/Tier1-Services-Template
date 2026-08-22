@@ -2,6 +2,7 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     { "source": "/api/trpc/:path*", "destination": "/api/trpc?path=:path*" },
+    { "source": "/manus-storage/:path*", "destination": "/api/manus-storage?path=:path*" },
     { "source": "/services", "destination": "/index.html" },
     { "source": "/location", "destination": "/index.html" },
     { "source": "/request", "destination": "/index.html" }
