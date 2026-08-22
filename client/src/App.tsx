@@ -1,42 +1,20 @@
+/**
+ * Companion Field Notes design reminder: only three fixed public routes keep the Tier 1 journey focused.
+ */
+import { Route, Switch } from "wouter";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { SiteShell } from "./components/SiteShell";
 import Home from "./pages/Home";
+import Services from "./pages/Services";
+import RequestVisit from "./pages/RequestVisit";
 
-
-function Router() {
-  return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
+function Routes() {
+  return <Switch><Route path="/" component={Home} /><Route path="/services" component={Services} /><Route path="/request" component={RequestVisit} /><Route component={Home} /></Switch>;
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
-function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
+export default function App() {
+  return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><SiteShell><Routes /></SiteShell></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }
-
-export default App;
