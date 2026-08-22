@@ -5,6 +5,7 @@ import apiHandler from "../api/[...path]";
 import trpcHandler from "../api/trpc/[...path]";
 import explicitTrpcHandler from "../api/trpc";
 import storageHandler from "../api/manus-storage";
+import nestedStorageHandler from "../api/manus-storage/[...path]";
 import { assets } from "../client/src/lib/clinic-content";
 
 const projectRoot = resolve(import.meta.dirname, "..");
@@ -19,7 +20,7 @@ describe("Vercel compatibility", () => {
     expect(config.outputDirectory).toBe("dist/public");
     expect(config.routes).toEqual([
       { src: "^/api/trpc/(.*)$", dest: "/api/trpc?path=$1" },
-      { src: "^/manus-storage/(.*)$", dest: "/api/manus-storage?path=$1" },
+      { src: "^/manus-storage/(.*)$", dest: "/api/manus-storage/$1" },
       { handle: "filesystem" },
       { src: "^/services$", dest: "/index.html" },
       { src: "^/location$", dest: "/index.html" },
@@ -39,5 +40,6 @@ describe("Vercel compatibility", () => {
     expect(typeof trpcHandler).toBe("function");
     expect(typeof explicitTrpcHandler).toBe("function");
     expect(typeof storageHandler).toBe("function");
+    expect(typeof nestedStorageHandler).toBe("function");
   });
 });

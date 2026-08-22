@@ -2,7 +2,7 @@
   "outputDirectory": "dist/public",
   "routes": [
     { "src": "^/api/trpc/(.*)$", "dest": "/api/trpc?path=$1" },
-    { "src": "^/manus-storage/(.*)$", "dest": "/api/manus-storage?path=$1" },
+    { "src": "^/manus-storage/(.*)$", "dest": "/api/manus-storage/$1" },
     { "handle": "filesystem" },
     { "src": "^/services$", "dest": "/index.html" },
     { "src": "^/location$", "dest": "/index.html" },
