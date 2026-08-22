@@ -406,3 +406,17 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 - [x] Sync the verified project to the private `keion-cmd/Tier1-Vet-Demo` GitHub repository.
 - [x] Provide the exact Vercel import and deployment handoff for a project named `Tier1-Vet-Demo`; direct deployment is not performed from this workflow.
 
+
+## Vercel Environment Configuration
+
+- [x] Inventory environment variables actually referenced by the current full-stack project and classify them as server-only or browser-exposed.
+- [x] Document the correct Vercel scopes, sources, and deployment compatibility requirements without exposing secret values.
+- [x] Guide post-configuration verification for build, OAuth, tRPC, appointment intake, and browser functionality.
+
+
+## CLI Vercel Environment Setup
+
+- [x] Check Vercel CLI authentication, team, and `Tier1-Vet-Demo` project linkage without exposing credentials.
+- [x] Compare required environment-variable names with securely available values.
+- [x] Add only verified variables through CLI and document any missing values or full-stack deployment blockers.
+
