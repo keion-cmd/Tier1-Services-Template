@@ -17,6 +17,10 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 await page.goto(`${baseUrl}/location`, { waitUntil: "domcontentloaded" });
 const mapEmbed = page.locator("iframe.pp-location-embed");
 await mapEmbed.waitFor();
+const activeLocationNav = page.locator(".neo-desktop-nav .neo-nav-link.current");
+record("desktop navigation exposes the complimentary Location Page", await page.getByRole("navigation", { name: "Primary navigation" }).getByText("Clinic location").count() === 1, "location navigation link missing");
+record("Location Page has an accurate active navigation state", (await activeLocationNav.textContent())?.includes("Clinic location") ?? false, `active=${await activeLocationNav.textContent()}`);
+record("location navigation labels the included benefit", await activeLocationNav.getByText("Free").count() === 1, "free benefit label missing");
 record("location route renders Google Maps embed", (await mapEmbed.getAttribute("src"))?.includes("google.com/maps") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
 record("location route uses the approved Calamba address", (await mapEmbed.getAttribute("src"))?.includes("Center%20Stall%20No.%204027%2C%202nd%20Street%2C%20Calamba%2C%20Laguna") ?? false, `src=${await mapEmbed.getAttribute("src")}`);
 record("location route keeps demo disclosure", (await page.locator(".pp-location-note").textContent())?.includes("fictional demonstration clinic") ?? false, "disclosure missing");
@@ -25,6 +29,13 @@ record("location route presents business hours", await page.getByRole("heading",
 const footer = page.locator(".neo-footer-socials");
 record("footer renders Facebook placeholder icon", await footer.getByLabel("Facebook placeholder profile").count() === 1, "Facebook placeholder missing");
 record("footer renders Instagram placeholder icon", await footer.getByLabel("Instagram placeholder profile").count() === 1, "Instagram placeholder missing");
+
+await page.setViewportSize({ width: 390, height: 844 });
+await page.getByRole("button", { name: "Open menu" }).click();
+record("mobile menu exposes the complimentary Location Page", await page.getByRole("navigation", { name: "Mobile navigation" }).getByText("Clinic location").count() === 1, "mobile location navigation missing");
+record("mobile menu labels the complimentary Location Page", await page.getByText("Complimentary page").count() === 1, "mobile benefit label missing");
+await page.getByRole("button", { name: "Close menu" }).click();
+await page.setViewportSize({ width: 1280, height: 900 });
 
 await page.goto(`${baseUrl}/request`, { waitUntil: "domcontentloaded" });
 const email = page.locator('input[name="email"]');
