@@ -37,4 +37,28 @@ At the 1280px desktop breakpoint, the shared header, footer, palette, rounded st
 ## Cross-Page Verification Results
 
 Mobile review at 390px confirms that Services uses a one-column image-visible gallery and that Request stacks its process rail before the form without a tall lime panel. The expanded Playwright suite passed every Home and Services card hover, image-reveal, text-containment, number-containment, collapse, keyboard-focus, responsive overflow, and mobile-default image check. The viewport sweep passed at 1440×1000, 1280×800, 1024×768, 768×1024, 430×932, 390×844, and 360×800 across Home, Services, and Request. TypeScript and the production build pass.
+
+## Hero and Navigation Refinement
+
+- [ ] Recompose the homepage hero as one off-white and blue visual canvas with pets bridging the background title and blue field.
+- [ ] Increase pet prominence while removing the visible magenta fringing and retaining clean, natural cutout edges.
+- [ ] Rebalance the lower-left message, lime CTA, and right-side pathway annotation without adding visual clutter.
+- [ ] Upgrade the shared navbar’s scale, spacing, active indicator, mobile behavior, and subtle sticky scroll treatment.
+- [ ] Validate the refined hero and header at desktop and mobile widths, then save and deliver a checkpoint without publishing.
+
+## Hero Audit Findings
+
+The original hero separated the off-white title plane, blue stage, and pet treatment too visibly. The revised structure now uses one hero canvas with a lower blue field, title architecture behind the pet layer, larger central pet placement, outward support content, a rising About transition, and enlarged shared navigation. The first cleanup variation exposed a baked checkerboard and was not retained; the project now references a purpose-built true-alpha replacement while its generation finishes. Final visual acceptance must occur only after the generated asset has replaced its temporary placeholder.
+
+## Hero Asset QA Update
+
+The generated alpha candidate replaced its placeholder but retained an opaque gray field, so it fails the required clean-cutout criterion and will not remain in the composition. Desktop and mobile geometry otherwise confirm that the integrated title, blue ground, pets, support message, and pathway annotation follow the intended hierarchy. The project will return to the known transparent source cutout while avoiding added glows or shadows; the remaining pass is its final visual confirmation.
+
+## Final Hero and Header Visual Verification
+
+The fresh storage upload restored the approved transparent pet cutout without missing-image or opaque-field artifacts. A restrained grayscale treatment suppresses the residual colored fringe without adding a glow, shadow, or background. At 1440px, the title remains legible behind the pets, the pets bridge the off-white/blue split, and the support copy plus the 06 annotation remain clear. At 390px, the mobile header, title, animal pair, support copy, CTA, and pathway annotation are stacked intentionally with no horizontal overflow. Automated checks also pass for the sticky header, accessible menu opening, Escape-to-close focus return, and reduced-motion behavior.
+
+## Final Technical Validation
+
+The final TypeScript check, Vite production build, and focused hero/navigation Playwright suite all pass. The automated suite covers the desktop floating-navbar dimensions, title-to-pet overlap, sticky scroll state, backdrop blur, responsive overflow at six requested breakpoints, mobile menu visibility, expanded state, focus transfer, Escape close, focus return, and reduced-motion handling.
 ***

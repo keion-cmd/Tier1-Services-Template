@@ -24,7 +24,7 @@ export const faqs = [
 ] as const;
 
 export const assets = {
-  heroPets: "/manus-storage/paws-pine-blue-hero-pets_06cdd9d9.png",
+  heroPets: "/manus-storage/paws-pine-blue-hero-pets_3d556a25.png",
   aboutPup: "/manus-storage/paws-pine-blue-about-pup_b0373fc3.png",
   serviceExam: "/manus-storage/paws-pine-blue-service-exam_9e31f9d3.jpg",
   dogCare: "/manus-storage/paws-pine-dog-care_a22a2df2.jpg",

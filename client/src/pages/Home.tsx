@@ -1,5 +1,5 @@
 /**
- * Fidelity-pass design reminder: integrated title-to-pet hero, image-led About, and bottom-aligned interactive service cards.
+ * Hero-refinement reminder: title architecture, the pet cutout, blue field, and support content read as one editorial canvas.
  */
 import { Link } from "wouter";
 import { ArrowUpRight, PawPrint } from "lucide-react";
@@ -12,9 +12,11 @@ export default function Home() {
   return <main className="neo-main fidelity-home">
     <PageMeta title="Paws+Pine Veterinary Clinic" description="Thoughtful veterinary care conversations, clear service pathways, and a simple visit request process." />
     <section className="fidelity-hero">
-      <div className="fidelity-title-plane"><span className="fidelity-kicker"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><h1>Paws+Pine <span>Clinic</span></h1></div>
-      <div className="fidelity-blue-stage"><div className="hero-value"><p>Care that feels easier<br />to understand.</p><Link href="/services" className="lime-link">Explore services <ArrowUpRight size={15} /></Link></div><div className="hero-proof"><strong>06</strong><span>care pathways<br />to explore</span></div></div>
-      <img className="fidelity-pets" src={assets.heroPets} alt="Paws and Pine clinic dog and cat" />
+      <div className="fidelity-blue-field" aria-hidden="true" />
+      <div className="fidelity-title-stack"><span className="fidelity-kicker"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><div className="fidelity-title-mask"><h1>Paws+Pine <span>Clinic</span></h1></div></div>
+      <img className="fidelity-pets" src={assets.heroPets} width="2560" height="1440" fetchPriority="high" alt="Paws and Pine clinic dog and cat" />
+      <div className="hero-value"><p>Care that feels easier<br />to understand.</p><Link href="/services" className="lime-link">Explore services <ArrowUpRight size={15} /></Link></div>
+      <div className="hero-proof"><strong>06</strong><span>care pathways<br />to explore</span></div>
     </section>
 
     <section className="fidelity-about"><div className="fidelity-about-visual"><img src={assets.aboutPup} alt="A small dog in a lime green sweater" /></div><div className="fidelity-about-copy"><span className="fidelity-kicker">About Paws+Pine</span><h2>Gentle care begins with <em>clear conversations.</em></h2><p>From routine visits to moments that need a closer look, Paws+Pine gives pet parents an easier way to understand their options and choose a next step.</p><div className="fidelity-metrics"><div><strong>06</strong><span>care pathways</span></div><div><strong>01</strong><span>clear starting point</span></div><div><strong>03</strong><span>thoughtful steps</span></div></div></div></section>
