@@ -1,9 +1,12 @@
 {
   "outputDirectory": "dist/public",
-  "rewrites": [
-    { "source": "/api/trpc/:path*", "destination": "/api/trpc?path=:path*" },
-    { "source": "/services", "destination": "/index.html" },
-    { "source": "/location", "destination": "/index.html" },
-    { "source": "/request", "destination": "/index.html" }
+  "routes": [
+    { "src": "^/api/trpc/(.*)$", "dest": "/api/trpc?path=$1" },
+    { "src": "^/manus-storage/(.*)$", "dest": "/api/manus-storage/$1" },
+    { "handle": "filesystem" },
+    { "src": "^/services$", "dest": "/index.html" },
+    { "src": "^/location$", "dest": "/index.html" },
+    { "src": "^/request$", "dest": "/index.html" },
+    { "src": "^(?!/api|/manus-storage).*$", "dest": "/index.html" }
   ]
 }

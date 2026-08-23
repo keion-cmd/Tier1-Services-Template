@@ -457,8 +457,8 @@ The project has been pushed to `keion-cmd/Tier1-Vet-Demo` on `main`. Remote veri
 
 ## Production tRPC API Fix
 
-- [ ] Compare the production alias with the corrected preview deployment and identify why `/api/trpc` is unavailable.
-- [ ] Correct the Vercel serverless API routing and add regression coverage.
-- [ ] Validate the production-compatible API locally, sync the fix, and verify a new preview.
-- [ ] Document the production promotion requirement after the API fix is ready.
+- [x] Compare the production alias with the corrected preview deployment and identify why `/api/trpc` is unavailable.
+- [x] Correct the Vercel serverless API routing and add regression coverage.
+- [x] Validate the production-compatible API locally, sync the fix, and verify a new READY preview; live preview API inspection is blocked by Vercel Deployment Protection.
+- [x] Document the production promotion requirement after the API fix is ready.
 

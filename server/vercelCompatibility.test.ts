@@ -4,6 +4,9 @@ import { resolve } from "node:path";
 import apiHandler from "../api/[...path]";
 import trpcHandler from "../api/trpc/[...path]";
 import explicitTrpcHandler from "../api/trpc";
+import storageHandler from "../api/manus-storage";
+import nestedStorageHandler from "../api/manus-storage/[...path]";
+import { assets } from "../client/src/lib/clinic-content";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 
@@ -11,16 +14,24 @@ describe("Vercel compatibility", () => {
   it("rewrites each client route to the SPA entrypoint", () => {
     const config = JSON.parse(readFileSync(resolve(projectRoot, "vercel.json"), "utf8")) as {
       outputDirectory: string;
-      rewrites: Array<{ source: string; destination: string }>;
+      routes: Array<{ src?: string; dest?: string; handle?: string }>;
     };
 
     expect(config.outputDirectory).toBe("dist/public");
-    expect(config.rewrites).toEqual([
-      { source: "/api/trpc/:path*", destination: "/api/trpc?path=:path*" },
-      { source: "/services", destination: "/index.html" },
-      { source: "/location", destination: "/index.html" },
-      { source: "/request", destination: "/index.html" },
+    expect(config.routes).toEqual([
+      { src: "^/api/trpc/(.*)$", dest: "/api/trpc?path=$1" },
+      { src: "^/manus-storage/(.*)$", dest: "/api/manus-storage/$1" },
+      { handle: "filesystem" },
+      { src: "^/services$", dest: "/index.html" },
+      { src: "^/location$", dest: "/index.html" },
+      { src: "^/request$", dest: "/index.html" },
+      { src: "^(?!/api|/manus-storage).*$", dest: "/index.html" },
     ]);
+  });
+
+  it("uses uploaded hashed asset keys for all image references", () => {
+    expect(Object.values(assets)).toHaveLength(9);
+    expect(Object.values(assets).every((src) => src.startsWith("https://files.manuscdn.com/") && src.split("/").pop()?.includes("."))).toBe(true);
   });
 
   it("exports Express-compatible API handlers for catch-all and tRPC paths", () => {
@@ -28,5 +39,7 @@ describe("Vercel compatibility", () => {
     expect(apiHandler).toHaveProperty("use");
     expect(typeof trpcHandler).toBe("function");
     expect(typeof explicitTrpcHandler).toBe("function");
+    expect(typeof storageHandler).toBe("function");
+    expect(typeof nestedStorageHandler).toBe("function");
   });
 });
