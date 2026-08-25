@@ -1,36 +1,93 @@
-/**
- * Cross-page consistency pass: reuses the pp-page-hero/pp-directions-grid/pp-page-outro system from About/Services.
- */
 import { Link } from "wouter";
 import { ArrowUpRight, PawPrint } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
-import { assets, doctors } from "@/lib/clinic-content";
+import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
+import { assets, clinic, doctors } from "@/lib/clinic-content";
 
 export default function Team() {
-  return <main className="neo-main pp-services-page">
-    <PageMeta title="Meet the Vets — Paws+Pine Veterinary Clinic" description="Meet the veterinary team at Paws+Pine, including primary care, surgery & diagnostics, and preventive & senior pet care." path="/team" />
+  return (
+    <main>
+      <PageMeta
+        title={`Meet the Vets — ${clinic.name} ${clinic.descriptor}`}
+        description={`Meet the veterinary team at ${clinic.name}, including primary care, surgery & diagnostics, and preventive & senior pet care.`}
+        path="/team"
+      />
 
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Our clinical team</span><h1>Meet the<br /><em>veterinary team.</em></h1><p>Every visit is guided by a clinical team that takes the time to explain, listen, and plan the next step with you.</p><BookingButton label="Schedule an Appointment" className="lime-link" /></div>
-      <div className="pp-services-hero-image"><img src={assets.aboutPup} alt="A veterinarian at Paws and Pine" /></div>
-    </section>
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow="Our clinical team"
+        title={
+          <>
+            Meet the <span className="text-primary">veterinary team.</span>
+          </>
+        }
+        description="Every visit is guided by a clinical team that takes the time to explain, listen, and plan the next step with you."
+        cta={<BookingButton label="Schedule an Appointment" />}
+        image={{ src: assets.aboutPup, alt: `A veterinarian at ${clinic.name}` }}
+      />
 
-    <section className="pp-services-intro pp-reveal"><div className="pp-services-intro-count"><strong>03</strong><span>veterinarians</span></div><p>Three demo profiles representing the kind of clinical range a real Paws+Pine team could offer &mdash; primary care, surgery & diagnostics, and preventive & senior pet care.</p><Link href="/about" className="pp-text-action">See our care values <ArrowUpRight size={17} /></Link></section>
-
-    <section className="pp-directions-section pp-reveal" aria-labelledby="team-grid-title">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> Demo profiles</span><h2 id="team-grid-title">Care from a team<br /><em>you can trust.</em></h2></div>
-      <div className="pp-directions-grid">
-        {doctors.map((doctor) => <article key={doctor.slug}>
-          <img src={assets[doctor.imageKey]} alt="" aria-hidden="true" className="w-full h-40 object-cover rounded-xl mb-3" />
-          <span>{doctor.specialty}{doctor.placeholder && " (demo profile)"}</span>
-          <h3>{doctor.name}, {doctor.credentials}</h3>
-          <p>{doctor.bio}</p>
-          <Link href={`/team/${doctor.slug}`} className="pp-text-action">View profile <ArrowUpRight size={17} /></Link>
-        </article>)}
+      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
+        <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
+          <div className="flex items-baseline gap-2">
+            <strong className="text-5xl font-bold text-primary">03</strong>
+            <span className="text-sm font-semibold text-muted-foreground">veterinarians</span>
+          </div>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+            Three demo profiles representing the kind of clinical range a real {clinic.name} team could offer: primary
+            care, surgery & diagnostics, and preventive & senior pet care.
+          </p>
+          <Link href="/about" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+            See our care values <ArrowUpRight size={15} />
+          </Link>
+        </div>
       </div>
-    </section>
 
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Ready to meet<br />the <em>team?</em></h2><BookingButton label="Schedule an Appointment" className="lime-cta" iconSize={17} /></section>
-  </main>;
+      <Section aria-labelledby="team-grid-title">
+        <SectionHeading
+          icon={PawPrint}
+          eyebrow="Demo profiles"
+          title={
+            <span id="team-grid-title">
+              Care from a team <span className="text-primary">you can trust.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {doctors.map((doctor) => (
+            <Card key={doctor.slug} className="gap-3 p-4">
+              <img src={assets[doctor.imageKey]} alt="" aria-hidden="true" className="h-44 w-full rounded-xl object-cover" />
+              <div className="flex flex-col gap-1.5 px-1">
+                <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+                  {doctor.specialty}
+                  {doctor.placeholder && " (demo profile)"}
+                </span>
+                <h3 className="text-lg font-semibold text-foreground">
+                  {doctor.name}, {doctor.credentials}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{doctor.bio}</p>
+                <Link
+                  href={`/team/${doctor.slug}`}
+                  className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                >
+                  View profile <ArrowUpRight size={15} />
+                </Link>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Ready to meet the <span className="text-primary-foreground/80">team?</span>
+          </>
+        }
+        cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
+      />
+    </main>
+  );
 }

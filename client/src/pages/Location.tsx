@@ -1,19 +1,202 @@
 import { AlertTriangle, ArrowUpRight, Clock3, Landmark, MapPin, Navigation, PawPrint, Phone } from "lucide-react";
-import { Link } from "wouter";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
+import { Card } from "@/components/ui/card";
+import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
 import { assets, clinic, emergencyInfo } from "@/lib/clinic-content";
 
-const locationClinicName = "Paws+Pine Veterinary Clinic";
-const locationAddress = "Center Stall No. 4027, 2nd Street";
-const locationCity = "Calamba, Laguna";
-const suppliedDirectionsEmbed = "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3867.7651877487674!2d121.15219677535784!3d14.20852278655503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e9!4m5!1s0x33bd63cf0332a4d1%3A0x64e104a26340b384!2sHayop%20Kalinga%20Veterinary%20Clinic%2C%20Center%20Stall%20No%2C%204027%202nd%20Street%2C%20Calamba%2C%20Laguna!3m2!1d14.2075514!2d121.154726!4m5!1s0x33bd63ce87362e4b%3A0x7ca9e107c335fbab!2sCalamba%20Trade%20Center%2C%206554%2B3JW%2C%20JP%20Rizal%20St%2C%20Calamba%2C%204027%20Laguna!3m2!1d14.207739!2d121.156577!5e0!3m2!1sen!2sph!4v1787400409039!5m2!1sen!2sph";
-const directionsUrl = "https://www.google.com/maps/dir/?api=1&origin=Center+Stall+No.+4027,+2nd+Street,+Calamba,+Laguna&destination=Calamba+Trade+Center,+JP+Rizal+Street,+Calamba,+Laguna&travelmode=driving";
+const suppliedDirectionsEmbed = "[GOOGLE_MAPS_EMBED_URL]";
 
 function ClinicMap() {
-  return <div className="pp-location-map-card pp-supplied-map"><div className="pp-map-frame"><div className="pp-map-heading"><span>Driving route</span><strong>Clinic ↔ Trade Center</strong></div><iframe className="pp-location-map pp-location-embed" title="Google Maps driving directions between Paws+Pine Veterinary Clinic and Calamba Trade Center" src={suppliedDirectionsEmbed} loading="lazy" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /><a className="pp-map-open" href={directionsUrl} target="_blank" rel="noreferrer">Open driving directions <ArrowUpRight size={14} /></a></div></div>;
+  return (
+    <Card className="relative min-h-[400px] gap-0 overflow-hidden p-0 md:min-h-[510px]">
+      <div className="absolute top-4 left-4 z-10 grid gap-0.5 rounded-xl bg-foreground/85 px-3.5 py-2.5 text-background">
+        <span className="text-[10px] font-bold tracking-wide text-primary-foreground/70 uppercase">Driving route</span>
+        <strong className="text-lg font-medium">Clinic ↔ [NEARBY_LANDMARK_NAME]</strong>
+      </div>
+      <iframe
+        className="h-full min-h-[400px] w-full border-0 md:min-h-[510px]"
+        title={`Google Maps driving directions to ${clinic.name}`}
+        src={suppliedDirectionsEmbed}
+        loading="lazy"
+        allowFullScreen
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+      <a
+        className="absolute bottom-6 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-primary-foreground shadow-md hover:bg-primary/90"
+        href={clinic.mapsUrl}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Open driving directions <ArrowUpRight size={14} />
+      </a>
+    </Card>
+  );
 }
 
 export default function Location() {
-  return <main className="neo-main pp-location-page"><PageMeta title={`Location — ${locationClinicName}`} description={`Find ${locationClinicName} at ${locationAddress}, ${locationCity}.`} path="/location" /><section className="pp-location-hero pp-reveal"><div><span className="pp-page-eyebrow"><PawPrint size={15} /> Complimentary location page</span><h1>Find care<br /><em>close by.</em></h1></div><div><p>Included with this Paws+Pine demo: a clear location, map destination, and business-hours view. Book online and our scheduler will confirm your visit instantly.</p><BookingButton label="Book an Appointment" className="pp-location-hero-cta" /></div></section><section className="pp-location-content pp-reveal"><div className="pp-location-card"><div className="pp-location-photo"><img src={assets.clinicHero} alt="Paws and Pine clinic consultation space" /></div><div className="pp-location-copy"><span className="pp-page-eyebrow">{locationClinicName}</span><h2>Start with<br /><em>the right place.</em></h2><div className="pp-location-facts"><div className="pp-location-fact"><MapPin size={20} /><div><span>Address</span><p><a href={directionsUrl} target="_blank" rel="noreferrer">{locationAddress}<br />{locationCity}</a></p></div></div><div className="pp-location-fact"><Phone size={20} /><div><span>Contact</span><p><a href={`tel:${clinic.phoneDigits}`}>{clinic.phone}</a><br /><a href={`mailto:${clinic.email}`}>{clinic.email}</a></p></div></div></div><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></div></div><ClinicMap /></section><section className="pp-directions-section pp-reveal" aria-labelledby="directions-title"><div><span className="pp-page-eyebrow"><Navigation size={15} /> Driving directions</span><h2 id="directions-title">Use the route<br /><em>you recognise.</em></h2></div><div className="pp-directions-grid"><article><Landmark size={20} /><span>Nearby landmark</span><h3>Calamba Trade Center</h3><p>The supplied Google Maps route connects {locationClinicName} with Calamba Trade Center on JP Rizal Street.</p></article><article><MapPin size={20} /><span>Clinic address</span><h3>{locationClinicName}</h3><p><a href={directionsUrl} target="_blank" rel="noreferrer">{locationAddress}, {locationCity}</a>. Use the directions button for the provided driving route.</p></article></div></section><section className="pp-hours-section pp-reveal" aria-labelledby="business-hours-title"><div><span className="pp-page-eyebrow"><Clock3 size={15} /> Business hours</span><h2 id="business-hours-title">Plan your visit<br /><em>with confidence.</em></h2><p>These are Paws+Pine demonstration hours. Confirm client-approved hours before any production launch.</p></div><dl className="pp-hours-grid">{clinic.businessHours.map((entry) => <div key={entry.days}><dt>{entry.days}</dt><dd>{entry.hours}</dd></div>)}</dl></section><section className="pp-directions-section pp-reveal" aria-labelledby="emergency-title"><div><span className="pp-page-eyebrow"><AlertTriangle size={15} /> {emergencyInfo.heading}</span><h2 id="emergency-title">If it's<br /><em>urgent.</em></h2><p>{emergencyInfo.note}</p></div><div className="pp-directions-grid"><article><Phone size={20} /><span>Referral hospital</span><h3>{emergencyInfo.referralHospitalName}</h3><p><a href={`tel:${emergencyInfo.referralHospitalPhoneDigits}`}>{emergencyInfo.referralHospitalPhone}</a><br />{emergencyInfo.referralHospitalAddress}</p></article><article><AlertTriangle size={20} /><span>What to do</span><h3>After-hours emergencies</h3><p>{emergencyInfo.instructions}</p></article></div></section><p className="pp-location-note">Paws+Pine is a fictional demonstration clinic. The supplied Hayop Kalinga location, Calamba directions route, and landmark are shown as approved location reference content; confirm all final client content before launch.</p></main>;
+  return (
+    <main>
+      <PageMeta
+        title={`Location — ${clinic.name} ${clinic.descriptor}`}
+        description={`Find ${clinic.name} at ${clinic.address}, ${clinic.city}.`}
+        path="/location"
+      />
+
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow="Complimentary location page"
+        title={
+          <>
+            Find care <span className="text-primary">close by.</span>
+          </>
+        }
+        description={`Included with this ${clinic.name} template: a clear location, map destination, and business-hours view. Book online and our scheduler will confirm your visit instantly.`}
+        cta={<BookingButton label="Book an Appointment" />}
+      />
+
+      <Section aria-label="Clinic details and map">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Card className="gap-0 overflow-hidden p-0">
+            <img src={assets.clinicHero} alt={`${clinic.name} consultation space`} className="h-48 w-full object-cover" />
+            <div className="flex flex-col gap-5 p-6">
+              <span className="text-xs font-semibold tracking-wide text-primary uppercase">{clinic.name}</span>
+              <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground">
+                Start with <span className="text-primary">the right place.</span>
+              </h2>
+              <div className="flex flex-col gap-4">
+                <div className="flex items-start gap-3">
+                  <MapPin size={20} className="mt-0.5 shrink-0 text-primary" />
+                  <div>
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Address</span>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      <a href={clinic.mapsUrl} target="_blank" rel="noreferrer" className="hover:text-primary">
+                        {clinic.address}
+                        <br />
+                        {clinic.city}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Phone size={20} className="mt-0.5 shrink-0 text-primary" />
+                  <div>
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Contact</span>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      <a href={`tel:${clinic.phoneDigits}`} className="hover:text-primary">
+                        {clinic.phone}
+                      </a>
+                      <br />
+                      <a href={`mailto:${clinic.email}`} className="hover:text-primary">
+                        {clinic.email}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <BookingButton label="Book an Appointment" className="w-fit" />
+            </div>
+          </Card>
+          <ClinicMap />
+        </div>
+      </Section>
+
+      <Section className="bg-secondary/30" aria-labelledby="directions-title">
+        <SectionHeading
+          icon={Navigation}
+          eyebrow="Driving directions"
+          title={
+            <span id="directions-title">
+              Use the route <span className="text-primary">you recognise.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-2">
+          <FeatureCard
+            icon={Landmark}
+            label="Nearby landmark"
+            title="[NEARBY_LANDMARK_NAME]"
+            description={`The supplied Google Maps route connects ${clinic.name} with a nearby landmark.`}
+          />
+          <FeatureCard
+            icon={MapPin}
+            label="Clinic address"
+            title={clinic.name}
+            description={
+              <>
+                <a href={clinic.mapsUrl} target="_blank" rel="noreferrer" className="text-foreground hover:text-primary">
+                  {clinic.address}, {clinic.city}
+                </a>
+                . Use the directions button for the provided driving route.
+              </>
+            }
+          />
+        </div>
+      </Section>
+
+      <Section aria-labelledby="business-hours-title">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div className="flex flex-col gap-3">
+            <SectionHeading
+              icon={Clock3}
+              eyebrow="Business hours"
+              title={
+                <span id="business-hours-title">
+                  Plan your visit <span className="text-primary">with confidence.</span>
+                </span>
+              }
+              description={`These are ${clinic.name} template hours. Confirm client-approved hours before any production launch.`}
+              className="mb-0"
+            />
+          </div>
+          <dl className="grid content-start divide-y divide-border border-t border-border">
+            {clinic.businessHours.map((entry) => (
+              <div key={entry.days} className="flex items-center justify-between gap-4 py-4">
+                <dt className="text-sm font-semibold text-foreground">{entry.days}</dt>
+                <dd className="text-sm font-semibold text-primary">{entry.hours}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Section>
+
+      <Section className="bg-secondary/30" aria-labelledby="emergency-title">
+        <SectionHeading
+          icon={AlertTriangle}
+          eyebrow={emergencyInfo.heading}
+          title={
+            <span id="emergency-title">
+              If it&rsquo;s <span className="text-primary">urgent.</span>
+            </span>
+          }
+          description={emergencyInfo.note}
+        />
+        <div className="grid gap-5 sm:grid-cols-2">
+          <FeatureCard
+            icon={Phone}
+            label="Referral hospital"
+            title={emergencyInfo.referralHospitalName}
+            description={
+              <>
+                <a href={`tel:${emergencyInfo.referralHospitalPhoneDigits}`} className="text-foreground hover:text-primary">
+                  {emergencyInfo.referralHospitalPhone}
+                </a>
+                <br />
+                {emergencyInfo.referralHospitalAddress}
+              </>
+            }
+          />
+          <FeatureCard icon={AlertTriangle} label="What to do" title="After-hours emergencies" description={emergencyInfo.instructions} />
+        </div>
+      </Section>
+
+      <div className="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          {clinic.name} is a template demonstration clinic. The supplied map location, directions route, and
+          landmark are placeholder reference content; replace with your business's actual location details before
+          launch.
+        </p>
+      </div>
+    </main>
+  );
 }

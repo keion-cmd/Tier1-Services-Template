@@ -1,25 +1,59 @@
-/**
- * Cross-page consistency pass: service content lives in the same blue editorial field and shared gallery as the homepage.
- */
-import { Link } from "wouter";
-import { ArrowUpRight, PawPrint } from "lucide-react";
+import { PawPrint } from "lucide-react";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
-import { assets } from "@/lib/clinic-content";
+import { PageHero, Section, PageOutro } from "@/components/PageBlocks";
+import { assets, clinic } from "@/lib/clinic-content";
 
 export default function Services() {
-  return <main className="neo-main pp-services-page">
-    <PageMeta title="Services — Paws+Pine Veterinary Clinic" description="Explore six thoughtfully organized veterinary care pathways at Paws and Pine." path="/services" />
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><h1>Care paths<br /><em>with intent.</em></h1><p>Every path begins with a conversation, then makes space for the questions that matter to you and your pet.</p><BookingButton label="Book an Appointment" className="lime-link" /></div>
-      <div className="pp-services-hero-image"><img src={assets.serviceExam} alt="Veterinarian examining a dog at Paws and Pine" /></div>
-    </section>
+  return (
+    <main>
+      <PageMeta
+        title={`Services — ${clinic.name} ${clinic.descriptor}`}
+        description={`Explore six thoughtfully organized veterinary care pathways at ${clinic.name}.`}
+        path="/services"
+      />
 
-    <section className="pp-services-intro pp-reveal"><div className="pp-services-intro-count"><strong>06</strong><span>care paths</span></div><p>From the first question to a more detailed conversation, our service overview helps make the next step feel clearer.</p><BookingButton label="Schedule Care for Your Pet" className="pp-text-action" iconSize={17} /></section>
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Care paths <span className="text-primary">with intent.</span>
+          </>
+        }
+        description="Every path begins with a conversation, then makes space for the questions that matter to you and your pet."
+        cta={<BookingButton label="Book an Appointment" />}
+        image={{ src: assets.serviceExam, alt: `Veterinarian examining a dog at ${clinic.name}` }}
+      />
 
-    <section className="pp-services-gallery-section"><InteractiveServiceGallery variant="services" /></section>
+      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
+          <div className="flex items-baseline gap-2">
+            <strong className="text-5xl font-bold text-primary">06</strong>
+            <span className="text-sm font-semibold text-muted-foreground">care paths</span>
+          </div>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+            From the first question to a more detailed conversation, our service overview helps make the next step
+            feel clearer.
+          </p>
+          <BookingButton label="Schedule Care for Your Pet" variant="link" iconSize={15} className="h-auto p-0" />
+        </div>
+      </div>
 
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Care that makes room<br />for <em>every question.</em></h2><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></section>
-  </main>;
+      <Section className="pt-0 md:pt-0">
+        <InteractiveServiceGallery variant="services" />
+      </Section>
+
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Care that makes room for <span className="text-primary-foreground/80">every question.</span>
+          </>
+        }
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
+    </main>
+  );
 }

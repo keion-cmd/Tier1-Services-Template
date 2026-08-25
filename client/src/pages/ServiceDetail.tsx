@@ -1,11 +1,11 @@
-/**
- * Cross-page consistency pass: service detail reuses the same blue editorial field and card system as Services.
- */
-import { Link, useParams } from "wouter";
-import { ArrowLeft, ArrowUpRight, CheckCircle2, PawPrint } from "lucide-react";
+import { useParams } from "wouter";
+import { CheckCircle2, PawPrint } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
-import { assets, buildBreadcrumbSchema, getServiceBySlug } from "@/lib/clinic-content";
+import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
+import { Card, CardContent } from "@/components/ui/card";
+import { PageOutro } from "@/components/PageBlocks";
+import { assets, buildBreadcrumbSchema, clinic, getServiceBySlug } from "@/lib/clinic-content";
 import NotFound from "./NotFound";
 
 export default function ServiceDetail() {
@@ -16,49 +16,83 @@ export default function ServiceDetail() {
 
   const heroImage = assets[service.imageKey];
 
-  return <main className="neo-main pp-services-page">
-    <PageMeta title={`${service.title} — Paws+Pine Veterinary Clinic`} description={service.short} path={`/services/${service.slug}`} image={heroImage} jsonLd={buildBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: service.title, path: `/services/${service.slug}` }])} />
+  return (
+    <main>
+      <PageMeta
+        title={`${service.title} — ${clinic.name} ${clinic.descriptor}`}
+        description={service.short}
+        path={`/services/${service.slug}`}
+        image={heroImage}
+        jsonLd={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: service.title, path: `/services/${service.slug}` },
+        ])}
+      />
 
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy">
-        <Link href="/services" className="pp-text-action"><ArrowLeft size={15} /> All Services</Link>
-        <span className="pp-page-eyebrow"><PawPrint size={15} /> {service.number} · Care path · {service.duration}</span>
-        <h1>{service.title}</h1>
-        <p>{service.detail}</p>
-        <BookingButton label="Book an Appointment" className="lime-link" />
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow={`${service.number} · Care path · ${service.duration}`}
+        title={service.title}
+        description={service.detail}
+        cta={<BookingButton label="Book an Appointment" />}
+        backLink={{ href: "/services", label: "All Services" }}
+        image={{ src: heroImage, alt: `${service.title} at ${clinic.name}` }}
+      />
+
+      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
+        <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
+          <div className="flex items-baseline gap-2">
+            <strong className="text-5xl font-bold text-primary">{service.number}</strong>
+            <span className="text-sm font-semibold text-muted-foreground">care path</span>
+          </div>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{service.short}</p>
+          <BookingButton label="Schedule Care for Your Pet" variant="link" iconSize={15} className="h-auto p-0" />
+        </div>
       </div>
-      <div className="pp-services-hero-image"><img src={heroImage} alt={`${service.title} at Paws and Pine`} /></div>
-    </section>
 
-    <section className="pp-services-intro pp-reveal">
-      <div className="pp-services-intro-count"><strong>{service.number}</strong><span>care path</span></div>
-      <p>{service.short}</p>
-      <BookingButton label="Schedule Care for Your Pet" className="pp-text-action" iconSize={17} />
-    </section>
+      <Section aria-labelledby="service-benefits-title">
+        <SectionHeading icon={PawPrint} eyebrow="Key benefits" title={<span id="service-benefits-title" className="sr-only">Key benefits</span>} className="mb-6" />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {service.benefits.map((benefit) => (
+            <Card key={benefit}>
+              <CardContent className="flex items-start gap-3">
+                <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-primary" />
+                <p className="text-sm leading-relaxed text-foreground">{benefit}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </Section>
 
-    <section className="pp-services-gallery-section pp-reveal" aria-labelledby="service-benefits-title">
-      <h2 id="service-benefits-title" className="pp-page-eyebrow"><PawPrint size={15} /> Key benefits</h2>
-      <div className="grid gap-4 sm:grid-cols-2 mt-4">
-        {service.benefits.map((benefit) => <div key={benefit} className="pp-location-card pp-location-copy flex items-start gap-3 p-5 rounded-2xl">
-          <CheckCircle2 size={20} className="shrink-0 text-[var(--pp-blue,#0957f6)]" />
-          <p className="m-0">{benefit}</p>
-        </div>)}
-      </div>
-    </section>
+      <Section className="bg-secondary/30" aria-labelledby="service-process-title">
+        <SectionHeading
+          icon={PawPrint}
+          eyebrow="What to expect"
+          title={
+            <span id="service-process-title">
+              A clear path <span className="text-primary">from start to finish.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {service.process.map((step, index) => (
+            <FeatureCard key={step} label={`Step ${index + 1}`} title={step} description={stepDescription(step)} />
+          ))}
+        </div>
+      </Section>
 
-    <section className="pp-directions-section pp-reveal" aria-labelledby="service-process-title">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> What to expect</span><h2 id="service-process-title">A clear path<br /><em>from start to finish.</em></h2></div>
-      <div className="pp-directions-grid">
-        {service.process.map((step, index) => <article key={step}><span>Step {index + 1}</span><h3>{step}</h3><p>{stepDescription(step)}</p></article>)}
-      </div>
-    </section>
-
-    <section className="pp-page-outro pp-reveal">
-      <span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span>
-      <h2>Ready to talk through<br /><em>{service.title.toLowerCase()}?</em></h2>
-      <BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} />
-    </section>
-  </main>;
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Ready to talk through <span className="text-primary-foreground/80">{service.title.toLowerCase()}?</span>
+          </>
+        }
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
+    </main>
+  );
 }
 
 function stepDescription(step: string) {

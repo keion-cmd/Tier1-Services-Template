@@ -1,4 +1,6 @@
-export const approvedGoogleReviewUrl = "https://maps.app.goo.gl/NJJubY67EdFb4NEs9";
+import { clinic } from "@/lib/clinic-content";
+
+export const approvedGoogleReviewUrl = clinic.googleReviewUrl;
 
 export function isApprovedGoogleReviewUrl(url: string) {
   const parsed = new URL(url);

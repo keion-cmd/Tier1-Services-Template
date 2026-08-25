@@ -1,37 +1,84 @@
-/**
- * Cross-page consistency pass: reuses the pp-page-hero/pp-health-resource card system from Home's health resources section.
- */
 import { Link } from "wouter";
-import { ArrowUpRight, Info, PawPrint } from "lucide-react";
+import { Info, PawPrint } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
-import { articles, assets } from "@/lib/clinic-content";
+import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
+import { articles, assets, clinic } from "@/lib/clinic-content";
 
 export default function Resources() {
-  return <main className="neo-main pp-services-page">
-    <PageMeta title="Pet Health Resources — Paws+Pine Veterinary Clinic" description="General educational articles on dog and cat health, preventive care, wellness exams, and dental care from Paws+Pine Veterinary Clinic." path="/resources" />
+  return (
+    <main>
+      <PageMeta
+        title={`Pet Health Resources — ${clinic.name} ${clinic.descriptor}`}
+        description={`General educational articles on dog and cat health, preventive care, wellness exams, and dental care from ${clinic.name} ${clinic.descriptor}.`}
+        path="/resources"
+      />
 
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Pet health resources</span><h1>Helpful reading<br /><em>before your visit.</em></h1><p>General, educational articles to help you feel more prepared for a conversation with your veterinary team.</p><BookingButton label="Book an Appointment" className="lime-link" /></div>
-      <div className="pp-services-hero-image"><img src={assets.dogCare} alt="A dog at Paws and Pine" /></div>
-    </section>
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow="Pet health resources"
+        title={
+          <>
+            Helpful reading <span className="text-primary">before your visit.</span>
+          </>
+        }
+        description="General, educational articles to help you feel more prepared for a conversation with your veterinary team."
+        cta={<BookingButton label="Book an Appointment" />}
+        image={{ src: assets.dogCare, alt: `A dog at ${clinic.name}` }}
+      />
 
-    <section className="pp-services-intro pp-reveal"><div className="pp-services-intro-count"><strong>{String(articles.length).padStart(2, "0")}</strong><span>articles</span></div><p className="flex items-start gap-2"><Info size={18} className="shrink-0 mt-1" /> This content is for general educational purposes and does not replace professional veterinary advice.</p><BookingButton label="Talk to our team" className="pp-text-action" iconSize={17} /></section>
-
-    <section className="pp-directions-section pp-reveal" aria-labelledby="resources-grid-title">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> Latest articles</span><h2 id="resources-grid-title">Read at your<br /><em>own pace.</em></h2></div>
-      <div className="pp-health-resource-grid">
-        {articles.map((article) => <Link key={article.slug} href={`/resources/${article.slug}`} className="pp-health-resource-card">
-          <img src={assets[article.imageKey]} alt="" aria-hidden="true" />
-          <div className="pp-health-resource-copy">
-            <span>{article.category} · {article.date} · {article.readingTime}</span>
-            <h3>{article.title}</h3>
-            <p>{article.excerpt}</p>
+      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
+        <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
+          <div className="flex items-baseline gap-2">
+            <strong className="text-5xl font-bold text-primary">{String(articles.length).padStart(2, "0")}</strong>
+            <span className="text-sm font-semibold text-muted-foreground">articles</span>
           </div>
-        </Link>)}
+          <p className="flex max-w-md items-start gap-2 text-sm leading-relaxed text-muted-foreground">
+            <Info size={17} className="mt-0.5 shrink-0" /> This content is for general educational purposes and does
+            not replace professional veterinary advice.
+          </p>
+          <BookingButton label="Talk to our team" variant="link" iconSize={15} className="h-auto p-0" />
+        </div>
       </div>
-    </section>
 
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Still have<br /><em>questions?</em></h2><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></section>
-  </main>;
+      <Section aria-labelledby="resources-grid-title">
+        <SectionHeading
+          icon={PawPrint}
+          eyebrow="Latest articles"
+          title={
+            <span id="resources-grid-title">
+              Read at your <span className="text-primary">own pace.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {articles.map((article) => (
+            <Link key={article.slug} href={`/resources/${article.slug}`}>
+              <Card className="h-full gap-0 overflow-hidden p-0 transition-shadow hover:shadow-md">
+                <img src={assets[article.imageKey]} alt="" aria-hidden="true" className="h-40 w-full object-cover" />
+                <div className="flex flex-col gap-1.5 p-5">
+                  <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+                    {article.category} · {article.date} · {article.readingTime}
+                  </span>
+                  <h3 className="text-lg font-semibold text-foreground">{article.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{article.excerpt}</p>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Still have <span className="text-primary-foreground/80">questions?</span>
+          </>
+        }
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
+    </main>
+  );
 }

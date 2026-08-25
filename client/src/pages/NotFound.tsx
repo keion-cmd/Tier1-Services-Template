@@ -1,27 +1,58 @@
 import { Link } from "wouter";
 import { ArrowUpRight, PawPrint } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
+import { Button } from "@/components/ui/button";
+import { PageHero, PageOutro } from "@/components/PageBlocks";
+import { clinic } from "@/lib/clinic-content";
 
 export default function NotFound() {
-  return <main className="neo-main pp-services-page">
-    <PageMeta title="Page not found — Paws+Pine Veterinary Clinic" description="This page could not be found. Return to the Paws+Pine homepage or browse our services." />
+  return (
+    <main>
+      <PageMeta
+        title={`Page not found — ${clinic.name} ${clinic.descriptor}`}
+        description={`This page could not be found. Return to the ${clinic.name} homepage or browse our services.`}
+      />
 
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy">
-        <span className="pp-page-eyebrow"><PawPrint size={15} /> 404 · Page not found</span>
-        <h1>That page<br /><em>wandered off.</em></h1>
-        <p>The page you’re looking for doesn’t exist, may have moved, or was never here. Let’s get you back on track.</p>
-        <Link href="/" className="lime-link">Back to home <ArrowUpRight size={15} /></Link>
-      </div>
-    </section>
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow="404 · Page not found"
+        title={
+          <>
+            That page <span className="text-primary">wandered off.</span>
+          </>
+        }
+        description="The page you're looking for doesn't exist, may have moved, or was never here. Let's get you back on track."
+        cta={
+          <Button asChild size="lg" className="w-fit rounded-full">
+            <Link href="/">
+              Back to home <ArrowUpRight size={16} />
+            </Link>
+          </Button>
+        }
+      />
 
-    <section className="pp-page-outro pp-reveal">
-      <span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span>
-      <h2>Try one of these<br /><em>instead.</em></h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
-        <Link href="/" className="lime-cta">Go to homepage <ArrowUpRight size={17} /></Link>
-        <Link href="/services" className="pp-text-action">Browse our services <ArrowUpRight size={17} /></Link>
-      </div>
-    </section>
-  </main>;
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Try one of these <span className="text-primary-foreground/80">instead.</span>
+          </>
+        }
+        cta={
+          <div className="flex flex-wrap gap-4">
+            <Button asChild size="lg" variant="secondary" className="rounded-full">
+              <Link href="/">
+                Go to homepage <ArrowUpRight size={16} />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="ghost" className="rounded-full text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
+              <Link href="/services">
+                Browse our services <ArrowUpRight size={16} />
+              </Link>
+            </Button>
+          </div>
+        }
+      />
+    </main>
+  );
 }

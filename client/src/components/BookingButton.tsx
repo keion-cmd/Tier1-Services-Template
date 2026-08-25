@@ -4,22 +4,27 @@
  */
 import { forwardRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { type VariantProps } from "class-variance-authority";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { BOOKING_URL } from "@/lib/booking";
 
-interface BookingButtonProps extends Omit<React.ComponentPropsWithoutRef<"a">, "href" | "target" | "rel"> {
+interface BookingButtonProps
+  extends Omit<React.ComponentPropsWithoutRef<"a">, "href" | "target" | "rel">,
+    VariantProps<typeof buttonVariants> {
   label: string;
   icon?: boolean;
   iconSize?: number;
 }
 
 export const BookingButton = forwardRef<HTMLAnchorElement, BookingButtonProps>(
-  ({ label, icon = true, iconSize = 15, className, ...props }, ref) => (
+  ({ label, icon = true, iconSize = 16, variant = "default", size = "lg", className, ...props }, ref) => (
     <a
       ref={ref}
       href={BOOKING_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className={className}
+      className={cn(buttonVariants({ variant, size }), "rounded-full", className)}
       {...props}
     >
       {label}

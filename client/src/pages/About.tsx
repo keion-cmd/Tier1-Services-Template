@@ -1,11 +1,9 @@
-/**
- * Cross-page consistency pass: reuses the pp-page-hero/pp-directions-grid/pp-page-outro system from Services.
- */
-import { Link } from "wouter";
-import { ArrowUpRight, HeartHandshake, PawPrint, ShieldCheck, Stethoscope } from "lucide-react";
+import { HeartHandshake, PawPrint, ShieldCheck, Stethoscope } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
-import { assets, staff } from "@/lib/clinic-content";
+import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
+import { assets, clinic, staff } from "@/lib/clinic-content";
 
 const values = [
   { icon: Stethoscope, title: "Clear conversations", copy: "Every visit starts with a real conversation, not assumptions made online before you've been heard." },
@@ -14,43 +12,109 @@ const values = [
 ];
 
 export default function About() {
-  return <main className="neo-main pp-services-page">
-    <PageMeta title="About — Paws+Pine Veterinary Clinic" description="The story, care philosophy, and clinical standards behind Paws+Pine Veterinary Clinic." path="/about" />
+  return (
+    <main>
+      <PageMeta
+        title={`About — ${clinic.name} ${clinic.descriptor}`}
+        description={`The story, care philosophy, and clinical standards behind ${clinic.name} ${clinic.descriptor}.`}
+        path="/about"
+      />
 
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Our story</span><h1>Care built on<br /><em>trust.</em></h1><p>Paws+Pine started with a simple idea: pet parents deserve clear information and a calm place to ask questions before any decision is made.</p><BookingButton label="Book an Appointment" className="lime-link" /></div>
-      <div className="pp-services-hero-image"><img src={assets.aboutPup} alt="A small dog in a lime green sweater at Paws and Pine" /></div>
-    </section>
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow="Our story"
+        title={
+          <>
+            Care built on <span className="text-primary">trust.</span>
+          </>
+        }
+        description={`${clinic.name} started with a simple idea: pet parents deserve clear information and a calm place to ask questions before any decision is made.`}
+        cta={<BookingButton label="Book an Appointment" />}
+        image={{ src: assets.aboutPup, alt: `A small dog in a lime green sweater at ${clinic.name}` }}
+      />
 
-    <section className="pp-services-intro pp-reveal"><div className="pp-services-intro-count"><strong>01</strong><span>clear philosophy</span></div><p>We believe good care starts with understanding, not urgency. Every conversation is paced to what you and your pet actually need.</p><Link href="/services" className="pp-text-action">See our care paths <ArrowUpRight size={17} /></Link></section>
+      <Section aria-labelledby="about-values-title">
+        <SectionHeading
+          icon={PawPrint}
+          eyebrow="What guides us"
+          title={
+            <span id="about-values-title">
+              Values that shape <span className="text-primary">every visit.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {values.map((value) => (
+            <FeatureCard key={value.title} icon={value.icon} label="Care value" title={value.title} description={value.copy} />
+          ))}
+        </div>
+      </Section>
 
-    <section className="pp-directions-section pp-reveal" aria-labelledby="about-values-title">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> What guides us</span><h2 id="about-values-title">Values that shape<br /><em>every visit.</em></h2></div>
-      <div className="pp-directions-grid">
-        {values.map((value) => <article key={value.title}><value.icon size={20} /><span>Care value</span><h3>{value.title}</h3><p>{value.copy}</p></article>)}
-      </div>
-    </section>
+      <Section className="bg-secondary/30" aria-labelledby="about-team-title">
+        <SectionHeading icon={PawPrint} eyebrow="Our team's approach" title={<span id="about-team-title" className="sr-only">Our team's approach</span>} className="mb-6" />
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Card>
+            <CardContent>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Our clinic team keeps explanations honest and jargon-free, so every pet parent leaves a conversation
+                feeling more prepared, not more confused.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Recommendations are always made directly by the clinic team, in person. This website is a starting
+                point for a conversation, never a substitute for one.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
 
-    <section className="pp-services-gallery-section pp-reveal" aria-labelledby="about-team-title">
-      <h2 id="about-team-title" className="pp-page-eyebrow"><PawPrint size={15} /> Our team's approach</h2>
-      <div className="grid gap-4 sm:grid-cols-2 mt-4">
-        <div className="pp-location-card pp-location-copy flex items-start gap-3 p-5 rounded-2xl"><p className="m-0">Our clinic team keeps explanations honest and jargon-free, so every pet parent leaves a conversation feeling more prepared, not more confused.</p></div>
-        <div className="pp-location-card pp-location-copy flex items-start gap-3 p-5 rounded-2xl"><p className="m-0">Recommendations are always made directly by the clinic team, in person &mdash; this website is a starting point for a conversation, never a substitute for one.</p></div>
-      </div>
-    </section>
+      <Section aria-labelledby="about-staff-title">
+        <SectionHeading
+          icon={PawPrint}
+          eyebrow="Meet the team"
+          title={
+            <span id="about-staff-title">
+              Meet our <span className="text-primary">clinical team.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {staff.map((member) => (
+            <Card key={member.name} className="gap-3 p-4">
+              <img
+                src={assets[member.imageKey]}
+                alt=""
+                aria-hidden="true"
+                className="h-44 w-full rounded-xl object-cover"
+              />
+              <div className="flex flex-col gap-1.5 px-1">
+                <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+                  {member.title}
+                  {member.placeholder && " (demo profile)"}
+                </span>
+                <h3 className="text-lg font-semibold text-foreground">
+                  {member.name}, {member.credentials}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Section>
 
-    <section className="pp-directions-section pp-reveal" aria-labelledby="about-staff-title">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> Meet the team</span><h2 id="about-staff-title">Meet our<br /><em>clinical team.</em></h2></div>
-      <div className="pp-directions-grid">
-        {staff.map((member) => <article key={member.name}>
-          <img src={assets[member.imageKey]} alt="" aria-hidden="true" className="w-full h-40 object-cover rounded-xl mb-3" />
-          <span>{member.title}{member.placeholder && " (demo profile)"}</span>
-          <h3>{member.name}, {member.credentials}</h3>
-          <p>{member.bio}</p>
-        </article>)}
-      </div>
-    </section>
-
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Ready to start<br />the <em>conversation?</em></h2><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></section>
-  </main>;
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Ready to start the <span className="text-primary-foreground/80">conversation?</span>
+          </>
+        }
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
+    </main>
+  );
 }

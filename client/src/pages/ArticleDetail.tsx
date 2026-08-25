@@ -1,11 +1,10 @@
-/**
- * Cross-page consistency pass: article detail reuses the same blue editorial field and card system as ServiceDetail.
- */
 import { Link, useParams } from "wouter";
-import { ArrowLeft, ArrowUpRight, Info, PawPrint } from "lucide-react";
+import { ArrowUpRight, Info, PawPrint } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
-import { articles, assets, buildArticleSchema, buildBreadcrumbSchema, getArticleBySlug } from "@/lib/clinic-content";
+import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
+import { articles, assets, buildArticleSchema, buildBreadcrumbSchema, clinic, getArticleBySlug } from "@/lib/clinic-content";
 import NotFound from "./NotFound";
 
 export default function ArticleDetail() {
@@ -16,45 +15,96 @@ export default function ArticleDetail() {
 
   const related = articles.filter((entry) => entry.slug !== article.slug).slice(0, 3);
 
-  return <main className="neo-main pp-services-page">
-    <PageMeta title={`${article.title} — Paws+Pine Veterinary Clinic`} description={article.excerpt} path={`/resources/${article.slug}`} image={assets[article.imageKey]} jsonLd={[buildArticleSchema(article), buildBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Resources", path: "/resources" }, { name: article.title, path: `/resources/${article.slug}` }])]} />
+  return (
+    <main>
+      <PageMeta
+        title={`${article.title} — ${clinic.name} ${clinic.descriptor}`}
+        description={article.excerpt}
+        path={`/resources/${article.slug}`}
+        image={assets[article.imageKey]}
+        jsonLd={[
+          buildArticleSchema(article),
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Resources", path: "/resources" },
+            { name: article.title, path: `/resources/${article.slug}` },
+          ]),
+        ]}
+      />
 
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy">
-        <Link href="/resources" className="pp-text-action"><ArrowLeft size={15} /> All Resources</Link>
-        <span className="pp-page-eyebrow"><PawPrint size={15} /> {article.category} · {article.date} · {article.readingTime}</span>
-        <h1>{article.title}</h1>
-        <p>{article.excerpt}</p>
-        <BookingButton label="Book an Appointment" className="lime-link" />
-      </div>
-      <div className="pp-services-hero-image"><img src={assets[article.imageKey]} alt="" aria-hidden="true" /></div>
-    </section>
+      <PageHero
+        eyebrowIcon={PawPrint}
+        eyebrow={`${article.category} · ${article.date} · ${article.readingTime}`}
+        title={article.title}
+        description={article.excerpt}
+        cta={<BookingButton label="Book an Appointment" />}
+        backLink={{ href: "/resources", label: "All Resources" }}
+        image={{ src: assets[article.imageKey], alt: "" }}
+      />
 
-    <section className="pp-services-gallery-section pp-reveal" aria-labelledby="article-body-title">
-      <h2 id="article-body-title" className="pp-page-eyebrow"><PawPrint size={15} /> Article</h2>
-      <div className="grid gap-4 mt-4 max-w-[720px]">
-        {article.body.map((paragraph, index) => <p key={index} className="m-0 text-[16px] leading-[1.6]">{paragraph}</p>)}
-      </div>
-      {article.disclaimer && <p className="pp-location-note flex items-start gap-2 mt-6"><Info size={16} className="shrink-0 mt-1" /> This content is for general educational purposes and does not replace professional veterinary advice.</p>}
-    </section>
+      <Section aria-labelledby="article-body-title">
+        <SectionHeading icon={PawPrint} eyebrow="Article" title={<span id="article-body-title" className="sr-only">Article</span>} className="mb-6" />
+        <div className="flex max-w-180 flex-col gap-4">
+          {article.body.map((paragraph, index) => (
+            <p key={index} className="text-base leading-relaxed text-foreground">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+        {article.disclaimer && (
+          <p className="mt-6 flex max-w-180 items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+            <Info size={16} className="mt-0.5 shrink-0" /> This content is for general educational purposes and does
+            not replace professional veterinary advice.
+          </p>
+        )}
+      </Section>
 
-    <section className="pp-directions-section pp-reveal" aria-labelledby="article-related-title">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> Keep reading</span><h2 id="article-related-title">More helpful<br /><em>articles.</em></h2></div>
-      <div className="pp-directions-grid">
-        {related.map((entry) => <article key={entry.slug}>
-          <img src={assets[entry.imageKey]} alt="" aria-hidden="true" className="w-full h-40 object-cover rounded-xl mb-3" />
-          <span>{entry.category} · {entry.readingTime}</span>
-          <h3>{entry.title}</h3>
-          <p>{entry.excerpt}</p>
-          <Link href={`/resources/${entry.slug}`} className="pp-text-action">Read article <ArrowUpRight size={17} /></Link>
-        </article>)}
-      </div>
-    </section>
+      <Section className="bg-secondary/30" aria-labelledby="article-related-title">
+        <SectionHeading
+          icon={PawPrint}
+          eyebrow="Keep reading"
+          title={
+            <span id="article-related-title">
+              More helpful <span className="text-primary">articles.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {related.map((entry) => (
+            <Card key={entry.slug} className="gap-3 p-4">
+              <img
+                src={assets[entry.imageKey]}
+                alt=""
+                aria-hidden="true"
+                className="h-40 w-full rounded-xl object-cover"
+              />
+              <div className="flex flex-col gap-1.5 px-1">
+                <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+                  {entry.category} · {entry.readingTime}
+                </span>
+                <h3 className="text-lg font-semibold text-foreground">{entry.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{entry.excerpt}</p>
+                <Link
+                  href={`/resources/${entry.slug}`}
+                  className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                >
+                  Read article <ArrowUpRight size={15} />
+                </Link>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Section>
 
-    <section className="pp-page-outro pp-reveal">
-      <span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span>
-      <h2>Ready to start<br />the <em>conversation?</em></h2>
-      <BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} />
-    </section>
-  </main>;
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Ready to start the <span className="text-primary-foreground/80">conversation?</span>
+          </>
+        }
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
+    </main>
+  );
 }

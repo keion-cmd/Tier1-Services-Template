@@ -1,12 +1,11 @@
-/**
- * Cross-page consistency pass: reuses ReviewsSection plus the pp-directions-grid/pp-hours-grid system for trust markers.
- */
 import { Link } from "wouter";
 import { ArrowUpRight, PawPrint, ShieldCheck } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
-import { assets } from "@/lib/clinic-content";
+import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/PageBlocks";
+import { assets, clinic } from "@/lib/clinic-content";
 
 const careStats = [
   { value: "06", label: "care pathways offered" },
@@ -15,39 +14,97 @@ const careStats = [
 ];
 
 const patientStories = [
-  { pet: "A senior dog check-in", note: "A calm, structured conversation helped prepare useful notes ahead of the clinic visit &mdash; no guesswork, just clear next steps." },
+  { pet: "A senior dog check-in", note: "A calm, structured conversation helped prepare useful notes ahead of the clinic visit, no guesswork, just clear next steps." },
   { pet: "A puppy's first visit", note: "First-visit questions were answered plainly, and the family left knowing exactly what the next scheduled step would be." },
   { pet: "A prevention planning visit", note: "The visit stayed focused on the clinic's actual approved protocols, with a clear plan instead of an open-ended list of options." },
 ];
 
 export default function Proof() {
-  return <main className="neo-main pp-services-page">
-    <PageMeta title="Proof & Reviews — Paws+Pine Veterinary Clinic" description="Trust markers, care statistics, and verified patient stories from Paws+Pine Veterinary Clinic." path="/proof" />
+  return (
+    <main>
+      <PageMeta
+        title={`Proof & Reviews — ${clinic.name} ${clinic.descriptor}`}
+        description={`Trust markers, care statistics, and verified patient stories from ${clinic.name} ${clinic.descriptor}.`}
+        path="/proof"
+      />
 
-    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><ShieldCheck size={15} /> Trust & proof</span><h1>Care you can<br /><em>verify.</em></h1><p>Real statistics, a direct path to Google reviews, and a few stories from pet parents who've been through the process.</p><BookingButton label="Book an Appointment" className="lime-link" /></div>
-      <div className="pp-services-hero-image"><img src={assets.serviceExam} alt="Veterinarian examining a dog at Paws and Pine" /></div>
-    </section>
+      <PageHero
+        eyebrowIcon={ShieldCheck}
+        eyebrow="Trust & proof"
+        title={
+          <>
+            Care you can <span className="text-primary">verify.</span>
+          </>
+        }
+        description="Real statistics, a direct path to Google reviews, and a few stories from pet parents who've been through the process."
+        cta={<BookingButton label="Book an Appointment" />}
+        image={{ src: assets.serviceExam, alt: `Veterinarian examining a dog at ${clinic.name}` }}
+      />
 
-    <section className="pp-services-intro pp-reveal"><div className="pp-services-intro-count"><strong>06</strong><span>care paths</span></div><p>These numbers describe how the clinic is structured today &mdash; not promises about individual outcomes.</p><Link href="/faq" className="pp-text-action">Read common questions <ArrowUpRight size={17} /></Link></section>
-
-    <section className="pp-directions-section pp-reveal" aria-labelledby="proof-stats-title">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> Care at a glance</span><h2 id="proof-stats-title">Numbers that<br /><em>stay honest.</em></h2></div>
-      <div className="pp-directions-grid">
-        {careStats.map((stat) => <article key={stat.label}><span>At a glance</span><h3>{stat.value}</h3><p>{stat.label}</p></article>)}
+      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
+        <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
+          <div className="flex items-baseline gap-2">
+            <strong className="text-5xl font-bold text-primary">06</strong>
+            <span className="text-sm font-semibold text-muted-foreground">care paths</span>
+          </div>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+            These numbers describe how the clinic is structured today, not promises about individual outcomes.
+          </p>
+          <Link href="/faq" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+            Read common questions <ArrowUpRight size={15} />
+          </Link>
+        </div>
       </div>
-    </section>
 
-    <ReviewsSection />
+      <Section aria-labelledby="proof-stats-title">
+        <SectionHeading
+          icon={PawPrint}
+          eyebrow="Care at a glance"
+          title={
+            <span id="proof-stats-title">
+              Numbers that <span className="text-primary">stay honest.</span>
+            </span>
+          }
+        />
+        <div className="grid gap-5 sm:grid-cols-3">
+          {careStats.map((stat) => (
+            <FeatureCard key={stat.label} label="At a glance" title={stat.value} description={stat.label} />
+          ))}
+        </div>
+      </Section>
 
-    <section className="pp-services-gallery-section pp-reveal" aria-labelledby="proof-stories-title">
-      <h2 id="proof-stories-title" className="pp-page-eyebrow"><PawPrint size={15} /> Verified patient stories</h2>
-      <div className="grid gap-4 sm:grid-cols-3 mt-4">
-        {patientStories.map((story) => <div key={story.pet} className="pp-location-card pp-location-copy flex flex-col items-start gap-2 p-5 rounded-2xl"><span className="pp-page-eyebrow">{story.pet}</span><p className="m-0">{story.note}</p></div>)}
-      </div>
-      <p className="pp-location-note">Paws+Pine is a fictional demonstration clinic; these stories are illustrative placeholders. Replace with client-approved, consented patient stories before launch.</p>
-    </section>
+      <ReviewsSection />
 
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Join pet parents<br />who <em>trust us.</em></h2><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></section>
-  </main>;
+      <Section aria-labelledby="proof-stories-title">
+        <Eyebrow icon={PawPrint}>Verified patient stories</Eyebrow>
+        <h2 id="proof-stories-title" className="sr-only">
+          Verified patient stories
+        </h2>
+        <div className="mt-5 grid gap-5 sm:grid-cols-3">
+          {patientStories.map((story) => (
+            <Card key={story.pet}>
+              <CardContent className="flex flex-col gap-2">
+                <Eyebrow>{story.pet}</Eyebrow>
+                <p className="text-sm leading-relaxed text-muted-foreground">{story.note}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
+          {clinic.name} is a template demonstration clinic; these stories are illustrative placeholders. Replace with
+          client-approved, consented patient stories before launch.
+        </p>
+      </Section>
+
+      <PageOutro
+        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        title={
+          <>
+            Join pet parents who <span className="text-primary-foreground/80">trust us.</span>
+          </>
+        }
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
+    </main>
+  );
 }
