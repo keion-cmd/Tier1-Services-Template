@@ -4,6 +4,7 @@
 import { Link } from "wouter";
 import { ArrowUpRight, HeartHandshake, PawPrint, ShieldCheck, Stethoscope } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
+import { BookingButton } from "@/components/BookingButton";
 import { assets, staff } from "@/lib/clinic-content";
 
 const values = [
@@ -14,10 +15,10 @@ const values = [
 
 export default function About() {
   return <main className="neo-main pp-services-page">
-    <PageMeta title="About — Paws+Pine Veterinary Clinic" description="The story, care philosophy, and clinical standards behind Paws+Pine Veterinary Clinic." />
+    <PageMeta title="About — Paws+Pine Veterinary Clinic" description="The story, care philosophy, and clinical standards behind Paws+Pine Veterinary Clinic." path="/about" />
 
     <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Our story</span><h1>Care built on<br /><em>trust.</em></h1><p>Paws+Pine started with a simple idea: pet parents deserve clear information and a calm place to ask questions before any decision is made.</p><Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link></div>
+      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Our story</span><h1>Care built on<br /><em>trust.</em></h1><p>Paws+Pine started with a simple idea: pet parents deserve clear information and a calm place to ask questions before any decision is made.</p><BookingButton label="Book an Appointment" className="lime-link" /></div>
       <div className="pp-services-hero-image"><img src={assets.aboutPup} alt="A small dog in a lime green sweater at Paws and Pine" /></div>
     </section>
 
@@ -50,6 +51,6 @@ export default function About() {
       </div>
     </section>
 
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Ready to start<br />the <em>conversation?</em></h2><Link href="/request" className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link></section>
+    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Ready to start<br />the <em>conversation?</em></h2><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></section>
   </main>;
 }

@@ -24,7 +24,6 @@ describe("Vercel compatibility", () => {
       { handle: "filesystem" },
       { src: "^/services$", dest: "/index.html" },
       { src: "^/location$", dest: "/index.html" },
-      { src: "^/request$", dest: "/index.html" },
       { src: "^(?!/api|/manus-storage).*$", dest: "/index.html" },
     ]);
   });

@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import { ArrowUpRight, PawPrint, ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
+import { BookingButton } from "@/components/BookingButton";
 import { assets } from "@/lib/clinic-content";
 
 const careStats = [
@@ -21,10 +22,10 @@ const patientStories = [
 
 export default function Proof() {
   return <main className="neo-main pp-services-page">
-    <PageMeta title="Proof & Reviews — Paws+Pine Veterinary Clinic" description="Trust markers, care statistics, and verified patient stories from Paws+Pine Veterinary Clinic." />
+    <PageMeta title="Proof & Reviews — Paws+Pine Veterinary Clinic" description="Trust markers, care statistics, and verified patient stories from Paws+Pine Veterinary Clinic." path="/proof" />
 
     <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><ShieldCheck size={15} /> Trust & proof</span><h1>Care you can<br /><em>verify.</em></h1><p>Real statistics, a direct path to Google reviews, and a few stories from pet parents who've been through the process.</p><Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link></div>
+      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><ShieldCheck size={15} /> Trust & proof</span><h1>Care you can<br /><em>verify.</em></h1><p>Real statistics, a direct path to Google reviews, and a few stories from pet parents who've been through the process.</p><BookingButton label="Book an Appointment" className="lime-link" /></div>
       <div className="pp-services-hero-image"><img src={assets.serviceExam} alt="Veterinarian examining a dog at Paws and Pine" /></div>
     </section>
 
@@ -47,6 +48,6 @@ export default function Proof() {
       <p className="pp-location-note">Paws+Pine is a fictional demonstration clinic; these stories are illustrative placeholders. Replace with client-approved, consented patient stories before launch.</p>
     </section>
 
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Join pet parents<br />who <em>trust us.</em></h2><Link href="/request" className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link></section>
+    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Join pet parents<br />who <em>trust us.</em></h2><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></section>
   </main>;
 }

@@ -4,7 +4,8 @@
 import { Link, useParams } from "wouter";
 import { ArrowLeft, ArrowUpRight, CheckCircle2, PawPrint } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
-import { assets, getServiceBySlug } from "@/lib/clinic-content";
+import { BookingButton } from "@/components/BookingButton";
+import { assets, buildBreadcrumbSchema, getServiceBySlug } from "@/lib/clinic-content";
 import NotFound from "./NotFound";
 
 export default function ServiceDetail() {
@@ -14,10 +15,9 @@ export default function ServiceDetail() {
   if (!service) return <NotFound />;
 
   const heroImage = assets[service.imageKey];
-  const requestHref = `/request?service=${service.slug}`;
 
   return <main className="neo-main pp-services-page">
-    <PageMeta title={`${service.title} — Paws+Pine Veterinary Clinic`} description={service.short} />
+    <PageMeta title={`${service.title} — Paws+Pine Veterinary Clinic`} description={service.short} path={`/services/${service.slug}`} image={heroImage} jsonLd={buildBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: service.title, path: `/services/${service.slug}` }])} />
 
     <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
       <div className="pp-page-hero-copy">
@@ -25,7 +25,7 @@ export default function ServiceDetail() {
         <span className="pp-page-eyebrow"><PawPrint size={15} /> {service.number} · Care path · {service.duration}</span>
         <h1>{service.title}</h1>
         <p>{service.detail}</p>
-        <Link href={requestHref} className="lime-link">Request a visit <ArrowUpRight size={15} /></Link>
+        <BookingButton label="Book an Appointment" className="lime-link" />
       </div>
       <div className="pp-services-hero-image"><img src={heroImage} alt={`${service.title} at Paws and Pine`} /></div>
     </section>
@@ -33,7 +33,7 @@ export default function ServiceDetail() {
     <section className="pp-services-intro pp-reveal">
       <div className="pp-services-intro-count"><strong>{service.number}</strong><span>care path</span></div>
       <p>{service.short}</p>
-      <Link href={requestHref} className="pp-text-action">Start with this care path <ArrowUpRight size={17} /></Link>
+      <BookingButton label="Schedule Care for Your Pet" className="pp-text-action" iconSize={17} />
     </section>
 
     <section className="pp-services-gallery-section pp-reveal" aria-labelledby="service-benefits-title">
@@ -56,7 +56,7 @@ export default function ServiceDetail() {
     <section className="pp-page-outro pp-reveal">
       <span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span>
       <h2>Ready to talk through<br /><em>{service.title.toLowerCase()}?</em></h2>
-      <Link href={requestHref} className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link>
+      <BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} />
     </section>
   </main>;
 }

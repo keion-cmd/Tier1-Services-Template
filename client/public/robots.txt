@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://tier1-vet-demo.vercel.app/sitemap.xml

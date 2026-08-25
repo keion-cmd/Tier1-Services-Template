@@ -3,7 +3,8 @@
  */
 import { useState } from "react";
 import { Link } from "wouter";
-import { Activity, ArrowUpRight, Heart, ShieldCheck, Smile, Sparkles, Stethoscope } from "lucide-react";
+import { Activity, Heart, ShieldCheck, Smile, Sparkles, Stethoscope } from "lucide-react";
+import { BookingButton } from "@/components/BookingButton";
 import { assets, services } from "@/lib/clinic-content";
 
 const icons = { stethoscope: Stethoscope, shield: ShieldCheck, sparkles: Sparkles, heart: Heart, smile: Smile, activity: Activity };
@@ -36,7 +37,7 @@ export function InteractiveServiceGallery({ variant, count = 6 }: InteractiveSer
           <strong className="pp-service-card-index">{service.number}.</strong>
         </>;
         return <article key={service.title} tabIndex={variant === "services" ? -1 : 0} className={`pp-service-card ${active ? "is-active" : ""}`} onMouseEnter={() => setActiveService(index)} onMouseLeave={() => setActiveService(null)} onFocus={() => setActiveService(index)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setActiveService(null); }}>
-          <div className="pp-service-card-top"><span>{service.number} · Care path</span><Link href={`/request?service=${service.slug}`} aria-label={`Start a service request about ${service.title}`}><span className="pp-service-card-request-label">Start a request</span><ArrowUpRight size={17} /></Link></div>
+          <div className="pp-service-card-top"><span>{service.number} · Care path</span><BookingButton label="Book Now" aria-label={`Book an appointment for ${service.title}`} iconSize={17} /></div>
           {variant === "services" ? <Link href={detailHref} aria-label={`View details about ${service.title}`}>{cardBody}</Link> : cardBody}
         </article>;
       })}

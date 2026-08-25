@@ -5,17 +5,18 @@ import { Link } from "wouter";
 import { ArrowUpRight, Mail, PawPrint, Phone } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageMeta } from "@/components/PageMeta";
-import { assets, clinic, faqs } from "@/lib/clinic-content";
+import { BookingButton } from "@/components/BookingButton";
+import { assets, buildFaqSchema, clinic, faqs } from "@/lib/clinic-content";
 
 const categoryOrder = ["Requests & visits", "First visit", "Emergency", "Payment & insurance"] as const;
 const categories = categoryOrder.map((label) => ({ label, items: faqs.filter((faq) => faq.category === label) })).filter((category) => category.items.length);
 
 export default function FAQ() {
   return <main className="neo-main pp-services-page">
-    <PageMeta title="FAQ — Paws+Pine Veterinary Clinic" description="Answers to common questions about requesting a visit at Paws+Pine Veterinary Clinic." />
+    <PageMeta title="FAQ — Paws+Pine Veterinary Clinic" description="Answers to common questions about requesting a visit at Paws+Pine Veterinary Clinic." path="/faq" jsonLd={buildFaqSchema(faqs)} />
 
     <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
-      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Frequently asked</span><h1>Questions,<br /><em>answered clearly.</em></h1><p>A few honest answers about how requests, visits, and next steps actually work.</p><Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link></div>
+      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Frequently asked</span><h1>Questions,<br /><em>answered clearly.</em></h1><p>A few honest answers about how booking, visits, and next steps actually work.</p><BookingButton label="Book an Appointment" className="lime-link" /></div>
       <div className="pp-services-hero-image"><img src={assets.clinicHero} alt="Paws and Pine clinic consultation space" /></div>
     </section>
 
@@ -36,6 +37,6 @@ export default function FAQ() {
       </div>
     </section>
 
-    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Ready for a<br /><em>real answer?</em></h2><Link href="/request" className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link></section>
+    <section className="pp-page-outro pp-reveal"><span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span><h2>Ready for a<br /><em>real answer?</em></h2><BookingButton label="Book an Appointment" className="lime-cta" iconSize={17} /></section>
   </main>;
 }

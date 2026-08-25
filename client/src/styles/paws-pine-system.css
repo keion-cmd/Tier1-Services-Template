@@ -92,6 +92,25 @@
 .pp-reviews-marquee-card span { color: #8f8f98; font-size: 12px; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+.pp-pet-care-marquee-section { width: 100%; margin: 0; padding: clamp(36px, 4.4vw, 56px) 0 clamp(28px, 3.6vw, 44px); background: var(--pp-offwhite); }
+.pp-pet-care-marquee-heading { max-width: var(--pp-page-width); margin-left: auto; margin-right: auto; padding-left: var(--pp-gutter); padding-right: var(--pp-gutter); }
+.pp-pet-care-marquee-heading { max-width: 560px; margin: 0 auto 26px; text-align: center; }
+.pp-pet-care-marquee-heading h2 { margin: 0; color: var(--pp-ink); font-size: clamp(19px, 1.7vw, 24px); font-weight: 600; letter-spacing: -.01em; }
+.pp-pet-care-marquee-heading p { margin: 7px 0 0; color: var(--pp-muted); font-size: 13px; letter-spacing: .01em; }
+.pp-pet-care-marquee-viewport { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); }
+.pp-pet-care-marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; will-change: transform; }
+.pp-pet-care-marquee-viewport:hover .pp-pet-care-marquee-track { animation-play-state: paused; }
+.pp-pet-care-marquee-group { display: flex; flex: 0 0 auto; align-items: center; gap: clamp(44px, 5.6vw, 88px); padding: 0 clamp(22px, 2.8vw, 44px); }
+.pp-pet-care-marquee-logo { display: flex; flex: 0 0 auto; align-items: center; height: 36px; }
+.pp-pet-care-marquee-logo img { height: 100%; width: auto; max-width: 132px; object-fit: contain; filter: grayscale(1) opacity(.55); transition: filter var(--motion-micro) ease; }
+.pp-pet-care-marquee-logo:hover img { filter: grayscale(0) opacity(1); }
+.pp-pet-care-marquee-logo.is-on-dark { padding: 0 14px; border-radius: 8px; background: var(--pp-ink); }
+.pp-pet-care-marquee-logo.is-on-dark img { height: 60%; filter: none; opacity: .82; }
+.pp-pet-care-marquee-logo.is-on-dark:hover img { filter: none; opacity: 1; }
+@media (max-width: 900px) { .pp-pet-care-marquee-logo { height: 30px; } .pp-pet-care-marquee-logo img { max-width: 112px; } .pp-pet-care-marquee-group { gap: clamp(32px, 6vw, 56px); } }
+@media (max-width: 560px) { .pp-pet-care-marquee-logo { height: 24px; } .pp-pet-care-marquee-logo img { max-width: 92px; } .pp-pet-care-marquee-track { animation-duration: 28s; } }
+@media (prefers-reduced-motion: reduce) { .pp-pet-care-marquee-track { animation: none; } .pp-pet-care-marquee-group[aria-hidden="true"] { display: none; } }
+
 .pp-health-resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .pp-health-resource-card { display: grid; overflow: hidden; border: 1px solid var(--pp-divider); border-radius: var(--pp-card-radius); background: #fff; transition: transform var(--motion-micro) var(--ease-editorial), border-color var(--motion-micro) ease; }
 .pp-health-resource-card:hover { border-color: var(--pp-lime); transform: translateY(-2px); }
