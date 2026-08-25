@@ -14,7 +14,6 @@ const navItems = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Our services" },
-  { href: "/gallery", label: "Gallery" },
   { href: "/proof", label: "Reviews" },
   { href: "/faq", label: "FAQ" },
   { href: "/location", label: "Clinic location", benefit: "Free" },

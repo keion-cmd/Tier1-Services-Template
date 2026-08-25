@@ -9,13 +9,6 @@ import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { assets, clinic, faqs } from "@/lib/clinic-content";
 
-const galleryTeaserImages = [
-  { src: assets.clinicHero, alt: "Paws and Pine clinic consultation space" },
-  { src: assets.serviceExam, alt: "Veterinarian examining a dog at Paws and Pine" },
-  { src: assets.catCare, alt: "A cat during a puppy and kitten care visit" },
-  { src: assets.dentalCare, alt: "A dental care conversation at the clinic" },
-];
-
 const homeCareStats = [
   { value: "06", label: "care pathways offered" },
   { value: "01", label: "clear starting point for every visit" },
@@ -38,8 +31,6 @@ export default function Home() {
     <section className="fidelity-services pp-reveal"><div className="fidelity-services-heading"><div><span className="fidelity-kicker fidelity-kicker-light">How we can help</span><h2>Our services<span>.</span></h2></div><div><p>Explore the care paths that make a future visit easier to understand. Each one starts with a conversation.</p><Link href="/services" className="lime-link">See all services <ArrowUpRight size={15} /></Link></div></div><InteractiveServiceGallery variant="home" count={4} /></section>
 
     <div className="pp-marquee" aria-label="Paws and Pine care paths"><span>Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span><span aria-hidden="true">Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span></div>
-
-    <section className="fidelity-gallery-teaser pp-services-gallery-section pp-reveal" aria-labelledby="home-gallery-title"><h2 id="home-gallery-title" className="fidelity-kicker"><PawPrint size={15} /> Facility & Patient Gallery</h2><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-4">{galleryTeaserImages.map((image) => <div key={image.src} className="pp-location-card overflow-hidden rounded-2xl p-0"><img src={image.src} alt={image.alt} className="w-full h-full object-cover aspect-[4/3]" loading="lazy" /></div>)}</div><Link href="/gallery" className="lime-link">View full photo gallery <ArrowUpRight size={15} /></Link></section>
 
     <section className="pp-directions-section pp-reveal" aria-labelledby="home-proof-stats-title"><div><span className="fidelity-kicker">Care at a glance</span><h2 id="home-proof-stats-title">Numbers that<br /><em>stay honest.</em></h2></div><div className="pp-directions-grid">{homeCareStats.map((stat) => <article key={stat.label}><span>At a glance</span><h3>{stat.value}</h3><p>{stat.label}</p></article>)}</div></section>
 
