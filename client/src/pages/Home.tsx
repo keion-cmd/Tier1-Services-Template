@@ -2,12 +2,25 @@
  * Hero-refinement reminder: title architecture, the pet cutout, blue field, and support content read as one editorial canvas.
  */
 import { Link } from "wouter";
-import { ArrowUpRight, PawPrint } from "lucide-react";
+import { ArrowUpRight, Clock3, MapPin, PawPrint } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
-import { assets, faqs } from "@/lib/clinic-content";
+import { assets, clinic, faqs } from "@/lib/clinic-content";
+
+const galleryTeaserImages = [
+  { src: assets.clinicHero, alt: "Paws and Pine clinic consultation space" },
+  { src: assets.serviceExam, alt: "Veterinarian examining a dog at Paws and Pine" },
+  { src: assets.catCare, alt: "A cat during a puppy and kitten care visit" },
+  { src: assets.dentalCare, alt: "A dental care conversation at the clinic" },
+];
+
+const homeCareStats = [
+  { value: "06", label: "care pathways offered" },
+  { value: "01", label: "clear starting point for every visit" },
+  { value: "03", label: "steps from request to a confirmed next step" },
+];
 
 export default function Home() {
   return <main className="neo-main fidelity-home">
@@ -26,9 +39,16 @@ export default function Home() {
 
     <div className="pp-marquee" aria-label="Paws and Pine care paths"><span>Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span><span aria-hidden="true">Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span></div>
 
+    <section className="fidelity-gallery-teaser pp-services-gallery-section pp-reveal" aria-labelledby="home-gallery-title"><h2 id="home-gallery-title" className="fidelity-kicker"><PawPrint size={15} /> Facility & Patient Gallery</h2><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-4">{galleryTeaserImages.map((image) => <div key={image.src} className="pp-location-card overflow-hidden rounded-2xl p-0"><img src={image.src} alt={image.alt} className="w-full h-full object-cover aspect-[4/3]" loading="lazy" /></div>)}</div><Link href="/gallery" className="lime-link">View full photo gallery <ArrowUpRight size={15} /></Link></section>
+
+    <section className="pp-directions-section pp-reveal" aria-labelledby="home-proof-stats-title"><div><span className="fidelity-kicker">Care at a glance</span><h2 id="home-proof-stats-title">Numbers that<br /><em>stay honest.</em></h2></div><div className="pp-directions-grid">{homeCareStats.map((stat) => <article key={stat.label}><span>At a glance</span><h3>{stat.value}</h3><p>{stat.label}</p></article>)}</div></section>
+
     <ReviewsSection />
+    <p className="pp-location-note"><Link href="/proof" className="lime-link">Read verified patient stories <ArrowUpRight size={15} /></Link></p>
 
     <section className="fidelity-faq pp-reveal"><div><span className="fidelity-kicker">A few helpful answers</span><h2>Everything starts with <em>one good question.</em></h2><p>We keep the details clear so you can feel more prepared for the conversation ahead.</p></div><Accordion type="single" collapsible className="fidelity-faq-list">{faqs.slice(0, 3).map((faq,index) => <AccordionItem value={`faq-${index}`} key={faq.question}><AccordionTrigger>{faq.question}</AccordionTrigger><AccordionContent>{faq.answer}</AccordionContent></AccordionItem>)}</Accordion><Link href="/faq" className="lime-link">View all FAQs <ArrowUpRight size={15} /></Link></section>
+
+    <section className="pp-hours-section pp-reveal" aria-labelledby="home-location-title"><div><span className="fidelity-kicker">Visit Our Clinic</span><h2 id="home-location-title">Plan your visit<br /><em>with confidence.</em></h2><div className="pp-location-facts"><div className="pp-location-fact"><MapPin size={20} /><div><span>Address</span><p>{clinic.address}<br />{clinic.city}</p></div></div><div className="pp-location-fact"><Clock3 size={20} /><div><span>Hours</span><p>{clinic.hours}</p></div></div></div><Link href="/location" className="lime-link">View map & hours <ArrowUpRight size={15} /></Link></div><dl className="pp-hours-grid">{clinic.businessHours.map((entry) => <div key={entry.days}><dt>{entry.days}</dt><dd>{entry.hours}</dd></div>)}</dl></section>
 
     <section className="fidelity-cta pp-reveal"><div><span className="fidelity-kicker fidelity-kicker-light">Paws+Pine Veterinary Clinic</span><h2>A better beginning<br />starts <em>here.</em></h2></div><div><p>Send a few useful details, then let the right next step take shape from there.</p><Link href="/request" className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link></div></section>
   </main>;
