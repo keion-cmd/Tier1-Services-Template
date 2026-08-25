@@ -87,7 +87,37 @@ Everything else on the site (button labels, section headings, generic educationa
 `articles`, generic care-plan and new-client-steps copy) is reusable boilerplate and does not need to
 change unless you want to.
 
-## 4. Update the theme color
+## 4. Replace image placeholders
+
+Every image slot in this template renders a dashed `ImagePlaceholder` block
+(`client/src/components/ImagePlaceholder.tsx`) instead of a real photo, so no demo pet/clinic
+images ship in the template. Each block shows a label and a bracketed token telling you exactly
+what belongs there.
+
+To swap a slot for a real photo, drop the client's file in `client/public/images/` (create the
+folder) and replace the matching `<ImagePlaceholder ... />` usage with an `<img src="/images/your-file.jpg" ... />`,
+keeping the wrapping `className` (sizing, `rounded-*`, `object-cover`) so the layout doesn't shift.
+Most image slots are wired through `imageKey` tokens on entries in `client/src/lib/clinic-content.ts`
+(services, doctors, staff, articles, etc.) — you can either swap those call sites directly in each
+page/component, or keep the token as a lookup key into your own image map.
+
+**Recommended aspect ratios / sizes**
+- Hero images (`[HERO_IMAGE]`, `[ABOUT_IMAGE]`, `[TEAM_IMAGE]`): 4:3, at least 1200×900px
+- Service card/detail images (`[SERVICE_IMAGE]`, `[SERVICE_1_IMAGE]`…`[SERVICE_6_IMAGE]`): 4:3, at least 800×600px
+- Vet / staff photos (`[VET_1_PHOTO]`…`[VET_3_PHOTO]`, `[STAFF_1_PHOTO]`…`[STAFF_3_PHOTO]`): square or 4:3, at least 600×600px, headshot-style
+- Resource / article images (`[RESOURCE_IMAGE]`, `[RESOURCE_1_IMAGE]`…`[RESOURCE_5_IMAGE]`): 4:3, at least 800×600px
+- Clinic interior images (`[CLINIC_IMAGE]`, `[CLINIC_1_IMAGE]`…`[CLINIC_5_IMAGE]`): 4:3, at least 1000×750px
+- Patient photos (`[PATIENT_1_PHOTO]`…`[PATIENT_3_PHOTO]`): 4:3, at least 800×600px
+- Clinic logo (`[CLINIC_LOGO]`): swap the small dashed square in `ClinicMark` inside
+  `client/src/components/SiteShell.tsx` for a square logo mark (SVG or PNG, ~64×64px, transparent background)
+
+**Map**
+`client/src/pages/Location.tsx` already renders the embedded map as an iframe pointed at the
+literal placeholder `[GOOGLE_MAPS_EMBED_URL]` (see step 3 above) — paste the client's real "Embed a
+map" URL there. No `[MAP_EMBED]` image placeholder is needed since the iframe itself is the
+placeholder.
+
+## 5. Update the theme color
 
 Brand color is driven by CSS custom properties in `client/src/index.css`. The primary color is an
 HSL triplet (hue saturation% lightness%, no commas) set under `:root` and mirrored under `.dark`:
@@ -107,7 +137,7 @@ Convert the client's brand hex color to HSL (e.g. via `https://hslpicker.com`) a
 numbers on `--primary` (and `--ring`, which should stay close to `--primary`) in both blocks. All
 buttons, links, and accents read from this variable automatically — no other CSS changes are needed.
 
-## 5. Run, test, and deploy
+## 6. Run, test, and deploy
 
 ```bash
 npm run check     # TypeScript typecheck — should report zero errors

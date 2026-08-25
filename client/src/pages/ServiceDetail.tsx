@@ -5,7 +5,7 @@ import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageOutro } from "@/components/PageBlocks";
-import { assets, buildBreadcrumbSchema, clinic, getServiceBySlug } from "@/lib/clinic-content";
+import { buildBreadcrumbSchema, clinic, getServiceBySlug } from "@/lib/clinic-content";
 import NotFound from "./NotFound";
 
 export default function ServiceDetail() {
@@ -14,15 +14,12 @@ export default function ServiceDetail() {
 
   if (!service) return <NotFound />;
 
-  const heroImage = assets[service.imageKey];
-
   return (
     <main>
       <PageMeta
         title={`${service.title} — ${clinic.name} ${clinic.descriptor}`}
         description={service.short}
         path={`/services/${service.slug}`}
-        image={heroImage}
         jsonLd={buildBreadcrumbSchema([
           { name: "Home", path: "/" },
           { name: "Services", path: "/services" },
@@ -37,7 +34,7 @@ export default function ServiceDetail() {
         description={service.detail}
         cta={<BookingButton label="Book an Appointment" />}
         backLink={{ href: "/services", label: "All Services" }}
-        image={{ src: heroImage, alt: `${service.title} at ${clinic.name}` }}
+        image={{ label: "Service image", token: service.imageKey }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">

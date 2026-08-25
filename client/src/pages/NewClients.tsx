@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, StepList, PageOutro } from "@/components/PageBlocks";
-import { assets, clinic, newClientSteps, whatToBring } from "@/lib/clinic-content";
+import { clinic, newClientSteps, whatToBring } from "@/lib/clinic-content";
 
 export default function NewClients() {
   return (
@@ -24,7 +24,7 @@ export default function NewClients() {
         }
         description="A calm, unhurried walkthrough of what happens from your first booking to your pet's follow-up care."
         cta={<BookingButton label="Book Your First Visit" />}
-        image={{ src: assets.serviceExam, alt: `Veterinarian examining a dog at ${clinic.name}` }}
+        image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
 
       <Section aria-labelledby="new-clients-steps-title">

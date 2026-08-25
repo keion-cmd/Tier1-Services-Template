@@ -7,11 +7,11 @@ import { Activity, Heart, ShieldCheck, Smile, Sparkles, Stethoscope } from "luci
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookingButton } from "@/components/BookingButton";
-import { assets, clinic, services } from "@/lib/clinic-content";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { services } from "@/lib/clinic-content";
 import { cn } from "@/lib/utils";
 
 const icons = { stethoscope: Stethoscope, shield: ShieldCheck, sparkles: Sparkles, heart: Heart, smile: Smile, activity: Activity };
-const serviceVisuals = [assets.serviceExam, assets.dogCare, assets.catCare, assets.clinicHero, assets.dentalCare, assets.diagnosticsCare];
 const categoryFilters = ["All", "Preventive", "Clinical & Dental", "Diagnostics"] as const;
 
 type InteractiveServiceGalleryProps = { variant: "home" | "services"; count?: number };
@@ -56,10 +56,10 @@ export function InteractiveServiceGallery({ variant, count = 6 }: InteractiveSer
           const detailHref = `/services/${service.slug}`;
           const media = (
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img
-                src={serviceVisuals[index]}
-                alt={`${service.title} at ${clinic.name}`}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              <ImagePlaceholder
+                label="Service image"
+                token={`[SERVICE_${index + 1}_IMAGE]`}
+                className="h-full w-full border-0 transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           );

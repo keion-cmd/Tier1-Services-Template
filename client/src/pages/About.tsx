@@ -3,7 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
-import { assets, clinic, staff } from "@/lib/clinic-content";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { clinic, staff } from "@/lib/clinic-content";
 
 const values = [
   { icon: Stethoscope, title: "Clear conversations", copy: "Every visit starts with a real conversation, not assumptions made online before you've been heard." },
@@ -30,7 +31,7 @@ export default function About() {
         }
         description={`${clinic.name} started with a simple idea: pet parents deserve clear information and a calm place to ask questions before any decision is made.`}
         cta={<BookingButton label="Book an Appointment" />}
-        image={{ src: assets.aboutPup, alt: `A small dog in a lime green sweater at ${clinic.name}` }}
+        image={{ label: "About image", token: "[ABOUT_IMAGE]" }}
       />
 
       <Section aria-labelledby="about-values-title">
@@ -85,12 +86,7 @@ export default function About() {
         <div className="grid gap-5 sm:grid-cols-3">
           {staff.map((member) => (
             <Card key={member.name} className="gap-3 p-4">
-              <img
-                src={assets[member.imageKey]}
-                alt=""
-                aria-hidden="true"
-                className="h-44 w-full rounded-xl object-cover"
-              />
+              <ImagePlaceholder label="Staff photo" token={member.imageKey} className="h-44 w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                   {member.title}

@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/PageBlocks";
-import { assets, clinic } from "@/lib/clinic-content";
+import { clinic } from "@/lib/clinic-content";
 
 const careStats = [
   { value: "06", label: "care pathways offered" },
@@ -38,7 +38,7 @@ export default function Proof() {
         }
         description="Real statistics, a direct path to Google reviews, and a few stories from pet parents who've been through the process."
         cta={<BookingButton label="Book an Appointment" />}
-        image={{ src: assets.serviceExam, alt: `Veterinarian examining a dog at ${clinic.name}` }}
+        image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">

@@ -4,7 +4,8 @@ import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
-import { articles, assets, buildArticleSchema, buildBreadcrumbSchema, clinic, getArticleBySlug } from "@/lib/clinic-content";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { articles, buildArticleSchema, buildBreadcrumbSchema, clinic, getArticleBySlug } from "@/lib/clinic-content";
 import NotFound from "./NotFound";
 
 export default function ArticleDetail() {
@@ -21,7 +22,6 @@ export default function ArticleDetail() {
         title={`${article.title} — ${clinic.name} ${clinic.descriptor}`}
         description={article.excerpt}
         path={`/resources/${article.slug}`}
-        image={assets[article.imageKey]}
         jsonLd={[
           buildArticleSchema(article),
           buildBreadcrumbSchema([
@@ -39,7 +39,7 @@ export default function ArticleDetail() {
         description={article.excerpt}
         cta={<BookingButton label="Book an Appointment" />}
         backLink={{ href: "/resources", label: "All Resources" }}
-        image={{ src: assets[article.imageKey], alt: "" }}
+        image={{ label: "Resource image", token: article.imageKey }}
       />
 
       <Section aria-labelledby="article-body-title">
@@ -72,12 +72,7 @@ export default function ArticleDetail() {
         <div className="grid gap-5 sm:grid-cols-3">
           {related.map((entry) => (
             <Card key={entry.slug} className="gap-3 p-4">
-              <img
-                src={assets[entry.imageKey]}
-                alt=""
-                aria-hidden="true"
-                className="h-40 w-full rounded-xl object-cover"
-              />
+              <ImagePlaceholder label="Resource image" token={entry.imageKey} className="h-40 w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                   {entry.category} · {entry.readingTime}

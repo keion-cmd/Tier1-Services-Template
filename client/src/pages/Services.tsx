@@ -3,7 +3,7 @@ import { InteractiveServiceGallery } from "@/components/InteractiveServiceGaller
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, PageOutro } from "@/components/PageBlocks";
-import { assets, clinic } from "@/lib/clinic-content";
+import { clinic } from "@/lib/clinic-content";
 
 export default function Services() {
   return (
@@ -24,7 +24,7 @@ export default function Services() {
         }
         description="Every path begins with a conversation, then makes space for the questions that matter to you and your pet."
         cta={<BookingButton label="Book an Appointment" />}
-        image={{ src: assets.serviceExam, alt: `Veterinarian examining a dog at ${clinic.name}` }}
+        image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">

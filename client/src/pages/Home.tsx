@@ -7,9 +7,9 @@ import { ReviewsMarquee } from "@/components/ReviewsMarquee";
 import { PetCareMarquee } from "@/components/PetCareMarquee";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { Section, SectionHeading, Eyebrow, FeatureCard, StepList, StatBlock, PageOutro } from "@/components/PageBlocks";
 import {
-  assets,
   buildLocalBusinessSchema,
   carePlans,
   clinic,
@@ -35,7 +35,6 @@ export default function Home() {
         title={`${clinic.name} ${clinic.descriptor}`}
         description="Thoughtful veterinary care conversations, clear service pathways, and a simple visit request process."
         path="/"
-        image={assets.heroPets}
         jsonLd={buildLocalBusinessSchema()}
       />
 
@@ -64,14 +63,7 @@ export default function Home() {
 
           <div className="relative pb-6 sm:pb-8">
             <div className="overflow-hidden rounded-3xl border border-border shadow-sm">
-              <img
-                className="aspect-[4/3] h-full w-full object-cover"
-                src={assets.heroPets}
-                width="2560"
-                height="1440"
-                fetchPriority="high"
-                alt={`${clinic.name} clinic dog and cat`}
-              />
+              <ImagePlaceholder label="Hero image" token="[HERO_IMAGE]" className="aspect-[4/3] h-full w-full border-0" />
             </div>
             <div className="absolute -bottom-2 left-3 max-w-[190px] rounded-2xl border border-border bg-card p-4 shadow-md sm:left-5">
               <strong className="block text-3xl font-bold text-primary">12,5K+</strong>
@@ -158,7 +150,7 @@ export default function Home() {
         <div className="grid gap-5 sm:grid-cols-3">
           {doctors.map((doctor) => (
             <Card key={doctor.slug} className="gap-3 p-4">
-              <img src={assets[doctor.imageKey]} alt="" aria-hidden="true" className="h-48 w-full rounded-xl object-cover" />
+              <ImagePlaceholder label="Vet photo" token={doctor.imageKey} className="h-48 w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">{doctor.specialty}</span>
                 <h3 className="text-lg font-semibold text-foreground">
@@ -202,11 +194,10 @@ export default function Home() {
         />
         <div className="grid gap-4 md:grid-cols-[1.3fr_1fr]">
           <figure className="relative min-h-[260px] overflow-hidden rounded-2xl md:min-h-[420px]">
-            <img
-              src={assets[clinicExperienceFeatures[0].imageKey]}
-              alt=""
-              aria-hidden="true"
-              className="h-full w-full object-cover"
+            <ImagePlaceholder
+              label="Clinic image"
+              token={clinicExperienceFeatures[0].imageKey}
+              className="h-full w-full border-0"
             />
             <figcaption className="absolute bottom-4 left-4 rounded-full bg-foreground/85 px-4 py-1.5 text-sm font-semibold text-background">
               {clinicExperienceFeatures[0].title}
@@ -215,7 +206,7 @@ export default function Home() {
           <div className="grid grid-rows-2 gap-4">
             {clinicExperienceFeatures.slice(1, 3).map((feature) => (
               <figure key={feature.title} className="relative min-h-[160px] overflow-hidden rounded-2xl">
-                <img src={assets[feature.imageKey]} alt="" aria-hidden="true" className="h-full w-full object-cover" />
+                <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="h-full w-full border-0" />
                 <figcaption className="absolute bottom-3 left-3 rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold text-background">
                   {feature.title}
                 </figcaption>
@@ -249,7 +240,7 @@ export default function Home() {
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {patientSuccessStories.map((story) => (
             <Card key={story.petName} className="gap-2.5 p-4">
-              <img src={assets[story.imageKey]} alt="" aria-hidden="true" className="h-48 w-full rounded-xl object-cover" />
+              <ImagePlaceholder label="Patient photo" token={story.imageKey} className="h-48 w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <Eyebrow>
                   {story.petName} · {story.breed} · {story.category}
@@ -278,7 +269,7 @@ export default function Home() {
         <div className="grid gap-5 sm:grid-cols-3">
           {healthResources.map((article) => (
             <Card key={article.title} className="gap-0 overflow-hidden p-0">
-              <img src={assets[article.imageKey]} alt="" aria-hidden="true" className="h-40 w-full object-cover" />
+              <ImagePlaceholder label="Resource image" token={article.imageKey} className="h-40 w-full border-0" />
               <div className="flex flex-col gap-1.5 p-5">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">Pet health guide</span>
                 <h3 className="text-lg font-semibold text-foreground">{article.title}</h3>

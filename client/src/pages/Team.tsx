@@ -4,7 +4,8 @@ import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
-import { assets, clinic, doctors } from "@/lib/clinic-content";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { clinic, doctors } from "@/lib/clinic-content";
 
 export default function Team() {
   return (
@@ -25,7 +26,7 @@ export default function Team() {
         }
         description="Every visit is guided by a clinical team that takes the time to explain, listen, and plan the next step with you."
         cta={<BookingButton label="Schedule an Appointment" />}
-        image={{ src: assets.aboutPup, alt: `A veterinarian at ${clinic.name}` }}
+        image={{ label: "Team hero image", token: "[TEAM_IMAGE]" }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
@@ -57,7 +58,7 @@ export default function Team() {
         <div className="grid gap-5 sm:grid-cols-3">
           {doctors.map((doctor) => (
             <Card key={doctor.slug} className="gap-3 p-4">
-              <img src={assets[doctor.imageKey]} alt="" aria-hidden="true" className="h-44 w-full rounded-xl object-cover" />
+              <ImagePlaceholder label="Vet photo" token={doctor.imageKey} className="h-44 w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                   {doctor.specialty}

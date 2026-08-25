@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
-import { assets, buildBreadcrumbSchema, buildPersonSchema, clinic, getDoctorBySlug } from "@/lib/clinic-content";
+import { buildBreadcrumbSchema, buildPersonSchema, clinic, getDoctorBySlug } from "@/lib/clinic-content";
 import NotFound from "./NotFound";
 
 export default function DoctorDetail() {
@@ -13,15 +13,12 @@ export default function DoctorDetail() {
 
   if (!doctor) return <NotFound />;
 
-  const heroImage = assets[doctor.imageKey];
-
   return (
     <main>
       <PageMeta
         title={`${doctor.name}, ${doctor.credentials} — ${clinic.name} ${clinic.descriptor}`}
         description={`${doctor.name}, ${doctor.credentials} — ${doctor.specialty} at ${clinic.name} ${clinic.descriptor}.`}
         path={`/team/${doctor.slug}`}
-        image={heroImage}
         jsonLd={[
           buildPersonSchema(doctor),
           buildBreadcrumbSchema([
@@ -45,7 +42,7 @@ export default function DoctorDetail() {
         description={doctor.bio}
         cta={<BookingButton label="Schedule With Our Team" />}
         backLink={{ href: "/team", label: "Meet the Vets" }}
-        image={{ src: heroImage, alt: `${doctor.name} at ${clinic.name}` }}
+        image={{ label: "Vet photo", token: doctor.imageKey }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">

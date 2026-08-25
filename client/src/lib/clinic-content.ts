@@ -36,7 +36,7 @@ export const services = [
     benefits: ["[SERVICE_1_BENEFIT_1]", "[SERVICE_1_BENEFIT_2]", "[SERVICE_1_BENEFIT_3]"],
     process: ["Intake", "Examination", "Care Plan"],
     duration: "30–45 mins",
-    imageKey: "serviceExam",
+    imageKey: "[SERVICE_1_IMAGE]",
   },
   {
     number: "02",
@@ -49,7 +49,7 @@ export const services = [
     benefits: ["[SERVICE_2_BENEFIT_1]", "[SERVICE_2_BENEFIT_2]", "[SERVICE_2_BENEFIT_3]"],
     process: ["Intake", "Risk Review", "Prevention Plan"],
     duration: "20–30 mins",
-    imageKey: "dogCare",
+    imageKey: "[SERVICE_2_IMAGE]",
   },
   {
     number: "03",
@@ -62,7 +62,7 @@ export const services = [
     benefits: ["[SERVICE_3_BENEFIT_1]", "[SERVICE_3_BENEFIT_2]", "[SERVICE_3_BENEFIT_3]"],
     process: ["Intake", "Early Care Review", "Next Visit Plan"],
     duration: "30–40 mins",
-    imageKey: "catCare",
+    imageKey: "[SERVICE_3_IMAGE]",
   },
   {
     number: "04",
@@ -75,7 +75,7 @@ export const services = [
     benefits: ["[SERVICE_4_BENEFIT_1]", "[SERVICE_4_BENEFIT_2]", "[SERVICE_4_BENEFIT_3]"],
     process: ["Intake", "Change Review", "Care Notes"],
     duration: "30–45 mins",
-    imageKey: "aboutPup",
+    imageKey: "[SERVICE_4_IMAGE]",
   },
   {
     number: "05",
@@ -88,7 +88,7 @@ export const services = [
     benefits: ["[SERVICE_5_BENEFIT_1]", "[SERVICE_5_BENEFIT_2]", "[SERVICE_5_BENEFIT_3]"],
     process: ["Intake", "Oral Care Overview", "Clinic Referral"],
     duration: "20–30 mins",
-    imageKey: "dentalCare",
+    imageKey: "[SERVICE_5_IMAGE]",
   },
   {
     number: "06",
@@ -101,7 +101,7 @@ export const services = [
     benefits: ["[SERVICE_6_BENEFIT_1]", "[SERVICE_6_BENEFIT_2]", "[SERVICE_6_BENEFIT_3]"],
     process: ["Intake", "Diagnostic Overview", "Clinic Recommendation"],
     duration: "45–60 mins",
-    imageKey: "diagnosticsCare",
+    imageKey: "[SERVICE_6_IMAGE]",
   },
 ] as const;
 
@@ -135,10 +135,10 @@ export const howItWorks = [
 ] as { step: string; title: string; copy: string }[];
 
 export const healthResources = [
-  { title: "[RESOURCE_1_TITLE]", excerpt: "[RESOURCE_1_EXCERPT]", imageKey: "dogCare" },
-  { title: "[RESOURCE_2_TITLE]", excerpt: "[RESOURCE_2_EXCERPT]", imageKey: "catCare" },
-  { title: "[RESOURCE_3_TITLE]", excerpt: "[RESOURCE_3_EXCERPT]", imageKey: "aboutPup" },
-] as { title: string; excerpt: string; imageKey: keyof typeof assets }[];
+  { title: "[RESOURCE_1_TITLE]", excerpt: "[RESOURCE_1_EXCERPT]", imageKey: "[RESOURCE_1_IMAGE]" },
+  { title: "[RESOURCE_2_TITLE]", excerpt: "[RESOURCE_2_EXCERPT]", imageKey: "[RESOURCE_2_IMAGE]" },
+  { title: "[RESOURCE_3_TITLE]", excerpt: "[RESOURCE_3_EXCERPT]", imageKey: "[RESOURCE_3_IMAGE]" },
+] as { title: string; excerpt: string; imageKey: string }[];
 
 export const marqueeReviews = [
   { name: "Renz A.", pet: "Dog owner", quote: "The team took real time with our nervous rescue dog instead of rushing the exam. Genuinely fear-free care.", rating: 5 },
@@ -164,7 +164,7 @@ export const staff = [
     title: "[STAFF_1_TITLE]",
     credentials: "DVM",
     bio: "[STAFF_1_BIO]",
-    imageKey: "aboutPup",
+    imageKey: "[STAFF_1_PHOTO]",
     placeholder: true,
   },
   {
@@ -172,7 +172,7 @@ export const staff = [
     title: "[STAFF_2_TITLE]",
     credentials: "DVM",
     bio: "[STAFF_2_BIO]",
-    imageKey: "dogCare",
+    imageKey: "[STAFF_2_PHOTO]",
     placeholder: true,
   },
   {
@@ -180,10 +180,10 @@ export const staff = [
     title: "[STAFF_3_TITLE]",
     credentials: "RVT",
     bio: "[STAFF_3_BIO]",
-    imageKey: "catCare",
+    imageKey: "[STAFF_3_PHOTO]",
     placeholder: true,
   },
-] as { name: string; title: string; credentials: string; bio: string; imageKey: keyof typeof assets; placeholder: boolean }[];
+] as { name: string; title: string; credentials: string; bio: string; imageKey: string; placeholder: boolean }[];
 
 export const emergencyInfo = {
   heading: "Emergency & after-hours care",
@@ -211,7 +211,7 @@ export const doctors = [
     bio: "[VET_1_BIO]",
     yearsExperience: 9,
     areasOfInterest: ["Wellness exams", "Puppy & kitten care", "Client education"],
-    imageKey: "aboutPup",
+    imageKey: "[VET_1_PHOTO]",
     placeholder: true,
   },
   {
@@ -222,7 +222,7 @@ export const doctors = [
     bio: "[VET_2_BIO]",
     yearsExperience: 12,
     areasOfInterest: ["Diagnostic imaging", "Surgical planning", "Pain management"],
-    imageKey: "dogCare",
+    imageKey: "[VET_2_PHOTO]",
     placeholder: true,
   },
   {
@@ -233,10 +233,10 @@ export const doctors = [
     bio: "[VET_3_BIO]",
     yearsExperience: 7,
     areasOfInterest: ["Preventive care plans", "Senior pet wellness", "Nutrition guidance"],
-    imageKey: "catCare",
+    imageKey: "[VET_3_PHOTO]",
     placeholder: true,
   },
-] as { slug: string; name: string; credentials: string; specialty: string; bio: string; yearsExperience: number; areasOfInterest: string[]; imageKey: keyof typeof assets; placeholder: boolean }[];
+] as { slug: string; name: string; credentials: string; specialty: string; bio: string; yearsExperience: number; areasOfInterest: string[]; imageKey: string; placeholder: boolean }[];
 
 export type Doctor = (typeof doctors)[number];
 
@@ -259,7 +259,7 @@ export const articles = [
       "Between scheduled visits, it's worth paying attention to everyday things like appetite, energy level, and general behavior. Noting any changes, even small ones, gives your care team useful context at the next visit.",
       "If you're ever unsure whether something warrants an earlier conversation, it's generally better to ask. A quick call or a scheduled visit request is a simple way to get a clearer answer.",
     ],
-    imageKey: "dogCare",
+    imageKey: "[RESOURCE_1_IMAGE]",
     disclaimer: true,
   },
   {
@@ -276,7 +276,7 @@ export const articles = [
       "Changes in coat condition, unusual grooming habits, or noticeable weight change over time are additional things worth flagging. None of these on their own necessarily mean something serious, but they're useful details for a care conversation.",
       "If you notice any combination of these changes, or simply have a feeling that something is different, it's reasonable to reach out and describe what you're seeing. A conversation with your veterinary team is the best way to get a clear answer.",
     ],
-    imageKey: "catCare",
+    imageKey: "[RESOURCE_2_IMAGE]",
     disclaimer: true,
   },
   {
@@ -293,7 +293,7 @@ export const articles = [
       "New pet owners sometimes feel like they should already know all the answers. In reality, most of preventive care is simply about building a relationship with a care team you trust, and asking questions as they come up.",
       "If you've recently welcomed a new pet into your home, scheduling that first conversation is a reasonable place to start.",
     ],
-    imageKey: "aboutPup",
+    imageKey: "[RESOURCE_3_IMAGE]",
     disclaimer: true,
   },
   {
@@ -310,7 +310,7 @@ export const articles = [
       "Many pet parents find it helpful to jot down questions or observations beforehand, so nothing gets forgotten once the visit starts. Bringing notes about appetite, behavior, or anything that seems different is generally a good idea.",
       "An annual visit is a reasonable default for most healthy adult pets, though your care team can help you figure out if a different schedule makes more sense.",
     ],
-    imageKey: "serviceExam",
+    imageKey: "[RESOURCE_4_IMAGE]",
     disclaimer: true,
   },
   {
@@ -327,10 +327,10 @@ export const articles = [
       "Some pet parents find it useful to keep a general eye on things at home between visits, such as noticing any changes in chewing habits or appetite. These small observations can be useful context for the care team.",
       "If oral care has been on your mind, mentioning it at your pet's next scheduled visit is a reasonable way to start that conversation.",
     ],
-    imageKey: "dentalCare",
+    imageKey: "[RESOURCE_5_IMAGE]",
     disclaimer: true,
   },
-] as { slug: string; title: string; category: string; date: string; readingTime: string; excerpt: string; body: string[]; imageKey: keyof typeof assets; disclaimer: boolean }[];
+] as { slug: string; title: string; category: string; date: string; readingTime: string; excerpt: string; body: string[]; imageKey: string; disclaimer: boolean }[];
 
 export type Article = (typeof articles)[number];
 
@@ -376,12 +376,12 @@ export const whatToBring = [
 ] as string[];
 
 export const clinicExperienceFeatures = [
-  { title: "Calm Reception", copy: "A quiet, welcoming front desk designed to ease first-visit nerves for pets and people alike.", imageKey: "clinicHero" },
-  { title: "Comfortable Exam Rooms", copy: "Exam spaces set up for unhurried, hands-on conversations rather than rushed appointments.", imageKey: "serviceExam" },
-  { title: "Modern Diagnostic Equipment", copy: "Approved diagnostic tools that help the clinical team get a clearer picture before recommending next steps.", imageKey: "diagnosticsCare" },
-  { title: "Separate Pet-Friendly Spaces", copy: "Thoughtful layout choices that help keep visits low-stress for anxious cats and dogs alike.", imageKey: "catCare" },
-  { title: "Caring Staff", copy: "A clinical team that paces every visit around your pet's comfort, not the clock.", imageKey: "dogCare" },
-] as { title: string; copy: string; imageKey: keyof typeof assets }[];
+  { title: "Calm Reception", copy: "A quiet, welcoming front desk designed to ease first-visit nerves for pets and people alike.", imageKey: "[CLINIC_1_IMAGE]" },
+  { title: "Comfortable Exam Rooms", copy: "Exam spaces set up for unhurried, hands-on conversations rather than rushed appointments.", imageKey: "[CLINIC_2_IMAGE]" },
+  { title: "Modern Diagnostic Equipment", copy: "Approved diagnostic tools that help the clinical team get a clearer picture before recommending next steps.", imageKey: "[CLINIC_3_IMAGE]" },
+  { title: "Separate Pet-Friendly Spaces", copy: "Thoughtful layout choices that help keep visits low-stress for anxious cats and dogs alike.", imageKey: "[CLINIC_4_IMAGE]" },
+  { title: "Caring Staff", copy: "A clinical team that paces every visit around your pet's comfort, not the clock.", imageKey: "[CLINIC_5_IMAGE]" },
+] as { title: string; copy: string; imageKey: string }[];
 
 export const patientSuccessStories = [
   {
@@ -389,23 +389,23 @@ export const patientSuccessStories = [
     breed: "Golden Retriever",
     category: "Dental Care",
     story: "Demo Patient Story: Max's family raised a general oral-care question during a routine visit, which led to a calm, informative conversation about his dental health with the clinical team.",
-    imageKey: "dentalCare",
+    imageKey: "[PATIENT_1_PHOTO]",
   },
   {
     petName: "Luna",
     breed: "Domestic Shorthair",
     category: "Wellness & Preventive Care",
     story: "Demo Patient Story: Luna's annual wellness visit gave her family a clear prevention plan and a better understanding of what to watch for between check-ins.",
-    imageKey: "catCare",
+    imageKey: "[PATIENT_2_PHOTO]",
   },
   {
     petName: "Charlie",
     breed: "Labrador",
     category: "Surgical Recovery",
     story: "Demo Patient Story: Charlie's family worked with the clinical team to understand his diagnostic overview and recovery expectations following a scheduled procedure.",
-    imageKey: "diagnosticsCare",
+    imageKey: "[PATIENT_3_PHOTO]",
   },
-] as { petName: string; breed: string; category: string; story: string; imageKey: keyof typeof assets }[];
+] as { petName: string; breed: string; category: string; story: string; imageKey: string }[];
 
 const SITE_ORIGIN = "https://tier1-vet-demo.vercel.app";
 
@@ -464,19 +464,6 @@ export function buildArticleSchema(article: Article) {
     description: article.excerpt,
     datePublished: article.date,
     articleSection: article.category,
-    image: assets[article.imageKey],
     publisher: { "@type": "Organization", name: clinic.name + " Veterinary Clinic" },
   };
 }
-
-export const assets = {
-  heroPets: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/QIFiAEAkzojmOWyq.png",
-  aboutPup: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/gxfDSdEuEMcvCNZD.png",
-  serviceExam: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/tZrJrjlYhJUEPsuF.jpg",
-  dogCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/sReyFxXTOZUMnDdX.jpg",
-  catCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/tFvKKOWqRtINcxSU.jpg",
-  clinicHero: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/NMymCvSdJzRaedlt.jpg",
-  dentalCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/jKJAZemUJEByvNjO.jpg",
-  diagnosticsCare: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/bDWSKfDPDwSbwKMc.jpg",
-  seal: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/GDXOEaCkzyTwwmpA.png",
-};

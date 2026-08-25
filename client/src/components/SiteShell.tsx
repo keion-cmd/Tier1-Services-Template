@@ -25,7 +25,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { BookingButton } from "@/components/BookingButton";
-import { assets, clinic, services } from "@/lib/clinic-content";
+import { clinic, services } from "@/lib/clinic-content";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -43,12 +43,16 @@ const navItems = [
 function ClinicMark({ dark = false }: { dark?: boolean }) {
   return (
     <Link href="/" className="inline-flex shrink-0 items-center gap-2" aria-label={`${clinic.name} home`}>
-      <img
-        src={assets.seal}
-        alt=""
+      <span
+        className={cn(
+          "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-dashed text-[7px] leading-none font-bold uppercase",
+          dark ? "border-background/40 text-background/70" : "border-muted-foreground/40 text-muted-foreground"
+        )}
         aria-hidden="true"
-        className={cn("h-7 w-7 object-contain", dark && "brightness-0 invert")}
-      />
+        title="[CLINIC_LOGO]"
+      >
+        Logo
+      </span>
       <span className="grid leading-none">
         <strong className={cn("text-sm font-extrabold tracking-tight", dark ? "text-background" : "text-foreground")}>
           {clinic.shortName}

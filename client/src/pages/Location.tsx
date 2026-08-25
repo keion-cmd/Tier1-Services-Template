@@ -3,7 +3,8 @@ import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { Card } from "@/components/ui/card";
 import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
-import { assets, clinic, emergencyInfo } from "@/lib/clinic-content";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { clinic, emergencyInfo } from "@/lib/clinic-content";
 
 const suppliedDirectionsEmbed = "[GOOGLE_MAPS_EMBED_URL]";
 
@@ -58,7 +59,7 @@ export default function Location() {
       <Section aria-label="Clinic details and map">
         <div className="grid gap-5 md:grid-cols-2">
           <Card className="gap-0 overflow-hidden p-0">
-            <img src={assets.clinicHero} alt={`${clinic.name} consultation space`} className="h-48 w-full object-cover" />
+            <ImagePlaceholder label="Clinic image" token="[CLINIC_IMAGE]" className="h-48 w-full border-0" />
             <div className="flex flex-col gap-5 p-6">
               <span className="text-xs font-semibold tracking-wide text-primary uppercase">{clinic.name}</span>
               <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground">

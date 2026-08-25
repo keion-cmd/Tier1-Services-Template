@@ -3,7 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
-import { assets, buildFaqSchema, clinic, faqs } from "@/lib/clinic-content";
+import { buildFaqSchema, clinic, faqs } from "@/lib/clinic-content";
 
 const categoryOrder = ["Requests & visits", "First visit", "Emergency", "Payment & insurance"] as const;
 const categories = categoryOrder
@@ -30,7 +30,7 @@ export default function FAQ() {
         }
         description="A few honest answers about how booking, visits, and next steps actually work."
         cta={<BookingButton label="Book an Appointment" />}
-        image={{ src: assets.clinicHero, alt: `${clinic.name} consultation space` }}
+        image={{ label: "Clinic image", token: "[CLINIC_IMAGE]" }}
       />
 
       <Section containerClassName="max-w-4xl">

@@ -7,6 +7,7 @@ import { Link } from "wouter";
 import { ArrowLeft, type LucideIcon, PawPrint } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { cn } from "@/lib/utils";
 
 export function Section({
@@ -40,7 +41,7 @@ interface PageHeroProps {
   description: ReactNode;
   cta: ReactNode;
   backLink?: { href: string; label: string };
-  image?: { src: string; alt: string };
+  image?: { label: string; token?: string };
 }
 
 export function PageHero({ eyebrowIcon, eyebrow, title, description, cta, backLink, image }: PageHeroProps) {
@@ -68,7 +69,7 @@ export function PageHero({ eyebrowIcon, eyebrow, title, description, cta, backLi
         </div>
         {image && (
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border shadow-sm">
-            <img src={image.src} alt={image.alt} className="h-full w-full object-cover" />
+            <ImagePlaceholder label={image.label} token={image.token} className="h-full w-full border-0" />
           </div>
         )}
       </div>

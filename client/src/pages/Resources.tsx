@@ -4,7 +4,8 @@ import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
-import { articles, assets, clinic } from "@/lib/clinic-content";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { articles, clinic } from "@/lib/clinic-content";
 
 export default function Resources() {
   return (
@@ -25,7 +26,7 @@ export default function Resources() {
         }
         description="General, educational articles to help you feel more prepared for a conversation with your veterinary team."
         cta={<BookingButton label="Book an Appointment" />}
-        image={{ src: assets.dogCare, alt: `A dog at ${clinic.name}` }}
+        image={{ label: "Resource image", token: "[RESOURCE_IMAGE]" }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
@@ -56,7 +57,7 @@ export default function Resources() {
           {articles.map((article) => (
             <Link key={article.slug} href={`/resources/${article.slug}`}>
               <Card className="h-full gap-0 overflow-hidden p-0 transition-shadow hover:shadow-md">
-                <img src={assets[article.imageKey]} alt="" aria-hidden="true" className="h-40 w-full object-cover" />
+                <ImagePlaceholder label="Resource image" token={article.imageKey} className="h-40 w-full border-0" />
                 <div className="flex flex-col gap-1.5 p-5">
                   <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                     {article.category} · {article.date} · {article.readingTime}
