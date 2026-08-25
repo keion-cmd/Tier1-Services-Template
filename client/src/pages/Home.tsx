@@ -2,7 +2,7 @@
  * Hero-refinement reminder: title architecture, the pet cutout, blue field, and support content read as one editorial canvas.
  */
 import { Link } from "wouter";
-import { Activity, AlertTriangle, ArrowUpRight, Clock3, Heart, MapPin, PawPrint, ShieldCheck, Shield, Smile, Sparkles, Stethoscope } from "lucide-react";
+import { Activity, AlertTriangle, ArrowUpRight, Clock3, Heart, MapPin, PawPrint, Shield, Smile, Sparkles, Stethoscope } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
@@ -24,7 +24,7 @@ export default function Home() {
       <div className="fidelity-blue-field" aria-hidden="true" />
       <div className="fidelity-title-stack"><span className="fidelity-kicker"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><div className="fidelity-title-mask"><h1>Your best friend<br /><span>deserves care.</span></h1></div></div>
       <img className="fidelity-pets" src={assets.heroPets} width="2560" height="1440" fetchPriority="high" alt="Paws and Pine clinic dog and cat" />
-      <div className="hero-value"><p>Kind, clear support<br />for every visit.</p><Link href="/services" className="lime-link">Explore services <ArrowUpRight size={15} /></Link><div className="pp-hero-trust-badges"><span className="pp-hero-trust-badge"><ShieldCheck size={13} /> Licensed Vets</span><span className="pp-hero-trust-badge"><Sparkles size={13} /> Modern Facility</span><span className="pp-hero-trust-badge"><Heart size={13} /> Fear-Free Approach</span></div></div>
+      <div className="hero-value"><p>Kind, clear support<br />for every visit.</p><Link href="/services" className="lime-link">Explore services <ArrowUpRight size={15} /></Link></div>
       <div className="hero-proof"><strong>06</strong><span>care pathways<br />to explore</span></div>
     </section>
 

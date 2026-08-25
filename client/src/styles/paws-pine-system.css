@@ -133,10 +133,6 @@
 .pp-health-resource-copy h3 { margin: 0; color: var(--pp-ink); font-size: 18px; font-weight: 600; line-height: 1.25; }
 .pp-health-resource-copy p { margin: 0; color: var(--pp-muted); font-size: var(--pp-meta); line-height: 1.5; }
 
-.pp-hero-trust-badges { display: flex; flex-wrap: wrap; gap: 10px; }
-.pp-hero-trust-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .01em; }
-.pp-hero-trust-badge svg { color: var(--pp-lime); }
-
 .pp-reveal { --pp-reveal-delay: 0ms; }
 @media (prefers-reduced-motion: no-preference) { .pp-reveal { opacity: 0; transform: translateY(20px); transition: opacity 520ms var(--ease-editorial) var(--pp-reveal-delay), transform 520ms var(--ease-editorial) var(--pp-reveal-delay); } .pp-reveal.is-revealed { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { .pp-reveal { opacity: 1; transform: none; } }
