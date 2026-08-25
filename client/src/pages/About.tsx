@@ -4,7 +4,7 @@
 import { Link } from "wouter";
 import { ArrowUpRight, HeartHandshake, PawPrint, ShieldCheck, Stethoscope } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
-import { assets } from "@/lib/clinic-content";
+import { assets, staff } from "@/lib/clinic-content";
 
 const values = [
   { icon: Stethoscope, title: "Clear conversations", copy: "Every visit starts with a real conversation, not assumptions made online before you've been heard." },
@@ -35,6 +35,18 @@ export default function About() {
       <div className="grid gap-4 sm:grid-cols-2 mt-4">
         <div className="pp-location-card pp-location-copy flex items-start gap-3 p-5 rounded-2xl"><p className="m-0">Our clinic team keeps explanations honest and jargon-free, so every pet parent leaves a conversation feeling more prepared, not more confused.</p></div>
         <div className="pp-location-card pp-location-copy flex items-start gap-3 p-5 rounded-2xl"><p className="m-0">Recommendations are always made directly by the clinic team, in person &mdash; this website is a starting point for a conversation, never a substitute for one.</p></div>
+      </div>
+    </section>
+
+    <section className="pp-directions-section pp-reveal" aria-labelledby="about-staff-title">
+      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> Meet the team</span><h2 id="about-staff-title">Meet our<br /><em>clinical team.</em></h2></div>
+      <div className="pp-directions-grid">
+        {staff.map((member) => <article key={member.name}>
+          <img src={assets[member.imageKey]} alt="" aria-hidden="true" className="w-full h-40 object-cover rounded-xl mb-3" />
+          <span>{member.title}{member.placeholder && " (demo profile)"}</span>
+          <h3>{member.name}, {member.credentials}</h3>
+          <p>{member.bio}</p>
+        </article>)}
       </div>
     </section>
 

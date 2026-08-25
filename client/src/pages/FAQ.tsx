@@ -7,9 +7,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { PageMeta } from "@/components/PageMeta";
 import { assets, clinic, faqs } from "@/lib/clinic-content";
 
-const categories = [
-  { label: "Requests & visits", items: faqs },
-];
+const categoryOrder = ["Requests & visits", "First visit", "Emergency", "Payment & insurance"] as const;
+const categories = categoryOrder.map((label) => ({ label, items: faqs.filter((faq) => faq.category === label) })).filter((category) => category.items.length);
 
 export default function FAQ() {
   return <main className="neo-main pp-services-page">

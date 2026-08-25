@@ -125,10 +125,56 @@ export function getServiceBySlug(slug: string): Service | undefined {
 }
 
 export const faqs = [
-  { question: "What happens after I request a visit?", answer: "A care-team conversation begins with the details you choose to share. The next appropriate step is confirmed directly, rather than assumed online." },
-  { question: "Can I choose a care path before I visit?", answer: "Yes. The service overview helps you recognize which conversation may be most helpful, while leaving room for the clinic team to guide the final next step." },
-  { question: "How does this request page work?", answer: "A successful request is recorded securely for staff review. It does not reserve a time or confirm an appointment; the clinic follows up directly about the next step." },
+  { question: "What happens after I request a visit?", answer: "A care-team conversation begins with the details you choose to share. The next appropriate step is confirmed directly, rather than assumed online.", category: "Requests & visits" },
+  { question: "Can I choose a care path before I visit?", answer: "Yes. The service overview helps you recognize which conversation may be most helpful, while leaving room for the clinic team to guide the final next step.", category: "Requests & visits" },
+  { question: "How does this request page work?", answer: "A successful request is recorded securely for staff review. It does not reserve a time or confirm an appointment; the clinic follows up directly about the next step.", category: "Requests & visits" },
+  { question: "What should I bring for my pet's first visit?", answer: "Please bring any previous medical records or vaccination history you have, a list of current medications, and your pet secured in a carrier (cats and small pets) or on a leash (dogs). Arriving a few minutes early helps keep the visit calm and unhurried.", category: "First visit" },
+  { question: "What do I do if my pet has an emergency after hours?", answer: "Paws+Pine is not a 24/7 emergency hospital. If your pet needs urgent care outside our posted hours, please contact our referral emergency hospital directly — see the Emergency & Urgent Care details on our Location page for the hospital's phone number and address.", category: "Emergency" },
+  { question: "What payment methods and pet insurance plans are accepted?", answer: "We accept cash, major debit and credit cards, and CareCredit financing. We don't bill pet insurance directly, but we can provide an itemized invoice so you can submit a claim to your provider for reimbursement.", category: "Payment & insurance" },
 ] as const;
+
+export const staff = [
+  {
+    name: "Dr. Amara Reyes",
+    title: "Lead Veterinarian",
+    credentials: "DVM",
+    bio: "Leads clinical direction at Paws+Pine, focusing on preventive care and calm, clear communication with pet parents.",
+    imageKey: "aboutPup",
+    placeholder: true,
+  },
+  {
+    name: "Dr. Miguel Santos",
+    title: "Associate Veterinarian",
+    credentials: "DVM",
+    bio: "Supports wellness exams, diagnostics, and senior pet check-ins with a steady, detail-oriented approach.",
+    imageKey: "dogCare",
+    placeholder: true,
+  },
+  {
+    name: "Jamie Cruz",
+    title: "Head Veterinary Technician",
+    credentials: "RVT",
+    bio: "Coordinates day-to-day patient care and keeps every visit organized, comfortable, and on schedule.",
+    imageKey: "catCare",
+    placeholder: true,
+  },
+] as { name: string; title: string; credentials: string; bio: string; imageKey: keyof typeof assets; placeholder: boolean }[];
+
+export const emergencyInfo = {
+  heading: "Emergency & after-hours care",
+  note: "Paws+Pine provides scheduled care during posted business hours and is not an emergency hospital.",
+  referralHospitalName: "(demo) Calamba 24/7 Animal Emergency Hospital",
+  referralHospitalPhone: "(demo) 02 0000 1111",
+  referralHospitalAddress: "(demo) Sample referral address, Calamba, Laguna",
+  instructions: "If your pet has a life-threatening emergency outside our business hours, please contact the referral hospital above directly rather than waiting for a callback from our clinic.",
+  placeholder: true,
+};
+
+export const paymentInfo = {
+  heading: "Payment & insurance",
+  methods: ["Cash", "Debit and credit cards", "CareCredit financing"],
+  insuranceNote: "We don't bill pet insurance providers directly, but we provide itemized invoices so you can submit a reimbursement claim with most major pet insurance plans.",
+};
 
 export const assets = {
   heroPets: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663749726843/QIFiAEAkzojmOWyq.png",
