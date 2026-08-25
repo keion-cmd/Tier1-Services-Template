@@ -61,6 +61,42 @@ contain, **append additional objects** to the relevant array (`services[]`, `pro
   not add slicing, pagination, or "show only first N" logic unless the client explicitly asks
   for it.
 
+#### ARRAY BASELINE & SIZING RULES
+
+Reference table of exact default (demo) counts and per-item fields. Use these as the baseline when
+deciding whether the client's real content means you must expand, shrink, or fully replace an array.
+
+| Array | Default count | Fields |
+| --- | --- | --- |
+| `services[]` | 6 | `slug`, `title`, `short`, `detail`, `category`, `duration`, `benefits`, `imageKey` |
+| `staff[]` | 3 | `name`, `title`, `credentials`, `bio`, `imageKey` |
+| `providers[]` | 3 | `name`, `credentials`, `specialty`, `bio`, `yearsExperience`, `areasOfInterest`, `imageKey` |
+| `faqs[]` | 6 | `question`, `answer`, `category` |
+| `trustStats[]` | 4 | `value`, `label` |
+| `differentiators[]` | 6 | `title`, `description`, `iconKey` |
+| `marqueeReviews[]` | 4 | `author`, `segment`, `quote`, `rating` |
+| `industryBrands[]` | 7 | `name` |
+| `clientStories[]` | 3 | `name`, `segment`, `category`, `story`, `imageKey` |
+| `carePlans[]` | 3 | `name`, `tag`, `price`, `priceSub`, `description`, `features`, `ctaText` |
+| `newClientSteps[]` | 5 | `step`, `title`, `description` |
+| `howItWorks[]` | 4 | `step`, `title`, `description` |
+| `aboutValues[]` | 3 | `title`, `description` |
+| `whatToBring[]` | 5 | `item`, `note` |
+| `clinicExperienceFeatures[]` | 5 | `title`, `description`, `imageKey` |
+| `healthResources[]` | 3 | `title`, `excerpt`, `readTime`, `category`, `slug`, `imageKey` |
+| `paymentInfo.methods[]` | 3 | `name`, `description` |
+
+Sizing rules:
+
+- **EXPANSION:** If the client provides MORE items than the default count, DUPLICATE the object
+  schema with unique IDs/slugs/imageKeys.
+- **SHRINKAGE:** If the client provides FEWER items than the default count, REMOVE excess objects
+  so no empty or dummy entries remain.
+- **IMAGE TOKENS:** For every added item, assign a unique placeholder token following the existing
+  convention (e.g., `[SERVICE_7_IMAGE]`, `[VET_4_PHOTO]`).
+- **STATIC NARRATIVE WARNING:** `clientStories[]` and `articles[]` contain full narrative demo copy,
+  not just bracketed tokens — completely rewrite them to match the client's niche.
+
 ### 3. Image slot rule
 
 Every image in this template is a placeholder slot (`<ImagePlaceholder>` from
