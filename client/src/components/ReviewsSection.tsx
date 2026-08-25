@@ -1,4 +1,4 @@
-import { ExternalLink, MapPin, Star } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Section, Eyebrow } from "@/components/PageBlocks";
@@ -19,10 +19,7 @@ export function ReviewsSection() {
       </div>
       <Card className="justify-center border-border shadow-sm" aria-label="Google review invitation">
         <CardContent className="flex flex-col items-start gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <Star size={20} fill="currentColor" />
-          </span>
-          <Eyebrow icon={MapPin}>Google Maps</Eyebrow>
+          <Eyebrow>Google Maps</Eyebrow>
           <h3 className="text-2xl leading-snug font-semibold tracking-tight text-foreground">
             Help other clients <span className="text-primary">find their way.</span>
           </h3>

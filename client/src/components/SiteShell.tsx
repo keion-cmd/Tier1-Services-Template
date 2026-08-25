@@ -25,7 +25,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { BookingButton } from "@/components/BookingButton";
-import { clinic, services } from "@/lib/business-content";
+import { clinic, copy, services } from "@/lib/business-content";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -325,9 +325,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <div className="grid gap-10 md:grid-cols-4">
             <div className="flex flex-col gap-4 md:col-span-1">
               <ClinicMark dark />
-              <p className="max-w-[240px] text-sm leading-relaxed text-background/70">
-                Clear service information, thoughtful conversations, and a practical next step for every client.
-              </p>
+              <p className="max-w-[240px] text-sm leading-relaxed text-background/70">{copy.siteShell.footerTagline}</p>
               <BookingButton label="Book an Appointment" size="sm" iconSize={14} className="w-fit" />
             </div>
 
@@ -376,10 +374,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
             <div className="flex flex-col gap-2.5">
               <span className="text-xs font-semibold tracking-wide text-primary uppercase">Booking details</span>
-              <p className="text-sm leading-relaxed text-background/70">
-                Appointments are booked directly through our online scheduling tool, which handles confirmation and
-                reminders.
-              </p>
+              <p className="text-sm leading-relaxed text-background/70">{copy.siteShell.bookingDetailsText}</p>
               <PolicyDialog />
               <div className="mt-2 flex items-center gap-3">
                 {clinic.socialLinks.map((social) => (

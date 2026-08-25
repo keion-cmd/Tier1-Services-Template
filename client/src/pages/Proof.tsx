@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
@@ -8,15 +8,15 @@ import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } fr
 import { clinic, copy } from "@/lib/business-content";
 
 const careStats = [
-  { value: "06", label: "care pathways offered" },
-  { value: "01", label: "clear starting point for every visit" },
-  { value: "03", label: "steps from request to a confirmed next step" },
+  { value: "[PROOF_STAT_1_VALUE]", label: "[PROOF_STAT_1_LABEL]" },
+  { value: "[PROOF_STAT_2_VALUE]", label: "[PROOF_STAT_2_LABEL]" },
+  { value: "[PROOF_STAT_3_VALUE]", label: "[PROOF_STAT_3_LABEL]" },
 ];
 
 const clientStories = [
-  { label: "A long-time client check-in", note: "A calm, structured conversation helped prepare useful notes ahead of the visit, no guesswork, just clear next steps." },
-  { label: "A new client's first visit", note: "First-visit questions were answered plainly, and the client left knowing exactly what the next scheduled step would be." },
-  { label: "A prevention planning visit", note: "The visit stayed focused on the team's actual approved protocols, with a clear plan instead of an open-ended list of options." },
+  { label: "[PROOF_STORY_1_LABEL]", note: "[PROOF_STORY_1_NOTE]" },
+  { label: "[PROOF_STORY_2_LABEL]", note: "[PROOF_STORY_2_NOTE]" },
+  { label: "[PROOF_STORY_3_LABEL]", note: "[PROOF_STORY_3_NOTE]" },
 ];
 
 export default function Proof() {
@@ -29,8 +29,7 @@ export default function Proof() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
-        eyebrow="Trust & proof"
+        eyebrow={copy.proof.heroEyebrow}
         title={copy.proof.heroTitle}
         description={copy.proof.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
@@ -43,9 +42,7 @@ export default function Proof() {
             <strong className="text-5xl font-bold text-primary">06</strong>
             <span className="text-sm font-semibold text-muted-foreground">care paths</span>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-            These numbers describe how the clinic is structured today, not promises about individual outcomes.
-          </p>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{copy.proof.statsCaption}</p>
           <Link href="/faq" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
             Read common questions <ArrowUpRight size={15} />
           </Link>
@@ -54,13 +51,12 @@ export default function Proof() {
 
       <Section aria-labelledby="proof-stats-title">
         <SectionHeading
-          icon={ShieldCheck}
-          eyebrow="Care at a glance"
+          eyebrow={copy.proof.statsEyebrow}
           title={<span id="proof-stats-title">{copy.proof.statsTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {careStats.map((stat) => (
-            <FeatureCard key={stat.label} label="At a glance" title={stat.value} description={stat.label} />
+            <FeatureCard key={stat.label} label={copy.proof.statCardLabel} title={stat.value} description={stat.label} />
           ))}
         </div>
       </Section>
@@ -68,9 +64,9 @@ export default function Proof() {
       <ReviewsSection />
 
       <Section aria-labelledby="proof-stories-title">
-        <Eyebrow icon={ShieldCheck}>Verified client stories</Eyebrow>
+        <Eyebrow>{copy.proof.storiesEyebrow}</Eyebrow>
         <h2 id="proof-stories-title" className="sr-only">
-          Verified client stories
+          {copy.proof.storiesEyebrow}
         </h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {clientStories.map((story) => (

@@ -1,4 +1,3 @@
-import { ShieldCheck } from "lucide-react";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
@@ -15,7 +14,6 @@ export default function Services() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
         title={copy.services.heroTitle}
         description={copy.services.heroSubtitle}
@@ -29,10 +27,7 @@ export default function Services() {
             <strong className="text-5xl font-bold text-primary">{String(services.length).padStart(2, "0")}</strong>
             <span className="text-sm font-semibold text-muted-foreground">care paths</span>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-            From the first question to a more detailed conversation, our service overview helps make the next step
-            feel clearer.
-          </p>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{copy.services.introText}</p>
           <BookingButton label="Schedule Your Care" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { Mail, ShieldCheck, Phone } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
@@ -21,8 +20,7 @@ export default function FAQ() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
-        eyebrow="Frequently asked"
+        eyebrow={copy.faq.heroEyebrow}
         title={copy.faq.heroTitle}
         description={copy.faq.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
@@ -49,22 +47,19 @@ export default function FAQ() {
 
       <Section className="bg-secondary/30" aria-labelledby="faq-contact-title">
         <SectionHeading
-          icon={Phone}
-          eyebrow="Still have a question?"
+          eyebrow={copy.faq.contactEyebrow}
           title={<span id="faq-contact-title">{copy.faq.contactTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
-            icon={Phone}
-            label="Call the clinic"
+            label={copy.faq.callLabel}
             title={<a href={`tel:${clinic.phoneDigits}`} className="hover:text-primary">{clinic.phone}</a>}
-            description="Available during posted business hours for follow-up questions."
+            description={copy.faq.callDescription}
           />
           <FeatureCard
-            icon={Mail}
-            label="Email the team"
+            label={copy.faq.emailLabel}
             title={<a href={`mailto:${clinic.email}`} className="hover:text-primary">{clinic.email}</a>}
-            description="For non-urgent questions or details you'd rather write out."
+            description={copy.faq.emailDescription}
           />
         </div>
       </Section>

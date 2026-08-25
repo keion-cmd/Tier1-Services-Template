@@ -1,5 +1,5 @@
 import { Link, useParams } from "wouter";
-import { ArrowUpRight, UserCheck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
@@ -30,7 +30,6 @@ export default function ProviderDetail() {
       />
 
       <PageHero
-        eyebrowIcon={UserCheck}
         eyebrow={provider.specialty + (provider.placeholder ? " · Demo profile" : "")}
         title={
           <>
@@ -62,7 +61,6 @@ export default function ProviderDetail() {
 
       <Section aria-labelledby="provider-interests-title">
         <SectionHeading
-          icon={UserCheck}
           eyebrow="Areas of interest"
           title={
             <span id="provider-interests-title" className="sr-only">

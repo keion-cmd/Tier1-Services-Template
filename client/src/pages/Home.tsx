@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Activity, AlertTriangle, ArrowUpRight, Clock3, Heart, HeartHandshake, MapPin, Shield, Smile, Sparkles, Stethoscope } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Clock3, MapPin } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
@@ -25,9 +25,6 @@ import {
   trustStats,
 } from "@/lib/business-content";
 import { industryBrands } from "@/lib/industryBrands";
-
-const differentiatorIcons = { heart: Heart, stethoscope: Stethoscope, activity: Activity, shield: Shield, sparkles: Sparkles, smile: Smile };
-const carePlanIcons = { sparkles: Sparkles, shield: Shield, heart: Heart };
 
 export default function Home() {
   return (
@@ -79,7 +76,7 @@ export default function Home() {
       {/* 3. Services Showcase */}
       <Section aria-labelledby="home-services-title">
         <SectionHeading
-          eyebrow="How we can help"
+          eyebrow={copy.home.servicesEyebrow}
           title={<span id="home-services-title">{copy.home.servicesTitle}</span>}
           description={copy.home.servicesSubtitle}
           action={
@@ -94,13 +91,13 @@ export default function Home() {
       {/* 4. Why Choose Us */}
       <Section className="bg-secondary/30" aria-labelledby="home-why-choose-title">
         <SectionHeading
-          eyebrow="Why choose us"
+          eyebrow={copy.home.whyUsEyebrow}
           title={<span id="home-why-choose-title">{copy.home.whyUsTitle}</span>}
           description={copy.home.whyUsSubtitle}
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {differentiators.map((item) => (
-            <FeatureCard key={item.title} icon={differentiatorIcons[item.icon]} title={item.title} description={item.copy} />
+            <FeatureCard key={item.title} title={item.title} description={item.copy} />
           ))}
         </div>
       </Section>
@@ -108,7 +105,7 @@ export default function Home() {
       {/* 4b. Meet Our Team */}
       <Section aria-labelledby="home-team-title">
         <SectionHeading
-          eyebrow="Meet our team"
+          eyebrow={copy.home.teamEyebrow}
           title={<span id="home-team-title">{copy.home.teamTitle}</span>}
           description={copy.home.teamSubtitle}
           action={
@@ -142,7 +139,7 @@ export default function Home() {
       {/* 5. How It Works */}
       <Section className="bg-secondary/30" aria-labelledby="home-how-it-works-title">
         <SectionHeading
-          eyebrow="How it works"
+          eyebrow={copy.home.howItWorksEyebrow}
           title={<span id="home-how-it-works-title">{copy.home.howItWorksTitle}</span>}
           description={copy.home.howItWorksSubtitle}
         />
@@ -152,7 +149,7 @@ export default function Home() {
       {/* 5b. Designed Around Your Comfort */}
       <Section aria-labelledby="home-clinic-experience-title">
         <SectionHeading
-          eyebrow="Designed around your comfort"
+          eyebrow={copy.home.facilityEyebrow}
           title={<span id="home-clinic-experience-title">{copy.home.facilityTitle}</span>}
         />
         <div className="grid gap-4 md:grid-cols-[1.3fr_1fr]">
@@ -196,7 +193,7 @@ export default function Home() {
 
       {/* 6b. Real Care. Real Stories. */}
       <Section aria-labelledby="home-success-stories-title">
-        <Eyebrow icon={HeartHandshake}>{copy.home.successStoriesTitle}</Eyebrow>
+        <Eyebrow>{copy.home.successStoriesTitle}</Eyebrow>
         <h2 id="home-success-stories-title" className="sr-only">
           {copy.home.successStoriesTitle}
         </h2>
@@ -222,7 +219,7 @@ export default function Home() {
       {/* 7. Health & Wellness Resources */}
       <Section className="bg-secondary/30" aria-labelledby="home-health-resources-title">
         <SectionHeading
-          eyebrow="Health & wellness resources"
+          eyebrow={copy.home.resourcesEyebrow}
           title={<span id="home-health-resources-title">{copy.home.resourcesTitle}</span>}
           description={copy.home.resourcesSubtitle}
         />
@@ -231,7 +228,7 @@ export default function Home() {
             <Card key={article.title} className="gap-0 overflow-hidden p-0">
               <ImagePlaceholder label="Resource image" token={article.imageKey} className="h-40 w-full border-0" />
               <div className="flex min-w-0 flex-col gap-1.5 p-5">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">Health & wellness guide</span>
+                <span className="text-xs font-semibold tracking-wide text-primary uppercase">{copy.home.resourceCardLabel}</span>
                 <h3 className="text-lg font-semibold break-words text-foreground">{article.title}</h3>
                 <p className="text-sm leading-relaxed break-words text-muted-foreground">{article.excerpt}</p>
               </div>
@@ -243,27 +240,23 @@ export default function Home() {
       {/* 7b. Proactive Care for Every Stage */}
       <Section aria-labelledby="home-care-plans-title">
         <SectionHeading
-          eyebrow="Proactive care for every stage"
+          eyebrow={copy.home.carePlansEyebrow}
           title={<span id="home-care-plans-title">{copy.home.carePlansTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
-          {carePlans.map((plan) => {
-            const Icon = carePlanIcons[plan.icon];
-            return (
-              <Card key={plan.title} className="p-6">
-                <Icon size={22} className="text-primary" />
-                <span className="text-sm break-words text-muted-foreground">{plan.subtitle}</span>
-                <h3 className="text-xl font-semibold break-words text-foreground">{plan.title}</h3>
-                <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed break-words text-muted-foreground">
-                  {plan.bullets.map((bullet) => (
-                    <li key={bullet} className="list-disc">
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            );
-          })}
+          {carePlans.map((plan) => (
+            <Card key={plan.title} className="p-6">
+              <span className="text-sm break-words text-muted-foreground">{plan.subtitle}</span>
+              <h3 className="text-xl font-semibold break-words text-foreground">{plan.title}</h3>
+              <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed break-words text-muted-foreground">
+                {plan.bullets.map((bullet) => (
+                  <li key={bullet} className="list-disc">
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          ))}
         </div>
         <Link
           href="/new-clients"
@@ -275,7 +268,7 @@ export default function Home() {
 
       {/* 8. FAQ Teaser */}
       <Section className="bg-secondary/30">
-        <SectionHeading eyebrow="A few helpful answers" title={copy.home.faqTeaserTitle} description={copy.home.faqTeaserSubtitle} />
+        <SectionHeading eyebrow={copy.home.faqTeaserEyebrow} title={copy.home.faqTeaserTitle} description={copy.home.faqTeaserSubtitle} />
         <Accordion type="single" collapsible className="mx-auto max-w-3xl border-t border-border">
           {faqs.slice(0, 3).map((faq, index) => (
             <AccordionItem value={`faq-${index}`} key={faq.question}>
@@ -296,7 +289,7 @@ export default function Home() {
         <div className="grid gap-10 md:grid-cols-2">
           <div className="flex flex-col gap-5">
             <SectionHeading
-              eyebrow="Visit our clinic"
+              eyebrow={copy.home.locationEyebrow}
               title={<span id="home-location-title">{copy.home.locationTitle}</span>}
               className="mb-0"
             />

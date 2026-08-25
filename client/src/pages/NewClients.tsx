@@ -1,4 +1,4 @@
-import { CheckCircle2, UserCheck } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
@@ -15,8 +15,7 @@ export default function NewClients() {
       />
 
       <PageHero
-        eyebrowIcon={UserCheck}
-        eyebrow="New clients"
+        eyebrow={copy.newClients.heroEyebrow}
         title={copy.newClients.heroTitle}
         description={copy.newClients.heroSubtitle}
         cta={<BookingButton label="Book Your First Visit" />}
@@ -25,8 +24,7 @@ export default function NewClients() {
 
       <Section aria-labelledby="new-clients-steps-title">
         <SectionHeading
-          icon={UserCheck}
-          eyebrow="What to expect"
+          eyebrow={copy.newClients.stepsEyebrow}
           title={<span id="new-clients-steps-title">{copy.newClients.stepsTitle}</span>}
           description={`From your first booking to a follow-up visit, here's the ${newClientSteps.length}-step path most new clients follow.`}
         />
@@ -35,8 +33,7 @@ export default function NewClients() {
 
       <Section className="bg-secondary/30" aria-labelledby="new-clients-bring-title">
         <SectionHeading
-          icon={UserCheck}
-          eyebrow="What to bring"
+          eyebrow={copy.newClients.bringEyebrow}
           title={<span id="new-clients-bring-title" className="sr-only">{copy.newClients.bringTitle}</span>}
           className="mb-6"
         />

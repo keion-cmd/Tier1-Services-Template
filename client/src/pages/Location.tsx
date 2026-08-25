@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowUpRight, Clock3, Landmark, MapPin, Navigation, ShieldCheck, Phone } from "lucide-react";
+import { ArrowUpRight, MapPin, Phone } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { Card } from "@/components/ui/card";
@@ -45,8 +45,7 @@ export default function Location() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
-        eyebrow="Complimentary location page"
+        eyebrow={copy.location.heroEyebrow}
         title={copy.location.heroTitle}
         description={copy.location.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
@@ -98,20 +97,17 @@ export default function Location() {
 
       <Section className="bg-secondary/30" aria-labelledby="directions-title">
         <SectionHeading
-          icon={Navigation}
-          eyebrow="Driving directions"
+          eyebrow={copy.location.directionsEyebrow}
           title={<span id="directions-title">{copy.location.directionsTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
-            icon={Landmark}
-            label="Nearby landmark"
+            label={copy.location.landmarkLabel}
             title="[NEARBY_LANDMARK_NAME]"
             description={`The supplied Google Maps route connects ${clinic.name} with a nearby landmark.`}
           />
           <FeatureCard
-            icon={MapPin}
-            label="Clinic address"
+            label={copy.location.addressLabel}
             title={clinic.name}
             description={
               <>
@@ -129,8 +125,7 @@ export default function Location() {
         <div className="grid gap-10 md:grid-cols-2">
           <div className="flex flex-col gap-3">
             <SectionHeading
-              icon={Clock3}
-              eyebrow="Business hours"
+              eyebrow={copy.location.hoursEyebrow}
               title={<span id="business-hours-title">{copy.location.hoursTitle}</span>}
               description={`These are ${clinic.name} template hours. Confirm client-approved hours before any production launch.`}
               className="mb-0"
@@ -149,15 +144,13 @@ export default function Location() {
 
       <Section className="bg-secondary/30" aria-labelledby="emergency-title">
         <SectionHeading
-          icon={AlertTriangle}
           eyebrow={emergencyInfo.heading}
           title={<span id="emergency-title">{copy.location.emergencyTitle}</span>}
           description={emergencyInfo.note}
         />
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
-            icon={Phone}
-            label="Referral location"
+            label={copy.location.referralLabel}
             title={emergencyInfo.referralLocationName}
             description={
               <>
@@ -169,7 +162,7 @@ export default function Location() {
               </>
             }
           />
-          <FeatureCard icon={AlertTriangle} label="What to do" title="After-hours emergencies" description={emergencyInfo.instructions} />
+          <FeatureCard label={copy.location.whatToDoLabel} title={copy.location.afterHoursTitle} description={emergencyInfo.instructions} />
         </div>
       </Section>
 

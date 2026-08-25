@@ -4,7 +4,7 @@
  */
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, type LucideIcon, ShieldCheck } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
@@ -22,17 +22,15 @@ export function Section({
   );
 }
 
-export function Eyebrow({ icon: Icon = ShieldCheck, children }: { icon?: LucideIcon; children: ReactNode }) {
+export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex w-fit min-w-0 items-center gap-1.5 text-xs font-semibold tracking-wider break-words text-primary uppercase">
-      <Icon size={13} strokeWidth={2.25} className="shrink-0" />
+    <span className="inline-flex w-fit min-w-0 items-center text-xs font-semibold tracking-wider break-words text-primary uppercase">
       {children}
     </span>
   );
 }
 
 interface PageHeroProps {
-  eyebrowIcon?: LucideIcon;
   eyebrow: ReactNode;
   title: ReactNode;
   description: ReactNode;
@@ -41,7 +39,7 @@ interface PageHeroProps {
   image?: { label: string; token?: string };
 }
 
-export function PageHero({ eyebrowIcon, eyebrow, title, description, cta, backLink, image }: PageHeroProps) {
+export function PageHero({ eyebrow, title, description, cta, backLink, image }: PageHeroProps) {
   return (
     <section className="border-b border-border bg-secondary/50">
       <div
@@ -59,7 +57,7 @@ export function PageHero({ eyebrowIcon, eyebrow, title, description, cta, backLi
               <ArrowLeft size={15} /> {backLink.label}
             </Link>
           )}
-          <Eyebrow icon={eyebrowIcon}>{eyebrow}</Eyebrow>
+          <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="text-4xl leading-[1.05] font-bold tracking-tight text-foreground break-words sm:text-5xl">{title}</h1>
           <p className="text-base leading-relaxed break-words text-muted-foreground">{description}</p>
           {cta}
@@ -75,7 +73,6 @@ export function PageHero({ eyebrowIcon, eyebrow, title, description, cta, backLi
 }
 
 interface SectionHeadingProps {
-  icon?: LucideIcon;
   eyebrow?: ReactNode;
   title: ReactNode;
   description?: ReactNode;
@@ -84,7 +81,7 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-export function SectionHeading({ icon, eyebrow, title, description, action, align = "left", className }: SectionHeadingProps) {
+export function SectionHeading({ eyebrow, title, description, action, align = "left", className }: SectionHeadingProps) {
   return (
     <div
       className={cn(
@@ -94,7 +91,7 @@ export function SectionHeading({ icon, eyebrow, title, description, action, alig
       )}
     >
       <div className={cn("flex min-w-0 max-w-2xl flex-col gap-3", align === "center" && "items-center")}>
-        {eyebrow && <Eyebrow icon={icon}>{eyebrow}</Eyebrow>}
+        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
         <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground break-words sm:text-4xl">{title}</h2>
         {description && <p className="text-base leading-relaxed break-words text-muted-foreground">{description}</p>}
       </div>
@@ -118,7 +115,6 @@ export function PageOutro({ eyebrow, title, cta }: { eyebrow: ReactNode; title: 
 }
 
 interface FeatureCardProps {
-  icon?: LucideIcon;
   label?: ReactNode;
   title: ReactNode;
   description?: ReactNode;
@@ -127,15 +123,10 @@ interface FeatureCardProps {
   className?: string;
 }
 
-export function FeatureCard({ icon: Icon, label, title, description, className }: FeatureCardProps) {
+export function FeatureCard({ label, title, description, className }: FeatureCardProps) {
   return (
     <Card className={cn("h-full min-w-0 transition-colors hover:border-primary/40", className)}>
       <CardContent className="flex h-full min-w-0 flex-col gap-3">
-        {Icon && (
-          <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <Icon size={20} strokeWidth={1.75} />
-          </span>
-        )}
         {label && <span className="text-xs font-semibold tracking-wide break-words text-primary uppercase">{label}</span>}
         <h3 className="text-lg leading-snug font-semibold break-words text-foreground">{title}</h3>
         {description && <p className="text-sm leading-relaxed break-words text-muted-foreground">{description}</p>}

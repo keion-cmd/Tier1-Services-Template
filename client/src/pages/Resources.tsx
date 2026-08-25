@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Info, ShieldCheck } from "lucide-react";
+import { Info } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
@@ -17,8 +17,7 @@ export default function Resources() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
-        eyebrow="Health & wellness resources"
+        eyebrow={copy.resources.heroEyebrow}
         title={copy.resources.heroTitle}
         description={copy.resources.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
@@ -32,8 +31,7 @@ export default function Resources() {
             <span className="text-sm font-semibold text-muted-foreground">articles</span>
           </div>
           <p className="flex max-w-md items-start gap-2 text-sm leading-relaxed text-muted-foreground">
-            <Info size={17} className="mt-0.5 shrink-0" /> This content is for general educational purposes and does
-            not replace professional advice from our team.
+            <Info size={17} className="mt-0.5 shrink-0" /> {copy.resources.disclaimerText}
           </p>
           <BookingButton label="Talk to our team" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
@@ -41,8 +39,7 @@ export default function Resources() {
 
       <Section aria-labelledby="resources-grid-title">
         <SectionHeading
-          icon={ShieldCheck}
-          eyebrow="Latest articles"
+          eyebrow={copy.resources.gridEyebrow}
           title={<span id="resources-grid-title">{copy.resources.gridTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">

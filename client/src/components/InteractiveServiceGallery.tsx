@@ -3,7 +3,6 @@
  */
 import { useState } from "react";
 import { Link } from "wouter";
-import { Activity, Heart, ShieldCheck, Smile, Sparkles, Stethoscope } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookingButton } from "@/components/BookingButton";
@@ -11,7 +10,6 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { services } from "@/lib/business-content";
 import { cn } from "@/lib/utils";
 
-const icons = { stethoscope: Stethoscope, shield: ShieldCheck, sparkles: Sparkles, heart: Heart, smile: Smile, activity: Activity };
 const categoryFilters = ["All", "Preventive", "Clinical & Dental", "Diagnostics"] as const;
 
 type InteractiveServiceGalleryProps = { variant: "home" | "services"; count?: number };
@@ -52,7 +50,6 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
       >
         {visibleServices.map((service) => {
           const index = galleryServices.indexOf(service);
-          const Icon = icons[service.icon];
           const detailHref = `/services/${service.slug}`;
           const media = (
             <div className="relative aspect-[4/3] overflow-hidden">
@@ -65,7 +62,6 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
           );
           const copy = (
             <CardContent className="flex flex-1 flex-col gap-2 pt-4">
-              <Icon size={20} strokeWidth={1.75} className="text-primary" />
               <h3 className="text-xl leading-snug font-semibold tracking-tight text-foreground">{service.title}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{service.short}</p>
             </CardContent>

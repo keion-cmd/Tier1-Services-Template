@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowUpRight, UserCheck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
@@ -17,8 +17,7 @@ export default function Team() {
       />
 
       <PageHero
-        eyebrowIcon={UserCheck}
-        eyebrow="Our clinical team"
+        eyebrow={copy.team.heroEyebrow}
         title={copy.team.heroTitle}
         description={copy.team.heroSubtitle}
         cta={<BookingButton label="Schedule an Appointment" />}
@@ -43,8 +42,7 @@ export default function Team() {
 
       <Section aria-labelledby="team-grid-title">
         <SectionHeading
-          icon={UserCheck}
-          eyebrow="Demo profiles"
+          eyebrow={copy.team.gridEyebrow}
           title={<span id="team-grid-title">{copy.team.gridTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">

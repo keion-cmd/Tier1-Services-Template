@@ -1,12 +1,9 @@
-import { HeartHandshake, ShieldCheck, Stethoscope } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { aboutValues, clinic, copy, staff } from "@/lib/business-content";
-
-const valueIcons = { stethoscope: Stethoscope, shield: ShieldCheck, heart: HeartHandshake };
 
 export default function About() {
   return (
@@ -18,8 +15,7 @@ export default function About() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
-        eyebrow="Our story"
+        eyebrow={copy.about.heroEyebrow}
         title={copy.about.heroTitle}
         description={copy.about.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
@@ -28,19 +24,18 @@ export default function About() {
 
       <Section aria-labelledby="about-values-title">
         <SectionHeading
-          icon={ShieldCheck}
-          eyebrow="What guides us"
+          eyebrow={copy.about.valuesEyebrow}
           title={<span id="about-values-title">{copy.about.valuesTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {aboutValues.map((value) => (
-            <FeatureCard key={value.title} icon={valueIcons[value.icon]} label="Care value" title={value.title} description={value.copy} />
+            <FeatureCard key={value.title} label={copy.about.valueLabel} title={value.title} description={value.copy} />
           ))}
         </div>
       </Section>
 
       <Section className="bg-secondary/30" aria-labelledby="about-team-title">
-        <SectionHeading icon={ShieldCheck} eyebrow="Our team's approach" title={<span id="about-team-title" className="sr-only">Our team's approach</span>} className="mb-6" />
+        <SectionHeading eyebrow={copy.about.approachEyebrow} title={<span id="about-team-title" className="sr-only">{copy.about.approachEyebrow}</span>} className="mb-6" />
         <div className="grid gap-5 sm:grid-cols-2">
           <Card>
             <CardContent>
@@ -57,8 +52,7 @@ export default function About() {
 
       <Section aria-labelledby="about-staff-title">
         <SectionHeading
-          icon={ShieldCheck}
-          eyebrow="Meet the team"
+          eyebrow={copy.about.staffEyebrow}
           title={<span id="about-staff-title">{copy.about.staffTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">

@@ -1,5 +1,5 @@
 import { Link, useParams } from "wouter";
-import { ArrowUpRight, Info, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Info } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
@@ -33,7 +33,6 @@ export default function ArticleDetail() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
         eyebrow={`${article.category} · ${article.date} · ${article.readingTime}`}
         title={article.title}
         description={article.excerpt}
@@ -43,7 +42,7 @@ export default function ArticleDetail() {
       />
 
       <Section aria-labelledby="article-body-title">
-        <SectionHeading icon={ShieldCheck} eyebrow="Article" title={<span id="article-body-title" className="sr-only">Article</span>} className="mb-6" />
+        <SectionHeading eyebrow={copy.articleDetail.bodyEyebrow} title={<span id="article-body-title" className="sr-only">{copy.articleDetail.bodyEyebrow}</span>} className="mb-6" />
         <div className="flex max-w-180 flex-col gap-4">
           {article.body.map((paragraph, index) => (
             <p key={index} className="text-base leading-relaxed text-foreground">
@@ -53,16 +52,14 @@ export default function ArticleDetail() {
         </div>
         {article.disclaimer && (
           <p className="mt-6 flex max-w-180 items-start gap-2 text-xs leading-relaxed text-muted-foreground">
-            <Info size={16} className="mt-0.5 shrink-0" /> This content is for general educational purposes and does
-            not replace professional advice from our team.
+            <Info size={16} className="mt-0.5 shrink-0" /> {copy.articleDetail.disclaimerText}
           </p>
         )}
       </Section>
 
       <Section className="bg-secondary/30" aria-labelledby="article-related-title">
         <SectionHeading
-          icon={ShieldCheck}
-          eyebrow="Keep reading"
+          eyebrow={copy.articleDetail.relatedEyebrow}
           title={<span id="article-related-title">{copy.articleDetail.relatedTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">

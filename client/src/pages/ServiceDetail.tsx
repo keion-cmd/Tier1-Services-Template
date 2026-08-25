@@ -1,5 +1,5 @@
 import { useParams } from "wouter";
-import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
@@ -28,7 +28,6 @@ export default function ServiceDetail() {
       />
 
       <PageHero
-        eyebrowIcon={ShieldCheck}
         eyebrow={`${service.number} · Care path · ${service.duration}`}
         title={service.title}
         description={service.detail}
@@ -49,7 +48,7 @@ export default function ServiceDetail() {
       </div>
 
       <Section aria-labelledby="service-benefits-title">
-        <SectionHeading icon={ShieldCheck} eyebrow="Key benefits" title={<span id="service-benefits-title" className="sr-only">Key benefits</span>} className="mb-6" />
+        <SectionHeading eyebrow={copy.serviceDetail.benefitsEyebrow} title={<span id="service-benefits-title" className="sr-only">{copy.serviceDetail.benefitsEyebrow}</span>} className="mb-6" />
         <div className="grid gap-4 sm:grid-cols-2">
           {service.benefits.map((benefit) => (
             <Card key={benefit}>
@@ -64,13 +63,12 @@ export default function ServiceDetail() {
 
       <Section className="bg-secondary/30" aria-labelledby="service-process-title">
         <SectionHeading
-          icon={ShieldCheck}
-          eyebrow="What to expect"
+          eyebrow={copy.serviceDetail.processEyebrow}
           title={<span id="service-process-title">{copy.serviceDetail.processTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
-          {service.process.map((step, index) => (
-            <FeatureCard key={step} label={`Step ${index + 1}`} title={step} description={stepDescription(step)} />
+          {service.process.map((step) => (
+            <FeatureCard key={step.step} label={`Step ${step.step}`} title={step.title} description={step.description} />
           ))}
         </div>
       </Section>
@@ -86,11 +84,4 @@ export default function ServiceDetail() {
       />
     </main>
   );
-}
-
-function stepDescription(step: string) {
-  if (step === "Intake") return "Share your history and the questions you'd like to raise.";
-  if (step === "Examination") return "A hands-on look guided by what you shared during intake.";
-  if (step === "Care Plan") return "A clear next step, discussed directly rather than assumed online.";
-  return "Part of this care path's structured conversation.";
 }
