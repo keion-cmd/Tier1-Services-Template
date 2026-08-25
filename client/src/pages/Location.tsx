@@ -3,14 +3,14 @@ import { Link } from "wouter";
 import { PageMeta } from "@/components/PageMeta";
 import { assets, clinic } from "@/lib/clinic-content";
 
-const locationClinicName = "Hayop Kalinga Veterinary Clinic";
+const locationClinicName = "Paws+Pine Veterinary Clinic";
 const locationAddress = "Center Stall No. 4027, 2nd Street";
 const locationCity = "Calamba, Laguna";
 const suppliedDirectionsEmbed = "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3867.7651877487674!2d121.15219677535784!3d14.20852278655503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e9!4m5!1s0x33bd63cf0332a4d1%3A0x64e104a26340b384!2sHayop%20Kalinga%20Veterinary%20Clinic%2C%20Center%20Stall%20No%2C%204027%202nd%20Street%2C%20Calamba%2C%20Laguna!3m2!1d14.2075514!2d121.154726!4m5!1s0x33bd63ce87362e4b%3A0x7ca9e107c335fbab!2sCalamba%20Trade%20Center%2C%206554%2B3JW%2C%20JP%20Rizal%20St%2C%20Calamba%2C%204027%20Laguna!3m2!1d14.207739!2d121.156577!5e0!3m2!1sen!2sph!4v1787400409039!5m2!1sen!2sph";
 const directionsUrl = "https://www.google.com/maps/dir/?api=1&origin=Center+Stall+No.+4027,+2nd+Street,+Calamba,+Laguna&destination=Calamba+Trade+Center,+JP+Rizal+Street,+Calamba,+Laguna&travelmode=driving";
 
 function ClinicMap() {
-  return <div className="pp-location-map-card pp-supplied-map"><div className="pp-map-frame"><div className="pp-map-heading"><span>Driving route</span><strong>Clinic ↔ Trade Center</strong></div><iframe className="pp-location-map pp-location-embed" title="Google Maps driving directions between Hayop Kalinga Veterinary Clinic and Calamba Trade Center" src={suppliedDirectionsEmbed} loading="lazy" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /><a className="pp-map-open" href={directionsUrl} target="_blank" rel="noreferrer">Open driving directions <ArrowUpRight size={14} /></a></div></div>;
+  return <div className="pp-location-map-card pp-supplied-map"><div className="pp-map-frame"><div className="pp-map-heading"><span>Driving route</span><strong>Clinic ↔ Trade Center</strong></div><iframe className="pp-location-map pp-location-embed" title="Google Maps driving directions between Paws+Pine Veterinary Clinic and Calamba Trade Center" src={suppliedDirectionsEmbed} loading="lazy" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /><a className="pp-map-open" href={directionsUrl} target="_blank" rel="noreferrer">Open driving directions <ArrowUpRight size={14} /></a></div></div>;
 }
 
 export default function Location() {

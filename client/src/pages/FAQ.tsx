@@ -5,7 +5,7 @@ import { Link } from "wouter";
 import { ArrowUpRight, Mail, PawPrint, Phone } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageMeta } from "@/components/PageMeta";
-import { clinic, faqs } from "@/lib/clinic-content";
+import { assets, clinic, faqs } from "@/lib/clinic-content";
 
 const categories = [
   { label: "Requests & visits", items: faqs },
@@ -15,9 +15,9 @@ export default function FAQ() {
   return <main className="neo-main pp-services-page">
     <PageMeta title="FAQ — Paws+Pine Veterinary Clinic" description="Answers to common questions about requesting a visit at Paws+Pine Veterinary Clinic." />
 
-    <section className="pp-request-hero pp-major-light-stage pp-reveal">
-      <div><span className="pp-page-eyebrow"><PawPrint size={15} /> Frequently asked</span><p>A few honest answers about how requests, visits, and next steps actually work.</p></div>
-      <div className="pp-request-hero-title"><span aria-hidden="true" className="pp-paw-motif"><PawPrint size={28} /></span><h1>Questions,<br /><em>answered clearly.</em></h1></div>
+    <section className="pp-page-hero pp-services-hero pp-major-light-stage pp-reveal">
+      <div className="pp-page-hero-copy"><span className="pp-page-eyebrow"><PawPrint size={15} /> Frequently asked</span><h1>Questions,<br /><em>answered clearly.</em></h1><p>A few honest answers about how requests, visits, and next steps actually work.</p><Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link></div>
+      <div className="pp-services-hero-image"><img src={assets.clinicHero} alt="Paws and Pine clinic consultation space" /></div>
     </section>
 
     <section className="fidelity-faq pp-reveal">
