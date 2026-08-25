@@ -169,14 +169,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
       >
         <a
           href={`tel:${clinic.phoneDigits}`}
-          className="flex min-h-[52px] items-center justify-center gap-2 text-sm font-bold text-foreground"
+          className="flex min-h-[var(--mobile-bar-height)] items-center justify-center gap-2 text-sm font-bold text-foreground"
         >
           <Phone size={16} /> Call Us
         </a>
         <BookingButton
           label="Book an Appointment"
           iconSize={16}
-          className="min-h-[52px] w-full rounded-none border-l border-border/60"
+          className="min-h-[var(--mobile-bar-height)] w-full rounded-none border-l border-border/60"
         />
       </div>
 
@@ -186,7 +186,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-transparent bg-background"
         )}
       >
-        <div className="mx-auto flex h-16 max-w-7xl min-w-0 items-center justify-between gap-4 px-6 lg:h-[72px] lg:px-8">
+        <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-7xl min-w-0 items-center justify-between gap-4 px-6 lg:h-[var(--header-height)] lg:px-8">
           <div className="shrink-0">
             <ClinicMark />
           </div>

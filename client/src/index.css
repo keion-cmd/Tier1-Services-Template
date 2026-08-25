@@ -25,6 +25,9 @@
   --input: 140 10% 90%;
   --ring: 160 70% 40%;
   --radius: 1rem;
+  --header-height: 72px;
+  --header-height-mobile: 64px;
+  --mobile-bar-height: 52px;
   --chart-1: 160 70% 40%;
   --chart-2: 200 65% 45%;
   --chart-3: 35 80% 55%;
@@ -77,6 +80,7 @@
 
 @theme inline {
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -120,6 +124,10 @@
 * {
   box-sizing: border-box;
   border-color: hsl(var(--border));
+}
+
+@utility font-heading {
+  font-family: var(--font-heading);
 }
 
 html {

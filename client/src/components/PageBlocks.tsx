@@ -58,7 +58,7 @@ export function PageHero({ eyebrow, title, description, cta, backLink, image }: 
             </Link>
           )}
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="text-4xl leading-[1.05] font-bold tracking-tight text-foreground break-words sm:text-5xl">{title}</h1>
+          <h1 className="font-heading text-4xl leading-[1.05] font-bold tracking-tight text-foreground break-words sm:text-5xl">{title}</h1>
           <p className="text-base leading-relaxed break-words text-muted-foreground">{description}</p>
           {cta}
         </div>
@@ -92,7 +92,7 @@ export function SectionHeading({ eyebrow, title, description, action, align = "l
     >
       <div className={cn("flex min-w-0 max-w-2xl flex-col gap-3", align === "center" && "items-center")}>
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground break-words sm:text-4xl">{title}</h2>
+        <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight text-foreground break-words sm:text-4xl">{title}</h2>
         {description && <p className="text-base leading-relaxed break-words text-muted-foreground">{description}</p>}
       </div>
       {action}
