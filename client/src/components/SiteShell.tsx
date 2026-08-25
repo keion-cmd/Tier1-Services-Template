@@ -31,13 +31,13 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/services", label: "Our services" },
-  { href: "/team", label: "Our Team" },
+  { href: "/services", label: "Services" },
+  { href: "/team", label: "Team" },
   { href: "/resources", label: "Resources" },
   { href: "/proof", label: "Reviews" },
   { href: "/faq", label: "FAQ" },
   { href: "/new-clients", label: "New Clients" },
-  { href: "/location", label: "Clinic location", benefit: "Free" },
+  { href: "/location", label: "Location" },
 ];
 
 function ClinicMark({ dark = false }: { dark?: boolean }) {
@@ -186,21 +186,23 @@ export function SiteShell({ children }: { children: ReactNode }) {
           scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-transparent bg-background"
         )}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6 lg:h-[72px] lg:px-8">
-          <ClinicMark />
+        <div className="mx-auto flex h-16 max-w-7xl min-w-0 items-center justify-between gap-4 px-6 lg:h-[72px] lg:px-8">
+          <div className="shrink-0">
+            <ClinicMark />
+          </div>
 
-          <NavigationMenu viewport={false} className="hidden max-w-none flex-1 justify-center lg:flex">
-            <NavigationMenuList className="gap-1">
+          <NavigationMenu viewport={false} className="hidden min-w-0 max-w-none flex-1 justify-center lg:flex">
+            <NavigationMenuList className="gap-1.5">
               {navItems.map((item) =>
                 item.href === "/services" ? (
                   <NavigationMenuItem key={item.href}>
                     <NavigationMenuTrigger
                       className={cn(
-                        "bg-transparent px-3 text-sm font-semibold",
+                        "whitespace-nowrap bg-transparent px-3 text-sm font-semibold",
                         location === item.href && "text-primary"
                       )}
                     >
-                      Our services
+                      Services
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid w-[280px] gap-1 p-1">
@@ -227,16 +229,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
                       <Link
                         href={item.href}
                         className={cn(
-                          "inline-flex h-9 items-center gap-1.5 rounded-md bg-transparent px-3 text-sm font-semibold text-foreground hover:bg-accent",
+                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-3 text-sm font-semibold text-foreground hover:bg-accent",
                           location === item.href && "text-primary"
                         )}
                       >
                         {item.label}
-                        {item.benefit && (
-                          <span className="text-[10px] font-bold tracking-wide text-primary uppercase">
-                            {item.benefit}
-                          </span>
-                        )}
                       </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
@@ -308,9 +305,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
                         )}
                       >
                         <span>{item.label}</span>
-                        {item.benefit && (
-                          <span className="text-xs font-bold tracking-wide text-primary uppercase">{item.benefit}</span>
-                        )}
                       </Link>
                     </SheetClose>
                   )
@@ -346,7 +340,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   className="w-fit text-sm text-background/80 transition-colors hover:text-primary-foreground"
                 >
                   {item.label}
-                  {item.benefit && <span className="ml-1.5 text-xs font-bold text-primary">{item.benefit}</span>}
                 </Link>
               ))}
             </nav>
