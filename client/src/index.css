@@ -113,8 +113,8 @@
   --radius-md: calc(var(--radius) - 4px);
   --radius-lg: calc(var(--radius) - 2px);
   --radius-xl: var(--radius);
-  --animate-marquee: marquee 70s linear infinite;
-  --animate-marquee-slow: marquee 90s linear infinite;
+  --animate-marquee: marquee 150s linear infinite;
+  --animate-marquee-slow: marquee 200s linear infinite;
 }
 
 * {
