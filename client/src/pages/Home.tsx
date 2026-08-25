@@ -32,9 +32,9 @@ export default function Home() {
     <PetCareMarquee items={petCareBrands} />
 
     {/* 2. Trust Stats Bar */}
-    <section className="pp-directions-section pp-reveal" aria-labelledby="home-trust-stats-title">
-      <div><span className="fidelity-kicker">Care at a glance</span><h2 id="home-trust-stats-title">Numbers that<br /><em>stay honest.</em></h2></div>
-      <div className="pp-trust-stats">{trustStats.map((stat) => <div className="pp-trust-stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
+    <section className="pp-home-stats pp-reveal" aria-labelledby="home-trust-stats-title">
+      <span id="home-trust-stats-title" className="sr-only">Care at a glance</span>
+      <div className="pp-home-stats-row">{trustStats.map((stat) => <div className="pp-home-stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
     </section>
 
     {/* 3. Services Showcase */}
@@ -43,7 +43,7 @@ export default function Home() {
     <div className="pp-marquee" aria-label="Paws and Pine care paths"><span>Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span><span aria-hidden="true">Wellness visits <PawPrint size={14} /> Prevention planning <PawPrint size={14} /> Puppy and kitten care <PawPrint size={14} /> Senior pet check-ins <PawPrint size={14} /> Dental care <PawPrint size={14} /> Diagnostics and procedures <PawPrint size={14} /></span></div>
 
     {/* 4. Why Choose Us */}
-    <section className="pp-directions-section pp-reveal" aria-labelledby="home-why-choose-title">
+    <section className="pp-directions-section pp-home-section--light pp-reveal" aria-labelledby="home-why-choose-title">
       <div><span className="fidelity-kicker">Why choose us</span><h2 id="home-why-choose-title">Care that shows<br /><em>in the details.</em></h2></div>
       <div className="pp-differentiator-grid">{differentiators.map((item) => {
         const Icon = differentiatorIcons[item.icon];
@@ -54,7 +54,7 @@ export default function Home() {
     {/* 4b. Meet Our Veterinary Team */}
     <section className="pp-services-gallery-section pp-reveal" aria-labelledby="home-team-title">
       <div className="fidelity-services-heading"><div><span className="fidelity-kicker">Meet our veterinary team</span><h2 id="home-team-title">Care from a team<br /><em>you can trust.</em></h2></div><div><p>Three demo profiles representing the kind of clinical range a real Paws+Pine team could offer.</p><Link href="/team" className="lime-link">Meet the full team <ArrowUpRight size={15} /></Link></div></div>
-      <div className="pp-directions-grid">{doctors.map((doctor) => <article key={doctor.slug}><img src={assets[doctor.imageKey]} alt="" aria-hidden="true" className="w-full h-40 object-cover rounded-xl mb-3" /><span>{doctor.specialty}</span><h3>{doctor.name}, {doctor.credentials}</h3><p>{doctor.bio}</p><Link href={`/team/${doctor.slug}`} className="pp-text-action">View profile <ArrowUpRight size={17} /></Link></article>)}</div>
+      <div className="pp-directions-grid">{doctors.map((doctor) => <article key={doctor.slug}><img src={assets[doctor.imageKey]} alt="" aria-hidden="true" className="w-full h-56 object-cover rounded-xl mb-3" /><span>{doctor.specialty}</span><h3>{doctor.name}, {doctor.credentials}</h3><p>{doctor.bio}</p><Link href={`/team/${doctor.slug}`} className="pp-text-action">View profile <ArrowUpRight size={17} /></Link></article>)}</div>
     </section>
 
     {/* 5. How It Works */}
@@ -64,9 +64,13 @@ export default function Home() {
     </section>
 
     {/* 5b. Designed Around Your Pet's Comfort */}
-    <section className="pp-directions-section pp-reveal" aria-labelledby="home-clinic-experience-title">
-      <div><span className="fidelity-kicker">Designed around your pet's comfort</span><h2 id="home-clinic-experience-title">A space built<br /><em>for calm visits.</em></h2></div>
-      <div className="pp-directions-grid">{clinicExperienceFeatures.map((feature) => <article key={feature.title}><img src={assets[feature.imageKey]} alt="" aria-hidden="true" className="w-full h-32 object-cover rounded-xl mb-3" /><span>Clinic experience</span><h3>{feature.title}</h3><p>{feature.copy}</p></article>)}</div>
+    <section className="pp-clinic-gallery pp-reveal" aria-labelledby="home-clinic-experience-title">
+      <div className="pp-clinic-gallery-heading"><span className="fidelity-kicker">Designed around your pet's comfort</span><h2 id="home-clinic-experience-title">A space built<br /><em>for calm visits.</em></h2></div>
+      <div className="pp-clinic-gallery-layout">
+        <figure className="pp-clinic-gallery-hero"><img src={assets[clinicExperienceFeatures[0].imageKey]} alt="" aria-hidden="true" /><figcaption>{clinicExperienceFeatures[0].title}</figcaption></figure>
+        <div className="pp-clinic-gallery-side">{clinicExperienceFeatures.slice(1, 3).map((feature) => <figure key={feature.title}><img src={assets[feature.imageKey]} alt="" aria-hidden="true" /><figcaption>{feature.title}</figcaption></figure>)}</div>
+      </div>
+      <p className="pp-clinic-gallery-note">{clinicExperienceFeatures.slice(3).map((feature) => <span key={feature.title}><strong>{feature.title}.</strong> {feature.copy}</span>)}</p>
     </section>
 
     {/* 6. Infinite Reviews Marquee */}
@@ -76,7 +80,7 @@ export default function Home() {
     {/* 6b. Real Care. Real Stories. */}
     <section className="pp-services-gallery-section pp-reveal" aria-labelledby="home-success-stories-title">
       <h2 id="home-success-stories-title" className="pp-page-eyebrow"><PawPrint size={15} /> Real care. Real stories.</h2>
-      <div className="grid gap-4 sm:grid-cols-3 mt-4">{patientSuccessStories.map((story) => <div key={story.petName} className="pp-location-card pp-location-copy flex flex-col items-start gap-2 p-5 rounded-2xl"><img src={assets[story.imageKey]} alt="" aria-hidden="true" className="w-full h-32 object-cover rounded-xl mb-2" /><span className="pp-page-eyebrow">{story.petName} · {story.breed} · {story.category}</span><p className="m-0">{story.story}</p></div>)}</div>
+      <div className="grid gap-4 sm:grid-cols-3 mt-4">{patientSuccessStories.map((story) => <div key={story.petName} className="pp-location-card pp-location-copy flex flex-col items-start gap-2 p-5 rounded-2xl"><img src={assets[story.imageKey]} alt="" aria-hidden="true" className="w-full h-48 object-cover rounded-xl mb-2" /><span className="pp-page-eyebrow">{story.petName} · {story.breed} · {story.category}</span><p className="m-0">{story.story}</p></div>)}</div>
       <p className="pp-location-note">Paws+Pine is a fictional demonstration clinic; these demo patient stories are illustrative placeholders, not real medical outcomes.</p>
     </section>
 
@@ -87,7 +91,7 @@ export default function Home() {
     </section>
 
     {/* 7b. Proactive Care for Every Stage */}
-    <section className="pp-directions-section pp-reveal" aria-labelledby="home-care-plans-title">
+    <section className="pp-directions-section pp-home-section--light pp-reveal" aria-labelledby="home-care-plans-title">
       <div><span className="fidelity-kicker">Proactive care for every stage</span><h2 id="home-care-plans-title">Planned around<br /><em>your pet's life stage.</em></h2></div>
       <div className="pp-directions-grid">{carePlans.map((plan) => {
         const Icon = carePlanIcons[plan.icon];
