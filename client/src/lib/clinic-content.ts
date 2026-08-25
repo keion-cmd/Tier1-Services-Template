@@ -132,6 +132,56 @@ export function getServiceBySlug(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);
 }
 
+export const trustStats = [
+  { value: "10+", label: "Years experience" },
+  { value: "5,000+", label: "Pets cared for" },
+  { value: "4.9★", label: "Average rating" },
+  { value: "7 Days", label: "Open weekly" },
+] as { value: string; label: string }[];
+
+export const differentiators = [
+  { icon: "heart", title: "Compassionate Care", copy: "Every visit is paced around your pet's comfort, not the clock, with patient handling at every step." },
+  { icon: "stethoscope", title: "Experienced Veterinary Team", copy: "A clinical team with years of hands-on practice across routine, preventive, and diagnostic care." },
+  { icon: "activity", title: "Modern Diagnostics", copy: "Approved diagnostic pathways help the clinic team get a clearer picture before recommending next steps." },
+  { icon: "shield", title: "Preventive Focus", copy: "Vaccination and wellness planning aimed at catching small things before they become bigger ones." },
+  { icon: "sparkles", title: "Fear-Free Environment", copy: "Calm handling techniques and an unhurried pace help keep visits low-stress for anxious pets." },
+  { icon: "smile", title: "Transparent Communication", copy: "Clear explanations and honest next steps, with no pressure and no surprises." },
+] as { icon: "heart" | "stethoscope" | "activity" | "shield" | "sparkles" | "smile"; title: string; copy: string }[];
+
+export const howItWorks = [
+  { step: "01", title: "Book a Visit", copy: "Send a few details through our simple request form and choose the care path that fits." },
+  { step: "02", title: "Meet Our Care Team", copy: "A member of our clinical team greets you and your pet, and starts an unhurried conversation." },
+  { step: "03", title: "Get a Personalized Plan", copy: "Based on that conversation and a hands-on exam, the team outlines a clear, realistic next step." },
+  { step: "04", title: "Lifelong Wellness", copy: "Follow-up visits and preventive check-ins keep your pet's care on track for years to come." },
+] as { step: string; title: string; copy: string }[];
+
+export const healthResources = [
+  {
+    title: "How Often Should Your Dog Visit the Vet?",
+    excerpt: "A quick guide to routine check-in timing for puppies, adults, and senior dogs.",
+    imageKey: "dogCare",
+  },
+  {
+    title: "10 Signs Your Cat May Be Unwell",
+    excerpt: "Subtle behavior and habit changes that are worth mentioning at your cat's next visit.",
+    imageKey: "catCare",
+  },
+  {
+    title: "Puppy & Kitten Vaccination Schedule",
+    excerpt: "What a typical early vaccination pathway looks like, and how to prepare for it.",
+    imageKey: "aboutPup",
+  },
+] as { title: string; excerpt: string; imageKey: keyof typeof assets }[];
+
+export const marqueeReviews = [
+  { name: "Renz A.", pet: "Dog owner", quote: "The team took real time with our nervous rescue dog instead of rushing the exam. Genuinely fear-free care.", rating: 5 },
+  { name: "Mika D.", pet: "Cat owner", quote: "Clear explanations at every step, no confusing jargon. I finally understood our cat's care plan.", rating: 5 },
+  { name: "Joyce T.", pet: "Puppy owner", quote: "Booking was easy and the follow-up communication after our puppy's first visit was excellent.", rating: 5 },
+  { name: "Paolo S.", pet: "Senior dog owner", quote: "They noticed a small change we'd missed and walked us through what to watch for. Really attentive team.", rating: 5 },
+  { name: "Bea L.", pet: "Kitten owner", quote: "Our kitten's first vaccination visit was calm and stress-free thanks to the patient staff.", rating: 5 },
+  { name: "Anton R.", pet: "Multi-pet owner", quote: "Consistent, honest care across three different pets over the years. Wouldn't go anywhere else.", rating: 5 },
+] as { name: string; pet: string; quote: string; rating: number }[];
+
 export const faqs = [
   { question: "What happens after I request a visit?", answer: "A care-team conversation begins with the details you choose to share. The next appropriate step is confirmed directly, rather than assumed online.", category: "Requests & visits" },
   { question: "Can I choose a care path before I visit?", answer: "Yes. The service overview helps you recognize which conversation may be most helpful, while leaving room for the clinic team to guide the final next step.", category: "Requests & visits" },
