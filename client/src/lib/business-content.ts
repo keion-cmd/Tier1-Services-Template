@@ -250,13 +250,11 @@ export const healthResources = [
 ] as { title: string; excerpt: string; imageKey: string }[];
 
 export const marqueeReviews = [
-  { name: "Renz A.", segment: "[CLIENT_SEGMENT]", quote: "The team took real time with us instead of rushing the appointment. Genuinely thoughtful care.", rating: 5 },
-  { name: "Mika D.", segment: "[CLIENT_SEGMENT]", quote: "Clear explanations at every step, no confusing jargon. I finally understood the recommended plan.", rating: 5 },
-  { name: "Joyce T.", segment: "[CLIENT_SEGMENT]", quote: "Booking was easy and the follow-up communication after our first visit was excellent.", rating: 5 },
-  { name: "Paolo S.", segment: "[CLIENT_SEGMENT]", quote: "They noticed a small detail we'd missed and walked us through what to watch for. Really attentive team.", rating: 5 },
-  { name: "Bea L.", segment: "[CLIENT_SEGMENT]", quote: "Our first visit was calm and stress-free thanks to the patient staff.", rating: 5 },
-  { name: "Anton R.", segment: "[CLIENT_SEGMENT]", quote: "Consistent, honest care across multiple visits over the years. Wouldn't go anywhere else.", rating: 5 },
-] as { name: string; segment: string; quote: string; rating: number }[];
+  { author: "[CLIENT_NAME_1]", segment: "[CLIENT_SEGMENT_1]", quote: "[CLIENT_REVIEW_QUOTE_1]", rating: 5 },
+  { author: "[CLIENT_NAME_2]", segment: "[CLIENT_SEGMENT_2]", quote: "[CLIENT_REVIEW_QUOTE_2]", rating: 5 },
+  { author: "[CLIENT_NAME_3]", segment: "[CLIENT_SEGMENT_3]", quote: "[CLIENT_REVIEW_QUOTE_3]", rating: 5 },
+  { author: "[CLIENT_NAME_4]", segment: "[CLIENT_SEGMENT_4]", quote: "[CLIENT_REVIEW_QUOTE_4]", rating: 5 },
+] as { author: string; segment: string; quote: string; rating: number }[];
 
 export const faqs = [
   { question: "[FAQ_1_QUESTION]", answer: "[FAQ_1_ANSWER]", category: "Requests & visits" },

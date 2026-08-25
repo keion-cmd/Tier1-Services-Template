@@ -4,7 +4,7 @@
  */
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, type LucideIcon, Sparkles } from "lucide-react";
+import { ArrowLeft, type LucideIcon, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
@@ -22,15 +22,12 @@ export function Section({
   );
 }
 
-export function Eyebrow({ icon: Icon = Sparkles, children }: { icon?: LucideIcon; children: ReactNode }) {
+export function Eyebrow({ icon: Icon = ShieldCheck, children }: { icon?: LucideIcon; children: ReactNode }) {
   return (
-    <Badge
-      variant="secondary"
-      className="w-fit gap-1.5 rounded-full border-none bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary uppercase"
-    >
-      <Icon size={13} strokeWidth={2} />
+    <span className="inline-flex w-fit min-w-0 items-center gap-1.5 text-xs font-semibold tracking-wider break-words text-primary uppercase">
+      <Icon size={13} strokeWidth={2.25} className="shrink-0" />
       {children}
-    </Badge>
+    </span>
   );
 }
 
@@ -53,7 +50,7 @@ export function PageHero({ eyebrowIcon, eyebrow, title, description, cta, backLi
           image ? "md:grid-cols-2 md:items-center" : ""
         )}
       >
-        <div className="flex max-w-xl flex-col gap-5">
+        <div className="flex min-w-0 max-w-xl flex-col gap-5">
           {backLink && (
             <Link
               href={backLink.href}
@@ -63,12 +60,12 @@ export function PageHero({ eyebrowIcon, eyebrow, title, description, cta, backLi
             </Link>
           )}
           <Eyebrow icon={eyebrowIcon}>{eyebrow}</Eyebrow>
-          <h1 className="text-4xl leading-[1.05] font-bold tracking-tight text-foreground sm:text-5xl">{title}</h1>
-          <p className="text-base leading-relaxed text-muted-foreground">{description}</p>
+          <h1 className="text-4xl leading-[1.05] font-bold tracking-tight text-foreground break-words sm:text-5xl">{title}</h1>
+          <p className="text-base leading-relaxed break-words text-muted-foreground">{description}</p>
           {cta}
         </div>
         {image && (
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border shadow-sm">
+          <div className="relative aspect-[4/3] min-w-0 overflow-hidden rounded-2xl border border-border shadow-sm">
             <ImagePlaceholder label={image.label} token={image.token} className="h-full w-full border-0" />
           </div>
         )}
@@ -96,10 +93,10 @@ export function SectionHeading({ icon, eyebrow, title, description, action, alig
         className
       )}
     >
-      <div className={cn("flex max-w-2xl flex-col gap-3", align === "center" && "items-center")}>
+      <div className={cn("flex min-w-0 max-w-2xl flex-col gap-3", align === "center" && "items-center")}>
         {eyebrow && <Eyebrow icon={icon}>{eyebrow}</Eyebrow>}
-        <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground sm:text-4xl">{title}</h2>
-        {description && <p className="text-base leading-relaxed text-muted-foreground">{description}</p>}
+        <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground break-words sm:text-4xl">{title}</h2>
+        {description && <p className="text-base leading-relaxed break-words text-muted-foreground">{description}</p>}
       </div>
       {action}
     </div>
@@ -109,11 +106,11 @@ export function SectionHeading({ icon, eyebrow, title, description, action, alig
 export function PageOutro({ eyebrow, title, cta }: { eyebrow: ReactNode; title: ReactNode; cta: ReactNode }) {
   return (
     <Section className="border-t border-border bg-primary text-primary-foreground">
-      <div className="flex flex-col items-start gap-6">
-        <Badge variant="secondary" className="w-fit gap-1.5 rounded-full border-none bg-white/15 px-3 py-1 text-xs font-semibold tracking-wide text-primary-foreground uppercase">
+      <div className="flex min-w-0 flex-col items-start gap-6">
+        <Badge variant="secondary" className="w-fit max-w-full gap-1.5 rounded-full border-none bg-white/15 px-3 py-1 text-xs font-semibold tracking-wide break-words text-primary-foreground uppercase">
           {eyebrow}
         </Badge>
-        <h2 className="max-w-2xl text-3xl leading-tight font-bold tracking-tight sm:text-4xl">{title}</h2>
+        <h2 className="max-w-2xl break-words text-3xl leading-tight font-bold tracking-tight sm:text-4xl">{title}</h2>
         {cta}
       </div>
     </Section>
@@ -132,16 +129,16 @@ interface FeatureCardProps {
 
 export function FeatureCard({ icon: Icon, label, title, description, className }: FeatureCardProps) {
   return (
-    <Card className={cn("h-full transition-colors hover:border-primary/40", className)}>
-      <CardContent className="flex h-full flex-col gap-3">
+    <Card className={cn("h-full min-w-0 transition-colors hover:border-primary/40", className)}>
+      <CardContent className="flex h-full min-w-0 flex-col gap-3">
         {Icon && (
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
             <Icon size={20} strokeWidth={1.75} />
           </span>
         )}
-        {label && <span className="text-xs font-semibold tracking-wide text-primary uppercase">{label}</span>}
-        <h3 className="text-lg leading-snug font-semibold text-foreground">{title}</h3>
-        {description && <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>}
+        {label && <span className="text-xs font-semibold tracking-wide break-words text-primary uppercase">{label}</span>}
+        <h3 className="text-lg leading-snug font-semibold break-words text-foreground">{title}</h3>
+        {description && <p className="text-sm leading-relaxed break-words text-muted-foreground">{description}</p>}
       </CardContent>
     </Card>
   );
@@ -151,10 +148,10 @@ export function StepList({ steps }: { steps: { step: string; title: string; copy
   return (
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
       {steps.map((item) => (
-        <div key={item.step} className="flex flex-col gap-3 border-t-2 border-border pt-5">
-          <span className="text-3xl font-bold text-primary">{item.step}</span>
-          <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-          <p className="text-sm leading-relaxed text-muted-foreground">{item.copy}</p>
+        <div key={item.step} className="flex min-w-0 flex-col gap-3 border-t-2 border-border pt-5">
+          <span className="text-3xl font-bold break-words text-primary">{item.step}</span>
+          <h3 className="text-lg font-semibold break-words text-foreground">{item.title}</h3>
+          <p className="text-sm leading-relaxed break-words text-muted-foreground">{item.copy}</p>
         </div>
       ))}
     </div>
@@ -165,9 +162,9 @@ export function StatBlock({ stats }: { stats: { value: string; label: string }[]
   return (
     <div className="grid grid-cols-2 divide-x divide-y divide-border border-t border-border sm:grid-cols-4 sm:divide-y-0">
       {stats.map((stat) => (
-        <div key={stat.label} className="flex flex-col gap-2 px-4 py-6 first:pl-0 sm:px-6">
-          <strong className="text-3xl font-bold text-primary sm:text-4xl">{stat.value}</strong>
-          <span className="text-sm font-medium text-muted-foreground">{stat.label}</span>
+        <div key={stat.label} className="flex min-w-0 flex-col gap-2 px-4 py-6 first:pl-0 sm:px-6">
+          <strong className="text-3xl font-bold break-words text-primary sm:text-4xl">{stat.value}</strong>
+          <span className="text-sm font-medium break-words text-muted-foreground">{stat.label}</span>
         </div>
       ))}
     </div>

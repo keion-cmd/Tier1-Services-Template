@@ -42,12 +42,12 @@ export default function Home() {
       {/* 1. Hero */}
       <section className="relative overflow-hidden border-b border-border bg-secondary/40">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-14 md:grid-cols-2 md:items-center md:py-20 lg:px-8">
-          <div className="flex flex-col gap-5">
+          <div className="flex min-w-0 flex-col gap-5">
             <Eyebrow>{clinic.name} {clinic.descriptor}</Eyebrow>
-            <h1 className="text-5xl leading-[1.03] font-extrabold tracking-tight text-foreground sm:text-6xl">
+            <h1 className="text-5xl leading-[1.03] font-extrabold tracking-tight text-foreground break-words sm:text-6xl">
               {copy.home.heroHeadline}
             </h1>
-            <p className="max-w-md text-base leading-relaxed text-muted-foreground">{copy.home.heroSubheadline}</p>
+            <p className="max-w-md text-base leading-relaxed break-words text-muted-foreground">{copy.home.heroSubheadline}</p>
             <div className="flex flex-wrap items-center gap-5 pt-1">
               <BookingButton label="Book an Appointment" size="lg" />
               <Link
@@ -59,23 +59,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative pb-6 sm:pb-8">
-            <div className="overflow-hidden rounded-3xl border border-border shadow-sm">
-              <ImagePlaceholder label="Hero image" token="[HERO_IMAGE]" className="aspect-[4/3] h-full w-full border-0" />
-            </div>
-            <div className="absolute -bottom-2 left-3 max-w-[190px] rounded-2xl border border-border bg-card p-4 shadow-md sm:left-5">
-              <strong className="block text-3xl font-bold text-primary">{copy.home.heroStatValue}</strong>
-              <p className="mt-1 text-xs leading-snug text-muted-foreground">{copy.home.heroStatCaption}</p>
-            </div>
-            <div className="absolute -bottom-2 right-3 hidden max-w-[220px] rounded-2xl border border-border bg-card p-4 shadow-md sm:right-5 md:block">
-              <p className="text-sm leading-snug font-semibold text-foreground">{copy.home.heroBadgeText}</p>
-              <Link
-                href="/services"
-                className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
-              >
-                Explore Services <ArrowUpRight size={13} />
-              </Link>
-            </div>
+          <div className="min-w-0 overflow-hidden rounded-3xl border border-border shadow-sm">
+            <ImagePlaceholder label="Hero image" token="[HERO_IMAGE]" className="aspect-[4/3] h-full w-full border-0" />
           </div>
         </div>
       </section>
@@ -136,12 +121,12 @@ export default function Home() {
           {providers.map((provider) => (
             <Card key={provider.slug} className="gap-3 p-4">
               <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="h-48 w-full rounded-xl" />
-              <div className="flex flex-col gap-1.5 px-1">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">{provider.specialty}</span>
-                <h3 className="text-lg font-semibold text-foreground">
+              <div className="flex min-w-0 flex-col gap-1.5 px-1">
+                <span className="text-xs font-semibold tracking-wide break-words text-primary uppercase">{provider.specialty}</span>
+                <h3 className="text-lg font-semibold break-words text-foreground">
                   {provider.name}, {provider.credentials}
                 </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{provider.bio}</p>
+                <p className="text-sm leading-relaxed break-words text-muted-foreground">{provider.bio}</p>
                 <Link
                   href={`/team/${provider.slug}`}
                   className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
@@ -177,7 +162,7 @@ export default function Home() {
               token={clinicExperienceFeatures[0].imageKey}
               className="h-full w-full border-0"
             />
-            <figcaption className="absolute bottom-4 left-4 rounded-full bg-foreground/85 px-4 py-1.5 text-sm font-semibold text-background">
+            <figcaption className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded-full bg-foreground/85 px-4 py-1.5 text-sm font-semibold break-words text-background">
               {clinicExperienceFeatures[0].title}
             </figcaption>
           </figure>
@@ -185,14 +170,14 @@ export default function Home() {
             {clinicExperienceFeatures.slice(1, 3).map((feature) => (
               <figure key={feature.title} className="relative min-h-[160px] overflow-hidden rounded-2xl">
                 <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="h-full w-full border-0" />
-                <figcaption className="absolute bottom-3 left-3 rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold text-background">
+                <figcaption className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold break-words text-background">
                   {feature.title}
                 </figcaption>
               </figure>
             ))}
           </div>
         </div>
-        <p className="mt-7 flex flex-wrap gap-x-8 gap-y-2 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-7 flex flex-wrap gap-x-8 gap-y-2 text-sm leading-relaxed break-words text-muted-foreground">
           {clinicExperienceFeatures.slice(3).map((feature) => (
             <span key={feature.title}>
               <strong className="font-semibold text-foreground">{feature.title}.</strong> {feature.copy}
@@ -219,11 +204,11 @@ export default function Home() {
           {clientStories.map((story) => (
             <Card key={story.clientName} className="gap-2.5 p-4">
               <ImagePlaceholder label="Client photo" token={story.imageKey} className="h-48 w-full rounded-xl" />
-              <div className="flex flex-col gap-1.5 px-1">
+              <div className="flex min-w-0 flex-col gap-1.5 px-1">
                 <Eyebrow>
                   {story.clientName} · {story.segment} · {story.category}
                 </Eyebrow>
-                <p className="text-sm leading-relaxed text-muted-foreground">{story.story}</p>
+                <p className="text-sm leading-relaxed break-words text-muted-foreground">{story.story}</p>
               </div>
             </Card>
           ))}
@@ -245,10 +230,10 @@ export default function Home() {
           {healthResources.map((article) => (
             <Card key={article.title} className="gap-0 overflow-hidden p-0">
               <ImagePlaceholder label="Resource image" token={article.imageKey} className="h-40 w-full border-0" />
-              <div className="flex flex-col gap-1.5 p-5">
+              <div className="flex min-w-0 flex-col gap-1.5 p-5">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">Health & wellness guide</span>
-                <h3 className="text-lg font-semibold text-foreground">{article.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{article.excerpt}</p>
+                <h3 className="text-lg font-semibold break-words text-foreground">{article.title}</h3>
+                <p className="text-sm leading-relaxed break-words text-muted-foreground">{article.excerpt}</p>
               </div>
             </Card>
           ))}
@@ -267,9 +252,9 @@ export default function Home() {
             return (
               <Card key={plan.title} className="p-6">
                 <Icon size={22} className="text-primary" />
-                <span className="text-sm text-muted-foreground">{plan.subtitle}</span>
-                <h3 className="text-xl font-semibold text-foreground">{plan.title}</h3>
-                <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed text-muted-foreground">
+                <span className="text-sm break-words text-muted-foreground">{plan.subtitle}</span>
+                <h3 className="text-xl font-semibold break-words text-foreground">{plan.title}</h3>
+                <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed break-words text-muted-foreground">
                   {plan.bullets.map((bullet) => (
                     <li key={bullet} className="list-disc">
                       {bullet}
@@ -318,9 +303,9 @@ export default function Home() {
             <div className="flex flex-col gap-5">
               <div className="flex items-start gap-3">
                 <MapPin size={20} className="mt-0.5 shrink-0 text-primary" />
-                <div>
+                <div className="min-w-0">
                   <span className="text-xs font-semibold tracking-wide text-primary uppercase">Address</span>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <p className="text-sm leading-relaxed break-words text-muted-foreground">
                     {clinic.address}
                     <br />
                     {clinic.city}
@@ -329,16 +314,16 @@ export default function Home() {
               </div>
               <div className="flex items-start gap-3">
                 <Clock3 size={20} className="mt-0.5 shrink-0 text-primary" />
-                <div>
+                <div className="min-w-0">
                   <span className="text-xs font-semibold tracking-wide text-primary uppercase">Hours</span>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{clinic.hours}</p>
+                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{clinic.hours}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <AlertTriangle size={20} className="mt-0.5 shrink-0 text-primary" />
-                <div>
+                <div className="min-w-0">
                   <span className="text-xs font-semibold tracking-wide text-primary uppercase">Emergency</span>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{emergencyInfo.note}</p>
+                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{emergencyInfo.note}</p>
                 </div>
               </div>
             </div>
@@ -352,8 +337,8 @@ export default function Home() {
           <dl className="grid content-start divide-y divide-border border-t border-border">
             {clinic.businessHours.map((entry) => (
               <div key={entry.days} className="flex items-center justify-between gap-4 py-4">
-                <dt className="text-sm font-semibold text-foreground">{entry.days}</dt>
-                <dd className="text-sm font-semibold text-primary">{entry.hours}</dd>
+                <dt className="text-sm font-semibold break-words text-foreground">{entry.days}</dt>
+                <dd className="text-sm font-semibold break-words text-right text-primary">{entry.hours}</dd>
               </div>
             ))}
           </dl>
@@ -366,7 +351,7 @@ export default function Home() {
         title={copy.home.finalCtaTitle}
         cta={
           <div className="flex flex-col gap-3">
-            <p className="max-w-sm text-sm leading-relaxed text-primary-foreground/85">{copy.home.finalCtaSubtitle}</p>
+            <p className="max-w-sm text-sm leading-relaxed break-words text-primary-foreground/85">{copy.home.finalCtaSubtitle}</p>
             <BookingButton label="Book an Appointment" variant="secondary" size="lg" className="w-fit" />
           </div>
         }
