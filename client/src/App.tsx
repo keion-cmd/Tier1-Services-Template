@@ -11,10 +11,15 @@ import { SiteShell } from "./components/SiteShell";
 import Home from "./pages/Home";
 import Location from "./pages/Location";
 import Services from "./pages/Services";
+import ServiceDetail from "./pages/ServiceDetail";
 import RequestVisit from "./pages/RequestVisit";
+import About from "./pages/About";
+import Gallery from "./pages/Gallery";
+import Proof from "./pages/Proof";
+import FAQ from "./pages/FAQ";
 
 function Routes() {
-  return <Switch><Route path="/" component={Home} /><Route path="/services" component={Services} /><Route path="/request" component={RequestVisit} /><Route path="/location" component={Location} /><Route component={Home} /></Switch>;
+  return <Switch><Route path="/" component={Home} /><Route path="/about" component={About} /><Route path="/services" component={Services} /><Route path="/services/:slug" component={ServiceDetail} /><Route path="/gallery" component={Gallery} /><Route path="/proof" component={Proof} /><Route path="/faq" component={FAQ} /><Route path="/request" component={RequestVisit} /><Route path="/book" component={RequestVisit} /><Route path="/contact" component={RequestVisit} /><Route path="/location" component={Location} /><Route component={Home} /></Switch>;
 }
 
 export default function App() {
