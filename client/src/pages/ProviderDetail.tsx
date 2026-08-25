@@ -1,58 +1,58 @@
 import { Link, useParams } from "wouter";
-import { ArrowUpRight, PawPrint } from "lucide-react";
+import { ArrowUpRight, UserCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
-import { buildBreadcrumbSchema, buildPersonSchema, clinic, getDoctorBySlug } from "@/lib/clinic-content";
+import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getProviderBySlug } from "@/lib/business-content";
 import NotFound from "./NotFound";
 
-export default function DoctorDetail() {
+export default function ProviderDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const doctor = slug ? getDoctorBySlug(slug) : undefined;
+  const provider = slug ? getProviderBySlug(slug) : undefined;
 
-  if (!doctor) return <NotFound />;
+  if (!provider) return <NotFound />;
 
   return (
     <main>
       <PageMeta
-        title={`${doctor.name}, ${doctor.credentials} — ${clinic.name} ${clinic.descriptor}`}
-        description={`${doctor.name}, ${doctor.credentials} — ${doctor.specialty} at ${clinic.name} ${clinic.descriptor}.`}
-        path={`/team/${doctor.slug}`}
+        title={`${provider.name}, ${provider.credentials} — ${businessConfig.name} ${businessConfig.descriptor}`}
+        description={`${provider.name}, ${provider.credentials} — ${provider.specialty} at ${businessConfig.name} ${businessConfig.descriptor}.`}
+        path={`/team/${provider.slug}`}
         jsonLd={[
-          buildPersonSchema(doctor),
+          buildPersonSchema(provider),
           buildBreadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Meet the Vets", path: "/team" },
-            { name: doctor.name, path: `/team/${doctor.slug}` },
+            { name: "Our Team", path: "/team" },
+            { name: provider.name, path: `/team/${provider.slug}` },
           ]),
         ]}
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
-        eyebrow={doctor.specialty + (doctor.placeholder ? " · Demo profile" : "")}
+        eyebrowIcon={UserCheck}
+        eyebrow={provider.specialty + (provider.placeholder ? " · Demo profile" : "")}
         title={
           <>
-            {doctor.name}
+            {provider.name}
             <br />
-            <span className="text-primary">{doctor.credentials}</span>
+            <span className="text-primary">{provider.credentials}</span>
           </>
         }
-        description={doctor.bio}
+        description={provider.bio}
         cta={<BookingButton label="Schedule With Our Team" />}
-        backLink={{ href: "/team", label: "Meet the Vets" }}
-        image={{ label: "Vet photo", token: doctor.imageKey }}
+        backLink={{ href: "/team", label: "Our Team" }}
+        image={{ label: "Provider photo", token: provider.imageKey }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
           <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">{doctor.yearsExperience}</strong>
+            <strong className="text-5xl font-bold text-primary">{provider.yearsExperience}</strong>
             <span className="text-sm font-semibold text-muted-foreground">years experience</span>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-            {doctor.specialty} at {clinic.name}, with a steady, unhurried approach to every visit.
+            {provider.specialty} at {businessConfig.name}, with a steady, unhurried approach to every visit.
           </p>
           <Link href="/team" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
             See the full team <ArrowUpRight size={15} />
@@ -60,19 +60,19 @@ export default function DoctorDetail() {
         </div>
       </div>
 
-      <Section aria-labelledby="doctor-interests-title">
+      <Section aria-labelledby="provider-interests-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={UserCheck}
           eyebrow="Areas of interest"
           title={
-            <span id="doctor-interests-title" className="sr-only">
+            <span id="provider-interests-title" className="sr-only">
               Areas of interest
             </span>
           }
           className="mb-6"
         />
         <div className="flex flex-wrap gap-2">
-          {doctor.areasOfInterest.map((interest) => (
+          {provider.areasOfInterest.map((interest) => (
             <Badge key={interest} variant="outline" className="rounded-full px-4 py-2 text-sm font-semibold">
               {interest}
             </Badge>
@@ -81,10 +81,10 @@ export default function DoctorDetail() {
       </Section>
 
       <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        eyebrow={`${businessConfig.name} ${businessConfig.descriptor}`}
         title={
           <>
-            Ready to talk with <span className="text-primary-foreground/80">{doctor.name}?</span>
+            Ready to talk with <span className="text-primary-foreground/80">{provider.name}?</span>
           </>
         }
         cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}

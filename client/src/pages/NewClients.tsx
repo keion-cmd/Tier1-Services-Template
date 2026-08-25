@@ -1,9 +1,9 @@
-import { CheckCircle2, PawPrint } from "lucide-react";
+import { CheckCircle2, UserCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, StepList, PageOutro } from "@/components/PageBlocks";
-import { clinic, newClientSteps, whatToBring } from "@/lib/clinic-content";
+import { clinic, newClientSteps, whatToBring } from "@/lib/business-content";
 
 export default function NewClients() {
   return (
@@ -15,21 +15,21 @@ export default function NewClients() {
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={UserCheck}
         eyebrow="New clients"
         title={
           <>
             First visit? <span className="text-primary">Here&rsquo;s what to expect.</span>
           </>
         }
-        description="A calm, unhurried walkthrough of what happens from your first booking to your pet's follow-up care."
+        description="A calm, unhurried walkthrough of what happens from your first booking to your follow-up care."
         cta={<BookingButton label="Book Your First Visit" />}
         image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
 
       <Section aria-labelledby="new-clients-steps-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={UserCheck}
           eyebrow="What to expect"
           title={
             <span id="new-clients-steps-title">
@@ -43,7 +43,7 @@ export default function NewClients() {
 
       <Section className="bg-secondary/30" aria-labelledby="new-clients-bring-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={UserCheck}
           eyebrow="What to bring"
           title={<span id="new-clients-bring-title" className="sr-only">What to bring</span>}
           className="mb-6"

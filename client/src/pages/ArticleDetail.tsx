@@ -1,11 +1,11 @@
 import { Link, useParams } from "wouter";
-import { ArrowUpRight, Info, PawPrint } from "lucide-react";
+import { ArrowUpRight, Info, ShieldCheck } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { articles, buildArticleSchema, buildBreadcrumbSchema, clinic, getArticleBySlug } from "@/lib/clinic-content";
+import { articles, buildArticleSchema, buildBreadcrumbSchema, clinic, getArticleBySlug } from "@/lib/business-content";
 import NotFound from "./NotFound";
 
 export default function ArticleDetail() {
@@ -33,7 +33,7 @@ export default function ArticleDetail() {
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={ShieldCheck}
         eyebrow={`${article.category} · ${article.date} · ${article.readingTime}`}
         title={article.title}
         description={article.excerpt}
@@ -43,7 +43,7 @@ export default function ArticleDetail() {
       />
 
       <Section aria-labelledby="article-body-title">
-        <SectionHeading icon={PawPrint} eyebrow="Article" title={<span id="article-body-title" className="sr-only">Article</span>} className="mb-6" />
+        <SectionHeading icon={ShieldCheck} eyebrow="Article" title={<span id="article-body-title" className="sr-only">Article</span>} className="mb-6" />
         <div className="flex max-w-180 flex-col gap-4">
           {article.body.map((paragraph, index) => (
             <p key={index} className="text-base leading-relaxed text-foreground">
@@ -54,14 +54,14 @@ export default function ArticleDetail() {
         {article.disclaimer && (
           <p className="mt-6 flex max-w-180 items-start gap-2 text-xs leading-relaxed text-muted-foreground">
             <Info size={16} className="mt-0.5 shrink-0" /> This content is for general educational purposes and does
-            not replace professional veterinary advice.
+            not replace professional advice from our team.
           </p>
         )}
       </Section>
 
       <Section className="bg-secondary/30" aria-labelledby="article-related-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={ShieldCheck}
           eyebrow="Keep reading"
           title={
             <span id="article-related-title">

@@ -4,7 +4,7 @@
  */
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, type LucideIcon, PawPrint } from "lucide-react";
+import { ArrowLeft, type LucideIcon, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
@@ -22,7 +22,7 @@ export function Section({
   );
 }
 
-export function Eyebrow({ icon: Icon = PawPrint, children }: { icon?: LucideIcon; children: ReactNode }) {
+export function Eyebrow({ icon: Icon = Sparkles, children }: { icon?: LucideIcon; children: ReactNode }) {
   return (
     <Badge
       variant="secondary"

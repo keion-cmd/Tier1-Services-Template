@@ -24,10 +24,10 @@ export function ReviewsSection() {
           </span>
           <Eyebrow icon={MapPin}>Google Maps</Eyebrow>
           <h3 className="text-2xl leading-snug font-semibold tracking-tight text-foreground">
-            Help other pet parents <span className="text-primary">find their way.</span>
+            Help other clients <span className="text-primary">find their way.</span>
           </h3>
           <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
-            Open the clinic&rsquo;s Google Maps listing to write a review. Reviews are submitted to Google, not this
+            Open our Google Maps listing to write a review. Reviews are submitted to Google, not this
             website.
           </p>
           <Button asChild size="lg" className="rounded-full">

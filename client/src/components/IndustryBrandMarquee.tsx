@@ -1,23 +1,23 @@
-import type { PetCareBrand } from "@/lib/petCareBrands";
+import type { IndustryBrand } from "@/lib/industryBrands";
 import { cn } from "@/lib/utils";
 
-interface PetCareMarqueeProps {
-  items: PetCareBrand[];
+interface IndustryBrandMarqueeProps {
+  items: IndustryBrand[];
   heading?: string;
   supportingText?: string;
 }
 
-export function PetCareMarquee({
+export function IndustryBrandMarquee({
   items,
-  heading = "Trusted Names in Pet Care",
+  heading = "Trusted Industry Partners",
   supportingText = "Industry brands shown for demonstration purposes.",
-}: PetCareMarqueeProps) {
+}: IndustryBrandMarqueeProps) {
   const groups = [items, items];
 
   return (
-    <section className="bg-secondary/40 py-10 md:py-14" aria-labelledby="pet-care-marquee-title">
+    <section className="bg-secondary/40 py-10 md:py-14" aria-labelledby="industry-brand-marquee-title">
       <div className="mx-auto mb-6 max-w-md px-6 text-center">
-        <h2 id="pet-care-marquee-title" className="text-lg font-semibold text-foreground">
+        <h2 id="industry-brand-marquee-title" className="text-lg font-semibold text-foreground">
           {heading}
         </h2>
         {supportingText && <p className="mt-1.5 text-sm text-muted-foreground">{supportingText}</p>}

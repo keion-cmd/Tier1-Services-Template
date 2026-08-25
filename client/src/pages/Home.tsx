@@ -1,10 +1,10 @@
 import { Link } from "wouter";
-import { Activity, AlertTriangle, ArrowUpRight, Clock3, Heart, MapPin, PawPrint, Shield, Smile, Sparkles, Stethoscope } from "lucide-react";
+import { Activity, AlertTriangle, ArrowUpRight, Clock3, Heart, HeartHandshake, MapPin, Shield, Smile, Sparkles, Stethoscope } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
-import { PetCareMarquee } from "@/components/PetCareMarquee";
+import { IndustryBrandMarquee } from "@/components/IndustryBrandMarquee";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
@@ -13,17 +13,17 @@ import {
   buildLocalBusinessSchema,
   carePlans,
   clinic,
+  clientStories,
   clinicExperienceFeatures,
   differentiators,
-  doctors,
+  providers,
   emergencyInfo,
   faqs,
   healthResources,
   howItWorks,
-  patientSuccessStories,
   trustStats,
-} from "@/lib/clinic-content";
-import { petCareBrands } from "@/lib/petCareBrands";
+} from "@/lib/business-content";
+import { industryBrands } from "@/lib/industryBrands";
 
 const differentiatorIcons = { heart: Heart, stethoscope: Stethoscope, activity: Activity, shield: Shield, sparkles: Sparkles, smile: Smile };
 const carePlanIcons = { sparkles: Sparkles, shield: Shield, heart: Heart };
@@ -33,7 +33,7 @@ export default function Home() {
     <main>
       <PageMeta
         title={`${clinic.name} ${clinic.descriptor}`}
-        description="Thoughtful veterinary care conversations, clear service pathways, and a simple visit request process."
+        description="Thoughtful care conversations, clear service pathways, and a simple visit request process."
         path="/"
         jsonLd={buildLocalBusinessSchema()}
       />
@@ -44,7 +44,7 @@ export default function Home() {
           <div className="flex flex-col gap-5">
             <Eyebrow>{clinic.name} {clinic.descriptor}</Eyebrow>
             <h1 className="text-5xl leading-[1.03] font-extrabold tracking-tight text-foreground sm:text-6xl">
-              Care built around <span className="text-primary">your pet.</span>
+              Care built around <span className="text-primary">your needs.</span>
             </h1>
             <p className="max-w-md text-base leading-relaxed text-muted-foreground">
               Combining approachable diagnostics with heart-led care conversations, so every visit starts with clarity,
@@ -68,11 +68,11 @@ export default function Home() {
             <div className="absolute -bottom-2 left-3 max-w-[190px] rounded-2xl border border-border bg-card p-4 shadow-md sm:left-5">
               <strong className="block text-3xl font-bold text-primary">12,5K+</strong>
               <p className="mt-1 text-xs leading-snug text-muted-foreground">
-                Healthy pets treated with love and professional care.
+                Clients treated with care and professional attention.
               </p>
             </div>
             <div className="absolute -bottom-2 right-3 hidden max-w-[220px] rounded-2xl border border-border bg-card p-4 shadow-md sm:right-5 md:block">
-              <p className="text-sm leading-snug font-semibold text-foreground">The future of veterinary care is here.</p>
+              <p className="text-sm leading-snug font-semibold text-foreground">The future of client care is here.</p>
               <Link
                 href="/services"
                 className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
@@ -84,8 +84,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1b. Pet Care Industry Marquee */}
-      <PetCareMarquee items={petCareBrands} />
+      {/* 1b. Industry Partner Marquee */}
+      <IndustryBrandMarquee items={industryBrands} />
 
       {/* 2. Trust Stats Bar */}
       <Section className="py-12 md:py-16" aria-labelledby="home-trust-stats-title">
@@ -131,16 +131,16 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 4b. Meet Our Veterinary Team */}
+      {/* 4b. Meet Our Team */}
       <Section aria-labelledby="home-team-title">
         <SectionHeading
-          eyebrow="Meet our veterinary team"
+          eyebrow="Meet our team"
           title={
             <span id="home-team-title">
               Care from a team <span className="text-primary">you can trust.</span>
             </span>
           }
-          description={`${doctors.length} demo profiles representing the kind of clinical range a real ${clinic.name} team could offer.`}
+          description={`${providers.length} demo profiles representing the kind of clinical range a real ${clinic.name} team could offer.`}
           action={
             <Link href="/team" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
               Meet the full team <ArrowUpRight size={15} />
@@ -148,17 +148,17 @@ export default function Home() {
           }
         />
         <div className="grid gap-5 sm:grid-cols-3">
-          {doctors.map((doctor) => (
-            <Card key={doctor.slug} className="gap-3 p-4">
-              <ImagePlaceholder label="Vet photo" token={doctor.imageKey} className="h-48 w-full rounded-xl" />
+          {providers.map((provider) => (
+            <Card key={provider.slug} className="gap-3 p-4">
+              <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="h-48 w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">{doctor.specialty}</span>
+                <span className="text-xs font-semibold tracking-wide text-primary uppercase">{provider.specialty}</span>
                 <h3 className="text-lg font-semibold text-foreground">
-                  {doctor.name}, {doctor.credentials}
+                  {provider.name}, {provider.credentials}
                 </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{doctor.bio}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">{provider.bio}</p>
                 <Link
-                  href={`/team/${doctor.slug}`}
+                  href={`/team/${provider.slug}`}
                   className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
                 >
                   View profile <ArrowUpRight size={15} />
@@ -182,10 +182,10 @@ export default function Home() {
         <StepList steps={howItWorks} />
       </Section>
 
-      {/* 5b. Designed Around Your Pet's Comfort */}
+      {/* 5b. Designed Around Your Comfort */}
       <Section aria-labelledby="home-clinic-experience-title">
         <SectionHeading
-          eyebrow="Designed around your pet's comfort"
+          eyebrow="Designed around your comfort"
           title={
             <span id="home-clinic-experience-title">
               A space built <span className="text-primary">for calm visits.</span>
@@ -233,17 +233,17 @@ export default function Home() {
 
       {/* 6b. Real Care. Real Stories. */}
       <Section aria-labelledby="home-success-stories-title">
-        <Eyebrow icon={PawPrint}>Real care. Real stories.</Eyebrow>
+        <Eyebrow icon={HeartHandshake}>Real care. Real stories.</Eyebrow>
         <h2 id="home-success-stories-title" className="sr-only">
           Real care. Real stories.
         </h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
-          {patientSuccessStories.map((story) => (
-            <Card key={story.petName} className="gap-2.5 p-4">
-              <ImagePlaceholder label="Patient photo" token={story.imageKey} className="h-48 w-full rounded-xl" />
+          {clientStories.map((story) => (
+            <Card key={story.clientName} className="gap-2.5 p-4">
+              <ImagePlaceholder label="Client photo" token={story.imageKey} className="h-48 w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <Eyebrow>
-                  {story.petName} · {story.breed} · {story.category}
+                  {story.clientName} · {story.segment} · {story.category}
                 </Eyebrow>
                 <p className="text-sm leading-relaxed text-muted-foreground">{story.story}</p>
               </div>
@@ -251,15 +251,15 @@ export default function Home() {
           ))}
         </div>
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-          {clinic.name} is a template demonstration clinic; these demo patient stories are illustrative placeholders,
-          not real medical outcomes.
+          {clinic.name} is a template demonstration business; these demo client stories are illustrative placeholders,
+          not real outcomes.
         </p>
       </Section>
 
-      {/* 7. Pet Health Resources */}
+      {/* 7. Health & Wellness Resources */}
       <Section className="bg-secondary/30" aria-labelledby="home-health-resources-title">
         <SectionHeading
-          eyebrow="Pet health resources"
+          eyebrow="Health & wellness resources"
           title={
             <span id="home-health-resources-title">
               Helpful reading <span className="text-primary">before your visit.</span>
@@ -271,7 +271,7 @@ export default function Home() {
             <Card key={article.title} className="gap-0 overflow-hidden p-0">
               <ImagePlaceholder label="Resource image" token={article.imageKey} className="h-40 w-full border-0" />
               <div className="flex flex-col gap-1.5 p-5">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">Pet health guide</span>
+                <span className="text-xs font-semibold tracking-wide text-primary uppercase">Health & wellness guide</span>
                 <h3 className="text-lg font-semibold text-foreground">{article.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{article.excerpt}</p>
               </div>
@@ -286,7 +286,7 @@ export default function Home() {
           eyebrow="Proactive care for every stage"
           title={
             <span id="home-care-plans-title">
-              Planned around <span className="text-primary">your pet's life stage.</span>
+              Planned around <span className="text-primary">your life stage.</span>
             </span>
           }
         />

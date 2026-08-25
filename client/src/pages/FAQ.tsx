@@ -1,9 +1,9 @@
-import { Mail, PawPrint, Phone } from "lucide-react";
+import { Mail, ShieldCheck, Phone } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
-import { buildFaqSchema, clinic, faqs } from "@/lib/clinic-content";
+import { buildFaqSchema, clinic, faqs } from "@/lib/business-content";
 
 const categoryOrder = ["Requests & visits", "First visit", "Emergency", "Payment & insurance"] as const;
 const categories = categoryOrder
@@ -21,7 +21,7 @@ export default function FAQ() {
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={ShieldCheck}
         eyebrow="Frequently asked"
         title={
           <>

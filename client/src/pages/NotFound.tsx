@@ -1,9 +1,9 @@
 import { Link } from "wouter";
-import { ArrowUpRight, PawPrint } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Button } from "@/components/ui/button";
 import { PageHero, PageOutro } from "@/components/PageBlocks";
-import { clinic } from "@/lib/clinic-content";
+import { clinic } from "@/lib/business-content";
 
 export default function NotFound() {
   return (
@@ -14,7 +14,7 @@ export default function NotFound() {
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={ShieldCheck}
         eyebrow="404 · Page not found"
         title={
           <>

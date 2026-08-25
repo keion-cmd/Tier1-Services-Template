@@ -1,11 +1,11 @@
 import { Link } from "wouter";
-import { ArrowUpRight, PawPrint, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/PageBlocks";
-import { clinic } from "@/lib/clinic-content";
+import { clinic } from "@/lib/business-content";
 
 const careStats = [
   { value: "06", label: "care pathways offered" },
@@ -13,10 +13,10 @@ const careStats = [
   { value: "03", label: "steps from request to a confirmed next step" },
 ];
 
-const patientStories = [
-  { pet: "A senior dog check-in", note: "A calm, structured conversation helped prepare useful notes ahead of the clinic visit, no guesswork, just clear next steps." },
-  { pet: "A puppy's first visit", note: "First-visit questions were answered plainly, and the family left knowing exactly what the next scheduled step would be." },
-  { pet: "A prevention planning visit", note: "The visit stayed focused on the clinic's actual approved protocols, with a clear plan instead of an open-ended list of options." },
+const clientStories = [
+  { label: "A long-time client check-in", note: "A calm, structured conversation helped prepare useful notes ahead of the visit, no guesswork, just clear next steps." },
+  { label: "A new client's first visit", note: "First-visit questions were answered plainly, and the client left knowing exactly what the next scheduled step would be." },
+  { label: "A prevention planning visit", note: "The visit stayed focused on the team's actual approved protocols, with a clear plan instead of an open-ended list of options." },
 ];
 
 export default function Proof() {
@@ -36,7 +36,7 @@ export default function Proof() {
             Care you can <span className="text-primary">verify.</span>
           </>
         }
-        description="Real statistics, a direct path to Google reviews, and a few stories from pet parents who've been through the process."
+        description="Real statistics, a direct path to Google reviews, and a few stories from clients who've been through the process."
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
@@ -58,7 +58,7 @@ export default function Proof() {
 
       <Section aria-labelledby="proof-stats-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={ShieldCheck}
           eyebrow="Care at a glance"
           title={
             <span id="proof-stats-title">
@@ -76,23 +76,23 @@ export default function Proof() {
       <ReviewsSection />
 
       <Section aria-labelledby="proof-stories-title">
-        <Eyebrow icon={PawPrint}>Verified patient stories</Eyebrow>
+        <Eyebrow icon={ShieldCheck}>Verified client stories</Eyebrow>
         <h2 id="proof-stories-title" className="sr-only">
-          Verified patient stories
+          Verified client stories
         </h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
-          {patientStories.map((story) => (
-            <Card key={story.pet}>
+          {clientStories.map((story) => (
+            <Card key={story.label}>
               <CardContent className="flex flex-col gap-2">
-                <Eyebrow>{story.pet}</Eyebrow>
+                <Eyebrow>{story.label}</Eyebrow>
                 <p className="text-sm leading-relaxed text-muted-foreground">{story.note}</p>
               </CardContent>
             </Card>
           ))}
         </div>
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-          {clinic.name} is a template demonstration clinic; these stories are illustrative placeholders. Replace with
-          client-approved, consented patient stories before launch.
+          {clinic.name} is a template demonstration business; these stories are illustrative placeholders. Replace with
+          client-approved, consented stories before launch.
         </p>
       </Section>
 
@@ -100,7 +100,7 @@ export default function Proof() {
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
         title={
           <>
-            Join pet parents who <span className="text-primary-foreground/80">trust us.</span>
+            Join clients who <span className="text-primary-foreground/80">trust us.</span>
           </>
         }
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}

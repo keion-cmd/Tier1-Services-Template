@@ -1,30 +1,30 @@
 import { Link } from "wouter";
-import { Info, PawPrint } from "lucide-react";
+import { Info, ShieldCheck } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { articles, clinic } from "@/lib/clinic-content";
+import { articles, clinic } from "@/lib/business-content";
 
 export default function Resources() {
   return (
     <main>
       <PageMeta
-        title={`Pet Health Resources — ${clinic.name} ${clinic.descriptor}`}
-        description={`General educational articles on dog and cat health, preventive care, wellness exams, and dental care from ${clinic.name} ${clinic.descriptor}.`}
+        title={`Health & Wellness Resources — ${clinic.name} ${clinic.descriptor}`}
+        description={`General educational articles on wellness, preventive care, and long-term care from ${clinic.name} ${clinic.descriptor}.`}
         path="/resources"
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
-        eyebrow="Pet health resources"
+        eyebrowIcon={ShieldCheck}
+        eyebrow="Health & wellness resources"
         title={
           <>
             Helpful reading <span className="text-primary">before your visit.</span>
           </>
         }
-        description="General, educational articles to help you feel more prepared for a conversation with your veterinary team."
+        description="General, educational articles to help you feel more prepared for a conversation with your care team."
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "Resource image", token: "[RESOURCE_IMAGE]" }}
       />
@@ -37,7 +37,7 @@ export default function Resources() {
           </div>
           <p className="flex max-w-md items-start gap-2 text-sm leading-relaxed text-muted-foreground">
             <Info size={17} className="mt-0.5 shrink-0" /> This content is for general educational purposes and does
-            not replace professional veterinary advice.
+            not replace professional advice from our team.
           </p>
           <BookingButton label="Talk to our team" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
@@ -45,7 +45,7 @@ export default function Resources() {
 
       <Section aria-labelledby="resources-grid-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={ShieldCheck}
           eyebrow="Latest articles"
           title={
             <span id="resources-grid-title">

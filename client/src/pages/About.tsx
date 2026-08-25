@@ -1,10 +1,10 @@
-import { HeartHandshake, PawPrint, ShieldCheck, Stethoscope } from "lucide-react";
+import { HeartHandshake, ShieldCheck, Stethoscope } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { clinic, staff } from "@/lib/clinic-content";
+import { clinic, staff } from "@/lib/business-content";
 
 const values = [
   { icon: Stethoscope, title: "Clear conversations", copy: "Every visit starts with a real conversation, not assumptions made online before you've been heard." },
@@ -22,21 +22,21 @@ export default function About() {
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={ShieldCheck}
         eyebrow="Our story"
         title={
           <>
             Care built on <span className="text-primary">trust.</span>
           </>
         }
-        description={`${clinic.name} started with a simple idea: pet parents deserve clear information and a calm place to ask questions before any decision is made.`}
+        description={`${clinic.name} started with a simple idea: clients deserve clear information and a calm place to ask questions before any decision is made.`}
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "About image", token: "[ABOUT_IMAGE]" }}
       />
 
       <Section aria-labelledby="about-values-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={ShieldCheck}
           eyebrow="What guides us"
           title={
             <span id="about-values-title">
@@ -52,12 +52,12 @@ export default function About() {
       </Section>
 
       <Section className="bg-secondary/30" aria-labelledby="about-team-title">
-        <SectionHeading icon={PawPrint} eyebrow="Our team's approach" title={<span id="about-team-title" className="sr-only">Our team's approach</span>} className="mb-6" />
+        <SectionHeading icon={ShieldCheck} eyebrow="Our team's approach" title={<span id="about-team-title" className="sr-only">Our team's approach</span>} className="mb-6" />
         <div className="grid gap-5 sm:grid-cols-2">
           <Card>
             <CardContent>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Our clinic team keeps explanations honest and jargon-free, so every pet parent leaves a conversation
+                Our clinic team keeps explanations honest and jargon-free, so every client leaves a conversation
                 feeling more prepared, not more confused.
               </p>
             </CardContent>
@@ -75,7 +75,7 @@ export default function About() {
 
       <Section aria-labelledby="about-staff-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={ShieldCheck}
           eyebrow="Meet the team"
           title={
             <span id="about-staff-title">

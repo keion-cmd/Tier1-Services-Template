@@ -25,14 +25,14 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { BookingButton } from "@/components/BookingButton";
-import { clinic, services } from "@/lib/clinic-content";
+import { clinic, services } from "@/lib/business-content";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Our services" },
-  { href: "/team", label: "Meet the Vets" },
+  { href: "/team", label: "Our Team" },
   { href: "/resources", label: "Resources" },
   { href: "/proof", label: "Reviews" },
   { href: "/faq", label: "FAQ" },
@@ -332,7 +332,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <div className="flex flex-col gap-4 md:col-span-1">
               <ClinicMark dark />
               <p className="max-w-[240px] text-sm leading-relaxed text-background/70">
-                Clear service information, thoughtful conversations, and a practical next step for every pet parent.
+                Clear service information, thoughtful conversations, and a practical next step for every client.
               </p>
               <BookingButton label="Book an Appointment" size="sm" iconSize={14} className="w-fit" />
             </div>
@@ -413,7 +413,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <Separator className="my-10 bg-background/15" />
 
           <div className="flex flex-col gap-2 text-xs text-background/55 sm:flex-row sm:items-center sm:justify-between">
-            <span>{clinic.name} is a template veterinary concept, ready for customization.</span>
+            <span>{clinic.name} is a customizable service-business template.</span>
             <span>© 2026 {clinic.name} {clinic.descriptor}</span>
           </div>
         </div>

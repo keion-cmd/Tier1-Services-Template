@@ -1,28 +1,28 @@
-import { PawPrint } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, PageOutro } from "@/components/PageBlocks";
-import { clinic, services } from "@/lib/clinic-content";
+import { clinic, services } from "@/lib/business-content";
 
 export default function Services() {
   return (
     <main>
       <PageMeta
         title={`Services — ${clinic.name} ${clinic.descriptor}`}
-        description={`Explore ${services.length} thoughtfully organized veterinary care pathways at ${clinic.name}.`}
+        description={`Explore ${services.length} thoughtfully organized care pathways at ${clinic.name}.`}
         path="/services"
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={ShieldCheck}
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
         title={
           <>
             Care paths <span className="text-primary">with intent.</span>
           </>
         }
-        description="Every path begins with a conversation, then makes space for the questions that matter to you and your pet."
+        description="Every path begins with a conversation, then makes space for the questions that matter to you."
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
@@ -37,7 +37,7 @@ export default function Services() {
             From the first question to a more detailed conversation, our service overview helps make the next step
             feel clearer.
           </p>
-          <BookingButton label="Schedule Care for Your Pet" variant="link" iconSize={15} className="h-auto p-0" />
+          <BookingButton label="Schedule Your Care" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
       </div>
 

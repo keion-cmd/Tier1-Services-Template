@@ -1,11 +1,11 @@
 import { useParams } from "wouter";
-import { CheckCircle2, PawPrint } from "lucide-react";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageOutro } from "@/components/PageBlocks";
-import { buildBreadcrumbSchema, clinic, getServiceBySlug } from "@/lib/clinic-content";
+import { buildBreadcrumbSchema, clinic, getServiceBySlug } from "@/lib/business-content";
 import NotFound from "./NotFound";
 
 export default function ServiceDetail() {
@@ -28,7 +28,7 @@ export default function ServiceDetail() {
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={ShieldCheck}
         eyebrow={`${service.number} · Care path · ${service.duration}`}
         title={service.title}
         description={service.detail}
@@ -44,12 +44,12 @@ export default function ServiceDetail() {
             <span className="text-sm font-semibold text-muted-foreground">care path</span>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{service.short}</p>
-          <BookingButton label="Schedule Care for Your Pet" variant="link" iconSize={15} className="h-auto p-0" />
+          <BookingButton label="Schedule Your Care" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
       </div>
 
       <Section aria-labelledby="service-benefits-title">
-        <SectionHeading icon={PawPrint} eyebrow="Key benefits" title={<span id="service-benefits-title" className="sr-only">Key benefits</span>} className="mb-6" />
+        <SectionHeading icon={ShieldCheck} eyebrow="Key benefits" title={<span id="service-benefits-title" className="sr-only">Key benefits</span>} className="mb-6" />
         <div className="grid gap-4 sm:grid-cols-2">
           {service.benefits.map((benefit) => (
             <Card key={benefit}>
@@ -64,7 +64,7 @@ export default function ServiceDetail() {
 
       <Section className="bg-secondary/30" aria-labelledby="service-process-title">
         <SectionHeading
-          icon={PawPrint}
+          icon={ShieldCheck}
           eyebrow="What to expect"
           title={
             <span id="service-process-title">
@@ -93,7 +93,7 @@ export default function ServiceDetail() {
 }
 
 function stepDescription(step: string) {
-  if (step === "Intake") return "Share your pet's history and the questions you'd like to raise.";
+  if (step === "Intake") return "Share your history and the questions you'd like to raise.";
   if (step === "Examination") return "A hands-on look guided by what you shared during intake.";
   if (step === "Care Plan") return "A clear next step, discussed directly rather than assumed online.";
   return "Part of this care path's structured conversation.";

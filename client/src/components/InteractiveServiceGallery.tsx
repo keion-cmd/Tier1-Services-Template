@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { services } from "@/lib/clinic-content";
+import { services } from "@/lib/business-content";
 import { cn } from "@/lib/utils";
 
 const icons = { stethoscope: Stethoscope, shield: ShieldCheck, sparkles: Sparkles, heart: Heart, smile: Smile, activity: Activity };

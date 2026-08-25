@@ -1,6 +1,6 @@
-import { clinic } from "@/lib/clinic-content";
+import { businessConfig } from "@/lib/business-content";
 
-export const approvedGoogleReviewUrl = clinic.googleReviewUrl;
+export const approvedGoogleReviewUrl = businessConfig.googleReviewUrl;
 
 export function isApprovedGoogleReviewUrl(url: string) {
   const parsed = new URL(url);

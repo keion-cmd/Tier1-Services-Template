@@ -1,8 +1,15 @@
 # Clone Instructions
 
-This repository is a cloneable Tier 1 veterinary-clinic website template. Every client-specific string
-(name, contact info, staff bios, service copy, stats, FAQs, etc.) has been replaced with a
-`[BRACKETED_PLACEHOLDER_TOKEN]`. Follow the steps below to turn this into a live site for a new client.
+This repository is a cloneable Tier 1 service-business website template — niche-agnostic by design, so
+it works equally well for a dental practice, med-spa, physical therapy clinic, law office, home-services
+business, salon, or veterinary clinic. Every client-specific string (name, contact info, staff bios,
+service copy, stats, FAQs, etc.) has been replaced with a `[BRACKETED_PLACEHOLDER_TOKEN]`. Follow the
+steps below to turn this into a live site for a new client.
+
+To adapt the template to a specific niche, set `businessConfig.descriptor` (e.g. `"Dental Clinic"`,
+`"Wellness Spa"`, `"Physical Therapy Practice"`, `"Law Office"`) and fill in the placeholder tokens
+below with copy appropriate to that niche. No component code needs to change — every page reads its
+niche-specific language from `business-content.ts`.
 
 ## 1. Clone the repo
 
@@ -18,11 +25,13 @@ Create a new git remote (or a fresh repo) for the client if you don't want to pu
 
 All client content lives in two files. Nothing else needs to change to get a working, on-brand site.
 
-### `client/src/lib/clinic-content.ts`
+### `client/src/lib/business-content.ts`
 
-This file exports the `clinic` object plus every content array rendered across the site
-(`services`, `trustStats`, `differentiators`, `howItWorks`, `healthResources`, `faqs`, `staff`,
-`doctors`, `emergencyInfo`). Replace every `[PLACEHOLDER]` token with real, client-approved copy.
+This file exports the `businessConfig` object (aliased as `clinic` for backward compatibility) plus
+every content array rendered across the site (`services`, `trustStats`, `differentiators`,
+`howItWorks`, `healthResources`, `faqs`, `staff`, `providers`, `emergencyInfo`). Replace every
+`[PLACEHOLDER]` token with real, client-approved copy, and set `businessConfig.descriptor` to the
+client's niche (e.g. `"Dental Clinic"`, `"Med-Spa"`, `"Physical Therapy Practice"`, `"Law Office"`).
 Do not rename the exported constants, object keys, or `slug` values — pages, routes, and the
 service/team detail pages (`/services/:slug`, `/team/:slug`) depend on them.
 
@@ -38,7 +47,7 @@ export const BOOKING_URL = import.meta.env.VITE_BOOKING_URL || "https://calendly
 ## 3. Search-and-replace token checklist
 
 Search the repo for `[` to find every remaining token, or work through this list. All tokens live in
-`client/src/lib/clinic-content.ts` unless noted otherwise.
+`client/src/lib/business-content.ts` unless noted otherwise.
 
 **Clinic identity & contact**
 `[CLINIC_NAME]` · `[CLINIC_SHORT_NAME]` · `[CLINIC_TAGLINE]` · `[PHONE_NUMBER]` · `[PHONE_DIGITS_ONLY]` ·
@@ -69,8 +78,8 @@ untouched — the FAQ page groups entries by that exact string)
 **About-page team grid** (`staff[1-3]`)
 `[STAFF_n_NAME]` · `[STAFF_n_TITLE]` · `[STAFF_n_BIO]` — for n = 1 through 3
 
-**Team / doctor profile pages** (`doctors[1-3]`)
-`[VET_n_NAME]` · `[VET_n_SPECIALTY]` · `[VET_n_BIO]` — for n = 1 through 3
+**Team / provider profile pages** (`providers[1-3]`)
+`[PROVIDER_n_NAME]` · `[PROVIDER_n_SPECIALTY]` · `[PROVIDER_n_BIO]` — for n = 1 through 3
 
 **Emergency & after-hours referral**
 `[EMERGENCY_HOSPITAL_NAME]` · `[EMERGENCY_PHONE]` · `[EMERGENCY_PHONE_DIGITS]` · `[EMERGENCY_ADDRESS]`
@@ -90,25 +99,25 @@ change unless you want to.
 ## 4. Replace image placeholders
 
 Every image slot in this template renders a dashed `ImagePlaceholder` block
-(`client/src/components/ImagePlaceholder.tsx`) instead of a real photo, so no demo pet/clinic
+(`client/src/components/ImagePlaceholder.tsx`) instead of a real photo, so no demo client/business
 images ship in the template. Each block shows a label and a bracketed token telling you exactly
 what belongs there.
 
 To swap a slot for a real photo, drop the client's file in `client/public/images/` (create the
 folder) and replace the matching `<ImagePlaceholder ... />` usage with an `<img src="/images/your-file.jpg" ... />`,
 keeping the wrapping `className` (sizing, `rounded-*`, `object-cover`) so the layout doesn't shift.
-Most image slots are wired through `imageKey` tokens on entries in `client/src/lib/clinic-content.ts`
-(services, doctors, staff, articles, etc.) — you can either swap those call sites directly in each
+Most image slots are wired through `imageKey` tokens on entries in `client/src/lib/business-content.ts`
+(services, providers, staff, articles, etc.) — you can either swap those call sites directly in each
 page/component, or keep the token as a lookup key into your own image map.
 
 **Recommended aspect ratios / sizes**
 - Hero images (`[HERO_IMAGE]`, `[ABOUT_IMAGE]`, `[TEAM_IMAGE]`): 4:3, at least 1200×900px
 - Service card/detail images (`[SERVICE_IMAGE]`, `[SERVICE_1_IMAGE]`…`[SERVICE_6_IMAGE]`): 4:3, at least 800×600px
-- Vet / staff photos (`[VET_1_PHOTO]`…`[VET_3_PHOTO]`, `[STAFF_1_PHOTO]`…`[STAFF_3_PHOTO]`): square or 4:3, at least 600×600px, headshot-style
+- Provider / staff photos (`[PROVIDER_1_PHOTO]`…`[PROVIDER_3_PHOTO]`, `[STAFF_1_PHOTO]`…`[STAFF_3_PHOTO]`): square or 4:3, at least 600×600px, headshot-style
 - Resource / article images (`[RESOURCE_IMAGE]`, `[RESOURCE_1_IMAGE]`…`[RESOURCE_5_IMAGE]`): 4:3, at least 800×600px
-- Clinic interior images (`[CLINIC_IMAGE]`, `[CLINIC_1_IMAGE]`…`[CLINIC_5_IMAGE]`): 4:3, at least 1000×750px
-- Patient photos (`[PATIENT_1_PHOTO]`…`[PATIENT_3_PHOTO]`): 4:3, at least 800×600px
-- Clinic logo (`[CLINIC_LOGO]`): swap the small dashed square in `ClinicMark` inside
+- Business interior images (`[CLINIC_IMAGE]`, `[CLINIC_1_IMAGE]`…`[CLINIC_5_IMAGE]`): 4:3, at least 1000×750px
+- Client photos (`[CLIENT_1_PHOTO]`…`[CLIENT_3_PHOTO]`): 4:3, at least 800×600px
+- Business logo (`[CLINIC_LOGO]`): swap the small dashed square in `ClinicMark` inside
   `client/src/components/SiteShell.tsx` for a square logo mark (SVG or PNG, ~64×64px, transparent background)
 
 **Map**
@@ -161,4 +170,4 @@ npm test           # Run the test suite, if present
 
 After deploying, update `client/public/sitemap.xml`, `client/public/robots.txt`, and the
 `SITE_ORIGIN` constants in `client/src/components/PageMeta.tsx` and
-`client/src/lib/clinic-content.ts` to the client's real production domain.
+`client/src/lib/business-content.ts` to the client's real production domain.

@@ -8,33 +8,36 @@ Use this as the system/task prompt when an AI assistant clones this repository f
 
 ## Task
 
-Turn this generic Tier 1 veterinary-clinic template into a production-ready site for a specific
-client by replacing every `[PLACEHOLDER]` token with real, client-approved content, and by
-expanding the content arrays to match however much content the client actually has — not just the
-demo's default counts.
+Turn this generic, niche-agnostic Tier 1 service-business template into a production-ready site for
+a specific client — any service niche (Dental, Med-Spa, Physical Therapy, Legal, Home Services,
+Salon, Veterinary, etc.) — by replacing every `[PLACEHOLDER]` token with real, client-approved
+content, and by expanding the content arrays to match however much content the client actually has —
+not just the demo's default counts.
 
 ### 1. Token replacement
 
 All client content lives in two files:
 
-- `client/src/lib/clinic-content.ts` — clinic identity, contact info, services, trust stats,
-  differentiators, how-it-works steps, health resources, FAQs, staff, doctors, and emergency info.
+- `client/src/lib/business-content.ts` — `businessConfig` identity (including the `descriptor` field
+  that names the niche, e.g. `"Dental Clinic"`, `"Med-Spa"`, `"Law Office"`), contact info, services,
+  trust stats, differentiators, how-it-works steps, health resources, FAQs, staff, providers, and
+  emergency info.
 - `client/src/lib/booking.ts` — the fallback booking/scheduler URL.
 
-Replace every `[BRACKETED_PLACEHOLDER_TOKEN]` in both files with the client's real copy. Do not
-rename exported constants, object keys, or `slug` values — routes and detail pages
-(`/services/:slug`, `/team/:slug`) depend on them. See `CLONE_INSTRUCTIONS.md` for the full
-token checklist, including the handful of tokens that live outside these two files
-(`client/index.html`, `client/src/index.css`, `client/src/pages/Location.tsx`).
+Replace every `[BRACKETED_PLACEHOLDER_TOKEN]` in both files with the client's real copy, and set
+`businessConfig.descriptor` to the client's niche. Do not rename exported constants, object keys, or
+`slug` values — routes and detail pages (`/services/:slug`, `/team/:slug`) depend on them. See
+`CLONE_INSTRUCTIONS.md` for the full token checklist, including the handful of tokens that live
+outside these two files (`client/index.html`, `client/src/index.css`, `client/src/pages/Location.tsx`).
 
 ### 2. Unbounded arrays rule
 
-The demo arrays (`services`, `doctors`/`staff`, `faqs`, `healthResources`, `trustStats`,
-`differentiators`, `howItWorks`) each ship with a fixed demo count (e.g. 6 services, 3 doctors).
+The demo arrays (`services`, `providers`/`staff`, `faqs`, `healthResources`, `trustStats`,
+`differentiators`, `howItWorks`) each ship with a fixed demo count (e.g. 6 services, 3 providers).
 **Treat these counts as a minimum, not a limit.**
 
-If the client provides **more** services, staff/doctors, FAQs, or resources than the demo arrays
-contain, **append additional objects** to the relevant array (`services[]`, `doctors[]`,
+If the client provides **more** services, staff/providers, FAQs, or resources than the demo arrays
+contain, **append additional objects** to the relevant array (`services[]`, `providers[]`,
 `staff[]`, `faqs[]`, `healthResources[]`, etc.) rather than dropping or merging content to fit.
 
 - Every new object must follow the exact shape of its sibling entries in the same array (same
@@ -57,7 +60,7 @@ including every newly appended item from step 2 — assign a matching, uniquely 
 placeholder token consistent with the existing naming convention, e.g.:
 
 - `[SERVICE_7_IMAGE]`, `[SERVICE_8_IMAGE]`, … for services beyond the demo's 6
-- `[VET_4_PHOTO]`, `[VET_5_PHOTO]`, … for doctors beyond the demo's 3
+- `[PROVIDER_4_PHOTO]`, `[PROVIDER_5_PHOTO]`, … for providers beyond the demo's 3
 - `[STAFF_4_PHOTO]`, … for staff beyond the demo's 3
 - `[RESOURCE_4_IMAGE]`, `[RESOURCE_5_IMAGE]`, … for resources/articles beyond the demo's 3
 

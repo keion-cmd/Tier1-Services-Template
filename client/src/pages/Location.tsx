@@ -1,10 +1,10 @@
-import { AlertTriangle, ArrowUpRight, Clock3, Landmark, MapPin, Navigation, PawPrint, Phone } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Clock3, Landmark, MapPin, Navigation, ShieldCheck, Phone } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { Card } from "@/components/ui/card";
 import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { clinic, emergencyInfo } from "@/lib/clinic-content";
+import { clinic, emergencyInfo } from "@/lib/business-content";
 
 const suppliedDirectionsEmbed = "[GOOGLE_MAPS_EMBED_URL]";
 
@@ -45,7 +45,7 @@ export default function Location() {
       />
 
       <PageHero
-        eyebrowIcon={PawPrint}
+        eyebrowIcon={ShieldCheck}
         eyebrow="Complimentary location page"
         title={
           <>
@@ -175,15 +175,15 @@ export default function Location() {
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
             icon={Phone}
-            label="Referral hospital"
-            title={emergencyInfo.referralHospitalName}
+            label="Referral location"
+            title={emergencyInfo.referralLocationName}
             description={
               <>
-                <a href={`tel:${emergencyInfo.referralHospitalPhoneDigits}`} className="text-foreground hover:text-primary">
-                  {emergencyInfo.referralHospitalPhone}
+                <a href={`tel:${emergencyInfo.referralLocationPhoneDigits}`} className="text-foreground hover:text-primary">
+                  {emergencyInfo.referralLocationPhone}
                 </a>
                 <br />
-                {emergencyInfo.referralHospitalAddress}
+                {emergencyInfo.referralLocationAddress}
               </>
             }
           />
@@ -193,7 +193,7 @@ export default function Location() {
 
       <div className="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
         <p className="text-xs leading-relaxed text-muted-foreground">
-          {clinic.name} is a template demonstration clinic. The supplied map location, directions route, and
+          {clinic.name} is a template demonstration business. The supplied map location, directions route, and
           landmark are placeholder reference content; replace with your business's actual location details before
           launch.
         </p>
