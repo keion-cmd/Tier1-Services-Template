@@ -3,14 +3,14 @@ import { InteractiveServiceGallery } from "@/components/InteractiveServiceGaller
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, PageOutro } from "@/components/PageBlocks";
-import { clinic } from "@/lib/clinic-content";
+import { clinic, services } from "@/lib/clinic-content";
 
 export default function Services() {
   return (
     <main>
       <PageMeta
         title={`Services — ${clinic.name} ${clinic.descriptor}`}
-        description={`Explore six thoughtfully organized veterinary care pathways at ${clinic.name}.`}
+        description={`Explore ${services.length} thoughtfully organized veterinary care pathways at ${clinic.name}.`}
         path="/services"
       />
 
@@ -30,7 +30,7 @@ export default function Services() {
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
           <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">06</strong>
+            <strong className="text-5xl font-bold text-primary">{String(services.length).padStart(2, "0")}</strong>
             <span className="text-sm font-semibold text-muted-foreground">care paths</span>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">

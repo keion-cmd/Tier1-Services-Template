@@ -32,11 +32,11 @@ export default function Team() {
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
           <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">03</strong>
+            <strong className="text-5xl font-bold text-primary">{String(doctors.length).padStart(2, "0")}</strong>
             <span className="text-sm font-semibold text-muted-foreground">veterinarians</span>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-            Three demo profiles representing the kind of clinical range a real {clinic.name} team could offer: primary
+            {doctors.length} demo profiles representing the kind of clinical range a real {clinic.name} team could offer: primary
             care, surgery & diagnostics, and preventive & senior pet care.
           </p>
           <Link href="/about" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">

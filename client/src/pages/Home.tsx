@@ -140,7 +140,7 @@ export default function Home() {
               Care from a team <span className="text-primary">you can trust.</span>
             </span>
           }
-          description={`Three demo profiles representing the kind of clinical range a real ${clinic.name} team could offer.`}
+          description={`${doctors.length} demo profiles representing the kind of clinical range a real ${clinic.name} team could offer.`}
           action={
             <Link href="/team" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
               Meet the full team <ArrowUpRight size={15} />

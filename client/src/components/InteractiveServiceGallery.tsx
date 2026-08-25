@@ -16,7 +16,7 @@ const categoryFilters = ["All", "Preventive", "Clinical & Dental", "Diagnostics"
 
 type InteractiveServiceGalleryProps = { variant: "home" | "services"; count?: number };
 
-export function InteractiveServiceGallery({ variant, count = 6 }: InteractiveServiceGalleryProps) {
+export function InteractiveServiceGallery({ variant, count = services.length }: InteractiveServiceGalleryProps) {
   const [activeFilter, setActiveFilter] = useState<(typeof categoryFilters)[number]>("All");
   const galleryServices = services.slice(0, count);
   const visibleServices =
