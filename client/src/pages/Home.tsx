@@ -22,10 +22,10 @@ export default function Home() {
     {/* 1. Hero */}
     <section className="fidelity-hero pp-major-light-stage">
       <div className="fidelity-blue-field" aria-hidden="true" />
-      <div className="fidelity-title-stack"><span className="fidelity-kicker"><PawPrint size={15} /> Paws+Pine Veterinary Clinic</span><div className="fidelity-title-mask"><h1>Your best friend<br /><span>deserves care.</span></h1></div></div>
+      <div className="fidelity-title-stack"><div className="fidelity-title-mask"><h1>Paws+Pine Clinic</h1></div></div>
       <img className="fidelity-pets" src={assets.heroPets} width="2560" height="1440" fetchPriority="high" alt="Paws and Pine clinic dog and cat" />
-      <div className="hero-value"><p>Kind, clear support<br />for every visit.</p><Link href="/services" className="lime-link">Explore services <ArrowUpRight size={15} /></Link></div>
-      <div className="hero-proof"><strong>06</strong><span>care pathways<br />to explore</span></div>
+      <div className="hero-stat"><strong>12,5K+</strong><span>Healthy pets treated with love and professional care.</span></div>
+      <div className="hero-action"><p className="hero-action-title">The future of veterinary care is here.</p><p className="hero-action-copy">Combining cutting-edge diagnostics with heart-led care to ensure your pets live longer, healthier lives.</p><Link href="/services" className="lime-link">Explore Services <ArrowUpRight size={15} /></Link></div>
     </section>
 
     {/* 1b. Pet Care Industry Marquee */}
