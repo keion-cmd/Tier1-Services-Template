@@ -14,6 +14,7 @@ export default function ServiceDetail() {
   if (!service) return <NotFound />;
 
   const heroImage = assets[service.imageKey];
+  const requestHref = `/request?service=${service.slug}`;
 
   return <main className="neo-main pp-services-page">
     <PageMeta title={`${service.title} — Paws+Pine Veterinary Clinic`} description={service.short} />
@@ -24,7 +25,7 @@ export default function ServiceDetail() {
         <span className="pp-page-eyebrow"><PawPrint size={15} /> {service.number} · Care path · {service.duration}</span>
         <h1>{service.title}</h1>
         <p>{service.detail}</p>
-        <Link href="/request" className="lime-link">Request a visit <ArrowUpRight size={15} /></Link>
+        <Link href={requestHref} className="lime-link">Request a visit <ArrowUpRight size={15} /></Link>
       </div>
       <div className="pp-services-hero-image"><img src={heroImage} alt={`${service.title} at Paws and Pine`} /></div>
     </section>
@@ -32,7 +33,7 @@ export default function ServiceDetail() {
     <section className="pp-services-intro pp-reveal">
       <div className="pp-services-intro-count"><strong>{service.number}</strong><span>care path</span></div>
       <p>{service.short}</p>
-      <Link href="/request" className="pp-text-action">Start with this care path <ArrowUpRight size={17} /></Link>
+      <Link href={requestHref} className="pp-text-action">Start with this care path <ArrowUpRight size={17} /></Link>
     </section>
 
     <section className="pp-services-gallery-section pp-reveal" aria-labelledby="service-benefits-title">
@@ -55,7 +56,7 @@ export default function ServiceDetail() {
     <section className="pp-page-outro pp-reveal">
       <span className="pp-page-eyebrow">Paws+Pine Veterinary Clinic</span>
       <h2>Ready to talk through<br /><em>{service.title.toLowerCase()}?</em></h2>
-      <Link href="/request" className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link>
+      <Link href={requestHref} className="lime-cta">Request a visit <ArrowUpRight size={17} /></Link>
     </section>
   </main>;
 }

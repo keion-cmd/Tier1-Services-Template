@@ -4,8 +4,10 @@ export const clinic = {
   address: "Center Stall No. 4027, 2nd Street",
   city: "Calamba, Laguna",
   phone: "(demo) 02 0000 0000",
+  phoneDigits: "0200000000",
   email: "hello@pawsandpine.example",
   hours: "Mon–Fri 8:30–18:00 · Sat 9:00–13:00",
+  mapsUrl: "https://www.google.com/maps/dir/?api=1&origin=Center+Stall+No.+4027,+2nd+Street,+Calamba,+Laguna&destination=Calamba+Trade+Center,+JP+Rizal+Street,+Calamba,+Laguna&travelmode=driving",
   businessHours: [
     { days: "Monday–Friday", hours: "8:30 AM–6:00 PM" },
     { days: "Saturday", hours: "9:00 AM–1:00 PM" },
@@ -27,6 +29,7 @@ export const services = [
     short: "A clear starting point for routine check-ins and everyday questions.",
     detail: "A structured conversation space for a pet’s routine health history, daily habits, and the questions their people want to raise.",
     icon: "stethoscope",
+    category: "Preventive",
     benefits: [
       "Establishes a routine health baseline for future visits",
       "Open space to raise everyday behavior or diet questions",
@@ -43,6 +46,7 @@ export const services = [
     short: "Practical planning for the small things that support everyday wellbeing.",
     detail: "A focused way to introduce a real clinic’s approved vaccination, parasite-prevention, or general wellbeing pathways without overpromising outcomes.",
     icon: "shield",
+    category: "Preventive",
     benefits: [
       "Introduces approved vaccination and parasite-prevention pathways",
       "Keeps prevention planning aligned to the clinic's actual protocols",
@@ -59,6 +63,7 @@ export const services = [
     short: "Support for the early months, first questions, and first visits.",
     detail: "A welcoming space to explain an approved young-pet care pathway, early questions, and the next step for a new family.",
     icon: "sparkles",
+    category: "Preventive",
     benefits: [
       "Walks new pet owners through early-month care basics",
       "Answers first-visit questions before they become worries",
@@ -75,6 +80,7 @@ export const services = [
     short: "Thoughtful touchpoints for pets moving through later life.",
     detail: "A clear place to discuss observable changes and help a pet owner prepare useful notes for a future clinic conversation.",
     icon: "heart",
+    category: "Preventive",
     benefits: [
       "Focuses on observable changes relevant to older pets",
       "Helps owners prepare useful notes ahead of a clinic visit",
@@ -91,6 +97,7 @@ export const services = [
     short: "An approachable introduction to oral-care options.",
     detail: "A concise service explanation that helps real clients understand how to ask about a pet’s oral care without presenting treatment advice or pricing claims.",
     icon: "smile",
+    category: "Clinical & Dental",
     benefits: [
       "Explains how to ask about oral-care options clearly",
       "Avoids presenting treatment advice or pricing claims online",
@@ -107,6 +114,7 @@ export const services = [
     short: "A measured route for care that needs a closer look.",
     detail: "A careful service overview for a real clinic’s approved diagnostic or procedure pathway, with the final recommendation left to the clinic team.",
     icon: "activity",
+    category: "Diagnostics",
     benefits: [
       "Overviews approved diagnostic and procedure pathways",
       "Leaves final recommendations to the clinic team",
@@ -165,6 +173,7 @@ export const emergencyInfo = {
   note: "Paws+Pine provides scheduled care during posted business hours and is not an emergency hospital.",
   referralHospitalName: "(demo) Calamba 24/7 Animal Emergency Hospital",
   referralHospitalPhone: "(demo) 02 0000 1111",
+  referralHospitalPhoneDigits: "0200001111",
   referralHospitalAddress: "(demo) Sample referral address, Calamba, Laguna",
   instructions: "If your pet has a life-threatening emergency outside our business hours, please contact the referral hospital above directly rather than waiting for a callback from our clinic.",
   placeholder: true,

@@ -31,8 +31,8 @@ export default function FAQ() {
     <section className="pp-directions-section pp-reveal" aria-labelledby="faq-contact-title">
       <div><span className="pp-page-eyebrow"><Phone size={15} /> Still have a question?</span><h2 id="faq-contact-title">Reach us<br /><em>directly.</em></h2></div>
       <div className="pp-directions-grid">
-        <article><Phone size={20} /><span>Call the clinic</span><h3>{clinic.phone}</h3><p>Available during posted business hours for follow-up questions.</p></article>
-        <article><Mail size={20} /><span>Email the team</span><h3>{clinic.email}</h3><p>For non-urgent questions or details you'd rather write out.</p></article>
+        <article><Phone size={20} /><span>Call the clinic</span><h3><a href={`tel:${clinic.phoneDigits}`}>{clinic.phone}</a></h3><p>Available during posted business hours for follow-up questions.</p></article>
+        <article><Mail size={20} /><span>Email the team</span><h3><a href={`mailto:${clinic.email}`}>{clinic.email}</a></h3><p>For non-urgent questions or details you'd rather write out.</p></article>
       </div>
     </section>
 
