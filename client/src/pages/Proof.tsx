@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/PageBlocks";
-import { clinic } from "@/lib/business-content";
+import { clinic, copy } from "@/lib/business-content";
 
 const careStats = [
   { value: "06", label: "care pathways offered" },
@@ -31,12 +31,8 @@ export default function Proof() {
       <PageHero
         eyebrowIcon={ShieldCheck}
         eyebrow="Trust & proof"
-        title={
-          <>
-            Care you can <span className="text-primary">verify.</span>
-          </>
-        }
-        description="Real statistics, a direct path to Google reviews, and a few stories from clients who've been through the process."
+        title={copy.proof.heroTitle}
+        description={copy.proof.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
@@ -60,11 +56,7 @@ export default function Proof() {
         <SectionHeading
           icon={ShieldCheck}
           eyebrow="Care at a glance"
-          title={
-            <span id="proof-stats-title">
-              Numbers that <span className="text-primary">stay honest.</span>
-            </span>
-          }
+          title={<span id="proof-stats-title">{copy.proof.statsTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {careStats.map((stat) => (
@@ -98,11 +90,7 @@ export default function Proof() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Join clients who <span className="text-primary-foreground/80">trust us.</span>
-          </>
-        }
+        title={copy.proof.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />
     </main>

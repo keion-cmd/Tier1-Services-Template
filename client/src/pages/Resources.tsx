@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { articles, clinic } from "@/lib/business-content";
+import { articles, clinic, copy } from "@/lib/business-content";
 
 export default function Resources() {
   return (
@@ -19,12 +19,8 @@ export default function Resources() {
       <PageHero
         eyebrowIcon={ShieldCheck}
         eyebrow="Health & wellness resources"
-        title={
-          <>
-            Helpful reading <span className="text-primary">before your visit.</span>
-          </>
-        }
-        description="General, educational articles to help you feel more prepared for a conversation with your care team."
+        title={copy.resources.heroTitle}
+        description={copy.resources.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "Resource image", token: "[RESOURCE_IMAGE]" }}
       />
@@ -47,11 +43,7 @@ export default function Resources() {
         <SectionHeading
           icon={ShieldCheck}
           eyebrow="Latest articles"
-          title={
-            <span id="resources-grid-title">
-              Read at your <span className="text-primary">own pace.</span>
-            </span>
-          }
+          title={<span id="resources-grid-title">{copy.resources.gridTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {articles.map((article) => (
@@ -73,11 +65,7 @@ export default function Resources() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Still have <span className="text-primary-foreground/80">questions?</span>
-          </>
-        }
+        title={copy.resources.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />
     </main>

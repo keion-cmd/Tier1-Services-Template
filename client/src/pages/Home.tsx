@@ -15,6 +15,7 @@ import {
   clinic,
   clientStories,
   clinicExperienceFeatures,
+  copy,
   differentiators,
   providers,
   emergencyInfo,
@@ -44,12 +45,9 @@ export default function Home() {
           <div className="flex flex-col gap-5">
             <Eyebrow>{clinic.name} {clinic.descriptor}</Eyebrow>
             <h1 className="text-5xl leading-[1.03] font-extrabold tracking-tight text-foreground sm:text-6xl">
-              Care built around <span className="text-primary">your needs.</span>
+              {copy.home.heroHeadline}
             </h1>
-            <p className="max-w-md text-base leading-relaxed text-muted-foreground">
-              Combining approachable diagnostics with heart-led care conversations, so every visit starts with clarity,
-              not urgency.
-            </p>
+            <p className="max-w-md text-base leading-relaxed text-muted-foreground">{copy.home.heroSubheadline}</p>
             <div className="flex flex-wrap items-center gap-5 pt-1">
               <BookingButton label="Book an Appointment" size="lg" />
               <Link
@@ -66,13 +64,11 @@ export default function Home() {
               <ImagePlaceholder label="Hero image" token="[HERO_IMAGE]" className="aspect-[4/3] h-full w-full border-0" />
             </div>
             <div className="absolute -bottom-2 left-3 max-w-[190px] rounded-2xl border border-border bg-card p-4 shadow-md sm:left-5">
-              <strong className="block text-3xl font-bold text-primary">12,5K+</strong>
-              <p className="mt-1 text-xs leading-snug text-muted-foreground">
-                Clients treated with care and professional attention.
-              </p>
+              <strong className="block text-3xl font-bold text-primary">{copy.home.heroStatValue}</strong>
+              <p className="mt-1 text-xs leading-snug text-muted-foreground">{copy.home.heroStatCaption}</p>
             </div>
             <div className="absolute -bottom-2 right-3 hidden max-w-[220px] rounded-2xl border border-border bg-card p-4 shadow-md sm:right-5 md:block">
-              <p className="text-sm leading-snug font-semibold text-foreground">The future of client care is here.</p>
+              <p className="text-sm leading-snug font-semibold text-foreground">{copy.home.heroBadgeText}</p>
               <Link
                 href="/services"
                 className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
@@ -90,7 +86,7 @@ export default function Home() {
       {/* 2. Trust Stats Bar */}
       <Section className="py-12 md:py-16" aria-labelledby="home-trust-stats-title">
         <span id="home-trust-stats-title" className="sr-only">
-          Care at a glance
+          {copy.home.trustStatsTitle}
         </span>
         <StatBlock stats={trustStats} />
       </Section>
@@ -99,12 +95,8 @@ export default function Home() {
       <Section aria-labelledby="home-services-title">
         <SectionHeading
           eyebrow="How we can help"
-          title={
-            <span id="home-services-title">
-              Our services<span className="text-primary">.</span>
-            </span>
-          }
-          description="Explore the care paths that make a future visit easier to understand. Each one starts with a conversation."
+          title={<span id="home-services-title">{copy.home.servicesTitle}</span>}
+          description={copy.home.servicesSubtitle}
           action={
             <Link href="/services" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
               See all services <ArrowUpRight size={15} />
@@ -118,11 +110,8 @@ export default function Home() {
       <Section className="bg-secondary/30" aria-labelledby="home-why-choose-title">
         <SectionHeading
           eyebrow="Why choose us"
-          title={
-            <span id="home-why-choose-title">
-              Care that shows <span className="text-primary">in the details.</span>
-            </span>
-          }
+          title={<span id="home-why-choose-title">{copy.home.whyUsTitle}</span>}
+          description={copy.home.whyUsSubtitle}
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {differentiators.map((item) => (
@@ -135,12 +124,8 @@ export default function Home() {
       <Section aria-labelledby="home-team-title">
         <SectionHeading
           eyebrow="Meet our team"
-          title={
-            <span id="home-team-title">
-              Care from a team <span className="text-primary">you can trust.</span>
-            </span>
-          }
-          description={`${providers.length} demo profiles representing the kind of clinical range a real ${clinic.name} team could offer.`}
+          title={<span id="home-team-title">{copy.home.teamTitle}</span>}
+          description={copy.home.teamSubtitle}
           action={
             <Link href="/team" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
               Meet the full team <ArrowUpRight size={15} />
@@ -173,11 +158,8 @@ export default function Home() {
       <Section className="bg-secondary/30" aria-labelledby="home-how-it-works-title">
         <SectionHeading
           eyebrow="How it works"
-          title={
-            <span id="home-how-it-works-title">
-              A simple path <span className="text-primary">to lifelong care.</span>
-            </span>
-          }
+          title={<span id="home-how-it-works-title">{copy.home.howItWorksTitle}</span>}
+          description={copy.home.howItWorksSubtitle}
         />
         <StepList steps={howItWorks} />
       </Section>
@@ -186,11 +168,7 @@ export default function Home() {
       <Section aria-labelledby="home-clinic-experience-title">
         <SectionHeading
           eyebrow="Designed around your comfort"
-          title={
-            <span id="home-clinic-experience-title">
-              A space built <span className="text-primary">for calm visits.</span>
-            </span>
-          }
+          title={<span id="home-clinic-experience-title">{copy.home.facilityTitle}</span>}
         />
         <div className="grid gap-4 md:grid-cols-[1.3fr_1fr]">
           <figure className="relative min-h-[260px] overflow-hidden rounded-2xl md:min-h-[420px]">
@@ -224,7 +202,7 @@ export default function Home() {
       </Section>
 
       {/* 6. Infinite Reviews Marquee */}
-      <ReviewsMarquee />
+      <ReviewsMarquee heading={copy.home.reviewsTitle} supportingText={copy.home.reviewsSubtitle} />
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
         <Link href="/proof" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
           Read verified patient stories <ArrowUpRight size={15} />
@@ -233,9 +211,9 @@ export default function Home() {
 
       {/* 6b. Real Care. Real Stories. */}
       <Section aria-labelledby="home-success-stories-title">
-        <Eyebrow icon={HeartHandshake}>Real care. Real stories.</Eyebrow>
+        <Eyebrow icon={HeartHandshake}>{copy.home.successStoriesTitle}</Eyebrow>
         <h2 id="home-success-stories-title" className="sr-only">
-          Real care. Real stories.
+          {copy.home.successStoriesTitle}
         </h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {clientStories.map((story) => (
@@ -260,11 +238,8 @@ export default function Home() {
       <Section className="bg-secondary/30" aria-labelledby="home-health-resources-title">
         <SectionHeading
           eyebrow="Health & wellness resources"
-          title={
-            <span id="home-health-resources-title">
-              Helpful reading <span className="text-primary">before your visit.</span>
-            </span>
-          }
+          title={<span id="home-health-resources-title">{copy.home.resourcesTitle}</span>}
+          description={copy.home.resourcesSubtitle}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {healthResources.map((article) => (
@@ -284,11 +259,7 @@ export default function Home() {
       <Section aria-labelledby="home-care-plans-title">
         <SectionHeading
           eyebrow="Proactive care for every stage"
-          title={
-            <span id="home-care-plans-title">
-              Planned around <span className="text-primary">your life stage.</span>
-            </span>
-          }
+          title={<span id="home-care-plans-title">{copy.home.carePlansTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {carePlans.map((plan) => {
@@ -319,15 +290,7 @@ export default function Home() {
 
       {/* 8. FAQ Teaser */}
       <Section className="bg-secondary/30">
-        <SectionHeading
-          eyebrow="A few helpful answers"
-          title={
-            <>
-              Everything starts with <span className="text-primary">one good question.</span>
-            </>
-          }
-          description="We keep the details clear so you can feel more prepared for the conversation ahead."
-        />
+        <SectionHeading eyebrow="A few helpful answers" title={copy.home.faqTeaserTitle} description={copy.home.faqTeaserSubtitle} />
         <Accordion type="single" collapsible className="mx-auto max-w-3xl border-t border-border">
           {faqs.slice(0, 3).map((faq, index) => (
             <AccordionItem value={`faq-${index}`} key={faq.question}>
@@ -349,11 +312,7 @@ export default function Home() {
           <div className="flex flex-col gap-5">
             <SectionHeading
               eyebrow="Visit our clinic"
-              title={
-                <span id="home-location-title">
-                  Plan your visit <span className="text-primary">with confidence.</span>
-                </span>
-              }
+              title={<span id="home-location-title">{copy.home.locationTitle}</span>}
               className="mb-0"
             />
             <div className="flex flex-col gap-5">
@@ -404,16 +363,10 @@ export default function Home() {
       {/* 10. Final CTA */}
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            A better beginning starts <span className="text-primary-foreground/80">here.</span>
-          </>
-        }
+        title={copy.home.finalCtaTitle}
         cta={
           <div className="flex flex-col gap-3">
-            <p className="max-w-sm text-sm leading-relaxed text-primary-foreground/85">
-              Pick a time that works for you, and our online scheduler takes care of the rest.
-            </p>
+            <p className="max-w-sm text-sm leading-relaxed text-primary-foreground/85">{copy.home.finalCtaSubtitle}</p>
             <BookingButton label="Book an Appointment" variant="secondary" size="lg" className="w-fit" />
           </div>
         }

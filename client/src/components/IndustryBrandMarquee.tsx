@@ -1,5 +1,4 @@
 import type { IndustryBrand } from "@/lib/industryBrands";
-import { cn } from "@/lib/utils";
 
 interface IndustryBrandMarqueeProps {
   items: IndustryBrand[];
@@ -9,14 +8,14 @@ interface IndustryBrandMarqueeProps {
 
 export function IndustryBrandMarquee({
   items,
-  heading = "Trusted Industry Partners",
-  supportingText = "Industry brands shown for demonstration purposes.",
+  heading = "[PARTNERS_SECTION_TITLE]",
+  supportingText = "[PARTNERS_SECTION_SUBTITLE]",
 }: IndustryBrandMarqueeProps) {
   const groups = [items, items];
 
   return (
     <section className="bg-secondary/40 py-10 md:py-14" aria-labelledby="industry-brand-marquee-title">
-      <div className="mx-auto mb-6 max-w-md px-6 text-center">
+      <div className="mx-auto mb-8 max-w-md px-6 text-center">
         <h2 id="industry-brand-marquee-title" className="text-lg font-semibold text-foreground">
           {heading}
         </h2>
@@ -27,27 +26,18 @@ export function IndustryBrandMarquee({
           {groups.map((group, groupIndex) => (
             <div
               key={groupIndex}
-              className="flex shrink-0 items-center gap-14 px-6"
+              className="flex shrink-0 items-center gap-5 px-6"
               aria-hidden={groupIndex === 1 ? true : undefined}
             >
               {group.map((brand) => (
                 <div
                   key={`${brand.name}-${groupIndex}`}
-                  className={cn(
-                    "flex h-9 shrink-0 items-center",
-                    brand.onDark && "rounded-lg bg-foreground px-3.5"
-                  )}
+                  className="flex h-16 w-44 shrink-0 items-center justify-center rounded-xl border border-dashed border-border bg-card px-4 text-center shadow-sm transition-colors hover:border-primary/50 sm:h-20 sm:w-52"
+                  aria-label={groupIndex === 0 ? brand.name : undefined}
                 >
-                  <img
-                    src={brand.logo}
-                    alt={groupIndex === 0 ? brand.name : ""}
-                    loading="eager"
-                    decoding="async"
-                    className={cn(
-                      "h-full w-auto max-w-33 object-contain grayscale opacity-55 transition-[filter,opacity] hover:grayscale-0 hover:opacity-100",
-                      brand.onDark && "h-[60%] grayscale-0 opacity-80 hover:opacity-100"
-                    )}
-                  />
+                  <span className="text-sm font-semibold tracking-tight text-muted-foreground sm:text-base">
+                    {brand.name}
+                  </span>
                 </div>
               ))}
             </div>

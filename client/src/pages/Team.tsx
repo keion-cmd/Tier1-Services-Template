@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { clinic, providers } from "@/lib/business-content";
+import { clinic, copy, providers } from "@/lib/business-content";
 
 export default function Team() {
   return (
@@ -19,12 +19,8 @@ export default function Team() {
       <PageHero
         eyebrowIcon={UserCheck}
         eyebrow="Our clinical team"
-        title={
-          <>
-            Meet the <span className="text-primary">professional team.</span>
-          </>
-        }
-        description="Every visit is guided by a professional team that takes the time to explain, listen, and plan the next step with you."
+        title={copy.team.heroTitle}
+        description={copy.team.heroSubtitle}
         cta={<BookingButton label="Schedule an Appointment" />}
         image={{ label: "Team hero image", token: "[TEAM_IMAGE]" }}
       />
@@ -49,11 +45,7 @@ export default function Team() {
         <SectionHeading
           icon={UserCheck}
           eyebrow="Demo profiles"
-          title={
-            <span id="team-grid-title">
-              Care from a team <span className="text-primary">you can trust.</span>
-            </span>
-          }
+          title={<span id="team-grid-title">{copy.team.gridTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {providers.map((provider) => (
@@ -82,11 +74,7 @@ export default function Team() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Ready to meet the <span className="text-primary-foreground/80">team?</span>
-          </>
-        }
+        title={copy.team.ctaTitle}
         cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
       />
     </main>

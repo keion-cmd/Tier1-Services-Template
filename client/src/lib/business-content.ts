@@ -28,6 +28,111 @@ export const businessConfig = {
 /** Backward-compatible alias — prefer `businessConfig` in new code. */
 export const clinic = businessConfig;
 
+// Centralized, placeholder-driven section copy. Every routed page pulls its headline and
+// subheadline text from here so a clone only has to edit tokens in one place. Add/remove
+// nested keys freely if a page gains or loses a section.
+export const copy = {
+  home: {
+    heroHeadline: "[HERO_HEADLINE]",
+    heroSubheadline: "[HERO_SUBHEADLINE]",
+    heroStatValue: "[HERO_STAT_VALUE]",
+    heroStatCaption: "[HERO_STAT_CAPTION]",
+    heroBadgeText: "[HERO_BADGE_TEXT]",
+    trustStatsTitle: "[TRUST_STATS_SECTION_TITLE]",
+    servicesTitle: "[SERVICES_SECTION_TITLE]",
+    servicesSubtitle: "[SERVICES_SECTION_SUBTITLE]",
+    whyUsTitle: "[WHY_US_TITLE]",
+    whyUsSubtitle: "[WHY_US_SUBTITLE]",
+    teamTitle: "[TEAM_SECTION_TITLE]",
+    teamSubtitle: "[TEAM_SECTION_SUBTITLE]",
+    howItWorksTitle: "[HOW_IT_WORKS_TITLE]",
+    howItWorksSubtitle: "[HOW_IT_WORKS_SUBTITLE]",
+    facilityTitle: "[FACILITY_SECTION_TITLE]",
+    successStoriesTitle: "[SUCCESS_STORIES_SECTION_TITLE]",
+    reviewsTitle: "[REVIEWS_SECTION_TITLE]",
+    reviewsSubtitle: "[REVIEWS_SECTION_SUBTITLE]",
+    resourcesTitle: "[RESOURCES_SECTION_TITLE]",
+    resourcesSubtitle: "[RESOURCES_SECTION_SUBTITLE]",
+    carePlansTitle: "[CARE_PLANS_SECTION_TITLE]",
+    faqTeaserTitle: "[FAQ_SECTION_TITLE]",
+    faqTeaserSubtitle: "[FAQ_SECTION_SUBTITLE]",
+    locationTitle: "[LOCATION_SECTION_TITLE]",
+    finalCtaTitle: "[FINAL_CTA_TITLE]",
+    finalCtaSubtitle: "[FINAL_CTA_SUBTITLE]",
+  },
+  about: {
+    heroTitle: "[ABOUT_HERO_TITLE]",
+    heroSubtitle: "[ABOUT_HERO_SUBTITLE]",
+    valuesTitle: "[ABOUT_VALUES_TITLE]",
+    approachParagraph1: "[ABOUT_APPROACH_PARAGRAPH_1]",
+    approachParagraph2: "[ABOUT_APPROACH_PARAGRAPH_2]",
+    staffTitle: "[ABOUT_STAFF_TITLE]",
+    ctaTitle: "[ABOUT_CTA_TITLE]",
+  },
+  services: {
+    heroTitle: "[SERVICES_HERO_TITLE]",
+    heroSubtitle: "[SERVICES_HERO_SUBTITLE]",
+    ctaTitle: "[SERVICES_CTA_TITLE]",
+  },
+  serviceDetail: {
+    processTitle: "[SERVICE_PROCESS_TITLE]",
+  },
+  team: {
+    heroTitle: "[TEAM_HERO_TITLE]",
+    heroSubtitle: "[TEAM_HERO_SUBTITLE]",
+    gridTitle: "[TEAM_GRID_TITLE]",
+    ctaTitle: "[TEAM_CTA_TITLE]",
+  },
+  proof: {
+    heroTitle: "[PROOF_HERO_TITLE]",
+    heroSubtitle: "[PROOF_HERO_SUBTITLE]",
+    statsTitle: "[PROOF_STATS_TITLE]",
+    ctaTitle: "[PROOF_CTA_TITLE]",
+  },
+  faq: {
+    heroTitle: "[FAQ_HERO_TITLE]",
+    heroSubtitle: "[FAQ_HERO_SUBTITLE]",
+    contactTitle: "[FAQ_CONTACT_TITLE]",
+    ctaTitle: "[FAQ_CTA_TITLE]",
+  },
+  location: {
+    heroTitle: "[LOCATION_HERO_TITLE]",
+    heroSubtitle: "[LOCATION_HERO_SUBTITLE]",
+    startTitle: "[LOCATION_START_TITLE]",
+    directionsTitle: "[LOCATION_DIRECTIONS_TITLE]",
+    hoursTitle: "[LOCATION_HOURS_TITLE]",
+    emergencyTitle: "[LOCATION_EMERGENCY_TITLE]",
+  },
+  resources: {
+    heroTitle: "[RESOURCES_HERO_TITLE]",
+    heroSubtitle: "[RESOURCES_HERO_SUBTITLE]",
+    gridTitle: "[RESOURCES_GRID_TITLE]",
+    ctaTitle: "[RESOURCES_CTA_TITLE]",
+  },
+  articleDetail: {
+    relatedTitle: "[ARTICLE_RELATED_TITLE]",
+    ctaTitle: "[ARTICLE_CTA_TITLE]",
+  },
+  newClients: {
+    heroTitle: "[NEW_CLIENTS_HERO_TITLE]",
+    heroSubtitle: "[NEW_CLIENTS_HERO_SUBTITLE]",
+    stepsTitle: "[NEW_CLIENTS_STEPS_TITLE]",
+    bringTitle: "[NEW_CLIENTS_BRING_TITLE]",
+    ctaTitle: "[NEW_CLIENTS_CTA_TITLE]",
+  },
+  notFound: {
+    heroTitle: "[NOT_FOUND_HERO_TITLE]",
+    heroSubtitle: "[NOT_FOUND_HERO_SUBTITLE]",
+    ctaTitle: "[NOT_FOUND_CTA_TITLE]",
+  },
+} as const;
+
+export const aboutValues = [
+  { icon: "stethoscope", title: "[ABOUT_VALUE_1_TITLE]", copy: "[ABOUT_VALUE_1_COPY]" },
+  { icon: "shield", title: "[ABOUT_VALUE_2_TITLE]", copy: "[ABOUT_VALUE_2_COPY]" },
+  { icon: "heart", title: "[ABOUT_VALUE_3_TITLE]", copy: "[ABOUT_VALUE_3_COPY]" },
+] as { icon: "stethoscope" | "shield" | "heart"; title: string; copy: string }[];
+
 export const services = [
   {
     number: "01",

@@ -4,13 +4,9 @@ import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { clinic, staff } from "@/lib/business-content";
+import { aboutValues, clinic, copy, staff } from "@/lib/business-content";
 
-const values = [
-  { icon: Stethoscope, title: "Clear conversations", copy: "Every visit starts with a real conversation, not assumptions made online before you've been heard." },
-  { icon: ShieldCheck, title: "Clinical standards", copy: "Care pathways follow the clinic team's approved protocols, with final recommendations always made in person." },
-  { icon: HeartHandshake, title: "Steady support", copy: "From a first question to a follow-up visit, the same thoughtful approach carries through." },
-];
+const valueIcons = { stethoscope: Stethoscope, shield: ShieldCheck, heart: HeartHandshake };
 
 export default function About() {
   return (
@@ -24,12 +20,8 @@ export default function About() {
       <PageHero
         eyebrowIcon={ShieldCheck}
         eyebrow="Our story"
-        title={
-          <>
-            Care built on <span className="text-primary">trust.</span>
-          </>
-        }
-        description={`${clinic.name} started with a simple idea: clients deserve clear information and a calm place to ask questions before any decision is made.`}
+        title={copy.about.heroTitle}
+        description={copy.about.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "About image", token: "[ABOUT_IMAGE]" }}
       />
@@ -38,15 +30,11 @@ export default function About() {
         <SectionHeading
           icon={ShieldCheck}
           eyebrow="What guides us"
-          title={
-            <span id="about-values-title">
-              Values that shape <span className="text-primary">every visit.</span>
-            </span>
-          }
+          title={<span id="about-values-title">{copy.about.valuesTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
-          {values.map((value) => (
-            <FeatureCard key={value.title} icon={value.icon} label="Care value" title={value.title} description={value.copy} />
+          {aboutValues.map((value) => (
+            <FeatureCard key={value.title} icon={valueIcons[value.icon]} label="Care value" title={value.title} description={value.copy} />
           ))}
         </div>
       </Section>
@@ -56,18 +44,12 @@ export default function About() {
         <div className="grid gap-5 sm:grid-cols-2">
           <Card>
             <CardContent>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                Our clinic team keeps explanations honest and jargon-free, so every client leaves a conversation
-                feeling more prepared, not more confused.
-              </p>
+              <p className="text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph1}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                Recommendations are always made directly by the clinic team, in person. This website is a starting
-                point for a conversation, never a substitute for one.
-              </p>
+              <p className="text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph2}</p>
             </CardContent>
           </Card>
         </div>
@@ -77,11 +59,7 @@ export default function About() {
         <SectionHeading
           icon={ShieldCheck}
           eyebrow="Meet the team"
-          title={
-            <span id="about-staff-title">
-              Meet our <span className="text-primary">clinical team.</span>
-            </span>
-          }
+          title={<span id="about-staff-title">{copy.about.staffTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {staff.map((member) => (
@@ -104,11 +82,7 @@ export default function About() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Ready to start the <span className="text-primary-foreground/80">conversation?</span>
-          </>
-        }
+        title={copy.about.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />
     </main>

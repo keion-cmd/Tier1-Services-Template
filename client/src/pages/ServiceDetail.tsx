@@ -5,7 +5,7 @@ import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageOutro } from "@/components/PageBlocks";
-import { buildBreadcrumbSchema, clinic, getServiceBySlug } from "@/lib/business-content";
+import { buildBreadcrumbSchema, clinic, copy, getServiceBySlug } from "@/lib/business-content";
 import NotFound from "./NotFound";
 
 export default function ServiceDetail() {
@@ -66,11 +66,7 @@ export default function ServiceDetail() {
         <SectionHeading
           icon={ShieldCheck}
           eyebrow="What to expect"
-          title={
-            <span id="service-process-title">
-              A clear path <span className="text-primary">from start to finish.</span>
-            </span>
-          }
+          title={<span id="service-process-title">{copy.serviceDetail.processTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {service.process.map((step, index) => (

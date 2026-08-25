@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { articles, buildArticleSchema, buildBreadcrumbSchema, clinic, getArticleBySlug } from "@/lib/business-content";
+import { articles, buildArticleSchema, buildBreadcrumbSchema, clinic, copy, getArticleBySlug } from "@/lib/business-content";
 import NotFound from "./NotFound";
 
 export default function ArticleDetail() {
@@ -63,11 +63,7 @@ export default function ArticleDetail() {
         <SectionHeading
           icon={ShieldCheck}
           eyebrow="Keep reading"
-          title={
-            <span id="article-related-title">
-              More helpful <span className="text-primary">articles.</span>
-            </span>
-          }
+          title={<span id="article-related-title">{copy.articleDetail.relatedTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
           {related.map((entry) => (
@@ -93,11 +89,7 @@ export default function ArticleDetail() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Ready to start the <span className="text-primary-foreground/80">conversation?</span>
-          </>
-        }
+        title={copy.articleDetail.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />
     </main>

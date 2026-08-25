@@ -29,11 +29,28 @@ All client content lives in two files. Nothing else needs to change to get a wor
 
 This file exports the `businessConfig` object (aliased as `clinic` for backward compatibility) plus
 every content array rendered across the site (`services`, `trustStats`, `differentiators`,
-`howItWorks`, `healthResources`, `faqs`, `staff`, `providers`, `emergencyInfo`). Replace every
-`[PLACEHOLDER]` token with real, client-approved copy, and set `businessConfig.descriptor` to the
-client's niche (e.g. `"Dental Clinic"`, `"Med-Spa"`, `"Physical Therapy Practice"`, `"Law Office"`).
-Do not rename the exported constants, object keys, or `slug` values — pages, routes, and the
-service/team detail pages (`/services/:slug`, `/team/:slug`) depend on them.
+`howItWorks`, `healthResources`, `faqs`, `staff`, `providers`, `emergencyInfo`, `aboutValues`) **and**
+the `copy` object — every routed page's section headlines and subheadlines, keyed by page
+(`copy.home`, `copy.about`, `copy.services`, `copy.serviceDetail`, `copy.team`, `copy.proof`,
+`copy.faq`, `copy.location`, `copy.resources`, `copy.articleDetail`, `copy.newClients`,
+`copy.notFound`). Replace every `[PLACEHOLDER]` token — in the data arrays **and** in `copy` — with
+real, client-approved copy, and set `businessConfig.descriptor` to the client's niche (e.g.
+`"Dental Clinic"`, `"Med-Spa"`, `"Physical Therapy Practice"`, `"Law Office"`). Replace **all**
+visible section titles/subtitles this way, not just the business-identity fields (name, phone,
+address) — the hero headline, every section heading and supporting sentence, and every page's final
+CTA heading/subheading all read from `copy`. Do not rename the exported constants, object keys, or
+`slug` values — pages, routes, and the service/team detail pages (`/services/:slug`, `/team/:slug`)
+depend on them.
+
+### `client/src/lib/industryBrands.ts`
+
+The `industryBrands` array feeds the homepage's partner-marks marquee
+(`IndustryBrandMarquee.tsx`). Each entry is `{ name: string }` only — **no logo image file is
+required**; every brand renders as a bordered text/placeholder card sized for easy reading (`h-16`
+desktop / `h-20`+ on larger screens). Replace each `[PARTNER_BRAND_n]` token with the real
+partner/vendor name (or delete the array entries entirely if the client has no partner marks to
+show — the marquee section simply won't render brand cards). Add or remove array items freely; the
+marquee re-flows automatically, no image assets to source or size.
 
 ### `client/src/lib/booking.ts`
 
@@ -84,6 +101,41 @@ untouched — the FAQ page groups entries by that exact string)
 **Emergency & after-hours referral**
 `[EMERGENCY_HOSPITAL_NAME]` · `[EMERGENCY_PHONE]` · `[EMERGENCY_PHONE_DIGITS]` · `[EMERGENCY_ADDRESS]`
 
+**About-page values grid** (`aboutValues[1-3]`)
+`[ABOUT_VALUE_n_TITLE]` · `[ABOUT_VALUE_n_COPY]` — for n = 1 through 3
+
+**Partner/vendor brand marquee** (`industryBrands[1-7]`, in `industryBrands.ts`)
+`[PARTNER_BRAND_n]` — text-only tokens, no logo image files needed (see the
+`industryBrands.ts` section above)
+
+**Section copy** (the `copy` object — every page's headlines/subheadlines)
+
+- `copy.home`: `[HERO_HEADLINE]` · `[HERO_SUBHEADLINE]` · `[HERO_STAT_VALUE]` · `[HERO_STAT_CAPTION]` ·
+  `[HERO_BADGE_TEXT]` · `[TRUST_STATS_SECTION_TITLE]` · `[SERVICES_SECTION_TITLE]` ·
+  `[SERVICES_SECTION_SUBTITLE]` · `[WHY_US_TITLE]` · `[WHY_US_SUBTITLE]` · `[TEAM_SECTION_TITLE]` ·
+  `[TEAM_SECTION_SUBTITLE]` · `[HOW_IT_WORKS_TITLE]` · `[HOW_IT_WORKS_SUBTITLE]` ·
+  `[FACILITY_SECTION_TITLE]` · `[SUCCESS_STORIES_SECTION_TITLE]` · `[REVIEWS_SECTION_TITLE]` ·
+  `[REVIEWS_SECTION_SUBTITLE]` · `[RESOURCES_SECTION_TITLE]` · `[RESOURCES_SECTION_SUBTITLE]` ·
+  `[CARE_PLANS_SECTION_TITLE]` · `[FAQ_SECTION_TITLE]` · `[FAQ_SECTION_SUBTITLE]` ·
+  `[LOCATION_SECTION_TITLE]` · `[FINAL_CTA_TITLE]` · `[FINAL_CTA_SUBTITLE]`
+- `copy.about`: `[ABOUT_HERO_TITLE]` · `[ABOUT_HERO_SUBTITLE]` · `[ABOUT_VALUES_TITLE]` ·
+  `[ABOUT_APPROACH_PARAGRAPH_1]` · `[ABOUT_APPROACH_PARAGRAPH_2]` · `[ABOUT_STAFF_TITLE]` ·
+  `[ABOUT_CTA_TITLE]`
+- `copy.services`: `[SERVICES_HERO_TITLE]` · `[SERVICES_HERO_SUBTITLE]` · `[SERVICES_CTA_TITLE]`
+- `copy.serviceDetail`: `[SERVICE_PROCESS_TITLE]`
+- `copy.team`: `[TEAM_HERO_TITLE]` · `[TEAM_HERO_SUBTITLE]` · `[TEAM_GRID_TITLE]` · `[TEAM_CTA_TITLE]`
+- `copy.proof`: `[PROOF_HERO_TITLE]` · `[PROOF_HERO_SUBTITLE]` · `[PROOF_STATS_TITLE]` ·
+  `[PROOF_CTA_TITLE]`
+- `copy.faq`: `[FAQ_HERO_TITLE]` · `[FAQ_HERO_SUBTITLE]` · `[FAQ_CONTACT_TITLE]` · `[FAQ_CTA_TITLE]`
+- `copy.location`: `[LOCATION_HERO_TITLE]` · `[LOCATION_HERO_SUBTITLE]` · `[LOCATION_START_TITLE]` ·
+  `[LOCATION_DIRECTIONS_TITLE]` · `[LOCATION_HOURS_TITLE]` · `[LOCATION_EMERGENCY_TITLE]`
+- `copy.resources`: `[RESOURCES_HERO_TITLE]` · `[RESOURCES_HERO_SUBTITLE]` · `[RESOURCES_GRID_TITLE]` ·
+  `[RESOURCES_CTA_TITLE]`
+- `copy.articleDetail`: `[ARTICLE_RELATED_TITLE]` · `[ARTICLE_CTA_TITLE]`
+- `copy.newClients`: `[NEW_CLIENTS_HERO_TITLE]` · `[NEW_CLIENTS_HERO_SUBTITLE]` ·
+  `[NEW_CLIENTS_STEPS_TITLE]` · `[NEW_CLIENTS_BRING_TITLE]` · `[NEW_CLIENTS_CTA_TITLE]`
+- `copy.notFound`: `[NOT_FOUND_HERO_TITLE]` · `[NOT_FOUND_HERO_SUBTITLE]` · `[NOT_FOUND_CTA_TITLE]`
+
 **Other files**
 - `client/src/lib/booking.ts` → `[EXTERNAL_BOOKING_OR_CALENDLY_URL]`
 - `client/index.html` → `[CLINIC_NAME]` (page `<title>` and meta description)
@@ -92,9 +144,11 @@ untouched — the FAQ page groups entries by that exact string)
   client's "Embed a map" URL from Google Maps) and `[NEARBY_LANDMARK_NAME]` (an optional nearby
   landmark used in the directions copy)
 
-Everything else on the site (button labels, section headings, generic educational articles under
-`articles`, generic care-plan and new-client-steps copy) is reusable boilerplate and does not need to
-change unless you want to.
+Button labels (e.g. "Book an Appointment"), nav item labels, and generic educational content
+(`articles`, `carePlans`, `newClientSteps`, `whatToBring`, `clinicExperienceFeatures`) are reusable
+boilerplate and do not need to change unless you want to. Every visible section headline and
+subheadline, by contrast, is a `[PLACEHOLDER]` token in `copy` and must be filled in — see the
+**Section copy** checklist above.
 
 ## 4. Replace image placeholders
 

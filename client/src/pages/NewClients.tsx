@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, StepList, PageOutro } from "@/components/PageBlocks";
-import { clinic, newClientSteps, whatToBring } from "@/lib/business-content";
+import { clinic, copy, newClientSteps, whatToBring } from "@/lib/business-content";
 
 export default function NewClients() {
   return (
@@ -17,12 +17,8 @@ export default function NewClients() {
       <PageHero
         eyebrowIcon={UserCheck}
         eyebrow="New clients"
-        title={
-          <>
-            First visit? <span className="text-primary">Here&rsquo;s what to expect.</span>
-          </>
-        }
-        description="A calm, unhurried walkthrough of what happens from your first booking to your follow-up care."
+        title={copy.newClients.heroTitle}
+        description={copy.newClients.heroSubtitle}
         cta={<BookingButton label="Book Your First Visit" />}
         image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
@@ -31,11 +27,7 @@ export default function NewClients() {
         <SectionHeading
           icon={UserCheck}
           eyebrow="What to expect"
-          title={
-            <span id="new-clients-steps-title">
-              A simple path <span className="text-primary">from start to finish.</span>
-            </span>
-          }
+          title={<span id="new-clients-steps-title">{copy.newClients.stepsTitle}</span>}
           description={`From your first booking to a follow-up visit, here's the ${newClientSteps.length}-step path most new clients follow.`}
         />
         <StepList steps={newClientSteps} />
@@ -45,7 +37,7 @@ export default function NewClients() {
         <SectionHeading
           icon={UserCheck}
           eyebrow="What to bring"
-          title={<span id="new-clients-bring-title" className="sr-only">What to bring</span>}
+          title={<span id="new-clients-bring-title" className="sr-only">{copy.newClients.bringTitle}</span>}
           className="mb-6"
         />
         <div className="grid gap-4 sm:grid-cols-2">
@@ -62,11 +54,7 @@ export default function NewClients() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Ready for your <span className="text-primary-foreground/80">first visit?</span>
-          </>
-        }
+        title={copy.newClients.ctaTitle}
         cta={<BookingButton label="Book Your First Visit" variant="secondary" size="lg" />}
       />
     </main>

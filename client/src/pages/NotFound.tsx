@@ -3,7 +3,7 @@ import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Button } from "@/components/ui/button";
 import { PageHero, PageOutro } from "@/components/PageBlocks";
-import { clinic } from "@/lib/business-content";
+import { clinic, copy } from "@/lib/business-content";
 
 export default function NotFound() {
   return (
@@ -16,12 +16,8 @@ export default function NotFound() {
       <PageHero
         eyebrowIcon={ShieldCheck}
         eyebrow="404 · Page not found"
-        title={
-          <>
-            That page <span className="text-primary">wandered off.</span>
-          </>
-        }
-        description="The page you're looking for doesn't exist, may have moved, or was never here. Let's get you back on track."
+        title={copy.notFound.heroTitle}
+        description={copy.notFound.heroSubtitle}
         cta={
           <Button asChild size="lg" className="w-fit rounded-full">
             <Link href="/">
@@ -33,11 +29,7 @@ export default function NotFound() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Try one of these <span className="text-primary-foreground/80">instead.</span>
-          </>
-        }
+        title={copy.notFound.ctaTitle}
         cta={
           <div className="flex flex-wrap gap-4">
             <Button asChild size="lg" variant="secondary" className="rounded-full">

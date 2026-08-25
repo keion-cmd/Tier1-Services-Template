@@ -3,7 +3,7 @@ import { InteractiveServiceGallery } from "@/components/InteractiveServiceGaller
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, PageOutro } from "@/components/PageBlocks";
-import { clinic, services } from "@/lib/business-content";
+import { clinic, copy, services } from "@/lib/business-content";
 
 export default function Services() {
   return (
@@ -17,12 +17,8 @@ export default function Services() {
       <PageHero
         eyebrowIcon={ShieldCheck}
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Care paths <span className="text-primary">with intent.</span>
-          </>
-        }
-        description="Every path begins with a conversation, then makes space for the questions that matter to you."
+        title={copy.services.heroTitle}
+        description={copy.services.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
       />
@@ -47,11 +43,7 @@ export default function Services() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Care that makes room for <span className="text-primary-foreground/80">every question.</span>
-          </>
-        }
+        title={copy.services.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />
     </main>

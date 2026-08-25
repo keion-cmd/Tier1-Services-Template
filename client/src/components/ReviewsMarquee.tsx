@@ -4,9 +4,20 @@ import { marqueeReviews } from "@/lib/business-content";
 
 const loopedReviews = [...marqueeReviews, ...marqueeReviews];
 
-export function ReviewsMarquee() {
+interface ReviewsMarqueeProps {
+  heading?: string;
+  supportingText?: string;
+}
+
+export function ReviewsMarquee({ heading, supportingText }: ReviewsMarqueeProps) {
   return (
     <section className="overflow-hidden bg-foreground py-12 md:py-16" aria-label="Verified client reviews">
+      {(heading || supportingText) && (
+        <div className="mx-auto mb-8 max-w-md px-6 text-center">
+          {heading && <h2 className="text-lg font-semibold text-background">{heading}</h2>}
+          {supportingText && <p className="mt-1.5 text-sm text-background/60">{supportingText}</p>}
+        </div>
+      )}
       <div className="flex w-max animate-marquee-slow gap-5 running hover:paused" aria-hidden="true">
         {loopedReviews.map((review, index) => (
           <Card key={`${review.name}-${index}`} className="w-[320px] shrink-0 gap-2.5 border-background/10 bg-background/6 p-6">

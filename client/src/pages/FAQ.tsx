@@ -3,7 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { PageMeta } from "@/components/PageMeta";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/PageBlocks";
-import { buildFaqSchema, clinic, faqs } from "@/lib/business-content";
+import { buildFaqSchema, clinic, copy, faqs } from "@/lib/business-content";
 
 const categoryOrder = ["Requests & visits", "First visit", "Emergency", "Payment & insurance"] as const;
 const categories = categoryOrder
@@ -23,12 +23,8 @@ export default function FAQ() {
       <PageHero
         eyebrowIcon={ShieldCheck}
         eyebrow="Frequently asked"
-        title={
-          <>
-            Questions, <span className="text-primary">answered clearly.</span>
-          </>
-        }
-        description="A few honest answers about how booking, visits, and next steps actually work."
+        title={copy.faq.heroTitle}
+        description={copy.faq.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
         image={{ label: "Clinic image", token: "[CLINIC_IMAGE]" }}
       />
@@ -55,11 +51,7 @@ export default function FAQ() {
         <SectionHeading
           icon={Phone}
           eyebrow="Still have a question?"
-          title={
-            <span id="faq-contact-title">
-              Reach us <span className="text-primary">directly.</span>
-            </span>
-          }
+          title={<span id="faq-contact-title">{copy.faq.contactTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
@@ -79,11 +71,7 @@ export default function FAQ() {
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={
-          <>
-            Ready for a <span className="text-primary-foreground/80">real answer?</span>
-          </>
-        }
+        title={copy.faq.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />
     </main>

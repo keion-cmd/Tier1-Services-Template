@@ -16,25 +16,34 @@ not just the demo's default counts.
 
 ### 1. Token replacement
 
-All client content lives in two files:
+All client content lives in three files:
 
 - `client/src/lib/business-content.ts` — `businessConfig` identity (including the `descriptor` field
   that names the niche, e.g. `"Dental Clinic"`, `"Med-Spa"`, `"Law Office"`), contact info, services,
-  trust stats, differentiators, how-it-works steps, health resources, FAQs, staff, providers, and
-  emergency info.
+  trust stats, differentiators, how-it-works steps, health resources, FAQs, staff, providers,
+  emergency info, `aboutValues` — **and** the `copy` object, which holds every routed page's section
+  headlines and subheadlines (hero headline/subheadline, every section title/subtitle, and every
+  page's final CTA heading/subheading). Replace **all** of these, not just the business-identity
+  fields — a clone with real name/phone/address but placeholder section headlines is incomplete.
+- `client/src/lib/industryBrands.ts` — the homepage partner-marks marquee. Each entry is
+  `{ name: string }` only; there is no logo image file to source, upload, or size. The marquee
+  renders every entry as a bordered text/placeholder card automatically.
 - `client/src/lib/booking.ts` — the fallback booking/scheduler URL.
 
-Replace every `[BRACKETED_PLACEHOLDER_TOKEN]` in both files with the client's real copy, and set
+Replace every `[BRACKETED_PLACEHOLDER_TOKEN]` in all three files with the client's real copy, and set
 `businessConfig.descriptor` to the client's niche. Do not rename exported constants, object keys, or
 `slug` values — routes and detail pages (`/services/:slug`, `/team/:slug`) depend on them. See
 `CLONE_INSTRUCTIONS.md` for the full token checklist, including the handful of tokens that live
-outside these two files (`client/index.html`, `client/src/index.css`, `client/src/pages/Location.tsx`).
+outside these files (`client/index.html`, `client/src/index.css`, `client/src/pages/Location.tsx`).
 
 ### 2. Unbounded arrays rule
 
 The demo arrays (`services`, `providers`/`staff`, `faqs`, `healthResources`, `trustStats`,
-`differentiators`, `howItWorks`) each ship with a fixed demo count (e.g. 6 services, 3 providers).
-**Treat these counts as a minimum, not a limit.**
+`differentiators`, `howItWorks`, `aboutValues`, `industryBrands`) each ship with a fixed demo count
+(e.g. 6 services, 3 providers, 7 partner-brand slots). **Treat these counts as a minimum, not a
+limit** — this applies to `industryBrands` too: add or remove `{ name: "..." }` entries freely to
+match however many partner/vendor marks the client actually wants to display (or drop the array to
+empty and skip the marquee section entirely if the client has none).
 
 If the client provides **more** services, staff/providers, FAQs, or resources than the demo arrays
 contain, **append additional objects** to the relevant array (`services[]`, `providers[]`,
@@ -67,6 +76,11 @@ placeholder token consistent with the existing naming convention, e.g.:
 Wire the token through the entry's `imageKey` field (or the equivalent field used by that array)
 exactly as the existing entries do, so the `<ImagePlaceholder>` usage at the render site picks it
 up automatically. Do not leave a new array entry without an image slot.
+
+**Exception — partner brand marquee:** `industryBrands` entries (`{ name: string }`) are text-only
+and never get an image slot. The marquee (`IndustryBrandMarquee.tsx`) renders every brand as a
+bordered placeholder card sized for legibility (`h-16`+ desktop) — do not add a logo `<img>`, an
+`imageKey`, or source any logo files for this array.
 
 ### 4. Theme color rule
 

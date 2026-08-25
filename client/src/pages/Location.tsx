@@ -4,7 +4,7 @@ import { BookingButton } from "@/components/BookingButton";
 import { Card } from "@/components/ui/card";
 import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { clinic, emergencyInfo } from "@/lib/business-content";
+import { clinic, copy, emergencyInfo } from "@/lib/business-content";
 
 const suppliedDirectionsEmbed = "[GOOGLE_MAPS_EMBED_URL]";
 
@@ -47,12 +47,8 @@ export default function Location() {
       <PageHero
         eyebrowIcon={ShieldCheck}
         eyebrow="Complimentary location page"
-        title={
-          <>
-            Find care <span className="text-primary">close by.</span>
-          </>
-        }
-        description={`Included with this ${clinic.name} template: a clear location, map destination, and business-hours view. Book online and our scheduler will confirm your visit instantly.`}
+        title={copy.location.heroTitle}
+        description={copy.location.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
       />
 
@@ -62,9 +58,7 @@ export default function Location() {
             <ImagePlaceholder label="Clinic image" token="[CLINIC_IMAGE]" className="h-48 w-full border-0" />
             <div className="flex flex-col gap-5 p-6">
               <span className="text-xs font-semibold tracking-wide text-primary uppercase">{clinic.name}</span>
-              <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground">
-                Start with <span className="text-primary">the right place.</span>
-              </h2>
+              <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground">{copy.location.startTitle}</h2>
               <div className="flex flex-col gap-4">
                 <div className="flex items-start gap-3">
                   <MapPin size={20} className="mt-0.5 shrink-0 text-primary" />
@@ -106,11 +100,7 @@ export default function Location() {
         <SectionHeading
           icon={Navigation}
           eyebrow="Driving directions"
-          title={
-            <span id="directions-title">
-              Use the route <span className="text-primary">you recognise.</span>
-            </span>
-          }
+          title={<span id="directions-title">{copy.location.directionsTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
@@ -141,11 +131,7 @@ export default function Location() {
             <SectionHeading
               icon={Clock3}
               eyebrow="Business hours"
-              title={
-                <span id="business-hours-title">
-                  Plan your visit <span className="text-primary">with confidence.</span>
-                </span>
-              }
+              title={<span id="business-hours-title">{copy.location.hoursTitle}</span>}
               description={`These are ${clinic.name} template hours. Confirm client-approved hours before any production launch.`}
               className="mb-0"
             />
@@ -165,11 +151,7 @@ export default function Location() {
         <SectionHeading
           icon={AlertTriangle}
           eyebrow={emergencyInfo.heading}
-          title={
-            <span id="emergency-title">
-              If it&rsquo;s <span className="text-primary">urgent.</span>
-            </span>
-          }
+          title={<span id="emergency-title">{copy.location.emergencyTitle}</span>}
           description={emergencyInfo.note}
         />
         <div className="grid gap-5 sm:grid-cols-2">
