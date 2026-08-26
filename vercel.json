@@ -1,6 +1,16 @@
 {
   "outputDirectory": "dist/public",
   "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
+      },
+      "continue": true
+    },
     { "src": "^/api/trpc/(.*)$", "dest": "/api/trpc?path=$1" },
     { "src": "^/manus-storage/(.*)$", "dest": "/api/manus-storage/$1" },
     { "handle": "filesystem" },

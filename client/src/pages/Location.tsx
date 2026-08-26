@@ -27,7 +27,7 @@ function ClinicMap() {
         className="absolute bottom-6 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-primary-foreground shadow-md hover:bg-primary/90"
         href={clinic.mapsUrl}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         Open driving directions <ArrowUpRight size={14} />
       </a>
@@ -64,7 +64,7 @@ export default function Location() {
                   <div>
                     <span className="text-xs font-semibold tracking-wide text-primary uppercase">Address</span>
                     <p className="text-sm leading-relaxed text-muted-foreground">
-                      <a href={clinic.mapsUrl} target="_blank" rel="noreferrer" className="hover:text-primary">
+                      <a href={clinic.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary">
                         {clinic.address}
                         <br />
                         {clinic.city}
@@ -111,7 +111,7 @@ export default function Location() {
             title={clinic.name}
             description={
               <>
-                <a href={clinic.mapsUrl} target="_blank" rel="noreferrer" className="text-foreground hover:text-primary">
+                <a href={clinic.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary">
                   {clinic.address}, {clinic.city}
                 </a>
                 . Use the directions button for the provided driving route.

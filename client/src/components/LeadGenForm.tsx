@@ -26,12 +26,28 @@ export function LeadGenForm() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError(null);
+
+    if (!LEAD_FORM_ENDPOINT_URL || LEAD_FORM_ENDPOINT_URL.includes("[") || LEAD_FORM_ENDPOINT_URL.includes("]")) {
+      setError("Form is not yet configured. Please contact us directly.");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (phone.replace(/\D/g, "").length < 7) {
+      setError("Please enter a valid phone number.");
+      return;
+    }
+
     setIsSubmitting(true);
-    setError(false);
 
     try {
       // Google Apps Script Web Apps don't return CORS headers, so the response body
@@ -53,7 +69,7 @@ export function LeadGenForm() {
       });
       setIsSubmitted(true);
     } catch {
-      setError(true);
+      setError("Something went wrong. Please check your details and submit again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -95,6 +111,7 @@ export function LeadGenForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
+              pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
             />
           </div>
 
@@ -107,6 +124,7 @@ export function LeadGenForm() {
               onChange={(e) => setPhone(e.target.value)}
               required
               autoComplete="tel"
+              pattern="[\d\s()+\-]{7,}"
             />
           </div>
 
@@ -141,7 +159,7 @@ export function LeadGenForm() {
             <Alert variant="destructive">
               <AlertCircle />
               <AlertTitle>Something went wrong.</AlertTitle>
-              <AlertDescription>Please check your details and submit again.</AlertDescription>
+              <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 

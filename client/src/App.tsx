@@ -21,9 +21,10 @@ import ProviderDetail from "./pages/ProviderDetail";
 import Resources from "./pages/Resources";
 import ArticleDetail from "./pages/ArticleDetail";
 import NewClients from "./pages/NewClients";
+import NotFound from "./pages/NotFound";
 
 function Routes() {
-  return <Switch><Route path="/" component={Home} /><Route path="/about" component={About} /><Route path="/services" component={Services} /><Route path="/services/:slug" component={ServiceDetail} /><Route path="/proof" component={Proof} /><Route path="/faq" component={FAQ} /><Route path="/location" component={Location} /><Route path="/team" component={Team} /><Route path="/team/:slug" component={ProviderDetail} /><Route path="/resources" component={Resources} /><Route path="/resources/:slug" component={ArticleDetail} /><Route path="/new-clients" component={NewClients} /><Route component={Home} /></Switch>;
+  return <Switch><Route path="/" component={Home} /><Route path="/about" component={About} /><Route path="/services" component={Services} /><Route path="/services/:slug" component={ServiceDetail} /><Route path="/proof" component={Proof} /><Route path="/faq" component={FAQ} /><Route path="/location" component={Location} /><Route path="/team" component={Team} /><Route path="/team/:slug" component={ProviderDetail} /><Route path="/resources" component={Resources} /><Route path="/resources/:slug" component={ArticleDetail} /><Route path="/new-clients" component={NewClients} /><Route component={NotFound} /></Switch>;
 }
 
 export default function App() {

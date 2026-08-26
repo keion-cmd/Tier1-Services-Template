@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tier1-vet-demo.vercel.app/sitemap.xml
+# Sitemap: Update this with your production domain after deployment
+# Example: Sitemap: https://yourdomain.com/sitemap.xml

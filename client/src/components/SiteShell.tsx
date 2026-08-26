@@ -160,6 +160,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="pb-16 lg:pb-0">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none"
+      >
+        Skip to content
+      </a>
+
       {/* Mobile sticky quick-actions bar */}
       <div
         className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-border bg-card shadow-[0_-8px_24px_rgba(0,0,0,0.08)] lg:hidden"
@@ -318,7 +325,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      {children}
+      <div id="main-content">{children}</div>
 
       <footer className="bg-foreground text-background">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
@@ -347,7 +354,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <a
                 href={clinic.mapsUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-start gap-2 text-sm text-background/80 hover:text-primary-foreground"
               >
                 <MapPin size={15} className="mt-0.5 shrink-0" />
@@ -382,7 +389,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     key={social.href}
                     href={social.href}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     aria-label={`${social.label} placeholder profile`}
                     title={`${social.label} placeholder profile`}
                     className="flex h-8 w-8 items-center justify-center rounded-full border border-background/25 text-background/80 transition-colors hover:border-primary hover:text-primary-foreground"
