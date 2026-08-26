@@ -85,7 +85,7 @@ export function ChatWidget() {
   const conversation = (
     <>
       <ScrollArea ref={scrollWrapperRef} className="min-h-0 flex-1">
-        <div className="flex flex-col gap-3 p-4" aria-live="polite">
+        <div className="flex flex-col gap-4 px-4 py-3" aria-live="polite">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -93,9 +93,9 @@ export function ChatWidget() {
             >
               <div
                 className={cn(
-                  "min-w-0 max-w-[80%] rounded-2xl px-4 py-2 text-sm break-words whitespace-pre-line",
+                  "min-w-0 max-w-[85%] shrink-0 rounded-2xl px-4 py-2 text-sm break-words whitespace-pre-line",
                   message.role === "user"
-                    ? "rounded-br-sm bg-primary text-primary-foreground"
+                    ? "ml-auto rounded-br-sm bg-primary text-primary-foreground"
                     : "rounded-bl-sm bg-muted text-foreground"
                 )}
               >
@@ -169,7 +169,7 @@ export function ChatWidget() {
             side="bottom"
             className="inset-x-0 bottom-[calc(var(--mobile-bar-height)+env(safe-area-inset-bottom,0px)+0.75rem)] flex h-[min(560px,calc(100dvh-96px))] flex-col gap-0 overflow-hidden rounded-t-2xl border p-0 shadow-2xl motion-reduce:transition-none"
           >
-            <SheetHeader className="shrink-0 border-b p-4 pr-10">
+            <SheetHeader className="shrink-0 border-b border-border/50 px-4 py-3.5 pr-10">
               <SheetTitle>{businessConfig.shortName} Receptionist</SheetTitle>
             </SheetHeader>
             {conversation}
@@ -178,13 +178,13 @@ export function ChatWidget() {
       ) : (
         <div
           className={cn(
-            "fixed right-4 bottom-24 z-50 w-[360px] max-w-[calc(100vw-2rem)] origin-bottom-right transition-all duration-300 motion-reduce:transition-none sm:right-6 sm:w-[380px]",
+            "fixed right-4 bottom-21 z-50 w-[360px] max-w-[calc(100vw-2rem)] origin-bottom-right transition-all duration-300 motion-reduce:transition-none sm:right-6 sm:w-[380px]",
             open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
           )}
           aria-hidden={!open}
         >
-          <Card className="flex h-[min(560px,calc(100dvh-120px))] flex-col gap-0 overflow-hidden py-0 shadow-2xl">
-            <CardHeader className="flex shrink-0 flex-row items-center justify-between gap-2 border-b py-4">
+          <Card className="flex h-[min(560px,calc(100dvh-120px))] flex-col gap-0 overflow-hidden rounded-2xl py-0 shadow-2xl shadow-black/20">
+            <CardHeader className="flex shrink-0 flex-row items-center justify-between gap-2 border-b border-border/50 px-4 py-3.5">
               <CardTitle className="text-base">{businessConfig.shortName} Receptionist</CardTitle>
               <Button
                 variant="ghost"
