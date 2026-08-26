@@ -8,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { SiteShell } from "./components/SiteShell";
+import { ChatWidget } from "./components/ChatWidget";
 import Home from "./pages/Home";
 import Location from "./pages/Location";
 import Services from "./pages/Services";
@@ -26,5 +27,5 @@ function Routes() {
 }
 
 export default function App() {
-  return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><SiteShell><Routes /></SiteShell></TooltipProvider></ThemeProvider></ErrorBoundary>;
+  return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><SiteShell><Routes /></SiteShell><ChatWidget /></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }
