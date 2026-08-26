@@ -3,6 +3,7 @@ import { AlertTriangle, ArrowUpRight, Clock3, MapPin } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
+import { LeadGenForm } from "@/components/LeadGenForm";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
 import { IndustryBrandMarquee } from "@/components/IndustryBrandMarquee";
 import { PageMeta } from "@/components/PageMeta";
@@ -181,6 +182,17 @@ export default function Home() {
             </span>
           ))}
         </p>
+      </Section>
+
+      {/* 5c. Lead Generation Form */}
+      <Section className="bg-secondary/30" aria-labelledby="home-lead-form-title">
+        <SectionHeading
+          align="center"
+          title={<span id="home-lead-form-title">{copy.home.leadGenForm.heading}</span>}
+          description={copy.home.leadGenForm.subheading}
+          className="mb-8"
+        />
+        <LeadGenForm />
       </Section>
 
       {/* 6. Infinite Reviews Marquee */}

@@ -69,6 +69,13 @@ export const copy = {
     locationTitle: "[LOCATION_SECTION_TITLE]",
     finalCtaTitle: "[FINAL_CTA_TITLE]",
     finalCtaSubtitle: "[FINAL_CTA_SUBTITLE]",
+    leadGenForm: {
+      heading: "[LEAD_FORM_HEADING]",
+      subheading: "[LEAD_FORM_SUBHEADING]",
+      submitButton: "[LEAD_FORM_CTA]",
+      successMessage: "[LEAD_FORM_SUCCESS]",
+      privacyNote: "[LEAD_FORM_PRIVACY]",
+    },
   },
   about: {
     heroEyebrow: "[ABOUT_HERO_EYEBROW]",
