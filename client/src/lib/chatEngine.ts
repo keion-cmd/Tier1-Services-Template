@@ -3,7 +3,7 @@
  * No external API calls — every response is derived from business-content.ts
  * and booking.ts, so a clone answers correctly the moment those tokens are filled in.
  */
-import { faqs, services, staff, howItWorks, businessConfig, emergencyInfo, type Service } from "@/lib/business-content";
+import { faqs, services, staff, howItWorks, businessConfig, emergencyInfo, trustStats, type Service } from "@/lib/business-content";
 import { BOOKING_URL } from "@/lib/booking";
 
 const STOPWORDS = new Set([
@@ -62,6 +62,11 @@ const BOOKING_KEYWORDS = [
   "start a project", "get started", "new project", "hire you",
 ];
 const PRICE_KEYWORDS = ["how much", "cost", "price", "pricing", "fee", "fees", "charge", "expensive", "budget"];
+const STATS_KEYWORDS = [
+  "how many", "how long have", "years of experience", "years in business",
+  "track record", "reputation", "reviews", "rated", "rating", "stats", "statistics",
+  "clients served", "customers served", "experience do you have",
+];
 
 export type ChatTopic =
   | "greeting"
@@ -73,6 +78,7 @@ export type ChatTopic =
   | "contact"
   | "booking"
   | "pricing"
+  | "stats"
   | "fallback";
 
 export type QuickReplyKey = "services" | "pricing" | "team" | "location" | "faqs" | "book" | "contact";
@@ -103,6 +109,7 @@ const FOLLOW_UP_MAP: Record<ChatTopic, QuickReplyKey[]> = {
   contact: ["book", "services", "faqs"],
   booking: ["services", "contact"],
   pricing: ["services", "book", "contact"],
+  stats: ["services", "team", "book"],
   fallback: ["services", "book", "faqs", "contact"],
 };
 
@@ -119,7 +126,7 @@ export type ChatResponse = {
   topic: ChatTopic;
 };
 
-const FALLBACK_MESSAGE = `I can only help with questions about ${businessConfig.name} — our services, process, team, location, hours, and how to start a project. I don't have info on that one. Want me to show services or help you start a project?`;
+const FALLBACK_MESSAGE = `I can answer questions about ${businessConfig.shortName}'s services, hours, location, and team. What would you like to know?`;
 
 function findFaqMatch(userMessage: string): string | null {
   const inputWords = significantWords(userMessage);
@@ -155,8 +162,13 @@ function findServiceMatch(userMessage: string): Service | null {
 }
 
 function listServicesText(): string {
-  const lines = services.slice(0, 6).map((service) => `• ${service.title}`);
-  return `Here's what we offer:\n${lines.join("\n")}\n\nWant details on one, or ready to start a project? ${BOOKING_URL}`;
+  const names = services.slice(0, 6).map((service) => service.title);
+  return `We offer several services including: ${names.join(", ")}. Want details on one, or ready to start a project? ${BOOKING_URL}`;
+}
+
+function listStatsText(): string {
+  const lines = trustStats.map((stat) => `${stat.value} ${stat.label}`);
+  return `A few numbers that speak for themselves: ${lines.join(", ")}. Want to see our services or start a project? ${BOOKING_URL}`;
 }
 
 function listTeamText(): string {
@@ -211,7 +223,7 @@ export function getChatResponse(userMessage: string): ChatResponse {
 
   if (includesAny(normalized, HOURS_KEYWORDS) || includesAny(normalized, LOCATION_KEYWORDS)) {
     return {
-      text: `We're located at ${businessConfig.address}. Hours: ${businessConfig.hours}. Get directions: ${businessConfig.mapsUrl}`,
+      text: `We're located in ${businessConfig.city} at ${businessConfig.address}. Hours: ${businessConfig.hours}. Get directions: ${businessConfig.mapsUrl}`,
       topic: "location",
     };
   }
@@ -223,15 +235,22 @@ export function getChatResponse(userMessage: string): ChatResponse {
     };
   }
 
+  if (includesAny(normalized, STATS_KEYWORDS)) {
+    return { text: listStatsText(), topic: "stats" };
+  }
+
   if (includesAny(normalized, CONTACT_KEYWORDS)) {
     return {
-      text: `You can reach us at ${businessConfig.phone} or by email at ${businessConfig.email}.`,
+      text: `You can reach us at ${businessConfig.phone} or by email at ${businessConfig.email}. Prefer to book directly? ${BOOKING_URL}`,
       topic: "contact",
     };
   }
 
   if (includesAny(normalized, BOOKING_KEYWORDS)) {
-    return { text: `You can start a project right here: ${BOOKING_URL}`, topic: "booking" };
+    return {
+      text: `You can start a project right here: ${BOOKING_URL}. Or call us at ${businessConfig.phone} / email ${businessConfig.email}.`,
+      topic: "booking",
+    };
   }
 
   if (includesAny(normalized, PRICE_KEYWORDS)) {
