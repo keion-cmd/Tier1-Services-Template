@@ -115,10 +115,10 @@ export default function Home() {
             </Link>
           }
         />
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {providers.map((provider) => (
             <Card key={provider.slug} className="gap-3 p-4">
-              <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="h-48 w-full rounded-xl" />
+              <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="aspect-[4/3] w-full rounded-xl" />
               <div className="flex min-w-0 flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide break-words text-primary uppercase">{provider.specialty}</span>
                 <h3 className="text-lg font-semibold break-words text-foreground">
@@ -201,7 +201,7 @@ export default function Home() {
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {clientStories.map((story) => (
             <Card key={story.clientName} className="gap-2.5 p-4">
-              <ImagePlaceholder label="Client photo" token={story.imageKey} className="h-48 w-full rounded-xl" />
+              <ImagePlaceholder label="Client photo" token={story.imageKey} className="aspect-[4/3] w-full rounded-xl" />
               <div className="flex min-w-0 flex-col gap-1.5 px-1">
                 <Eyebrow>
                   {story.clientName} · {story.segment} · {story.category}
@@ -227,7 +227,7 @@ export default function Home() {
         <div className="grid gap-5 sm:grid-cols-3">
           {healthResources.map((article) => (
             <Card key={article.title} className="gap-0 overflow-hidden p-0">
-              <ImagePlaceholder label="Resource image" token={article.imageKey} className="h-40 w-full border-0" />
+              <ImagePlaceholder label="Resource image" token={article.imageKey} className="aspect-[16/10] w-full border-0" />
               <div className="flex min-w-0 flex-col gap-1.5 p-5">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">{copy.home.resourceCardLabel}</span>
                 <h3 className="text-lg font-semibold break-words text-foreground">{article.title}</h3>

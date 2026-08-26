@@ -159,7 +159,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }, [routePath]);
 
   return (
-    <div className="pb-16 lg:pb-0">
+    <div className="pb-16 2xl:pb-0">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none"
@@ -169,7 +169,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
       {/* Mobile sticky quick-actions bar */}
       <div
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-border bg-card shadow-[0_-8px_24px_rgba(0,0,0,0.08)] lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-border bg-card shadow-[0_-8px_24px_rgba(0,0,0,0.08)] 2xl:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
         role="navigation"
         aria-label="Quick actions"
@@ -193,12 +193,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
           scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-transparent bg-background"
         )}
       >
-        <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-7xl min-w-0 items-center justify-between gap-4 px-6 lg:h-[var(--header-height)] lg:px-8">
+        <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-7xl min-w-0 items-center justify-between gap-4 px-6 lg:h-[var(--header-height)] lg:px-8 2xl:max-w-[1440px]">
           <div className="shrink-0">
             <ClinicMark />
           </div>
 
-          <NavigationMenu viewport={false} className="hidden min-w-0 max-w-none flex-1 justify-center lg:flex">
+          <NavigationMenu viewport={false} className="hidden min-w-0 max-w-none flex-1 justify-center 2xl:flex">
             <NavigationMenuList className="gap-1.5">
               {navItems.map((item) =>
                 item.href === "/services" ? (
@@ -249,13 +249,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="hidden shrink-0 lg:block">
+          <div className="hidden shrink-0 2xl:block">
             <BookingButton label="Book an Appointment" size="default" iconSize={14} />
           </div>
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="2xl:hidden" aria-label="Open menu">
                 <Menu size={22} />
               </Button>
             </SheetTrigger>

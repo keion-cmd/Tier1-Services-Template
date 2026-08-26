@@ -49,7 +49,7 @@ export default function ServiceDetail() {
 
       <Section aria-labelledby="service-benefits-title">
         <SectionHeading eyebrow={copy.serviceDetail.benefitsEyebrow} title={<span id="service-benefits-title" className="sr-only">{copy.serviceDetail.benefitsEyebrow}</span>} className="mb-6" />
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
           {service.benefits.map((benefit) => (
             <Card key={benefit}>
               <CardContent className="flex items-start gap-3">

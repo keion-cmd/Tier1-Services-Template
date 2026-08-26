@@ -8,15 +8,15 @@ import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } fr
 import { clinic, copy } from "@/lib/business-content";
 
 const careStats = [
-  { value: "5,000+", label: "Service visits completed" },
-  { value: "4.9/5", label: "Average customer rating" },
-  { value: "24/7", label: "Emergency support availability" },
+  { value: "[PROOF_STAT_1_VALUE]", label: "[PROOF_STAT_1_LABEL]" },
+  { value: "[PROOF_STAT_2_VALUE]", label: "[PROOF_STAT_2_LABEL]" },
+  { value: "[PROOF_STAT_3_VALUE]", label: "[PROOF_STAT_3_LABEL]" },
 ];
 
 const clientStories = [
-  { label: "Family Gathering, Saved", note: "A same-week repair kept a family's air conditioner running before hosting relatives." },
-  { label: "Office Comfort Restored", note: "A small office replaced an aging cooling system with one sized for the space." },
-  { label: "More Even Airflow", note: "A homeowner's uneven room temperatures were resolved with targeted airflow improvements." },
+  { label: "[PROOF_STORY_1_LABEL]", note: "[PROOF_STORY_1_NOTE]" },
+  { label: "[PROOF_STORY_2_LABEL]", note: "[PROOF_STORY_2_NOTE]" },
+  { label: "[PROOF_STORY_3_LABEL]", note: "[PROOF_STORY_3_NOTE]" },
 ];
 
 export default function Proof() {
@@ -39,8 +39,8 @@ export default function Proof() {
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
           <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">06</strong>
-            <span className="text-sm font-semibold text-muted-foreground">care paths</span>
+            <strong className="text-5xl font-bold text-primary">[PROOF_STAT_HIGHLIGHT_NUMBER]</strong>
+            <span className="text-sm font-semibold text-muted-foreground">[PROOF_STAT_HIGHLIGHT_LABEL]</span>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{copy.proof.statsCaption}</p>
           <Link href="/faq" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">

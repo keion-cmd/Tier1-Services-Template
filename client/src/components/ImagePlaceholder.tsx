@@ -21,14 +21,14 @@ export function ImagePlaceholder({ label, token, aspect = "aspect-[4/3]", classN
       role="img"
       aria-label={label}
       className={cn(
-        "flex w-full flex-col items-center justify-center gap-1 border-2 border-dashed border-muted-foreground/25 bg-muted/60 p-3 text-center",
+        "flex w-full min-w-0 flex-col items-center justify-center gap-1 overflow-hidden border-2 border-dashed border-muted-foreground/25 bg-muted/60 p-3 text-center",
         aspect,
         className
       )}
     >
-      <ImageOff size={18} strokeWidth={1.5} className="text-muted-foreground/40" />
-      <span className="text-[11px] font-bold tracking-wide text-muted-foreground uppercase">{label}</span>
-      {token && <code className="text-[10px] font-mono text-muted-foreground/60">{token}</code>}
+      <ImageOff size={18} strokeWidth={1.5} className="shrink-0 text-muted-foreground/40" />
+      <span className="max-w-full break-words text-[11px] font-bold tracking-wide text-muted-foreground uppercase">{label}</span>
+      {token && <code className="max-w-full break-words text-[10px] font-mono text-muted-foreground/60">{token}</code>}
       <span className="text-[10px] leading-snug text-muted-foreground/50">Replace with client photo</span>
     </div>
   );

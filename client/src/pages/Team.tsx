@@ -45,10 +45,10 @@ export default function Team() {
           eyebrow={copy.team.gridEyebrow}
           title={<span id="team-grid-title">{copy.team.gridTitle}</span>}
         />
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {providers.map((provider) => (
             <Card key={provider.slug} className="gap-3 p-4">
-              <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="h-44 w-full rounded-xl" />
+              <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="aspect-[4/3] w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                   {provider.specialty}

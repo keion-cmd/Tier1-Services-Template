@@ -42,11 +42,11 @@ export default function Resources() {
           eyebrow={copy.resources.gridEyebrow}
           title={<span id="resources-grid-title">{copy.resources.gridTitle}</span>}
         />
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {articles.map((article) => (
             <Link key={article.slug} href={`/resources/${article.slug}`}>
               <Card className="h-full gap-0 overflow-hidden p-0 transition-shadow hover:shadow-md">
-                <ImagePlaceholder label="Resource image" token={article.imageKey} className="h-40 w-full border-0" />
+                <ImagePlaceholder label="Resource image" token={article.imageKey} className="aspect-[16/10] w-full border-0" />
                 <div className="flex flex-col gap-1.5 p-5">
                   <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                     {article.category} · {article.date} · {article.readingTime}

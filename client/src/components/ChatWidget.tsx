@@ -141,7 +141,7 @@ export function ChatWidget() {
       <Button
         onClick={() => setOpen((prev) => !prev)}
         size="icon"
-        className="fixed right-6 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-50 size-14 rounded-full shadow-lg transition-all duration-300 lg:bottom-6"
+        className="fixed right-6 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-50 size-14 rounded-full shadow-lg transition-all duration-300 2xl:bottom-6"
         aria-label={open ? "Close chat" : "Open chat"}
       >
         {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}

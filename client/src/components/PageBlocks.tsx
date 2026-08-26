@@ -136,8 +136,17 @@ export function FeatureCard({ label, title, description, className }: FeatureCar
 }
 
 export function StepList({ steps }: { steps: { step: string; title: string; copy: string }[] }) {
+  const count = steps.length;
+  const colsClass =
+    count >= 5
+      ? "sm:grid-cols-2 lg:grid-cols-5"
+      : count === 4
+        ? "sm:grid-cols-2 lg:grid-cols-4"
+        : count === 3
+          ? "sm:grid-cols-3"
+          : "sm:grid-cols-2";
   return (
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <div className={cn("grid gap-8", colsClass)}>
       {steps.map((item) => (
         <div key={item.step} className="flex min-w-0 flex-col gap-3 border-t-2 border-border pt-5">
           <span className="text-3xl font-bold break-words text-primary">{item.step}</span>
@@ -150,8 +159,17 @@ export function StepList({ steps }: { steps: { step: string; title: string; copy
 }
 
 export function StatBlock({ stats }: { stats: { value: string; label: string }[] }) {
+  const count = stats.length;
+  const colsClass =
+    count >= 5
+      ? "sm:grid-cols-3 lg:grid-cols-5"
+      : count === 4
+        ? "sm:grid-cols-4"
+        : count === 3
+          ? "sm:grid-cols-3"
+          : "sm:grid-cols-2";
   return (
-    <div className="grid grid-cols-2 divide-x divide-y divide-border border-t border-border sm:grid-cols-4 sm:divide-y-0">
+    <div className={cn("grid grid-cols-2 divide-x divide-y divide-border border-t border-border sm:divide-y-0", colsClass)}>
       {stats.map((stat) => (
         <div key={stat.label} className="flex min-w-0 flex-col gap-2 px-4 py-6 first:pl-0 sm:px-6">
           <strong className="text-3xl font-bold break-words text-primary sm:text-4xl">{stat.value}</strong>

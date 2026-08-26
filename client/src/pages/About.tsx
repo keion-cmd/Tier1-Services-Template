@@ -27,7 +27,7 @@ export default function About() {
           eyebrow={copy.about.valuesEyebrow}
           title={<span id="about-values-title">{copy.about.valuesTitle}</span>}
         />
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {aboutValues.map((value) => (
             <FeatureCard key={value.title} label={copy.about.valueLabel} title={value.title} description={value.copy} />
           ))}
@@ -55,10 +55,10 @@ export default function About() {
           eyebrow={copy.about.staffEyebrow}
           title={<span id="about-staff-title">{copy.about.staffTitle}</span>}
         />
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {staff.map((member) => (
             <Card key={member.name} className="gap-3 p-4">
-              <ImagePlaceholder label="Staff photo" token={member.imageKey} className="h-44 w-full rounded-xl" />
+              <ImagePlaceholder label="Staff photo" token={member.imageKey} className="aspect-[4/3] w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                   {member.title}

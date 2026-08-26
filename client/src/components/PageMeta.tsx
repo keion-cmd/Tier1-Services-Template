@@ -3,7 +3,7 @@
  */
 import { useEffect } from "react";
 
-const SITE_ORIGIN = "https://summit-air-home-demo.vercel.app";
+const SITE_ORIGIN = "https://your-domain.example";
 
 function upsertMeta(attr: "name" | "property", key: string, content: string) {
   let tag = document.querySelector(`meta[${attr}="${key}"]`);

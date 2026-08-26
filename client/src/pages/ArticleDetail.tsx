@@ -65,7 +65,7 @@ export default function ArticleDetail() {
         <div className="grid gap-5 sm:grid-cols-3">
           {related.map((entry) => (
             <Card key={entry.slug} className="gap-3 p-4">
-              <ImagePlaceholder label="Resource image" token={entry.imageKey} className="h-40 w-full rounded-xl" />
+              <ImagePlaceholder label="Resource image" token={entry.imageKey} className="aspect-[16/10] w-full rounded-xl" />
               <div className="flex flex-col gap-1.5 px-1">
                 <span className="text-xs font-semibold tracking-wide text-primary uppercase">
                   {entry.category} · {entry.readingTime}

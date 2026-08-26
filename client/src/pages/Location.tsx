@@ -6,15 +6,16 @@ import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/Pag
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { clinic, copy, emergencyInfo } from "@/lib/business-content";
 
-const suppliedDirectionsEmbed =
-  "https://maps.google.com/maps?q=125+Rizal+Avenue,+San+Pablo+City,+Laguna,+Philippines&z=15&output=embed";
-
 function ClinicMap() {
+  const suppliedDirectionsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(
+    `${clinic.address}, ${clinic.city}`
+  )}&z=15&output=embed`;
+
   return (
     <Card className="relative min-h-[400px] gap-0 overflow-hidden p-0 md:min-h-[510px]">
       <div className="absolute top-4 left-4 z-10 grid gap-0.5 rounded-xl bg-foreground/85 px-3.5 py-2.5 text-background">
         <span className="text-[10px] font-bold tracking-wide text-primary-foreground/70 uppercase">Driving route</span>
-        <strong className="text-lg font-medium">Summit Air ↔ San Pablo City Hall</strong>
+        <strong className="text-lg font-medium">{clinic.shortName} ↔ [LANDMARK]</strong>
       </div>
       <iframe
         className="h-full min-h-[400px] w-full border-0 md:min-h-[510px]"
@@ -55,7 +56,7 @@ export default function Location() {
       <Section aria-label="Clinic details and map">
         <div className="grid gap-5 md:grid-cols-2">
           <Card className="gap-0 overflow-hidden p-0">
-            <ImagePlaceholder label="Clinic image" token="[CLINIC_IMAGE]" className="h-48 w-full border-0" />
+            <ImagePlaceholder label="Clinic image" token="[CLINIC_IMAGE]" className="aspect-[4/3] w-full border-0" />
             <div className="flex flex-col gap-5 p-6">
               <span className="text-xs font-semibold tracking-wide text-primary uppercase">{clinic.name}</span>
               <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground">{copy.location.startTitle}</h2>
@@ -104,7 +105,7 @@ export default function Location() {
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
             label={copy.location.landmarkLabel}
-            title="San Pablo City Hall"
+            title="[LANDMARK]"
             description={`The supplied Google Maps route connects ${clinic.name} with a nearby landmark.`}
           />
           <FeatureCard

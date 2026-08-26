@@ -37,7 +37,7 @@ export default function NewClients() {
           title={<span id="new-clients-bring-title" className="sr-only">{copy.newClients.bringTitle}</span>}
           className="mb-6"
         />
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {whatToBring.map((item) => (
             <Card key={item}>
               <CardContent className="flex items-start gap-3">

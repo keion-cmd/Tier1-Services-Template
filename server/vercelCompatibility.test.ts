@@ -6,7 +6,7 @@ import trpcHandler from "../api/trpc/[...path]";
 import explicitTrpcHandler from "../api/trpc";
 import storageHandler from "../api/manus-storage";
 import nestedStorageHandler from "../api/manus-storage/[...path]";
-import { assets } from "../client/src/lib/clinic-content";
+import { assets } from "../client/src/lib/business-content";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 
