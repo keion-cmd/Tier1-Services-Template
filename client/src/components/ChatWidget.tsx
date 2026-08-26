@@ -13,7 +13,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/useMobile";
 import { businessConfig } from "@/lib/business-content";
-import { getChatResponse, suggestedQuestions } from "@/lib/chatEngine";
+import { getChatResponse, getInitialQuickReplies, getQuickReplies, type QuickReply } from "@/lib/chatEngine";
 
 type ChatMessage = {
   role: "user" | "bot";
@@ -31,18 +31,28 @@ export function ChatWidget() {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [quickReplies, setQuickReplies] = useState<QuickReply[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open && messages.length === 0) {
       setMessages([welcomeMessage()]);
+      setQuickReplies(getInitialQuickReplies());
     }
   }, [open, messages.length]);
 
   useEffect(() => {
-    const viewport = scrollWrapperRef.current?.querySelector(
+    if (open && !isMobile) {
+      const id = requestAnimationFrame(() => inputRef.current?.focus());
+      return () => cancelAnimationFrame(id);
+    }
+  }, [open, isMobile]);
+
+  useEffect(() => {
+    const viewport = scrollWrapperRef.current?.querySelector?.(
       "[data-radix-scroll-area-viewport]"
     ) as HTMLDivElement | null;
     if (viewport) {
@@ -50,17 +60,19 @@ export function ChatWidget() {
         viewport.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
       });
     }
-  }, [messages, isTyping]);
+  }, [messages, isTyping, quickReplies]);
 
   const sendMessage = (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed) return;
+    if (!trimmed || isTyping) return;
     setMessages((prev) => [...prev, { role: "user", content: trimmed }]);
+    setQuickReplies([]);
     setInput("");
     setIsTyping(true);
     setTimeout(() => {
       const response = getChatResponse(trimmed);
-      setMessages((prev) => [...prev, { role: "bot", content: response }]);
+      setMessages((prev) => [...prev, { role: "bot", content: response.text }]);
+      setQuickReplies(getQuickReplies(response.topic));
       setIsTyping(false);
     }, 500);
   };
@@ -70,66 +82,69 @@ export function ChatWidget() {
     sendMessage(input);
   };
 
-  const showSuggestions = messages.length <= 1 && suggestedQuestions.length > 0;
-
   const conversation = (
     <>
-      <div ref={scrollWrapperRef} className="min-h-0 flex-1">
-        <ScrollArea className="h-full">
-          <div className="flex flex-col gap-3 p-4">
-            {messages.map((message, index) => (
+      <ScrollArea ref={scrollWrapperRef} className="min-h-0 flex-1">
+        <div className="flex flex-col gap-3 p-4" aria-live="polite">
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={cn("flex", message.role === "user" ? "justify-end" : "justify-start")}
+            >
               <div
-                key={index}
-                className={cn("flex", message.role === "user" ? "justify-end" : "justify-start")}
+                className={cn(
+                  "min-w-0 max-w-[80%] rounded-2xl px-4 py-2 text-sm break-words whitespace-pre-line",
+                  message.role === "user"
+                    ? "rounded-br-sm bg-primary text-primary-foreground"
+                    : "rounded-bl-sm bg-muted text-foreground"
+                )}
               >
-                <div
-                  className={cn(
-                    "min-w-0 max-w-[80%] rounded-2xl px-4 py-2 text-sm break-words",
-                    message.role === "user"
-                      ? "rounded-br-sm bg-primary text-primary-foreground"
-                      : "rounded-bl-sm bg-muted text-foreground"
-                  )}
+                {message.content}
+              </div>
+            </div>
+          ))}
+
+          {isTyping && (
+            <div className="flex justify-start">
+              <div className="max-w-[80%] rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-muted-foreground">
+                Typing...
+              </div>
+            </div>
+          )}
+
+          {!isTyping && quickReplies.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-2">
+              {quickReplies.map((reply) => (
+                <button
+                  key={reply.key}
+                  type="button"
+                  onClick={() => sendMessage(reply.value)}
+                  className="min-w-0 max-w-full shrink-0 rounded-full border border-border bg-background px-3 py-1.5 text-left text-xs break-words transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  {message.content}
-                </div>
-              </div>
-            ))}
-
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="max-w-[80%] rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-muted-foreground">
-                  Typing...
-                </div>
-              </div>
-            )}
-
-            {showSuggestions && (
-              <div className="flex flex-wrap gap-2 pt-2">
-                {suggestedQuestions.map((question, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => sendMessage(question)}
-                    className="min-w-0 max-w-full rounded-full border border-border bg-background px-3 py-1.5 text-left text-xs break-words transition-colors hover:bg-accent"
-                  >
-                    {question}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </ScrollArea>
-      </div>
+                  {reply.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </ScrollArea>
 
       <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t p-3">
         <Input
+          ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message..."
-          className="flex-1"
+          className="min-w-0 flex-1"
           aria-label="Chat message"
         />
-        <Button type="submit" size="icon" disabled={!input.trim()} aria-label="Send message">
+        <Button
+          type="submit"
+          size="icon"
+          disabled={!input.trim() || isTyping}
+          aria-label="Send message"
+          className="shrink-0"
+        >
           <Send className="size-4" />
         </Button>
       </form>
@@ -141,16 +156,20 @@ export function ChatWidget() {
       <Button
         onClick={() => setOpen((prev) => !prev)}
         size="icon"
-        className="fixed right-6 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-50 size-14 rounded-full shadow-lg transition-all duration-300 xl:bottom-6"
+        className="fixed right-4 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-50 size-14 rounded-full shadow-lg transition-all duration-300 motion-reduce:transition-none sm:right-6 xl:bottom-6"
         aria-label={open ? "Close chat" : "Open chat"}
+        aria-expanded={open}
       >
         {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}
       </Button>
 
       {isMobile ? (
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetContent side="bottom" className="flex h-[85vh] flex-col gap-0 p-0">
-            <SheetHeader className="border-b p-4">
+          <SheetContent
+            side="bottom"
+            className="inset-x-0 bottom-[calc(var(--mobile-bar-height)+env(safe-area-inset-bottom,0px)+0.75rem)] flex h-[min(560px,calc(100dvh-96px))] flex-col gap-0 overflow-hidden rounded-t-2xl border p-0 shadow-2xl motion-reduce:transition-none"
+          >
+            <SheetHeader className="shrink-0 border-b p-4 pr-10">
               <SheetTitle>{businessConfig.shortName} Receptionist</SheetTitle>
             </SheetHeader>
             {conversation}
@@ -159,12 +178,13 @@ export function ChatWidget() {
       ) : (
         <div
           className={cn(
-            "fixed bottom-24 right-6 z-50 w-[380px] origin-bottom-right transition-all duration-300",
+            "fixed right-4 bottom-24 z-50 w-[360px] max-w-[calc(100vw-2rem)] origin-bottom-right transition-all duration-300 motion-reduce:transition-none sm:right-6 sm:w-[380px]",
             open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
           )}
+          aria-hidden={!open}
         >
-          <Card className="flex h-[520px] flex-col gap-0 overflow-hidden py-0 shadow-2xl">
-            <CardHeader className="flex flex-row items-center justify-between gap-2 border-b py-4">
+          <Card className="flex h-[min(560px,calc(100dvh-120px))] flex-col gap-0 overflow-hidden py-0 shadow-2xl">
+            <CardHeader className="flex shrink-0 flex-row items-center justify-between gap-2 border-b py-4">
               <CardTitle className="text-base">{businessConfig.shortName} Receptionist</CardTitle>
               <Button
                 variant="ghost"
