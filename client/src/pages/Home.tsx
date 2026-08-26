@@ -184,17 +184,6 @@ export default function Home() {
         </p>
       </Section>
 
-      {/* 5c. Lead Generation Form */}
-      <Section className="bg-secondary/30" aria-labelledby="home-lead-form-title">
-        <SectionHeading
-          align="center"
-          title={<span id="home-lead-form-title">{copy.home.leadGenForm.heading}</span>}
-          description={copy.home.leadGenForm.subheading}
-          className="mb-8"
-        />
-        <LeadGenForm />
-      </Section>
-
       {/* 6. Infinite Reviews Marquee */}
       <ReviewsMarquee heading={copy.home.reviewsTitle} supportingText={copy.home.reviewsSubtitle} />
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
@@ -348,6 +337,17 @@ export default function Home() {
             ))}
           </dl>
         </div>
+      </Section>
+
+      {/* 9b. Lead Generation Form */}
+      <Section id="contact-form" className="bg-secondary/30" aria-labelledby="home-lead-form-title">
+        <SectionHeading
+          align="center"
+          title={<span id="home-lead-form-title">{copy.home.leadGenForm.heading}</span>}
+          description={copy.home.leadGenForm.subheading}
+          className="mb-8"
+        />
+        <LeadGenForm />
       </Section>
 
       {/* 10. Final CTA */}
