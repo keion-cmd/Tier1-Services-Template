@@ -6,11 +6,13 @@ export interface IndustryBrand {
 // No image files required — each brand renders as a text/monogram placeholder card.
 // Add or remove array items freely; the marquee re-flows automatically.
 export const industryBrands: IndustryBrand[] = [
-  { name: "[PARTNER_BRAND_1]" },
-  { name: "[PARTNER_BRAND_2]" },
-  { name: "[PARTNER_BRAND_3]" },
-  { name: "[PARTNER_BRAND_4]" },
-  { name: "[PARTNER_BRAND_5]" },
-  { name: "[PARTNER_BRAND_6]" },
-  { name: "[PARTNER_BRAND_7]" },
+  { name: "Daikin" },
+  { name: "Carrier" },
+  { name: "LG" },
+  { name: "Panasonic" },
+  { name: "Samsung" },
+  { name: "Mitsubishi Electric" },
+  { name: "Condura" },
+  { name: "TCL" },
+  { name: "Midea" },
 ];

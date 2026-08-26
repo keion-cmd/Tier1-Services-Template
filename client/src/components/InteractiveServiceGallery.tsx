@@ -10,7 +10,7 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { services } from "@/lib/business-content";
 import { cn } from "@/lib/utils";
 
-const categoryFilters = ["All", "Preventive", "Clinical & Dental", "Diagnostics"] as const;
+const categoryFilters = ["All", "Repair", "Installation", "Maintenance", "Air Quality", "Emergency"] as const;
 
 type InteractiveServiceGalleryProps = { variant: "home" | "services"; count?: number };
 

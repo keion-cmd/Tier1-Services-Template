@@ -8,8 +8,8 @@ interface IndustryBrandMarqueeProps {
 
 export function IndustryBrandMarquee({
   items,
-  heading = "[PARTNERS_SECTION_TITLE]",
-  supportingText = "[PARTNERS_SECTION_SUBTITLE]",
+  heading = "Trusted Brands We Work With",
+  supportingText = "We install and service the equipment homeowners and businesses already trust.",
 }: IndustryBrandMarqueeProps) {
   const groups = [items, items];
 

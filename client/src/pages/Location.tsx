@@ -6,14 +6,15 @@ import { PageHero, Section, SectionHeading, FeatureCard } from "@/components/Pag
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { clinic, copy, emergencyInfo } from "@/lib/business-content";
 
-const suppliedDirectionsEmbed = "[GOOGLE_MAPS_EMBED_URL]";
+const suppliedDirectionsEmbed =
+  "https://maps.google.com/maps?q=125+Rizal+Avenue,+San+Pablo+City,+Laguna,+Philippines&z=15&output=embed";
 
 function ClinicMap() {
   return (
     <Card className="relative min-h-[400px] gap-0 overflow-hidden p-0 md:min-h-[510px]">
       <div className="absolute top-4 left-4 z-10 grid gap-0.5 rounded-xl bg-foreground/85 px-3.5 py-2.5 text-background">
         <span className="text-[10px] font-bold tracking-wide text-primary-foreground/70 uppercase">Driving route</span>
-        <strong className="text-lg font-medium">Clinic ↔ [NEARBY_LANDMARK_NAME]</strong>
+        <strong className="text-lg font-medium">Summit Air ↔ San Pablo City Hall</strong>
       </div>
       <iframe
         className="h-full min-h-[400px] w-full border-0 md:min-h-[510px]"
@@ -103,7 +104,7 @@ export default function Location() {
         <div className="grid gap-5 sm:grid-cols-2">
           <FeatureCard
             label={copy.location.landmarkLabel}
-            title="[NEARBY_LANDMARK_NAME]"
+            title="San Pablo City Hall"
             description={`The supplied Google Maps route connects ${clinic.name} with a nearby landmark.`}
           />
           <FeatureCard

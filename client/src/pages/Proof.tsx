@@ -8,15 +8,15 @@ import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } fr
 import { clinic, copy } from "@/lib/business-content";
 
 const careStats = [
-  { value: "[PROOF_STAT_1_VALUE]", label: "[PROOF_STAT_1_LABEL]" },
-  { value: "[PROOF_STAT_2_VALUE]", label: "[PROOF_STAT_2_LABEL]" },
-  { value: "[PROOF_STAT_3_VALUE]", label: "[PROOF_STAT_3_LABEL]" },
+  { value: "5,000+", label: "Service visits completed" },
+  { value: "4.9/5", label: "Average customer rating" },
+  { value: "24/7", label: "Emergency support availability" },
 ];
 
 const clientStories = [
-  { label: "[PROOF_STORY_1_LABEL]", note: "[PROOF_STORY_1_NOTE]" },
-  { label: "[PROOF_STORY_2_LABEL]", note: "[PROOF_STORY_2_NOTE]" },
-  { label: "[PROOF_STORY_3_LABEL]", note: "[PROOF_STORY_3_NOTE]" },
+  { label: "Family Gathering, Saved", note: "A same-week repair kept a family's air conditioner running before hosting relatives." },
+  { label: "Office Comfort Restored", note: "A small office replaced an aging cooling system with one sized for the space." },
+  { label: "More Even Airflow", note: "A homeowner's uneven room temperatures were resolved with targeted airflow improvements." },
 ];
 
 export default function Proof() {
