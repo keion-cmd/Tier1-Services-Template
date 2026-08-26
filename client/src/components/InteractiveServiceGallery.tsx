@@ -61,16 +61,16 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
             </div>
           );
           const copy = (
-            <CardContent className="flex flex-1 flex-col gap-2 pt-4">
-              <h3 className="text-xl leading-snug font-semibold tracking-tight text-foreground">{service.title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{service.short}</p>
+            <CardContent className="flex min-w-0 flex-1 flex-col gap-2 pt-4">
+              <h3 className="text-xl leading-snug font-semibold tracking-tight text-foreground break-words">{service.title}</h3>
+              <p className="text-sm leading-relaxed break-words text-muted-foreground">{service.short}</p>
             </CardContent>
           );
 
           return (
             <Card key={service.title} className="group flex flex-col overflow-hidden gap-0 py-0 transition-shadow hover:shadow-md">
-              <div className="flex items-center justify-between px-5 pt-4">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+              <div className="flex min-w-0 items-center justify-between gap-2 px-5 pt-4">
+                <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
                   {service.number} · Care path
                 </span>
                 <BookingButton
@@ -93,8 +93,8 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
                   {copy}
                 </div>
               )}
-              <div className="flex items-end justify-end px-5 pb-4">
-                <span className="text-3xl leading-none font-bold text-primary/25">{service.number}.</span>
+              <div className="flex min-w-0 items-end justify-end px-5 pb-4">
+                <span className="min-w-0 break-words text-3xl leading-none font-bold text-primary/25">{service.number}.</span>
               </div>
             </Card>
           );

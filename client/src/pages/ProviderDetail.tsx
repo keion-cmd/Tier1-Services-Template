@@ -46,11 +46,11 @@ export default function ProviderDetail() {
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">{provider.yearsExperience}</strong>
+          <div className="flex min-w-0 items-baseline gap-2">
+            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{provider.yearsExperience}</strong>
             <span className="text-sm font-semibold text-muted-foreground">years experience</span>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+          <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">
             {provider.specialty} at {businessConfig.name}, with a steady, unhurried approach to every visit.
           </p>
           <Link href="/team" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
@@ -71,7 +71,11 @@ export default function ProviderDetail() {
         />
         <div className="flex flex-wrap gap-2">
           {provider.areasOfInterest.map((interest) => (
-            <Badge key={interest} variant="outline" className="rounded-full px-4 py-2 text-sm font-semibold">
+            <Badge
+              key={interest}
+              variant="outline"
+              className="max-w-full rounded-full px-4 py-2 text-sm font-semibold break-words whitespace-normal"
+            >
               {interest}
             </Badge>
           ))}

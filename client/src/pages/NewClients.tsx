@@ -40,9 +40,9 @@ export default function NewClients() {
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {whatToBring.map((item) => (
             <Card key={item}>
-              <CardContent className="flex items-start gap-3">
+              <CardContent className="flex min-w-0 items-start gap-3">
                 <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-primary" />
-                <p className="text-sm leading-relaxed text-foreground">{item}</p>
+                <p className="min-w-0 break-words text-sm leading-relaxed text-foreground">{item}</p>
               </CardContent>
             </Card>
           ))}

@@ -38,13 +38,13 @@ export default function About() {
         <SectionHeading eyebrow={copy.about.approachEyebrow} title={<span id="about-team-title" className="sr-only">{copy.about.approachEyebrow}</span>} className="mb-6" />
         <div className="grid gap-5 sm:grid-cols-2">
           <Card>
-            <CardContent>
-              <p className="text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph1}</p>
+            <CardContent className="min-w-0">
+              <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph1}</p>
             </CardContent>
           </Card>
           <Card>
-            <CardContent>
-              <p className="text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph2}</p>
+            <CardContent className="min-w-0">
+              <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph2}</p>
             </CardContent>
           </Card>
         </div>
@@ -59,15 +59,15 @@ export default function About() {
           {staff.map((member) => (
             <Card key={member.name} className="gap-3 p-4">
               <ImagePlaceholder label="Staff photo" token={member.imageKey} className="aspect-[4/3] w-full rounded-xl" />
-              <div className="flex flex-col gap-1.5 px-1">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+              <div className="flex min-w-0 flex-col gap-1.5 px-1">
+                <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
                   {member.title}
                   {member.placeholder && " (demo profile)"}
                 </span>
-                <h3 className="text-lg font-semibold text-foreground">
+                <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">
                   {member.name}, {member.credentials}
                 </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
+                <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
               </div>
             </Card>
           ))}

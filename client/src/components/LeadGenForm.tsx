@@ -16,8 +16,9 @@ import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { copy, services } from "@/lib/business-content";
 import { LEAD_FORM_ENDPOINT_URL } from "@/lib/leadForm";
+import { cn } from "@/lib/utils";
 
-export function LeadGenForm() {
+export function LeadGenForm({ className }: { className?: string }) {
   const formId = useId();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -77,7 +78,7 @@ export function LeadGenForm() {
 
   if (isSubmitted) {
     return (
-      <Card className="mx-auto w-full max-w-lg bg-secondary/40 p-2">
+      <Card className={cn("mx-auto w-full max-w-lg bg-secondary/40 p-2", className)}>
         <CardContent>
           <Alert>
             <AlertTitle>{copy.home.leadGenForm.successMessage}</AlertTitle>
@@ -88,7 +89,7 @@ export function LeadGenForm() {
   }
 
   return (
-    <Card className="mx-auto w-full max-w-lg bg-secondary/40">
+    <Card className={cn("mx-auto w-full max-w-lg bg-secondary/40", className)}>
       <CardContent>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1.5">

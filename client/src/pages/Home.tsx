@@ -211,7 +211,7 @@ export default function Home() {
             </Card>
           ))}
         </div>
-        <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
+        <p className="mt-6 min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
           {clinic.name} is a template demonstration business; these demo client stories are illustrative placeholders,
           not real outcomes.
         </p>
@@ -229,7 +229,7 @@ export default function Home() {
             <Card key={article.title} className="gap-0 overflow-hidden p-0">
               <ImagePlaceholder label="Resource image" token={article.imageKey} className="aspect-[16/10] w-full border-0" />
               <div className="flex min-w-0 flex-col gap-1.5 p-5">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">{copy.home.resourceCardLabel}</span>
+                <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{copy.home.resourceCardLabel}</span>
                 <h3 className="text-lg font-semibold break-words text-foreground">{article.title}</h3>
                 <p className="text-sm leading-relaxed break-words text-muted-foreground">{article.excerpt}</p>
               </div>
@@ -347,7 +347,16 @@ export default function Home() {
           description={copy.home.leadGenForm.subheading}
           className="mb-8"
         />
-        <LeadGenForm />
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-stretch">
+          <div className="min-h-[280px] w-full overflow-hidden rounded-xl border border-border shadow-sm lg:min-h-0">
+            <ImagePlaceholder
+              label="Lead form image"
+              token="[HOME_LEAD_FORM_IMAGE]"
+              className="h-full w-full border-0"
+            />
+          </div>
+          <LeadGenForm className="max-w-none" />
+        </div>
       </Section>
 
       {/* 10. Final CTA */}

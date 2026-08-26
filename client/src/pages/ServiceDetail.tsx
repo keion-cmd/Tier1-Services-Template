@@ -38,11 +38,11 @@ export default function ServiceDetail() {
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">{service.number}</strong>
+          <div className="flex min-w-0 items-baseline gap-2">
+            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{service.number}</strong>
             <span className="text-sm font-semibold text-muted-foreground">care path</span>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{service.short}</p>
+          <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">{service.short}</p>
           <BookingButton label="Schedule Your Care" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
       </div>
@@ -52,9 +52,9 @@ export default function ServiceDetail() {
         <div className="grid gap-4 sm:grid-cols-3">
           {service.benefits.map((benefit) => (
             <Card key={benefit}>
-              <CardContent className="flex items-start gap-3">
+              <CardContent className="flex min-w-0 items-start gap-3">
                 <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-primary" />
-                <p className="text-sm leading-relaxed text-foreground">{benefit}</p>
+                <p className="min-w-0 break-words text-sm leading-relaxed text-foreground">{benefit}</p>
               </CardContent>
             </Card>
           ))}

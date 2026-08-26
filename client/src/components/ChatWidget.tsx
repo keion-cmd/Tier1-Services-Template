@@ -84,7 +84,7 @@ export function ChatWidget() {
               >
                 <div
                   className={cn(
-                    "max-w-[80%] rounded-2xl px-4 py-2 text-sm",
+                    "min-w-0 max-w-[80%] rounded-2xl px-4 py-2 text-sm break-words",
                     message.role === "user"
                       ? "rounded-br-sm bg-primary text-primary-foreground"
                       : "rounded-bl-sm bg-muted text-foreground"
@@ -110,7 +110,7 @@ export function ChatWidget() {
                     key={index}
                     type="button"
                     onClick={() => sendMessage(question)}
-                    className="rounded-full border border-border bg-background px-3 py-1.5 text-left text-xs transition-colors hover:bg-accent"
+                    className="min-w-0 max-w-full rounded-full border border-border bg-background px-3 py-1.5 text-left text-xs break-words transition-colors hover:bg-accent"
                   >
                     {question}
                   </button>
@@ -141,7 +141,7 @@ export function ChatWidget() {
       <Button
         onClick={() => setOpen((prev) => !prev)}
         size="icon"
-        className="fixed right-6 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-50 size-14 rounded-full shadow-lg transition-all duration-300 2xl:bottom-6"
+        className="fixed right-6 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-50 size-14 rounded-full shadow-lg transition-all duration-300 xl:bottom-6"
         aria-label={open ? "Close chat" : "Open chat"}
       >
         {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}

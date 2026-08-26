@@ -23,11 +23,11 @@ export default function Services() {
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">{String(services.length).padStart(2, "0")}</strong>
+          <div className="flex min-w-0 items-baseline gap-2">
+            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{String(services.length).padStart(2, "0")}</strong>
             <span className="text-sm font-semibold text-muted-foreground">care paths</span>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{copy.services.introText}</p>
+          <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">{copy.services.introText}</p>
           <BookingButton label="Schedule Your Care" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
       </div>

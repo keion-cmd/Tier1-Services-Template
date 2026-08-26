@@ -38,11 +38,11 @@ export default function Proof() {
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">[PROOF_STAT_HIGHLIGHT_NUMBER]</strong>
-            <span className="text-sm font-semibold text-muted-foreground">[PROOF_STAT_HIGHLIGHT_LABEL]</span>
+          <div className="flex min-w-0 items-baseline gap-2">
+            <strong className="min-w-0 break-words text-5xl font-bold text-primary">[PROOF_STAT_HIGHLIGHT_NUMBER]</strong>
+            <span className="min-w-0 break-words text-sm font-semibold text-muted-foreground">[PROOF_STAT_HIGHLIGHT_LABEL]</span>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{copy.proof.statsCaption}</p>
+          <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">{copy.proof.statsCaption}</p>
           <Link href="/faq" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
             Read common questions <ArrowUpRight size={15} />
           </Link>
@@ -71,14 +71,14 @@ export default function Proof() {
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {clientStories.map((story) => (
             <Card key={story.label}>
-              <CardContent className="flex flex-col gap-2">
+              <CardContent className="flex min-w-0 flex-col gap-2">
                 <Eyebrow>{story.label}</Eyebrow>
-                <p className="text-sm leading-relaxed text-muted-foreground">{story.note}</p>
+                <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{story.note}</p>
               </CardContent>
             </Card>
           ))}
         </div>
-        <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
+        <p className="mt-6 min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
           {clinic.name} is a template demonstration business; these stories are illustrative placeholders. Replace with
           client-approved, consented stories before launch.
         </p>

@@ -30,7 +30,7 @@ export default function FAQ() {
       <Section containerClassName="max-w-4xl">
         {categories.map((category, index) => (
           <div key={category.label} className={index > 0 ? "mt-10" : undefined} aria-labelledby={`faq-${category.label}`}>
-            <span id={`faq-${category.label}`} className="text-xs font-semibold tracking-wide text-primary uppercase">
+            <span id={`faq-${category.label}`} className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
               {category.label}
             </span>
             <Accordion type="single" collapsible className="mt-3 border-t border-border">

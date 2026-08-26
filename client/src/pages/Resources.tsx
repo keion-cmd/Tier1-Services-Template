@@ -26,11 +26,11 @@ export default function Resources() {
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex items-baseline gap-2">
-            <strong className="text-5xl font-bold text-primary">{String(articles.length).padStart(2, "0")}</strong>
+          <div className="flex min-w-0 items-baseline gap-2">
+            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{String(articles.length).padStart(2, "0")}</strong>
             <span className="text-sm font-semibold text-muted-foreground">articles</span>
           </div>
-          <p className="flex max-w-md items-start gap-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="flex min-w-0 max-w-md items-start gap-2 text-sm leading-relaxed break-words text-muted-foreground">
             <Info size={17} className="mt-0.5 shrink-0" /> {copy.resources.disclaimerText}
           </p>
           <BookingButton label="Talk to our team" variant="link" iconSize={15} className="h-auto p-0" />
@@ -47,12 +47,12 @@ export default function Resources() {
             <Link key={article.slug} href={`/resources/${article.slug}`}>
               <Card className="h-full gap-0 overflow-hidden p-0 transition-shadow hover:shadow-md">
                 <ImagePlaceholder label="Resource image" token={article.imageKey} className="aspect-[16/10] w-full border-0" />
-                <div className="flex flex-col gap-1.5 p-5">
-                  <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+                <div className="flex min-w-0 flex-col gap-1.5 p-5">
+                  <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
                     {article.category} · {article.date} · {article.readingTime}
                   </span>
-                  <h3 className="text-lg font-semibold text-foreground">{article.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{article.excerpt}</p>
+                  <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">{article.title}</h3>
+                  <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{article.excerpt}</p>
                 </div>
               </Card>
             </Link>

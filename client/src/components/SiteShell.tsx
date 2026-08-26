@@ -53,13 +53,18 @@ function ClinicMark({ dark = false }: { dark?: boolean }) {
       >
         Logo
       </span>
-      <span className="grid leading-none">
-        <strong className={cn("text-sm font-extrabold tracking-tight", dark ? "text-background" : "text-foreground")}>
+      <span className="grid max-w-[9rem] min-w-0 leading-none xl:max-w-[7.5rem] 2xl:max-w-none">
+        <strong
+          className={cn(
+            "truncate text-sm font-extrabold tracking-tight",
+            dark ? "text-background" : "text-foreground"
+          )}
+        >
           {clinic.shortName}
         </strong>
         <small
           className={cn(
-            "mt-0.5 text-[10px] font-bold tracking-[0.15em] uppercase",
+            "mt-0.5 truncate text-[10px] font-bold tracking-[0.15em] uppercase",
             dark ? "text-primary-foreground/70" : "text-muted-foreground"
           )}
         >
@@ -159,7 +164,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }, [routePath]);
 
   return (
-    <div className="pb-16 2xl:pb-0">
+    <div className="pb-16 xl:pb-0">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none"
@@ -169,7 +174,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
       {/* Mobile sticky quick-actions bar */}
       <div
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-border bg-card shadow-[0_-8px_24px_rgba(0,0,0,0.08)] 2xl:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-border bg-card shadow-[0_-8px_24px_rgba(0,0,0,0.08)] xl:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
         role="navigation"
         aria-label="Quick actions"
@@ -193,19 +198,19 @@ export function SiteShell({ children }: { children: ReactNode }) {
           scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-transparent bg-background"
         )}
       >
-        <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-7xl min-w-0 items-center justify-between gap-4 px-6 lg:h-[var(--header-height)] lg:px-8 2xl:max-w-[1440px]">
+        <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-7xl min-w-0 items-center justify-between gap-3 px-6 lg:h-[var(--header-height)] xl:gap-4 xl:px-5 2xl:max-w-[1440px] 2xl:px-8">
           <div className="shrink-0">
             <ClinicMark />
           </div>
 
-          <NavigationMenu viewport={false} className="hidden min-w-0 max-w-none flex-1 justify-center 2xl:flex">
-            <NavigationMenuList className="gap-1.5">
+          <NavigationMenu viewport={false} className="hidden min-w-0 max-w-none flex-1 justify-center xl:flex">
+            <NavigationMenuList className="gap-0.5 2xl:gap-1.5">
               {navItems.map((item) =>
                 item.href === "/services" ? (
                   <NavigationMenuItem key={item.href}>
                     <NavigationMenuTrigger
                       className={cn(
-                        "whitespace-nowrap bg-transparent px-3 text-sm font-semibold",
+                        "whitespace-nowrap bg-transparent px-2 text-[13px] font-semibold 2xl:px-3 2xl:text-sm",
                         location === item.href && "text-primary"
                       )}
                     >
@@ -214,9 +219,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     <NavigationMenuContent>
                       <ul className="grid w-[280px] gap-1 p-1">
                         {services.map((service) => (
-                          <li key={service.slug}>
+                          <li key={service.slug} className="min-w-0">
                             <NavigationMenuLink asChild>
-                              <Link href={`/services/${service.slug}`}>{service.title}</Link>
+                              <Link href={`/services/${service.slug}`} className="block min-w-0 break-words">
+                                {service.title}
+                              </Link>
                             </NavigationMenuLink>
                           </li>
                         ))}
@@ -236,7 +243,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                       <Link
                         href={item.href}
                         className={cn(
-                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-3 text-sm font-semibold text-foreground hover:bg-accent",
+                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-2 text-[13px] font-semibold text-foreground hover:bg-accent 2xl:px-3 2xl:text-sm",
                           location === item.href && "text-primary"
                         )}
                       >
@@ -249,13 +256,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="hidden shrink-0 2xl:block">
+          <div className="hidden shrink-0 xl:block">
             <BookingButton label="Book an Appointment" size="default" iconSize={14} />
           </div>
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="2xl:hidden" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="xl:hidden" aria-label="Open menu">
                 <Menu size={22} />
               </Button>
             </SheetTrigger>
@@ -285,10 +292,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
                           <SheetClose asChild key={service.slug}>
                             <Link
                               href={`/services/${service.slug}`}
-                              className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+                              className="flex min-w-0 items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
                             >
-                              {service.title}
-                              <ArrowUpRight size={15} />
+                              <span className="min-w-0 break-words">{service.title}</span>
+                              <ArrowUpRight size={15} className="shrink-0" />
                             </Link>
                           </SheetClose>
                         ))}
@@ -332,7 +339,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <div className="grid gap-10 md:grid-cols-4">
             <div className="flex flex-col gap-4 md:col-span-1">
               <ClinicMark dark />
-              <p className="max-w-[240px] text-sm leading-relaxed text-background/70">{copy.siteShell.footerTagline}</p>
+              <p className="max-w-[240px] min-w-0 text-sm leading-relaxed break-words text-background/70">{copy.siteShell.footerTagline}</p>
               <BookingButton label="Book an Appointment" size="sm" iconSize={14} className="w-fit" />
             </div>
 
@@ -355,10 +362,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 href={clinic.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-2 text-sm text-background/80 hover:text-primary-foreground"
+                className="flex min-w-0 items-start gap-2 text-sm text-background/80 hover:text-primary-foreground"
               >
                 <MapPin size={15} className="mt-0.5 shrink-0" />
-                <span>
+                <span className="min-w-0 break-words">
                   {clinic.address}
                   <br />
                   {clinic.city}
@@ -376,12 +383,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
               >
                 <Mail size={15} /> {clinic.email}
               </a>
-              <span className="max-w-[200px] text-xs leading-relaxed text-background/60">{clinic.hours}</span>
+              <span className="max-w-[200px] min-w-0 break-words text-xs leading-relaxed text-background/60">{clinic.hours}</span>
             </div>
 
             <div className="flex flex-col gap-2.5">
               <span className="text-xs font-semibold tracking-wide text-primary uppercase">Booking details</span>
-              <p className="text-sm leading-relaxed text-background/70">{copy.siteShell.bookingDetailsText}</p>
+              <p className="min-w-0 break-words text-sm leading-relaxed text-background/70">{copy.siteShell.bookingDetailsText}</p>
               <PolicyDialog />
               <div className="mt-2 flex items-center gap-3">
                 {clinic.socialLinks.map((social) => (
@@ -407,9 +414,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
           <Separator className="my-10 bg-background/15" />
 
-          <div className="flex flex-col gap-2 text-xs text-background/55 sm:flex-row sm:items-center sm:justify-between">
-            <span>{clinic.name} is a customizable service-business template.</span>
-            <span>© 2026 {clinic.name} {clinic.descriptor}</span>
+          <div className="flex min-w-0 flex-col gap-2 text-xs text-background/55 sm:flex-row sm:items-center sm:justify-between">
+            <span className="min-w-0 break-words">{clinic.name} is a customizable service-business template.</span>
+            <span className="min-w-0 break-words">© 2026 {clinic.name} {clinic.descriptor}</span>
           </div>
         </div>
       </footer>

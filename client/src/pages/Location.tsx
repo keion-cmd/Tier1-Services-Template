@@ -13,9 +13,9 @@ function ClinicMap() {
 
   return (
     <Card className="relative min-h-[400px] gap-0 overflow-hidden p-0 md:min-h-[510px]">
-      <div className="absolute top-4 left-4 z-10 grid gap-0.5 rounded-xl bg-foreground/85 px-3.5 py-2.5 text-background">
+      <div className="absolute top-4 left-4 z-10 grid max-w-[calc(100%-2rem)] min-w-0 gap-0.5 rounded-xl bg-foreground/85 px-3.5 py-2.5 text-background">
         <span className="text-[10px] font-bold tracking-wide text-primary-foreground/70 uppercase">Driving route</span>
-        <strong className="text-lg font-medium">{clinic.shortName} ↔ [LANDMARK]</strong>
+        <strong className="min-w-0 break-words text-lg font-medium">{clinic.shortName} ↔ [LANDMARK]</strong>
       </div>
       <iframe
         className="h-full min-h-[400px] w-full border-0 md:min-h-[510px]"
@@ -57,15 +57,15 @@ export default function Location() {
         <div className="grid gap-5 md:grid-cols-2">
           <Card className="gap-0 overflow-hidden p-0">
             <ImagePlaceholder label="Clinic image" token="[CLINIC_IMAGE]" className="aspect-[4/3] w-full border-0" />
-            <div className="flex flex-col gap-5 p-6">
-              <span className="text-xs font-semibold tracking-wide text-primary uppercase">{clinic.name}</span>
-              <h2 className="text-3xl leading-tight font-bold tracking-tight text-foreground">{copy.location.startTitle}</h2>
-              <div className="flex flex-col gap-4">
-                <div className="flex items-start gap-3">
+            <div className="flex min-w-0 flex-col gap-5 p-6">
+              <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{clinic.name}</span>
+              <h2 className="min-w-0 break-words text-3xl leading-tight font-bold tracking-tight text-foreground">{copy.location.startTitle}</h2>
+              <div className="flex min-w-0 flex-col gap-4">
+                <div className="flex min-w-0 items-start gap-3">
                   <MapPin size={20} className="mt-0.5 shrink-0 text-primary" />
-                  <div>
+                  <div className="min-w-0">
                     <span className="text-xs font-semibold tracking-wide text-primary uppercase">Address</span>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">
                       <a href={clinic.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary">
                         {clinic.address}
                         <br />
@@ -74,11 +74,11 @@ export default function Location() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
+                <div className="flex min-w-0 items-start gap-3">
                   <Phone size={20} className="mt-0.5 shrink-0 text-primary" />
-                  <div>
+                  <div className="min-w-0">
                     <span className="text-xs font-semibold tracking-wide text-primary uppercase">Contact</span>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">
                       <a href={`tel:${clinic.phoneDigits}`} className="hover:text-primary">
                         {clinic.phone}
                       </a>
@@ -135,9 +135,9 @@ export default function Location() {
           </div>
           <dl className="grid content-start divide-y divide-border border-t border-border">
             {clinic.businessHours.map((entry) => (
-              <div key={entry.days} className="flex items-center justify-between gap-4 py-4">
-                <dt className="text-sm font-semibold text-foreground">{entry.days}</dt>
-                <dd className="text-sm font-semibold text-primary">{entry.hours}</dd>
+              <div key={entry.days} className="flex min-w-0 items-center justify-between gap-4 py-4">
+                <dt className="min-w-0 break-words text-sm font-semibold text-foreground">{entry.days}</dt>
+                <dd className="min-w-0 break-words text-right text-sm font-semibold text-primary">{entry.hours}</dd>
               </div>
             ))}
           </dl>
@@ -169,7 +169,7 @@ export default function Location() {
       </Section>
 
       <div className="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
-        <p className="text-xs leading-relaxed text-muted-foreground">
+        <p className="min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
           {clinic.name} is a template demonstration business. The supplied map location, directions route, and
           landmark are placeholder reference content; replace with your business's actual location details before
           launch.

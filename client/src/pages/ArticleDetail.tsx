@@ -43,15 +43,15 @@ export default function ArticleDetail() {
 
       <Section aria-labelledby="article-body-title">
         <SectionHeading eyebrow={copy.articleDetail.bodyEyebrow} title={<span id="article-body-title" className="sr-only">{copy.articleDetail.bodyEyebrow}</span>} className="mb-6" />
-        <div className="flex max-w-180 flex-col gap-4">
+        <div className="flex min-w-0 max-w-180 flex-col gap-4">
           {article.body.map((paragraph, index) => (
-            <p key={index} className="text-base leading-relaxed text-foreground">
+            <p key={index} className="min-w-0 break-words text-base leading-relaxed text-foreground">
               {paragraph}
             </p>
           ))}
         </div>
         {article.disclaimer && (
-          <p className="mt-6 flex max-w-180 items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-6 flex min-w-0 max-w-180 items-start gap-2 text-xs leading-relaxed break-words text-muted-foreground">
             <Info size={16} className="mt-0.5 shrink-0" /> {copy.articleDetail.disclaimerText}
           </p>
         )}
@@ -66,12 +66,12 @@ export default function ArticleDetail() {
           {related.map((entry) => (
             <Card key={entry.slug} className="gap-3 p-4">
               <ImagePlaceholder label="Resource image" token={entry.imageKey} className="aspect-[16/10] w-full rounded-xl" />
-              <div className="flex flex-col gap-1.5 px-1">
-                <span className="text-xs font-semibold tracking-wide text-primary uppercase">
+              <div className="flex min-w-0 flex-col gap-1.5 px-1">
+                <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
                   {entry.category} · {entry.readingTime}
                 </span>
-                <h3 className="text-lg font-semibold text-foreground">{entry.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{entry.excerpt}</p>
+                <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">{entry.title}</h3>
+                <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{entry.excerpt}</p>
                 <Link
                   href={`/resources/${entry.slug}`}
                   className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
