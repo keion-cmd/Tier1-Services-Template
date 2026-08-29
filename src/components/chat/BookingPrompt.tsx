@@ -11,7 +11,7 @@ interface BookingPromptProps {
 
 export function BookingPrompt({ onCallbackRequest, onClose }: BookingPromptProps) {
   return (
-    <div className="relative mx-1 my-2 rounded-xl border-2 border-primary/40 bg-secondary/50 p-4">
+    <div className="relative mx-1 my-2 rounded-xl border-2 border-primary/40 bg-card p-4">
       <button
         type="button"
         onClick={onClose}
