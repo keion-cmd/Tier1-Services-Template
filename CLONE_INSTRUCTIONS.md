@@ -192,6 +192,10 @@ boilerplate and do not need to change unless you want to.
 proof/about/team section (e.g. `trustStats`, `whyChooseUs`, `carePlans`, `proofStories`). Every
 key defaults to `true`. Set a key to `false` to hide that section entirely, or empty its backing
 data array (where the section is array-backed) — either one hides it; you don't need to do both.
+Three more keys — `providerAreasOfInterest`, `relatedArticles`, `locationServicesAndHours` — gate
+optional blocks on the `/team/[slug]`, `/resources/[slug]`, and `/locations/[slug]` detail pages,
+following the same default-`true` convention.
+
 Hero, Services Showcase, the Lead Gen Form, and the Final CTA are always-required and are not part
 of this map.
 

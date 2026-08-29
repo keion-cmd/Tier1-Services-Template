@@ -51,6 +51,9 @@ export const sectionVisibility = {
   proofCareStats: true,
   aboutTeamGrid: true,
   teamProvidersGrid: true,
+  providerAreasOfInterest: true,
+  relatedArticles: true,
+  locationServicesAndHours: true,
 };
 
 // Centralized, placeholder-driven section copy. Every routed page pulls its headline and

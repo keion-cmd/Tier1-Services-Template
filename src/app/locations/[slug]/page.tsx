@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
-import { ArrowUpRight, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Clock3, MapPin, Phone } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { buildBreadcrumbSchema, clinic, copy } from "@/lib/business-content";
+import { buildBreadcrumbSchema, clinic, copy, sectionVisibility } from "@/lib/business-content";
 import { locations, getLocationBySlug } from "@/data/locations";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -85,7 +84,6 @@ export default async function LocationDetail({ params }: { params: Promise<Param
       <Section aria-label="Location details and map">
         <div className="grid gap-5 md:grid-cols-2">
           <Card className="gap-0 overflow-hidden p-0">
-            <ImagePlaceholder label="Location image" token={location.imageKey} className="aspect-[4/3] w-full border-0" />
             <div className="flex min-w-0 flex-col gap-5 p-6">
               <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{location.name}</span>
               <h2 className="min-w-0 break-words text-3xl leading-tight font-bold tracking-tight text-foreground">{copy.location.startTitle}</h2>
@@ -118,6 +116,19 @@ export default async function LocationDetail({ params }: { params: Promise<Param
                     </p>
                   </div>
                 </div>
+                <div className="flex min-w-0 items-start gap-3">
+                  <Clock3 size={20} className="mt-0.5 shrink-0 text-primary" />
+                  <div className="min-w-0">
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Hours</span>
+                    <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">
+                      {location.businessHours.map((entry) => (
+                        <span key={entry.days} className="block">
+                          {entry.days}: {entry.hours}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                </div>
               </div>
               <BookingButton label="Book an Appointment" className="w-fit" />
             </div>
@@ -126,18 +137,21 @@ export default async function LocationDetail({ params }: { params: Promise<Param
         </div>
       </Section>
 
-      <Section className="bg-secondary/30" aria-labelledby="location-services-title">
-        <SectionHeading
-          eyebrow={copy.location.directionsEyebrow}
-          title={<span id="location-services-title">Services offered at this location</span>}
-        />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {location.servicesOffered.map((service) => (
-            <FeatureCard key={service} label="Available here" title={service} description={`Offered at the ${location.name} location.`} />
-          ))}
-        </div>
-      </Section>
+      {sectionVisibility.locationServicesAndHours && location.servicesOffered.length > 0 && (
+        <Section className="bg-secondary/30" aria-labelledby="location-services-title">
+          <SectionHeading
+            eyebrow={copy.location.directionsEyebrow}
+            title={<span id="location-services-title">Services offered at this location</span>}
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {location.servicesOffered.map((service) => (
+              <FeatureCard key={service} label="Available here" title={service} description={`Offered at the ${location.name} location.`} />
+            ))}
+          </div>
+        </Section>
+      )}
 
+      {sectionVisibility.locationServicesAndHours && location.businessHours.length > 0 && (
       <Section aria-labelledby="location-hours-title">
         <div className="grid gap-10 md:grid-cols-2">
           <div className="flex flex-col gap-3">
@@ -158,6 +172,7 @@ export default async function LocationDetail({ params }: { params: Promise<Param
           </dl>
         </div>
       </Section>
+      )}
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}

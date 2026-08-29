@@ -17,10 +17,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { sectionVisibility } from "@/lib/business-content";
 import type { BookingModeAnswer, IntakeFormData, SectionContentAnswers } from "@/types/intake";
 
-const sectionContentChecklist: { key: keyof typeof sectionVisibility; question: string }[] = [
+const sectionContentChecklist: { key: keyof SectionContentAnswers; question: string }[] = [
   { key: "industryBrandsMarquee", question: "Do you have partner/vendor brands to display?" },
   { key: "insuranceMarquee", question: "Do you accept insurance and want it listed?" },
   { key: "trustStats", question: "Do you have stats to highlight (years in business, clients served, etc.)?" },

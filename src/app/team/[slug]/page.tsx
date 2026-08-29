@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
-import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getProviderBySlug, providers } from "@/lib/business-content";
+import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getProviderBySlug, providers, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 type Params = { slug: string };
@@ -75,28 +75,30 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
         </div>
       </div>
 
-      <Section aria-labelledby="provider-interests-title">
-        <SectionHeading
-          eyebrow="Areas of interest"
-          title={
-            <span id="provider-interests-title" className="sr-only">
-              Areas of interest
-            </span>
-          }
-          className="mb-6"
-        />
-        <div className="flex flex-wrap gap-2">
-          {provider.areasOfInterest.map((interest) => (
-            <Badge
-              key={interest}
-              variant="outline"
-              className="max-w-full rounded-full px-4 py-2 text-sm font-semibold break-words whitespace-normal"
-            >
-              {interest}
-            </Badge>
-          ))}
-        </div>
-      </Section>
+      {sectionVisibility.providerAreasOfInterest && provider.areasOfInterest.length > 0 && (
+        <Section aria-labelledby="provider-interests-title">
+          <SectionHeading
+            eyebrow="Areas of interest"
+            title={
+              <span id="provider-interests-title" className="sr-only">
+                Areas of interest
+              </span>
+            }
+            className="mb-6"
+          />
+          <div className="flex flex-wrap gap-2">
+            {provider.areasOfInterest.map((interest) => (
+              <Badge
+                key={interest}
+                variant="outline"
+                className="max-w-full rounded-full px-4 py-2 text-sm font-semibold break-words whitespace-normal"
+              >
+                {interest}
+              </Badge>
+            ))}
+          </div>
+        </Section>
+      )}
 
       <PageOutro
         eyebrow={`${businessConfig.name} ${businessConfig.descriptor}`}
