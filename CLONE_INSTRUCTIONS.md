@@ -187,6 +187,22 @@ data array (where the section is array-backed) — either one hides it; you don'
 Hero, Services Showcase, the Lead Gen Form, and the Final CTA are always-required and are not part
 of this map.
 
+### Generating a first draft from an intake submission
+
+`scripts/generate-clone-config.mjs` converts a submitted `/get-started` row (stored in the
+`clone_requests` Supabase table) into a draft `sectionVisibility` object, so you don't have to
+hand-transcribe the intake form's 16 yes/no answers. Run:
+
+```bash
+node scripts/generate-clone-config.mjs <clone_request_id>
+```
+
+It requires `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (from `.env`/`.env.local`)
+and writes `scripts/output/clone-config-<id>.ts` — a commented header with the lead's identity
+fields (business name, contact info, niche, notes) followed by the generated `sectionVisibility`
+object. This file is gitignored and is a starting point only: review its values against the intake
+notes before pasting the object into the new clone's `business-content.ts`.
+
 ## 4. Configure Supabase (booking flow)
 
 The booking modal (`src/components/booking/BookingModal.tsx`) POSTs to `/api/booking`, which writes to

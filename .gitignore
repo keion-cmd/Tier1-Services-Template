@@ -115,3 +115,6 @@ client/public/__manus__/version.json
 .vercel
 .env*
 !.env.example
+
+# Per-client generated clone configs — never commit these to the template repo
+scripts/output/

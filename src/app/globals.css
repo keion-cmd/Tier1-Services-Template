@@ -84,7 +84,7 @@
 
 @theme inline {
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));

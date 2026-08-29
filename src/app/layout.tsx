@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Manrope } from "next/font/google";
+import { Manrope, Fraunces } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Toaster } from "@/components/ui/sonner";
@@ -19,6 +19,13 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "[BUSINESS_NAME] | [BUSINESS_DESCRIPTOR]",
   description:
@@ -27,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={`${manrope.variable} ${fraunces.variable}`}>
       <body className="pb-16 xl:pb-0">
         <a
           href="#main-content"
