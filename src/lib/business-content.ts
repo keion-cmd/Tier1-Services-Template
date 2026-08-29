@@ -729,7 +729,7 @@ export const clientStories = [
   },
 ] as { clientName: string; segment: string; category: string; story: string; imageKey: string }[];
 
-export const SITE_ORIGIN = "https://your-domain.example";
+export const SITE_ORIGIN = "https://tier1-services-template.vercel.app";
 
 export function buildBreadcrumbSchema(crumbs: { name: string; path: string }[]) {
   return {

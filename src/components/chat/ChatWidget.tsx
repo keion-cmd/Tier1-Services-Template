@@ -9,9 +9,9 @@
  * The actual answer engine stays chatEngine.ts's pure client-side keyword/FAQ matching
  * against business-content.ts — there is zero required server round-trip, so the chat
  * works out of the box with no env vars configured. submitChatLead() below is a
- * best-effort, fire-and-forget POST to /api/chat; that route doesn't exist yet (it lands
- * in Phase 5 alongside Supabase wiring), so today it will 404 harmlessly — wrapped in
- * try/catch so a failed/missing endpoint can never break the chat UI.
+ * best-effort, fire-and-forget POST to /api/chat, which persists to Supabase's
+ * chat_interactions table — wrapped in try/catch so a failed/misconfigured endpoint
+ * can never break the chat UI.
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { businessConfig, copy } from "@/lib/business-content";
@@ -76,8 +76,7 @@ function submitChatLead(payload: ChatLeadPayload) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   }).catch(() => {
-    /* Phase 5 wires up the real /api/chat route alongside Supabase — a 404 or network
-       failure here is expected today and must never surface to the user. */
+    /* Network or Supabase failure here must never surface to the user. */
   });
 }
 
