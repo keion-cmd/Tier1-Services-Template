@@ -41,6 +41,10 @@
   --sidebar-accent-foreground: 173 60% 20%;
   --sidebar-border: 140 10% 90%;
   --sidebar-ring: 173 70% 30%;
+  --z-nav: 40;
+  --z-widget: 50;
+  --z-toast: 90;
+  --z-modal: 100;
 }
 
 .dark {

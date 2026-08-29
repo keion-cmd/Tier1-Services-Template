@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { AlertTriangle, ArrowUpRight, Clock3, MapPin } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Clock3, MapPin, ShieldCheck } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { LeadGenForm } from "@/components/LeadGenForm";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
-import { IndustryBrandMarquee } from "@/components/IndustryBrandMarquee";
-import { InsuranceMarquee } from "@/components/insurance/InsuranceMarquee";
+import { LogoMarquee } from "@/components/LogoMarquee";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { JsonLd } from "@/components/JsonLd";
@@ -71,8 +70,9 @@ export default function Home() {
 
       {/* 1b. Industry Partner Marquee */}
       {sectionVisibility.industryBrandsMarquee && (
-        <IndustryBrandMarquee
-          items={industryBrands}
+        <LogoMarquee
+          ariaId="industry-brand-marquee-title"
+          items={industryBrands.map((brand) => ({ key: brand.name, label: brand.name }))}
           heading={copy.home.industryBrandsHeadline}
           supportingText={copy.home.industryBrandsSubheadline}
         />
@@ -80,8 +80,13 @@ export default function Home() {
 
       {/* 1c. Insurance Marquee */}
       {sectionVisibility.insuranceMarquee && (
-        <InsuranceMarquee
-          items={insuranceProviders}
+        <LogoMarquee
+          ariaId="insurance-marquee-title"
+          items={insuranceProviders.map((provider) => ({
+            key: provider.id,
+            label: provider.name,
+            icon: <ShieldCheck size={16} className="shrink-0 text-muted-foreground" aria-hidden />,
+          }))}
           heading={copy.home.insuranceHeadline}
           supportingText={copy.home.insuranceSubheadline}
         />
@@ -125,6 +130,37 @@ export default function Home() {
               <FeatureCard key={item.title} title={item.title} description={item.copy} />
             ))}
           </div>
+        </Section>
+      )}
+
+      {/* 4a. Proactive Care for Every Stage */}
+      {sectionVisibility.carePlans && carePlans.length > 0 && (
+        <Section aria-labelledby="home-care-plans-title">
+          <SectionHeading
+            eyebrow={copy.home.carePlansEyebrow}
+            title={<span id="home-care-plans-title">{copy.home.carePlansTitle}</span>}
+          />
+          <div className="grid gap-5 sm:grid-cols-3">
+            {carePlans.map((plan) => (
+              <Card key={plan.title} className="p-6">
+                <span className="text-sm break-words text-muted-foreground">{plan.subtitle}</span>
+                <h3 className="text-xl font-semibold break-words text-foreground">{plan.title}</h3>
+                <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed break-words text-muted-foreground">
+                  {plan.bullets.map((bullet) => (
+                    <li key={bullet} className="list-disc">
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            ))}
+          </div>
+          <Link
+            href="/new-clients"
+            className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+          >
+            Explore Preventive Care <ArrowUpRight size={15} />
+          </Link>
         </Section>
       )}
 
@@ -274,37 +310,6 @@ export default function Home() {
               </Card>
             ))}
           </div>
-        </Section>
-      )}
-
-      {/* 7b. Proactive Care for Every Stage */}
-      {sectionVisibility.carePlans && carePlans.length > 0 && (
-        <Section aria-labelledby="home-care-plans-title">
-          <SectionHeading
-            eyebrow={copy.home.carePlansEyebrow}
-            title={<span id="home-care-plans-title">{copy.home.carePlansTitle}</span>}
-          />
-          <div className="grid gap-5 sm:grid-cols-3">
-            {carePlans.map((plan) => (
-              <Card key={plan.title} className="p-6">
-                <span className="text-sm break-words text-muted-foreground">{plan.subtitle}</span>
-                <h3 className="text-xl font-semibold break-words text-foreground">{plan.title}</h3>
-                <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed break-words text-muted-foreground">
-                  {plan.bullets.map((bullet) => (
-                    <li key={bullet} className="list-disc">
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            ))}
-          </div>
-          <Link
-            href="/new-clients"
-            className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-          >
-            Explore Preventive Care <ArrowUpRight size={15} />
-          </Link>
         </Section>
       )}
 

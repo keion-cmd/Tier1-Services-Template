@@ -59,7 +59,7 @@ export function ActivityNotification() {
 
   return (
     <div
-      className="fixed bottom-4 left-4 z-[90] w-[240px] transition-all sm:bottom-6 sm:left-6"
+      className="fixed bottom-[calc(var(--mobile-bar-height)+1rem)] left-4 z-[var(--z-toast)] w-[240px] transition-all sm:left-6 xl:bottom-6"
       style={{
         pointerEvents: visible ? "auto" : "none",
         opacity: visible ? 1 : 0,

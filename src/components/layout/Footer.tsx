@@ -50,16 +50,16 @@ function PolicyDialog() {
           type="button"
           className="w-fit text-left text-sm text-background/70 underline underline-offset-4 transition-colors hover:text-primary-foreground"
         >
-          {copy.siteShell.cancellationPolicyLinkLabel}
+          {copy.siteShell.policyDetailsLinkLabel}
         </button>
       </DialogTrigger>
       <DialogContent className="max-h-[min(620px,calc(100dvh-2rem))] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary uppercase">
-            {copy.siteShell.cancellationPolicyBadge}
+            {copy.siteShell.policyDetailsBadge}
           </span>
-          <DialogTitle className="text-2xl font-semibold tracking-tight">{copy.siteShell.cancellationPolicyTitle}</DialogTitle>
-          <DialogDescription>{copy.siteShell.cancellationPolicyDescription}</DialogDescription>
+          <DialogTitle className="text-2xl font-semibold tracking-tight">{copy.siteShell.policyDetailsTitle}</DialogTitle>
+          <DialogDescription>{copy.siteShell.policyDetailsDescription}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 pt-1">
           <section className="rounded-xl bg-muted p-4">

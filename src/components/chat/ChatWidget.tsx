@@ -113,6 +113,7 @@ export function ChatWidget() {
       if (!prev) {
         initChat();
         setHasNotification(false);
+        setShowBookingPrompt(false);
       }
       return !prev;
     });
@@ -264,6 +265,7 @@ export function ChatWidget() {
 
         case "book":
           setShowBookingPrompt(true);
+          setIsOpen(false);
           submitChatLead({ sessionId, ledToBooking: true, status: "converted", messageCount });
           break;
 
@@ -279,7 +281,7 @@ export function ChatWidget() {
   );
 
   return (
-    <div className="fixed right-4 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-50 flex flex-col items-end gap-3 sm:right-6 xl:bottom-6">
+    <div className="fixed right-4 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-[var(--z-widget)] flex flex-col items-end gap-3 sm:right-6 xl:bottom-6">
       {showBookingPrompt && (
         <BookingPrompt
           onCallbackRequest={() => {
@@ -288,6 +290,7 @@ export function ChatWidget() {
             setConversationStarted(true);
             setMessages((prev) => [...prev, botMsg(copy.chat.leadCaptureAskNameMessage)]);
           }}
+          onClose={() => setShowBookingPrompt(false)}
         />
       )}
 

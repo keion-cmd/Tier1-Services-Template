@@ -97,7 +97,7 @@ export function Header() {
     <>
       {/* Mobile sticky quick-actions bar */}
       <div
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-border bg-card shadow-[0_-8px_24px_rgba(0,0,0,0.08)] xl:hidden"
+        className="fixed inset-x-0 bottom-0 z-[var(--z-nav)] grid grid-cols-2 border-t border-border bg-card shadow-[0_-8px_24px_rgba(0,0,0,0.08)] xl:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
         role="navigation"
         aria-label="Quick actions"
