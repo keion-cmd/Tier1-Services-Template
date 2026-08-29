@@ -9,7 +9,35 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import type { IntakeFormData } from "@/types/intake";
+import { Checkbox } from "@/components/ui/checkbox";
+import { sectionVisibility } from "@/lib/business-content";
+import type { IntakeFormData, SectionContentAnswers } from "@/types/intake";
+
+const sectionContentChecklist: { key: keyof typeof sectionVisibility; question: string }[] = [
+  { key: "industryBrandsMarquee", question: "Do you have partner/vendor brands to display?" },
+  { key: "insuranceMarquee", question: "Do you accept insurance and want it listed?" },
+  { key: "trustStats", question: "Do you have stats to highlight (years in business, clients served, etc.)?" },
+  { key: "whyChooseUs", question: "Do you have differentiators/reasons to choose you?" },
+  { key: "meetTheTeam", question: "Do you have team photos/bios for the homepage?" },
+  { key: "howItWorks", question: "Do you have a defined step-by-step process to show?" },
+  { key: "clinicExperience", question: "Do you have 4+ facility/experience photos?" },
+  { key: "reviewsMarquee", question: "Do you have short review quotes to scroll on the homepage?" },
+  { key: "clientStories", question: "Do you have longer client success stories?" },
+  { key: "healthResources", question: "Do you have articles/resources to publish?" },
+  { key: "carePlans", question: "Do you offer membership/care plans to list?" },
+  { key: "faqTeaser", question: "Do you have FAQs?" },
+  { key: "proofStories", question: "Do you have stories for a dedicated proof/testimonials page?" },
+  { key: "proofCareStats", question: "Do you have stats for a proof/testimonials page?" },
+  { key: "aboutTeamGrid", question: "Do you want a team grid on your About page?" },
+  { key: "teamProvidersGrid", question: "Do you want individual team member profile pages?" },
+];
+
+const sectionContentSchema = z.object(
+  Object.fromEntries(sectionContentChecklist.map(({ key }) => [key, z.boolean()])) as Record<
+    keyof SectionContentAnswers,
+    z.ZodBoolean
+  >
+);
 
 const schema = z.object({
   businessName: z.string().min(1, "Business name is required").max(150),
@@ -20,7 +48,12 @@ const schema = z.object({
   numberOfLocations: z.number({ error: "Must be a number" }).int().min(1, "Must be at least 1 location"),
   currentBookingSystem: z.string().max(200).optional(),
   notes: z.string().max(2000).optional(),
+  sectionContent: sectionContentSchema,
 });
+
+const sectionContentDefaults: SectionContentAnswers = Object.fromEntries(
+  sectionContentChecklist.map(({ key }) => [key, false])
+) as unknown as SectionContentAnswers;
 
 export function IntakeForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,11 +62,16 @@ export function IntakeForm() {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<IntakeFormData>({
     resolver: zodResolver(schema),
     mode: "onTouched",
+    defaultValues: { sectionContent: sectionContentDefaults },
   });
+
+  const sectionContentValues = watch("sectionContent");
 
   const onSubmit = async (data: IntakeFormData) => {
     setIsSubmitting(true);
@@ -116,6 +154,30 @@ export function IntakeForm() {
       <Field label="Notes" id="notes" error={errors.notes?.message} optional>
         <Textarea id="notes" rows={4} placeholder="Anything else we should know?" {...register("notes")} aria-invalid={!!errors.notes} />
       </Field>
+
+      <div>
+        <p className="mb-3 text-sm font-semibold text-foreground">
+          Content Checklist <span className="text-destructive">*</span>
+        </p>
+        <p className="mb-3 text-xs text-muted-foreground">
+          Let us know which optional sections you already have content for.
+        </p>
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
+          {sectionContentChecklist.map(({ key, question }) => (
+            <div key={key} className="flex items-start gap-3">
+              <Checkbox
+                id={`sectionContent.${key}`}
+                checked={sectionContentValues?.[key] ?? false}
+                onCheckedChange={(checked) => setValue(`sectionContent.${key}`, checked === true)}
+                className="mt-0.5"
+              />
+              <Label htmlFor={`sectionContent.${key}`} className="text-sm font-normal text-foreground">
+                {question}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <button
         type="submit"

@@ -79,6 +79,11 @@ export async function syncAppointmentToSheets(record: AppointmentSheetRecord): P
 // web app/sheet from the TYPE A functions above, via GOOGLE_SHEETS_INTAKE_SCRIPT_URL,
 // so prospective-owner intake leads never land in the same sheet as end-customer bookings.
 export async function syncCloneRequestToSheets(record: IntakeRecord): Promise<boolean> {
+  const sectionContentSummary = Object.entries(record.sectionContent)
+    .filter(([, hasContent]) => hasContent)
+    .map(([key]) => key)
+    .join(", ");
+
   return postToSheets(
     {
       type: "clone_request",
@@ -90,6 +95,7 @@ export async function syncCloneRequestToSheets(record: IntakeRecord): Promise<bo
       numberOfLocations: record.numberOfLocations,
       currentBookingSystem: record.currentBookingSystem || "",
       notes: record.notes || "",
+      sectionContent: sectionContentSummary,
     },
     process.env.GOOGLE_SHEETS_INTAKE_SCRIPT_URL || null
   );

@@ -91,6 +91,11 @@ create table if not exists clone_requests (
   created_at timestamptz not null default now()
 );
 
+-- Structured yes/no answers for which optional homepage/proof/about/team sections
+-- (mirroring sectionVisibility in src/lib/business-content.ts) the client already
+-- has content for. Collected at intake so a future step can use it to set defaults.
+alter table clone_requests add column if not exists section_content jsonb;
+
 -- =============================================================================
 -- ROW LEVEL SECURITY
 -- =============================================================================

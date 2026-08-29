@@ -2,7 +2,33 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { syncCloneRequestToSheets } from "@/lib/googleSheets";
-import type { IntakeRecord } from "@/types/intake";
+import type { IntakeRecord, SectionContentAnswers } from "@/types/intake";
+
+const sectionContentKeys: (keyof SectionContentAnswers)[] = [
+  "industryBrandsMarquee",
+  "insuranceMarquee",
+  "trustStats",
+  "whyChooseUs",
+  "meetTheTeam",
+  "howItWorks",
+  "clinicExperience",
+  "reviewsMarquee",
+  "clientStories",
+  "healthResources",
+  "carePlans",
+  "faqTeaser",
+  "proofStories",
+  "proofCareStats",
+  "aboutTeamGrid",
+  "teamProvidersGrid",
+];
+
+const sectionContentSchema = z.object(
+  Object.fromEntries(sectionContentKeys.map((key) => [key, z.boolean()])) as Record<
+    keyof SectionContentAnswers,
+    z.ZodBoolean
+  >
+);
 
 const intakeSchema = z.object({
   businessName: z.string().min(1, "Business name is required").max(150),
@@ -13,6 +39,7 @@ const intakeSchema = z.object({
   numberOfLocations: z.number().int().min(1, "Must be at least 1 location"),
   currentBookingSystem: z.string().max(200).optional(),
   notes: z.string().max(2000).optional(),
+  sectionContent: sectionContentSchema,
 });
 
 // Best-effort webhook notify (e.g. Slack/email/Zapier consumer). Never blocks the
@@ -51,7 +78,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { businessName, contactName, contactEmail, contactPhone, niche, numberOfLocations, currentBookingSystem, notes } = result.data;
+    const { businessName, contactName, contactEmail, contactPhone, niche, numberOfLocations, currentBookingSystem, notes, sectionContent } = result.data;
 
     const { data: record, error: insertError } = await supabaseAdmin
       .from("clone_requests")
@@ -64,6 +91,7 @@ export async function POST(request: NextRequest) {
         number_of_locations: numberOfLocations,
         ...(currentBookingSystem ? { current_booking_system: currentBookingSystem } : {}),
         ...(notes ? { notes } : {}),
+        section_content: sectionContent,
       })
       .select("*")
       .single();
@@ -83,6 +111,7 @@ export async function POST(request: NextRequest) {
       numberOfLocations,
       currentBookingSystem,
       notes,
+      sectionContent,
       created_at: record.created_at,
     };
 
