@@ -8,13 +8,14 @@ import type { ChatMessage as ChatMessageType, QuickAction } from "@/types/chat";
 interface ChatMessageProps {
   message: ChatMessageType;
   onAction: (action: QuickAction) => void;
+  onBookingModalOpen?: () => void;
 }
 
 function formatTime(date: Date): string {
   return new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", hour12: true }).format(date);
 }
 
-export function ChatMessage({ message, onAction }: ChatMessageProps) {
+export function ChatMessage({ message, onAction, onBookingModalOpen }: ChatMessageProps) {
   const isBot = message.type === "bot";
 
   return (
@@ -42,7 +43,7 @@ export function ChatMessage({ message, onAction }: ChatMessageProps) {
         <span className="mt-1 px-1 text-[10px] text-muted-foreground">{formatTime(message.timestamp)}</span>
 
         {isBot && message.actions && message.actions.length > 0 && (
-          <QuickActions actions={message.actions} onAction={onAction} />
+          <QuickActions actions={message.actions} onAction={onAction} onBookingModalOpen={onBookingModalOpen} />
         )}
       </div>
     </div>

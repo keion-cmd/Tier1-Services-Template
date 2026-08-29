@@ -39,6 +39,7 @@ const intakeSchema = z.object({
   numberOfLocations: z.number().int().min(1, "Must be at least 1 location"),
   currentBookingSystem: z.string().max(200).optional(),
   notes: z.string().max(2000).optional(),
+  bookingMode: z.enum(["modal", "external"]),
   sectionContent: sectionContentSchema,
 });
 
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { businessName, contactName, contactEmail, contactPhone, niche, numberOfLocations, currentBookingSystem, notes, sectionContent } = result.data;
+    const { businessName, contactName, contactEmail, contactPhone, niche, numberOfLocations, currentBookingSystem, notes, bookingMode, sectionContent } = result.data;
 
     const { data: record, error: insertError } = await supabaseAdmin
       .from("clone_requests")
@@ -91,6 +92,7 @@ export async function POST(request: NextRequest) {
         number_of_locations: numberOfLocations,
         ...(currentBookingSystem ? { current_booking_system: currentBookingSystem } : {}),
         ...(notes ? { notes } : {}),
+        booking_mode: bookingMode,
         section_content: sectionContent,
       })
       .select("*")
@@ -111,6 +113,7 @@ export async function POST(request: NextRequest) {
       numberOfLocations,
       currentBookingSystem,
       notes,
+      bookingMode,
       sectionContent,
       created_at: record.created_at,
     };

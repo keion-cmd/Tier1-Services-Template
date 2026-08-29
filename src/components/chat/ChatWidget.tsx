@@ -301,6 +301,7 @@ export function ChatWidget() {
         isTyping={isTyping}
         onSendMessage={handleSendMessage}
         onAction={handleAction}
+        onBookingModalOpen={() => setIsOpen(false)}
         conversationStarted={conversationStarted}
       />
 

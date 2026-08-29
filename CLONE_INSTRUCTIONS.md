@@ -51,6 +51,14 @@ CTA heading/subheading all read from `copy`. Do not rename the exported constant
 `slug` values — routes and the service/team/resources/locations detail pages
 (`/services/[slug]`, `/team/[slug]`, `/resources/[slug]`, `/locations/[slug]`) depend on them.
 
+### Booking mode
+
+`businessConfig.bookingMode` (`src/lib/business-content.ts`) controls what every "Book" CTA
+does. `"modal"` (default) opens the in-page Supabase-backed `BookingModal`, unchanged from
+today. `"external"` makes every CTA — header, hero, service cards, footer, and the chat
+widget's "Book Appointment Now" — link out to `BOOKING_URL` instead. When using `"external"`,
+set `NEXT_PUBLIC_BOOKING_URL` to the client's real scheduler URL (Calendly, etc.).
+
 ### `src/data/insurance.ts`
 
 Feeds both the homepage `InsuranceMarquee` and the `InsuranceCombobox` used in the booking modal.

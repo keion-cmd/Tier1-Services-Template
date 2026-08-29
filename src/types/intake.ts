@@ -17,6 +17,8 @@ export interface SectionContentAnswers {
   teamProvidersGrid: boolean;
 }
 
+export type BookingModeAnswer = "modal" | "external";
+
 export interface IntakeFormData {
   businessName: string;
   contactName: string;
@@ -26,6 +28,7 @@ export interface IntakeFormData {
   numberOfLocations: number;
   currentBookingSystem?: string;
   notes?: string;
+  bookingMode: BookingModeAnswer;
   sectionContent: SectionContentAnswers;
 }
 

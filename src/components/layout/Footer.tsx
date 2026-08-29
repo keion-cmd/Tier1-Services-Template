@@ -6,6 +6,7 @@
  */
 "use client";
 
+import { useId, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -17,9 +18,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { BookingButton } from "@/components/BookingButton";
 import { ClinicMark, navItems } from "@/components/layout/Header";
 import { clinic, copy } from "@/lib/business-content";
+import { FOOTER_SIGNUP_ENDPOINT_URL } from "@/lib/footerSignup";
 
 function FacebookIcon(props: { className?: string }) {
   return (
@@ -73,6 +78,73 @@ function PolicyDialog() {
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function FooterEmailCapture() {
+  const inputId = useId();
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const isConfigured =
+    !!FOOTER_SIGNUP_ENDPOINT_URL && !FOOTER_SIGNUP_ENDPOINT_URL.includes("[") && !FOOTER_SIGNUP_ENDPOINT_URL.includes("]");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!isConfigured) {
+      setStatus("error");
+      return;
+    }
+
+    setStatus("submitting");
+    try {
+      // Same fire-and-forget, opaque-response pattern as LeadGenForm.tsx — Apps Script
+      // Web Apps don't return CORS headers, so `no-cors` is required and a resolved
+      // fetch (no thrown network error) is the only success signal available.
+      await fetch(FOOTER_SIGNUP_ENDPOINT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ email, source: "footer-email-capture", submittedAt: new Date().toISOString() }),
+      });
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "success") {
+    return <p className="text-sm text-background/80">{copy.siteShell.emailCaptureSuccessMessage}</p>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <p className="text-sm font-semibold text-background/90">{copy.siteShell.emailCaptureHeading}</p>
+      <p className="text-xs leading-relaxed text-background/60">{copy.siteShell.emailCaptureBody}</p>
+      <div className="flex min-w-0 gap-2">
+        <Label htmlFor={inputId} className="sr-only">
+          Email address
+        </Label>
+        <Input
+          id={inputId}
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={copy.siteShell.emailCapturePlaceholder}
+          className="min-w-0 border-background/25 bg-background/10 text-background placeholder:text-background/50"
+        />
+        <Button type="submit" size="sm" variant="secondary" disabled={status === "submitting"} className="shrink-0">
+          {copy.siteShell.emailCaptureSubmitButton}
+        </Button>
+      </div>
+      {status === "error" && (
+        <p className="text-xs text-destructive-foreground/80">
+          {isConfigured ? "Something went wrong. Please try again." : "Signup is not yet configured."}
+        </p>
+      )}
+    </form>
   );
 }
 
@@ -154,6 +226,10 @@ export function Footer() {
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 max-w-sm min-w-0">
+          <FooterEmailCapture />
         </div>
 
         <Separator className="my-10 bg-background/15" />

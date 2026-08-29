@@ -10,8 +10,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { sectionVisibility } from "@/lib/business-content";
-import type { IntakeFormData, SectionContentAnswers } from "@/types/intake";
+import type { BookingModeAnswer, IntakeFormData, SectionContentAnswers } from "@/types/intake";
 
 const sectionContentChecklist: { key: keyof typeof sectionVisibility; question: string }[] = [
   { key: "industryBrandsMarquee", question: "Do you have partner/vendor brands to display?" },
@@ -48,6 +55,7 @@ const schema = z.object({
   numberOfLocations: z.number({ error: "Must be a number" }).int().min(1, "Must be at least 1 location"),
   currentBookingSystem: z.string().max(200).optional(),
   notes: z.string().max(2000).optional(),
+  bookingMode: z.enum(["modal", "external"], { error: "Please choose a booking option" }),
   sectionContent: sectionContentSchema,
 });
 
@@ -68,10 +76,11 @@ export function IntakeForm() {
   } = useForm<IntakeFormData>({
     resolver: zodResolver(schema),
     mode: "onTouched",
-    defaultValues: { sectionContent: sectionContentDefaults },
+    defaultValues: { bookingMode: "modal", sectionContent: sectionContentDefaults },
   });
 
   const sectionContentValues = watch("sectionContent");
+  const bookingModeValue = watch("bookingMode");
 
   const onSubmit = async (data: IntakeFormData) => {
     setIsSubmitting(true);
@@ -153,6 +162,21 @@ export function IntakeForm() {
 
       <Field label="Notes" id="notes" error={errors.notes?.message} optional>
         <Textarea id="notes" rows={4} placeholder="Anything else we should know?" {...register("notes")} aria-invalid={!!errors.notes} />
+      </Field>
+
+      <Field label="Booking Setup" id="bookingMode" error={errors.bookingMode?.message}>
+        <Select
+          value={bookingModeValue}
+          onValueChange={(value) => setValue("bookingMode", value as BookingModeAnswer)}
+        >
+          <SelectTrigger id="bookingMode" className="w-full">
+            <SelectValue placeholder="Choose how appointments should be booked" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="modal">Use built-in booking form</SelectItem>
+            <SelectItem value="external">Link directly to my existing booking system</SelectItem>
+          </SelectContent>
+        </Select>
       </Field>
 
       <div>

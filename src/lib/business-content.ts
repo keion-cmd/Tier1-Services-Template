@@ -1,4 +1,7 @@
 export const businessConfig = {
+  // "modal" (default) opens the in-page Supabase-backed BookingModal from every CTA.
+  // "external" makes every CTA link out to BOOKING_URL (src/lib/booking.ts) instead.
+  bookingMode: "modal" as "modal" | "external",
   name: "[BUSINESS_NAME]",
   shortName: "[BUSINESS_SHORT_NAME]",
   tagline: "[BUSINESS_TAGLINE]",
@@ -236,6 +239,11 @@ export const copy = {
     bookingChangesBody: "[SITE_SHELL_BOOKING_CHANGES_BODY]",
     contactingClinicHeading: "[SITE_SHELL_CONTACTING_CLINIC_HEADING]",
     contactingClinicBody: "[SITE_SHELL_CONTACTING_CLINIC_BODY]",
+    emailCaptureHeading: "[SITE_SHELL_EMAIL_CAPTURE_HEADING]",
+    emailCaptureBody: "[SITE_SHELL_EMAIL_CAPTURE_BODY]",
+    emailCapturePlaceholder: "[SITE_SHELL_EMAIL_CAPTURE_PLACEHOLDER]",
+    emailCaptureSubmitButton: "[SITE_SHELL_EMAIL_CAPTURE_SUBMIT_BUTTON]",
+    emailCaptureSuccessMessage: "[SITE_SHELL_EMAIL_CAPTURE_SUCCESS_MESSAGE]",
   },
   chat: {
     greetingMessage: "[CHAT_GREETING_MESSAGE]",

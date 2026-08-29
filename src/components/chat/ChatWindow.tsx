@@ -21,6 +21,7 @@ interface ChatWindowProps {
   isTyping: boolean;
   onSendMessage: (message: string) => void;
   onAction: (action: QuickAction) => void;
+  onBookingModalOpen?: () => void;
   conversationStarted: boolean;
 }
 
@@ -31,6 +32,7 @@ export function ChatWindow({
   isTyping,
   onSendMessage,
   onAction,
+  onBookingModalOpen,
   conversationStarted,
 }: ChatWindowProps) {
   const [input, setInput] = useState("");
@@ -106,7 +108,12 @@ export function ChatWindow({
             aria-label="Chat messages"
           >
             {messages.map((message) => (
-              <ChatMessage key={message.id} message={isInitialState ? { ...message, actions: undefined } : message} onAction={onAction} />
+              <ChatMessage
+                key={message.id}
+                message={isInitialState ? { ...message, actions: undefined } : message}
+                onAction={onAction}
+                onBookingModalOpen={onBookingModalOpen}
+              />
             ))}
 
             {isTyping && (

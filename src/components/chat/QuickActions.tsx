@@ -8,12 +8,15 @@ import type { QuickAction } from "@/types/chat";
 interface QuickActionsProps {
   actions: QuickAction[];
   onAction: (action: QuickAction) => void;
+  /** Fired when the inline "book" action opens the BookingModal, so the chat window
+   * can close itself and not stay mounted behind the modal. */
+  onBookingModalOpen?: () => void;
 }
 
 const btnClass =
   "group flex items-start gap-2 rounded-xl border border-border bg-background px-3.5 py-2 text-left text-xs font-medium text-foreground shadow-sm transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-export function QuickActions({ actions, onAction }: QuickActionsProps) {
+export function QuickActions({ actions, onAction, onBookingModalOpen }: QuickActionsProps) {
   return (
     <div className="mt-2 flex w-full flex-col gap-1.5">
       {actions.map((action) => {
@@ -25,6 +28,9 @@ export function QuickActions({ actions, onAction }: QuickActionsProps) {
               label={action.label}
               size="sm"
               className="w-full justify-center !py-2 !text-xs"
+              onOpenChange={(open) => {
+                if (open) onBookingModalOpen?.();
+              }}
             />
           );
         }

@@ -96,6 +96,11 @@ create table if not exists clone_requests (
 -- has content for. Collected at intake so a future step can use it to set defaults.
 alter table clone_requests add column if not exists section_content jsonb;
 
+-- Whether the client wants the built-in Supabase-backed booking modal ("modal") or
+-- every CTA to link out to their existing external booking system ("external") —
+-- mirrors businessConfig.bookingMode in src/lib/business-content.ts.
+alter table clone_requests add column if not exists booking_mode text;
+
 -- =============================================================================
 -- ROW LEVEL SECURITY
 -- =============================================================================
