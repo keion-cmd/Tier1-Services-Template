@@ -10,30 +10,22 @@ import type { MegaMenuConfig } from "@/data/megaMenus";
 
 // Desktop flyout content, rendered inside a NavigationMenuItem's <NavigationMenuContent>.
 export function MegaMenuDesktop({ config }: { config: MegaMenuConfig }) {
-  const singleCategory = config.categories.length === 1;
-
   return (
     <NavigationMenuContent>
-      <div className={cn("grid gap-4 p-4", singleCategory ? "w-[280px]" : "w-[560px] grid-cols-2")}>
-        {config.categories.map((category) => (
-          <div key={category.title} className="min-w-0">
-            {!singleCategory && (
-              <p className="mb-1.5 truncate text-[11px] font-bold tracking-widest text-muted-foreground uppercase">{category.title}</p>
-            )}
-            <ul className="grid gap-1">
-              {category.items.map((item) => (
-                <li key={item.href} className="min-w-0">
-                  <NavigationMenuLink asChild>
-                    <Link href={item.href} className="block min-w-0 rounded-md px-2 py-1.5 break-words hover:bg-accent">
-                      {item.title}
-                    </Link>
-                  </NavigationMenuLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        <div className={cn(!singleCategory && "col-span-2 border-t border-border pt-2")}>
+      <div className="grid w-[280px] gap-1 p-4">
+        <p className="mb-1.5 truncate text-[11px] font-bold tracking-widest text-muted-foreground uppercase">{config.eyebrow}</p>
+        <ul className="grid gap-1">
+          {config.items.map((item) => (
+            <li key={item.href} className="min-w-0">
+              <NavigationMenuLink asChild>
+                <Link href={item.href} className="block min-w-0 rounded-md px-2 py-1.5 break-words hover:bg-accent">
+                  {item.title}
+                </Link>
+              </NavigationMenuLink>
+            </li>
+          ))}
+        </ul>
+        <div className="border-t border-border pt-2">
           <NavigationMenuLink asChild>
             <Link href={config.viewAllHref} className="flex items-center justify-between rounded-md px-2 py-1.5 font-semibold text-primary">
               {config.viewAllLabel} <ArrowUpRight size={14} />
@@ -71,23 +63,16 @@ export function MegaMenuMobile({
         <ChevronDown size={18} className={cn("transition-transform", open && "rotate-180")} />
       </CollapsibleTrigger>
       <CollapsibleContent className="flex flex-col gap-1 py-1 pl-4">
-        {config.categories.map((category) => (
-          <div key={category.title} className="min-w-0">
-            {config.categories.length > 1 && (
-              <p className="mt-2 mb-1 truncate px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">{category.title}</p>
-            )}
-            {category.items.map((item) => (
-              <SheetClose asChild key={item.href}>
-                <Link
-                  href={item.href}
-                  className="flex min-w-0 items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
-                >
-                  <span className="min-w-0 break-words">{item.title}</span>
-                  <ArrowUpRight size={15} className="shrink-0" />
-                </Link>
-              </SheetClose>
-            ))}
-          </div>
+        {config.items.map((item) => (
+          <SheetClose asChild key={item.href}>
+            <Link
+              href={item.href}
+              className="flex min-w-0 items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+            >
+              <span className="min-w-0 break-words">{item.title}</span>
+              <ArrowUpRight size={15} className="shrink-0" />
+            </Link>
+          </SheetClose>
         ))}
         <SheetClose asChild>
           <Link href={config.viewAllHref} className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold text-primary">

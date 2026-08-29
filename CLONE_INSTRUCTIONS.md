@@ -69,10 +69,10 @@ that exact string.
 
 ### `src/data/megaMenus.ts`
 
-Not client-edited directly — it auto-generates the Services/Resources/Locations nav flyouts from
-`services`, `articles`, and `locations`, grouped by each item's `category` (or `city`, for
-locations). Editing the `category`/`city` field on entries in the source arrays is enough to reshape
-the nav; you should not need to touch this file.
+Not client-edited directly — it auto-generates the Services/Resources/Locations nav flyouts as a
+flat single-column list from `services`, `articles`, and `locations`. The `category`/`city` field on
+entries in the source arrays is not used for nav grouping (only elsewhere, e.g. the FAQ page); you
+should not need to touch this file.
 
 ### `src/data/locations.ts`
 
@@ -115,7 +115,7 @@ unless noted otherwise.
 
 **Services** (`services[1-9]`) — each: `[SERVICE_n_NAME]` · `[SERVICE_n_SHORT_DESCRIPTION]` ·
 `[SERVICE_n_DESCRIPTION]` · `[SERVICE_n_BENEFIT_1/2/3]` · `[SERVICE_n_PROCESS_STEP_1/2/3_TITLE/DESCRIPTION]` ·
-`[SERVICE_n_DURATION]` · `[SERVICE_n_IMAGE]` (leave `category` — used to group the Services mega menu)
+`[SERVICE_n_DURATION]` · `[SERVICE_n_IMAGE]` (leave `category` — used to filter the interactive services gallery)
 
 **Trust stats bar** (`trustStats[1-5]`) `[TRUST_STAT_n_VALUE]` · `[TRUST_STAT_n_LABEL]`
 
