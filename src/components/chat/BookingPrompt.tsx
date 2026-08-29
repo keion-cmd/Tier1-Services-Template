@@ -23,7 +23,7 @@ export function BookingPrompt({ onCallbackRequest }: BookingPromptProps) {
           onClick={onCallbackRequest}
           className="w-full rounded-lg border-2 border-primary px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/10"
         >
-          Request a Callback
+          {copy.chat.requestCallbackLabel}
         </button>
       </div>
     </div>

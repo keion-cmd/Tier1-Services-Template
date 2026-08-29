@@ -2,15 +2,12 @@ import type { IndustryBrand } from "@/lib/industryBrands";
 
 interface IndustryBrandMarqueeProps {
   items: IndustryBrand[];
-  heading?: string;
+  heading: string;
   supportingText?: string;
 }
 
-export function IndustryBrandMarquee({
-  items,
-  heading = "Trusted Brands We Work With",
-  supportingText = "We install and service the equipment homeowners and businesses already trust.",
-}: IndustryBrandMarqueeProps) {
+export function IndustryBrandMarquee({ items, heading, supportingText }: IndustryBrandMarqueeProps) {
+  if (items.length === 0) return null;
   const groups = [items, items];
 
   return (

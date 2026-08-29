@@ -3,15 +3,12 @@ import type { InsuranceProvider } from "@/data/insurance";
 
 interface InsuranceMarqueeProps {
   items: InsuranceProvider[];
-  heading?: string;
+  heading: string;
   supportingText?: string;
 }
 
-export function InsuranceMarquee({
-  items,
-  heading = "Insurance & Coverage We Accept",
-  supportingText = "We work with most major providers — ask us if yours isn't listed.",
-}: InsuranceMarqueeProps) {
+export function InsuranceMarquee({ items, heading, supportingText }: InsuranceMarqueeProps) {
+  if (items.length === 0) return null;
   const groups = [items, items];
 
   return (

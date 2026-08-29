@@ -84,7 +84,7 @@ export function ChatWindow({
           {/* Header */}
           <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border px-4 py-3">
             <div className="min-w-0">
-              <p className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Chat with</p>
+              <p className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">{copy.chat.chatWithLabel}</p>
               <p className="truncate text-[15px] font-bold text-foreground">{copy.chat.windowTitle}</p>
             </div>
             <button

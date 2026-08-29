@@ -233,7 +233,7 @@ export function ChatWidget() {
     (action: QuickAction) => {
       if (action.action === "ask") {
         setConversationStarted(true);
-        respond("What would you like to know?", getInitialQuickReplies().map(toQuickAction), 300);
+        respond(copy.chat.askPromptMessage, getInitialQuickReplies().map(toQuickAction), 300);
         return;
       }
 

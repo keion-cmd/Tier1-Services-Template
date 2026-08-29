@@ -4,20 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/blocks/PageBlocks";
-import { clinic, copy } from "@/lib/business-content";
+import { clinic, copy, proofCareStats, proofPageStories, proofStatHighlight } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
-
-const careStats = [
-  { value: "[PROOF_STAT_1_VALUE]", label: "[PROOF_STAT_1_LABEL]" },
-  { value: "[PROOF_STAT_2_VALUE]", label: "[PROOF_STAT_2_LABEL]" },
-  { value: "[PROOF_STAT_3_VALUE]", label: "[PROOF_STAT_3_LABEL]" },
-];
-
-const clientStories = [
-  { label: "[PROOF_STORY_1_LABEL]", note: "[PROOF_STORY_1_NOTE]" },
-  { label: "[PROOF_STORY_2_LABEL]", note: "[PROOF_STORY_2_NOTE]" },
-  { label: "[PROOF_STORY_3_LABEL]", note: "[PROOF_STORY_3_NOTE]" },
-];
 
 export const metadata = buildMetadata({
   title: `Proof & Reviews — ${clinic.name} ${clinic.descriptor}`,
@@ -39,8 +27,8 @@ export default function Proof() {
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
           <div className="flex min-w-0 items-baseline gap-2">
-            <strong className="min-w-0 break-words text-5xl font-bold text-primary">[PROOF_STAT_HIGHLIGHT_NUMBER]</strong>
-            <span className="min-w-0 break-words text-sm font-semibold text-muted-foreground">[PROOF_STAT_HIGHLIGHT_LABEL]</span>
+            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{proofStatHighlight.number}</strong>
+            <span className="min-w-0 break-words text-sm font-semibold text-muted-foreground">{proofStatHighlight.label}</span>
           </div>
           <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">{copy.proof.statsCaption}</p>
           <Link href="/faq" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
@@ -55,7 +43,7 @@ export default function Proof() {
           title={<span id="proof-stats-title">{copy.proof.statsTitle}</span>}
         />
         <div className="grid gap-5 sm:grid-cols-3">
-          {careStats.map((stat) => (
+          {proofCareStats.map((stat) => (
             <FeatureCard key={stat.label} label={copy.proof.statCardLabel} title={stat.value} description={stat.label} />
           ))}
         </div>
@@ -69,7 +57,7 @@ export default function Proof() {
           {copy.proof.storiesEyebrow}
         </h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
-          {clientStories.map((story) => (
+          {proofPageStories.map((story) => (
             <Card key={story.label}>
               <CardContent className="flex min-w-0 flex-col gap-2">
                 <Eyebrow>{story.label}</Eyebrow>

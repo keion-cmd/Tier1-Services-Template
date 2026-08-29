@@ -69,6 +69,10 @@ export const copy = {
     locationTitle: "[HOME_LOCATION_TITLE]",
     finalCtaTitle: "[HOME_FINAL_CTA_TITLE]",
     finalCtaSubtitle: "[HOME_FINAL_CTA_SUBTITLE]",
+    industryBrandsHeadline: "[HOME_INDUSTRY_BRANDS_TITLE]",
+    industryBrandsSubheadline: "[HOME_INDUSTRY_BRANDS_SUBTITLE]",
+    insuranceHeadline: "[HOME_INSURANCE_TITLE]",
+    insuranceSubheadline: "[HOME_INSURANCE_SUBTITLE]",
     leadGenForm: {
       heading: "[HOME_LEAD_FORM_HEADING]",
       subheading: "[HOME_LEAD_FORM_SUBHEADING]",
@@ -120,6 +124,17 @@ export const copy = {
     statCardLabel: "[PROOF_STAT_CARD_LABEL]",
     storiesEyebrow: "[PROOF_STORIES_EYEBROW]",
     ctaTitle: "[PROOF_CTA_TITLE]",
+    reviewsEyebrow: "[PROOF_REVIEWS_EYEBROW]",
+    reviewsTitleLead: "[PROOF_REVIEWS_TITLE_LEAD]",
+    reviewsTitleAccent: "[PROOF_REVIEWS_TITLE_ACCENT]",
+    reviewsBody: "[PROOF_REVIEWS_BODY]",
+    mapsEyebrow: "[PROOF_MAPS_EYEBROW]",
+    mapsTitleLead: "[PROOF_MAPS_TITLE_LEAD]",
+    mapsTitleAccent: "[PROOF_MAPS_TITLE_ACCENT]",
+    mapsBody: "[PROOF_MAPS_BODY]",
+    mapsCardAriaLabel: "[PROOF_MAPS_CARD_ARIA_LABEL]",
+    reviewButtonLabel: "[PROOF_REVIEW_BUTTON_LABEL]",
+    mapsHint: "[PROOF_MAPS_HINT]",
   },
   faq: {
     heroEyebrow: "[FAQ_HERO_EYEBROW]",
@@ -191,6 +206,14 @@ export const copy = {
   siteShell: {
     footerTagline: "[SITE_SHELL_FOOTER_TAGLINE]",
     bookingDetailsText: "[SITE_SHELL_BOOKING_DETAILS_TEXT]",
+    cancellationPolicyLinkLabel: "[SITE_SHELL_CANCELLATION_POLICY_LINK_LABEL]",
+    cancellationPolicyBadge: "[SITE_SHELL_CANCELLATION_POLICY_BADGE]",
+    cancellationPolicyTitle: "[SITE_SHELL_CANCELLATION_POLICY_TITLE]",
+    cancellationPolicyDescription: "[SITE_SHELL_CANCELLATION_POLICY_DESCRIPTION]",
+    bookingChangesHeading: "[SITE_SHELL_BOOKING_CHANGES_HEADING]",
+    bookingChangesBody: "[SITE_SHELL_BOOKING_CHANGES_BODY]",
+    contactingClinicHeading: "[SITE_SHELL_CONTACTING_CLINIC_HEADING]",
+    contactingClinicBody: "[SITE_SHELL_CONTACTING_CLINIC_BODY]",
   },
   chat: {
     greetingMessage: "[CHAT_GREETING_MESSAGE]",
@@ -206,6 +229,9 @@ export const copy = {
     farewellMessage: "[CHAT_FAREWELL_MESSAGE]",
     windowTitle: "[CHAT_WINDOW_TITLE]",
     inputPlaceholder: "[CHAT_INPUT_PLACEHOLDER]",
+    chatWithLabel: "[CHAT_WITH_LABEL]",
+    askPromptMessage: "[CHAT_ASK_PROMPT_MESSAGE]",
+    requestCallbackLabel: "[CHAT_REQUEST_CALLBACK_LABEL]",
   },
   booking: {
     modalEyebrow: "[BOOKING_MODAL_EYEBROW]",
@@ -728,6 +754,23 @@ export const clientStories = [
     imageKey: "[CLIENT_3_PHOTO]",
   },
 ] as { clientName: string; segment: string; category: string; story: string; imageKey: string }[];
+
+export const proofStatHighlight = {
+  number: "[PROOF_STAT_HIGHLIGHT_NUMBER]",
+  label: "[PROOF_STAT_HIGHLIGHT_LABEL]",
+};
+
+export const proofCareStats = [
+  { value: "[PROOF_STAT_1_VALUE]", label: "[PROOF_STAT_1_LABEL]" },
+  { value: "[PROOF_STAT_2_VALUE]", label: "[PROOF_STAT_2_LABEL]" },
+  { value: "[PROOF_STAT_3_VALUE]", label: "[PROOF_STAT_3_LABEL]" },
+] as { value: string; label: string }[];
+
+export const proofPageStories = [
+  { label: "[PROOF_STORY_1_LABEL]", note: "[PROOF_STORY_1_NOTE]" },
+  { label: "[PROOF_STORY_2_LABEL]", note: "[PROOF_STORY_2_NOTE]" },
+  { label: "[PROOF_STORY_3_LABEL]", note: "[PROOF_STORY_3_NOTE]" },
+] as { label: string; note: string }[];
 
 export const SITE_ORIGIN = "https://tier1-services-template.vercel.app";
 

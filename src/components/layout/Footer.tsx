@@ -50,34 +50,25 @@ function PolicyDialog() {
           type="button"
           className="w-fit text-left text-sm text-background/70 underline underline-offset-4 transition-colors hover:text-primary-foreground"
         >
-          Cancellation & contact policy
+          {copy.siteShell.cancellationPolicyLinkLabel}
         </button>
       </DialogTrigger>
       <DialogContent className="max-h-[min(620px,calc(100dvh-2rem))] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary uppercase">
-            Demo policy
+            {copy.siteShell.cancellationPolicyBadge}
           </span>
-          <DialogTitle className="text-2xl font-semibold tracking-tight">Cancellation & contact</DialogTitle>
-          <DialogDescription>
-            This fictional policy is a presentation placeholder. Replace it with the client-approved policy before
-            launch.
-          </DialogDescription>
+          <DialogTitle className="text-2xl font-semibold tracking-tight">{copy.siteShell.cancellationPolicyTitle}</DialogTitle>
+          <DialogDescription>{copy.siteShell.cancellationPolicyDescription}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 pt-1">
           <section className="rounded-xl bg-muted p-4">
-            <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-primary uppercase">Booking changes</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Appointments are booked directly through our online scheduling tool. If plans need to change, please
-              reschedule or cancel from your confirmation email, or contact the clinic as soon as possible.
-            </p>
+            <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.bookingChangesHeading}</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">{copy.siteShell.bookingChangesBody}</p>
           </section>
           <section className="rounded-xl bg-muted p-4">
-            <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-primary uppercase">Contacting the clinic</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              For scheduling questions, rescheduling help, or urgent clarification, use the approved clinic phone or
-              email shown on this website. The team will confirm the appropriate next step directly.
-            </p>
+            <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.contactingClinicHeading}</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">{copy.siteShell.contactingClinicBody}</p>
           </section>
         </div>
       </DialogContent>

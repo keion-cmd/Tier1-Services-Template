@@ -68,10 +68,18 @@ export default function Home() {
       </section>
 
       {/* 1b. Industry Partner Marquee */}
-      <IndustryBrandMarquee items={industryBrands} />
+      <IndustryBrandMarquee
+        items={industryBrands}
+        heading={copy.home.industryBrandsHeadline}
+        supportingText={copy.home.industryBrandsSubheadline}
+      />
 
       {/* 1c. Insurance Marquee */}
-      <InsuranceMarquee items={insuranceProviders} />
+      <InsuranceMarquee
+        items={insuranceProviders}
+        heading={copy.home.insuranceHeadline}
+        supportingText={copy.home.insuranceSubheadline}
+      />
 
       {/* 2. Trust Stats Bar */}
       <Section className="py-12 md:py-16" aria-labelledby="home-trust-stats-title">
