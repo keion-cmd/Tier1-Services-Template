@@ -178,6 +178,15 @@ placeholder token that must be filled in.
 Button labels (e.g. "Book an Appointment"), nav item labels, and structural copy are reusable
 boilerplate and do not need to change unless you want to.
 
+## 3b. Hide optional sections (`sectionVisibility`)
+
+`sectionVisibility` in `business-content.ts` is a boolean map — one key per optional homepage/
+proof/about/team section (e.g. `trustStats`, `whyChooseUs`, `carePlans`, `proofStories`). Every
+key defaults to `true`. Set a key to `false` to hide that section entirely, or empty its backing
+data array (where the section is array-backed) — either one hides it; you don't need to do both.
+Hero, Services Showcase, the Lead Gen Form, and the Final CTA are always-required and are not part
+of this map.
+
 ## 4. Configure Supabase (booking flow)
 
 The booking modal (`src/components/booking/BookingModal.tsx`) POSTs to `/api/booking`, which writes to

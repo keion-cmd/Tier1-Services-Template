@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/blocks/PageBlocks";
-import { clinic, copy, proofCareStats, proofPageStories, proofStatHighlight } from "@/lib/business-content";
+import { clinic, copy, proofCareStats, proofPageStories, proofStatHighlight, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -37,40 +37,44 @@ export default function Proof() {
         </div>
       </div>
 
-      <Section aria-labelledby="proof-stats-title">
-        <SectionHeading
-          eyebrow={copy.proof.statsEyebrow}
-          title={<span id="proof-stats-title">{copy.proof.statsTitle}</span>}
-        />
-        <div className="grid gap-5 sm:grid-cols-3">
-          {proofCareStats.map((stat) => (
-            <FeatureCard key={stat.label} label={copy.proof.statCardLabel} title={stat.value} description={stat.label} />
-          ))}
-        </div>
-      </Section>
+      {sectionVisibility.proofCareStats && proofCareStats.length > 0 && (
+        <Section aria-labelledby="proof-stats-title">
+          <SectionHeading
+            eyebrow={copy.proof.statsEyebrow}
+            title={<span id="proof-stats-title">{copy.proof.statsTitle}</span>}
+          />
+          <div className="grid gap-5 sm:grid-cols-3">
+            {proofCareStats.map((stat) => (
+              <FeatureCard key={stat.label} label={copy.proof.statCardLabel} title={stat.value} description={stat.label} />
+            ))}
+          </div>
+        </Section>
+      )}
 
       <ReviewsSection />
 
-      <Section aria-labelledby="proof-stories-title">
-        <Eyebrow>{copy.proof.storiesEyebrow}</Eyebrow>
-        <h2 id="proof-stories-title" className="sr-only">
-          {copy.proof.storiesEyebrow}
-        </h2>
-        <div className="mt-5 grid gap-5 sm:grid-cols-3">
-          {proofPageStories.map((story) => (
-            <Card key={story.label}>
-              <CardContent className="flex min-w-0 flex-col gap-2">
-                <Eyebrow>{story.label}</Eyebrow>
-                <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{story.note}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        <p className="mt-6 min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
-          {clinic.name} is a template demonstration business; these stories are illustrative placeholders. Replace with
-          client-approved, consented stories before launch.
-        </p>
-      </Section>
+      {sectionVisibility.proofStories && proofPageStories.length > 0 && (
+        <Section aria-labelledby="proof-stories-title">
+          <Eyebrow>{copy.proof.storiesEyebrow}</Eyebrow>
+          <h2 id="proof-stories-title" className="sr-only">
+            {copy.proof.storiesEyebrow}
+          </h2>
+          <div className="mt-5 grid gap-5 sm:grid-cols-3">
+            {proofPageStories.map((story) => (
+              <Card key={story.label}>
+                <CardContent className="flex min-w-0 flex-col gap-2">
+                  <Eyebrow>{story.label}</Eyebrow>
+                  <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{story.note}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <p className="mt-6 min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
+            {clinic.name} is a template demonstration business; these stories are illustrative placeholders. Replace with
+            client-approved, consented stories before launch.
+          </p>
+        </Section>
+      )}
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}

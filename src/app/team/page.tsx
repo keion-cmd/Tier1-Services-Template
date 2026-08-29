@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { clinic, copy, providers } from "@/lib/business-content";
+import { clinic, copy, providers, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -40,35 +40,37 @@ export default function Team() {
         </div>
       </div>
 
-      <Section aria-labelledby="team-grid-title">
-        <SectionHeading
-          eyebrow={copy.team.gridEyebrow}
-          title={<span id="team-grid-title">{copy.team.gridTitle}</span>}
-        />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {providers.map((provider) => (
-            <Card key={provider.slug} className="gap-3 p-4">
-              <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="aspect-[4/3] w-full rounded-xl" />
-              <div className="flex min-w-0 flex-col gap-1.5 px-1">
-                <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
-                  {provider.specialty}
-                  {provider.placeholder && " (demo profile)"}
-                </span>
-                <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">
-                  {provider.name}, {provider.credentials}
-                </h3>
-                <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{provider.bio}</p>
-                <Link
-                  href={`/team/${provider.slug}`}
-                  className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-                >
-                  View profile <ArrowUpRight size={15} />
-                </Link>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Section>
+      {sectionVisibility.teamProvidersGrid && providers.length > 0 && (
+        <Section aria-labelledby="team-grid-title">
+          <SectionHeading
+            eyebrow={copy.team.gridEyebrow}
+            title={<span id="team-grid-title">{copy.team.gridTitle}</span>}
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {providers.map((provider) => (
+              <Card key={provider.slug} className="gap-3 p-4">
+                <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="aspect-[4/3] w-full rounded-xl" />
+                <div className="flex min-w-0 flex-col gap-1.5 px-1">
+                  <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
+                    {provider.specialty}
+                    {provider.placeholder && " (demo profile)"}
+                  </span>
+                  <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">
+                    {provider.name}, {provider.credentials}
+                  </h3>
+                  <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{provider.bio}</p>
+                  <Link
+                    href={`/team/${provider.slug}`}
+                    className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                  >
+                    View profile <ArrowUpRight size={15} />
+                  </Link>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </Section>
+      )}
 
       <PageOutro
         eyebrow={`${clinic.name} ${clinic.descriptor}`}

@@ -28,6 +28,28 @@ export const businessConfig = {
 /** Backward-compatible alias — prefer `businessConfig` in new code. */
 export const clinic = businessConfig;
 
+// Per-section visibility toggles for optional homepage/proof/about/team sections. Every key
+// defaults to true; set a key to false, or empty its backing data array where applicable, to
+// hide that section without deleting code or data.
+export const sectionVisibility = {
+  industryBrandsMarquee: true,
+  insuranceMarquee: true,
+  trustStats: true,
+  whyChooseUs: true,
+  meetTheTeam: true,
+  howItWorks: true,
+  clinicExperience: true,
+  reviewsMarquee: true,
+  clientStories: true,
+  healthResources: true,
+  carePlans: true,
+  faqTeaser: true,
+  proofStories: true,
+  proofCareStats: true,
+  aboutTeamGrid: true,
+  teamProvidersGrid: true,
+};
+
 // Centralized, placeholder-driven section copy. Every routed page pulls its headline and
 // subheadline text from here so a clone only has to edit tokens in one place. Add/remove
 // nested keys freely if a page gains or loses a section.
