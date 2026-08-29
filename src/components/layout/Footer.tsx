@@ -48,7 +48,7 @@ function PolicyDialog() {
       <DialogTrigger asChild>
         <button
           type="button"
-          className="w-fit text-left text-sm text-background/70 underline underline-offset-4 transition-colors hover:text-primary-foreground"
+          className="w-fit min-w-0 break-words text-left text-sm text-background/70 underline underline-offset-4 transition-colors hover:text-primary-foreground"
         >
           {copy.siteShell.policyDetailsLinkLabel}
         </button>
@@ -130,7 +130,7 @@ export function Footer() {
             <span className="max-w-[200px] min-w-0 break-words text-xs leading-relaxed text-background/60">{clinic.hours}</span>
           </div>
 
-          <div className="flex flex-col gap-2.5">
+          <div className="flex min-w-0 flex-col gap-2.5">
             <span className="text-xs font-semibold tracking-wide text-primary uppercase">Booking details</span>
             <p className="min-w-0 break-words text-sm leading-relaxed text-background/70">{copy.siteShell.bookingDetailsText}</p>
             <PolicyDialog />
