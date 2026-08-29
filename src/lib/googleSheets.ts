@@ -1,4 +1,5 @@
 import type { BookingRecord } from "@/types/booking";
+import type { IntakeRecord } from "@/types/intake";
 
 // Optional, best-effort secondary sync to a Google Apps Script web app that appends
 // rows to a Sheet. Never blocks the primary Supabase write — see app/api/booking/route.ts,
@@ -9,8 +10,7 @@ function getScriptUrl(): string | null {
   return url;
 }
 
-async function postToSheets(payload: object): Promise<boolean> {
-  const url = getScriptUrl();
+async function postToSheets(payload: object, url: string | null = getScriptUrl()): Promise<boolean> {
   if (!url) return false;
 
   const controller = new AbortController();
@@ -73,4 +73,24 @@ export async function syncAppointmentToSheets(record: AppointmentSheetRecord): P
     pageSource: record.pageSource || "",
     status: record.status || "New Lead",
   });
+}
+
+// TYPE B (clone-request) sync — deliberately posts to a separate Apps Script
+// web app/sheet from the TYPE A functions above, via GOOGLE_SHEETS_INTAKE_SCRIPT_URL,
+// so prospective-owner intake leads never land in the same sheet as end-customer bookings.
+export async function syncCloneRequestToSheets(record: IntakeRecord): Promise<boolean> {
+  return postToSheets(
+    {
+      type: "clone_request",
+      businessName: record.businessName,
+      contactName: record.contactName,
+      contactEmail: record.contactEmail,
+      contactPhone: record.contactPhone,
+      niche: record.niche,
+      numberOfLocations: record.numberOfLocations,
+      currentBookingSystem: record.currentBookingSystem || "",
+      notes: record.notes || "",
+    },
+    process.env.GOOGLE_SHEETS_INTAKE_SCRIPT_URL || null
+  );
 }

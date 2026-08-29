@@ -73,11 +73,31 @@ CREATE TABLE IF NOT EXISTS chat_interactions (
 CREATE INDEX IF NOT EXISTS idx_chat_interactions_session ON chat_interactions(session_id);
 
 -- =============================================================================
+-- TABLE 4: clone_requests — TYPE B leads: prospective business owners
+-- requesting this template be cloned for their own business. Separate from
+-- the TYPE A tables above, which capture end-customer leads for an
+-- already-cloned business.
+-- =============================================================================
+create table if not exists clone_requests (
+  id uuid primary key default gen_random_uuid(),
+  business_name text not null,
+  contact_name text not null,
+  contact_email text not null,
+  contact_phone text not null,
+  niche text not null,
+  number_of_locations integer not null,
+  current_booking_system text,
+  notes text,
+  created_at timestamptz not null default now()
+);
+
+-- =============================================================================
 -- ROW LEVEL SECURITY
 -- =============================================================================
 ALTER TABLE bookings          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE appointments      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE chat_interactions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE clone_requests    ENABLE ROW LEVEL SECURITY;
 
 -- Public inserts are not allowed directly — all writes go through the API
 -- routes using the service-role key (supabaseAdmin), which bypasses RLS.
