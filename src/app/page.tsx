@@ -263,9 +263,32 @@ export default function Home() {
         </>
       )}
 
-      {/* 6b. Real Care. Real Stories. */}
+      {/* 7. Health & Wellness Resources */}
+      {sectionVisibility.healthResources && healthResources.length > 0 && (
+        <Section className="bg-secondary/30" aria-labelledby="home-health-resources-title">
+          <SectionHeading
+            eyebrow={copy.home.resourcesEyebrow}
+            title={<span id="home-health-resources-title">{copy.home.resourcesTitle}</span>}
+            description={copy.home.resourcesSubtitle}
+          />
+          <div className="grid gap-5 sm:grid-cols-3">
+            {healthResources.map((article) => (
+              <Card key={article.title} className="gap-0 overflow-hidden p-0">
+                <ImagePlaceholder label="Resource image" token={article.imageKey} className="aspect-[16/10] w-full border-0" />
+                <div className="flex min-w-0 flex-col gap-1.5 p-5">
+                  <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{copy.home.resourceCardLabel}</span>
+                  <h3 className="text-lg font-semibold break-words text-foreground">{article.title}</h3>
+                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{article.excerpt}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* 7b. Real Care. Real Stories. */}
       {sectionVisibility.clientStories && clientStories.length > 0 && (
-        <Section aria-labelledby="home-success-stories-title">
+        <Section className="bg-secondary/30" aria-labelledby="home-success-stories-title">
           <Eyebrow>{copy.home.successStoriesTitle}</Eyebrow>
           <h2 id="home-success-stories-title" className="sr-only">
             {copy.home.successStoriesTitle}
@@ -287,29 +310,6 @@ export default function Home() {
             {clinic.name} is a template demonstration business; these demo client stories are illustrative placeholders,
             not real outcomes.
           </p>
-        </Section>
-      )}
-
-      {/* 7. Health & Wellness Resources */}
-      {sectionVisibility.healthResources && healthResources.length > 0 && (
-        <Section className="bg-secondary/30" aria-labelledby="home-health-resources-title">
-          <SectionHeading
-            eyebrow={copy.home.resourcesEyebrow}
-            title={<span id="home-health-resources-title">{copy.home.resourcesTitle}</span>}
-            description={copy.home.resourcesSubtitle}
-          />
-          <div className="grid gap-5 sm:grid-cols-3">
-            {healthResources.map((article) => (
-              <Card key={article.title} className="gap-0 overflow-hidden p-0">
-                <ImagePlaceholder label="Resource image" token={article.imageKey} className="aspect-[16/10] w-full border-0" />
-                <div className="flex min-w-0 flex-col gap-1.5 p-5">
-                  <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{copy.home.resourceCardLabel}</span>
-                  <h3 className="text-lg font-semibold break-words text-foreground">{article.title}</h3>
-                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{article.excerpt}</p>
-                </div>
-              </Card>
-            ))}
-          </div>
         </Section>
       )}
 
