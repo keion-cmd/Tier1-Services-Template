@@ -251,8 +251,6 @@ export const copy = {
   chat: {
     greetingMessage: "[CHAT_GREETING_MESSAGE]",
     noMatchMessage: "[CHAT_NO_MATCH_MESSAGE]",
-    bookingPromptMessage: "[CHAT_BOOKING_PROMPT_MESSAGE]",
-    bookingPromptHeading: "[CHAT_BOOKING_PROMPT_HEADING]",
     humanHandoffMessage: "[CHAT_HUMAN_HANDOFF_MESSAGE]",
     leadCaptureOfferMessage: "[CHAT_LEAD_CAPTURE_OFFER_MESSAGE]",
     leadCaptureAskNameMessage: "[CHAT_LEAD_CAPTURE_ASK_NAME_MESSAGE]",
@@ -264,7 +262,6 @@ export const copy = {
     inputPlaceholder: "[CHAT_INPUT_PLACEHOLDER]",
     chatWithLabel: "[CHAT_WITH_LABEL]",
     askPromptMessage: "[CHAT_ASK_PROMPT_MESSAGE]",
-    requestCallbackLabel: "[CHAT_REQUEST_CALLBACK_LABEL]",
   },
   booking: {
     modalEyebrow: "[BOOKING_MODAL_EYEBROW]",

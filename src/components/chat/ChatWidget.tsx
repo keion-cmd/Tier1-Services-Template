@@ -18,7 +18,8 @@ import { businessConfig, copy } from "@/lib/business-content";
 import { getChatResponse, getInitialQuickReplies, getQuickReplies, type QuickReply } from "@/lib/chatEngine";
 import { ChatButton } from "@/components/chat/ChatButton";
 import { ChatWindow } from "@/components/chat/ChatWindow";
-import { BookingPrompt } from "@/components/chat/BookingPrompt";
+import { BookingModal } from "@/components/booking/BookingModal";
+import { useBookingAction } from "@/hooks/useBookingAction";
 import type { ChatMessage, ChatLeadPayload, QuickAction } from "@/types/chat";
 
 type LeadStep = "idle" | "offered" | "asked_name" | "asked_phone" | "done";
@@ -89,9 +90,9 @@ export function ChatWidget() {
   const [hasNotification, setHasNotification] = useState(true);
   const [leadStep, setLeadStep] = useState<LeadStep>("idle");
   const [leadName, setLeadName] = useState("");
-  const [showBookingPrompt, setShowBookingPrompt] = useState(false);
   const [conversationStarted, setConversationStarted] = useState(false);
   const initialized = useRef(false);
+  const booking = useBookingAction();
 
   const respond = useCallback((content: string, actions?: QuickAction[], delay = 600) => {
     setIsTyping(true);
@@ -113,7 +114,6 @@ export function ChatWidget() {
       if (!prev) {
         initChat();
         setHasNotification(false);
-        setShowBookingPrompt(false);
       }
       return !prev;
     });
@@ -264,7 +264,7 @@ export function ChatWidget() {
           break;
 
         case "book":
-          setShowBookingPrompt(true);
+          booking.trigger();
           setIsOpen(false);
           submitChatLead({ sessionId, ledToBooking: true, status: "converted", messageCount });
           break;
@@ -277,22 +277,12 @@ export function ChatWidget() {
           break;
       }
     },
-    [handleSendMessage, messageCount, respond, sessionId]
+    [handleSendMessage, messageCount, respond, sessionId, booking]
   );
 
   return (
     <div className="fixed right-4 bottom-[calc(var(--mobile-bar-height)+1.5rem)] z-[var(--z-widget)] flex flex-col items-end gap-3 sm:right-6 xl:bottom-6">
-      {showBookingPrompt && (
-        <BookingPrompt
-          onCallbackRequest={() => {
-            setShowBookingPrompt(false);
-            setLeadStep("asked_name");
-            setConversationStarted(true);
-            setMessages((prev) => [...prev, botMsg(copy.chat.leadCaptureAskNameMessage)]);
-          }}
-          onClose={() => setShowBookingPrompt(false)}
-        />
-      )}
+      <BookingModal isOpen={booking.isOpen} onClose={booking.close} />
 
       <ChatWindow
         isOpen={isOpen}
