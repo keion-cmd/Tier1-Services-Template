@@ -119,9 +119,9 @@ function FooterEmailCapture() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-      <p className="text-sm font-semibold text-background/90">{copy.siteShell.emailCaptureHeading}</p>
-      <p className="text-xs leading-relaxed text-background/60">{copy.siteShell.emailCaptureBody}</p>
+    <form onSubmit={handleSubmit} className="mt-1 flex min-w-0 flex-col gap-2">
+      <span className="text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.emailCaptureHeading}</span>
+      <p className="min-w-0 break-words text-xs leading-relaxed text-background/60">{copy.siteShell.emailCaptureBody}</p>
       <div className="flex min-w-0 gap-2">
         <Label htmlFor={inputId} className="sr-only">
           Email address
@@ -133,9 +133,9 @@ function FooterEmailCapture() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={copy.siteShell.emailCapturePlaceholder}
-          className="min-w-0 border-background/25 bg-background/10 text-background placeholder:text-background/50"
+          className="min-w-0 flex-1 border-background/25 bg-background/10 text-background placeholder:text-background/50"
         />
-        <Button type="submit" size="sm" variant="secondary" disabled={status === "submitting"} className="shrink-0">
+        <Button type="submit" size="sm" variant="secondary" disabled={status === "submitting"} className="w-fit shrink-0">
           {copy.siteShell.emailCaptureSubmitButton}
         </Button>
       </div>
@@ -200,6 +200,7 @@ export function Footer() {
               <Mail size={15} /> {clinic.email}
             </a>
             <span className="max-w-[200px] min-w-0 break-words text-xs leading-relaxed text-background/60">{clinic.hours}</span>
+            <FooterEmailCapture />
           </div>
 
           <div className="flex min-w-0 flex-col gap-2.5">
@@ -226,10 +227,6 @@ export function Footer() {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="mt-10 max-w-sm min-w-0">
-          <FooterEmailCapture />
         </div>
 
         <Separator className="my-10 bg-background/15" />

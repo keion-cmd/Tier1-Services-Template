@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertTriangle, ArrowUpRight, Clock3, MapPin, ShieldCheck } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Clock3, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
@@ -396,13 +396,54 @@ export default function Home() {
           className="mb-8"
         />
         <div className="grid gap-8 lg:grid-cols-2 lg:items-stretch">
-          <div className="min-h-[280px] w-full overflow-hidden rounded-xl border border-border shadow-sm lg:min-h-0">
-            <ImagePlaceholder
-              label="Lead form image"
-              token="[HOME_LEAD_FORM_IMAGE]"
-              className="h-full w-full border-0"
-            />
-          </div>
+          <Card className="gap-0 overflow-hidden p-0">
+            <div className="flex min-w-0 flex-col gap-5 p-6">
+              <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{clinic.name}</span>
+              <div className="flex min-w-0 flex-col gap-4">
+                <div className="flex min-w-0 items-start gap-3">
+                  <MapPin size={20} className="mt-0.5 shrink-0 text-primary" />
+                  <div className="min-w-0">
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Address</span>
+                    <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">
+                      <a href={clinic.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary">
+                        {clinic.address}
+                        <br />
+                        {clinic.city}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex min-w-0 items-start gap-3">
+                  <Phone size={20} className="mt-0.5 shrink-0 text-primary" />
+                  <div className="min-w-0">
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Contact</span>
+                    <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">
+                      <a href={`tel:${clinic.phoneDigits}`} className="hover:text-primary">
+                        {clinic.phone}
+                      </a>
+                      <br />
+                      <a href={`mailto:${clinic.email}`} className="hover:text-primary">
+                        {clinic.email}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex min-w-0 items-start gap-3">
+                  <Clock3 size={20} className="mt-0.5 shrink-0 text-primary" />
+                  <div className="min-w-0">
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Hours</span>
+                    <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">
+                      {clinic.businessHours.map((entry) => (
+                        <span key={entry.days} className="block">
+                          {entry.days}: {entry.hours}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
           <LeadGenForm className="max-w-none" />
         </div>
       </Section>
