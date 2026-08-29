@@ -1,15 +1,16 @@
 # Clone Instructions
 
-This repository is a cloneable Tier 1 service-business website template — niche-agnostic by design, so
-it works equally well for a dental practice, med-spa, physical therapy clinic, law office, home-services
-business, salon, or veterinary clinic. Every client-specific string (name, contact info, staff bios,
-service copy, stats, FAQs, etc.) has been replaced with a `[BRACKETED_PLACEHOLDER_TOKEN]`. Follow the
-steps below to turn this into a live site for a new client.
+This repository is a cloneable, niche-agnostic service-business website template built on **Next.js 15
+(App Router)** with an optional **Supabase** backend for the booking flow. It works equally well for a
+dental practice, med-spa, physical therapy clinic, law office, home-services business, salon, or
+veterinary clinic. Every client-specific string (name, contact info, staff bios, service copy, stats,
+FAQs, etc.) has been replaced with a `[BRACKETED_PLACEHOLDER_TOKEN]`. Follow the steps below to turn
+this into a live site for a new client.
 
 To adapt the template to a specific niche, set `businessConfig.descriptor` (e.g. `"Dental Clinic"`,
 `"Wellness Spa"`, `"Physical Therapy Practice"`, `"Law Office"`) and fill in the placeholder tokens
 below with copy appropriate to that niche. No component code needs to change — every page reads its
-niche-specific language from `business-content.ts`.
+niche-specific language from `business-content.ts` and the sibling files in `src/data/`.
 
 ## 1. Clone the repo
 
@@ -17,211 +18,242 @@ niche-specific language from `business-content.ts`.
 git clone <this-repo-url> new-client-site
 cd new-client-site
 npm install
+cp .env.example .env.local
 ```
 
 Create a new git remote (or a fresh repo) for the client if you don't want to push back to this template.
 
-## 2. Fill in the two content files
+## 2. Fill in the content files
 
-All client content lives in two files. Nothing else needs to change to get a working, on-brand site.
+All client content lives in `src/lib/business-content.ts` plus a handful of sibling data files in
+`src/data/`. Nothing else needs to change to get a working, on-brand site.
 
-### `client/src/lib/business-content.ts`
+### `src/lib/business-content.ts`
 
-This file exports the `businessConfig` object (aliased as `clinic` for backward compatibility) plus
-every content array rendered across the site (`services`, `trustStats`, `differentiators`,
-`howItWorks`, `healthResources`, `faqs`, `staff`, `providers`, `emergencyInfo`, `aboutValues`) **and**
-the `copy` object — every routed page's section headlines and subheadlines, keyed by page
-(`copy.home`, `copy.about`, `copy.services`, `copy.serviceDetail`, `copy.team`, `copy.proof`,
-`copy.faq`, `copy.location`, `copy.resources`, `copy.articleDetail`, `copy.newClients`,
-`copy.notFound`). Replace every `[PLACEHOLDER]` token — in the data arrays **and** in `copy` — with
-real, client-approved copy, and set `businessConfig.descriptor` to the client's niche (e.g.
-`"Dental Clinic"`, `"Med-Spa"`, `"Physical Therapy Practice"`, `"Law Office"`). Replace **all**
+The primary content file. Exports:
+
+- `businessConfig` (aliased as `clinic`) — name, short name, tagline, descriptor (the niche label),
+  address, city, phone, email, hours, Google review URL, maps URL, `businessHours[]`, `socialLinks[]`.
+- `copy` — every routed page's section headlines/subheadlines, keyed by page: `copy.home`,
+  `copy.about`, `copy.services`, `copy.serviceDetail`, `copy.team`, `copy.proof`, `copy.faq`,
+  `copy.locations`, `copy.location`, `copy.resources`, `copy.articleDetail`, `copy.newClients`,
+  `copy.notFound`, `copy.siteShell`, `copy.chat`, `copy.booking`.
+- Content arrays: `aboutValues`, `services`, `trustStats`, `differentiators`, `howItWorks`,
+  `healthResources`, `marqueeReviews`, `faqs`, `staff`, `emergencyInfo`, `paymentInfo`, `providers`,
+  `articles` (doubles as the blog — see `/resources`), `carePlans`, `newClientSteps`, `whatToBring`,
+  `clinicExperienceFeatures`, `clientStories`.
+
+Replace every `[PLACEHOLDER]` token — in the data arrays **and** in `copy` — with real,
+client-approved copy, and set `businessConfig.descriptor` to the client's niche. Replace **all**
 visible section titles/subtitles this way, not just the business-identity fields (name, phone,
 address) — the hero headline, every section heading and supporting sentence, and every page's final
 CTA heading/subheading all read from `copy`. Do not rename the exported constants, object keys, or
-`slug` values — pages, routes, and the service/team detail pages (`/services/:slug`, `/team/:slug`)
-depend on them.
+`slug` values — routes and the service/team/resources/locations detail pages
+(`/services/[slug]`, `/team/[slug]`, `/resources/[slug]`, `/locations/[slug]`) depend on them.
 
-### `client/src/lib/industryBrands.ts`
+### `src/data/insurance.ts`
 
-The `industryBrands` array feeds the homepage's partner-marks marquee
-(`IndustryBrandMarquee.tsx`). Each entry is `{ name: string }` only — **no logo image file is
-required**; every brand renders as a bordered text/placeholder card sized for easy reading (`h-16`
-desktop / `h-20`+ on larger screens). Replace each `[PARTNER_BRAND_n]` token with the real
-partner/vendor name (or delete the array entries entirely if the client has no partner marks to
-show — the marquee section simply won't render brand cards). Add or remove array items freely; the
-marquee re-flows automatically, no image assets to source or size.
+Feeds both the homepage `InsuranceMarquee` and the `InsuranceCombobox` used in the booking modal.
+Replace each `[INSURANCE_PROVIDER_n_NAME]` token with a real accepted provider/payer name. Add or
+remove entries freely — both the marquee and the combobox re-flow automatically. Leave the
+`"Other / Not Listed"` entry in place; the booking form's "specify your provider" field depends on
+that exact string.
 
-### `client/src/lib/booking.ts`
+### `src/data/megaMenus.ts`
 
-Replace the fallback booking URL with the client's real Calendly (or other scheduler) link. You can
-also set it via the `VITE_BOOKING_URL` environment variable instead of editing the file.
+Not client-edited directly — it auto-generates the Services/Resources/Locations nav flyouts from
+`services`, `articles`, and `locations`, grouped by each item's `category` (or `city`, for
+locations). Editing the `category`/`city` field on entries in the source arrays is enough to reshape
+the nav; you should not need to touch this file.
 
-```ts
-export const BOOKING_URL = import.meta.env.VITE_BOOKING_URL || "https://calendly.com/your-client/30min";
-```
+### `src/data/locations.ts`
+
+One entry per physical location. A single-location clone can delete every entry but the first;
+a multi-location clone adds one object per location. Fields: `slug`, `name`, `address`, `city`,
+`phone`, `phoneDigits`, `email`, `mapsUrl`, `landmark`, `description`, `servicesOffered[]`,
+`businessHours[]`, `imageKey`. `mapsUrl` doubles as the directions link; the embedded map on the
+detail page is generated automatically from `address` + `city`, no manual embed URL needed.
+
+### `src/data/sampleActivity.ts`
+
+Simulated "recent booking" social-proof feed shown by `<ActivityNotification />` (bottom-left toast
+that cycles fake bookings). Every entry is explicitly `isSimulated: true`. Replace the placeholder
+names/locations with real ones only if the client has consented to displaying this kind of social
+proof — otherwise leave the placeholders, or remove `<ActivityNotification />` from
+`src/app/layout.tsx` entirely to disable the feature.
+
+### `src/lib/industryBrands.ts`
+
+The `industryBrands` array feeds the homepage's partner-marks marquee (`IndustryBrandMarquee.tsx`).
+Each entry is `{ name: string }` only — **no logo image file is required**; every brand renders as a
+bordered text/placeholder card. Replace each token with the real partner/vendor name, or empty the
+array if the client has no partner marks to show.
+
+### `src/lib/booking.ts`
+
+`BOOKING_URL` is an optional external scheduler link (e.g. Calendly) used as a fallback in a couple
+of places. It is **not** the primary booking flow — that's the in-page `BookingModal` (Supabase-backed,
+see step 4). Set it via the `NEXT_PUBLIC_BOOKING_URL` environment variable if needed.
 
 ## 3. Search-and-replace token checklist
 
-Search the repo for `[` to find every remaining token, or work through this list. All tokens live in
-`client/src/lib/business-content.ts` unless noted otherwise.
+Search the repo for `[` to find every remaining token. All tokens live in `src/lib/business-content.ts`
+unless noted otherwise.
 
-**Clinic identity & contact**
-`[CLINIC_NAME]` · `[CLINIC_SHORT_NAME]` · `[CLINIC_TAGLINE]` · `[PHONE_NUMBER]` · `[PHONE_DIGITS_ONLY]` ·
-`[EMAIL_ADDRESS]` · `[BUSINESS_ADDRESS]` · `[CITY_STATE_ZIP]` · `[BUSINESS_HOURS_SUMMARY]` ·
-`[HOURS_WEEKDAY]` · `[HOURS_SATURDAY]` · `[HOURS_SUNDAY]` · `[GOOGLE_REVIEW_DESTINATION_URL]` ·
-`[GOOGLE_MAPS_DIRECTIONS_URL]`
+**Business identity & contact** (`businessConfig`)
+`[BUSINESS_NAME]` · `[BUSINESS_SHORT_NAME]` · `[BUSINESS_TAGLINE]` · `[BUSINESS_DESCRIPTOR]` ·
+`[BUSINESS_ADDRESS]` · `[BUSINESS_CITY]` · `[BUSINESS_PHONE]` · `[BUSINESS_PHONE_DIGITS]` ·
+`[BUSINESS_EMAIL]` · `[BUSINESS_HOURS_SUMMARY]` · `[HOURS_ROW_n_DAYS/HOURS]` — n = 1 through 3
 
-**Services** (`services[1-6]`)
-`[SERVICE_n_TITLE]` · `[SERVICE_n_SHORT]` · `[SERVICE_n_DETAIL]` ·
-`[SERVICE_n_BENEFIT_1/2/3]` — for n = 1 through 6
+**Services** (`services[1-9]`) — each: `[SERVICE_n_NAME]` · `[SERVICE_n_SHORT_DESCRIPTION]` ·
+`[SERVICE_n_DESCRIPTION]` · `[SERVICE_n_BENEFIT_1/2/3]` · `[SERVICE_n_PROCESS_STEP_1/2/3_TITLE/DESCRIPTION]` ·
+`[SERVICE_n_DURATION]` · `[SERVICE_n_IMAGE]` (leave `category` — used to group the Services mega menu)
 
-**Trust stats bar** (`trustStats[1-4]`)
-`[STAT_n_VALUE]` · `[STAT_n_LABEL]` — for n = 1 through 4
+**Trust stats bar** (`trustStats[1-5]`) `[TRUST_STAT_n_VALUE]` · `[TRUST_STAT_n_LABEL]`
 
-**Why choose us** (`differentiators[1-6]`)
-`[FEATURE_n_TITLE]` · `[FEATURE_n_COPY]` — for n = 1 through 6
+**Why choose us** (`differentiators[1-6]`) `[DIFFERENTIATOR_n_TITLE]` · `[DIFFERENTIATOR_n_DESCRIPTION]`
 
-**How it works** (`howItWorks[1-4]`)
-`[STEP_n_TITLE]` · `[STEP_n_COPY]` — for n = 1 through 4
+**How it works** (`howItWorks[1-4]`) `[HOW_IT_WORKS_STEP_n_TITLE]` · `[HOW_IT_WORKS_STEP_n_DESCRIPTION]`
 
-**Health resources teaser** (`healthResources[1-3]`)
-`[RESOURCE_n_TITLE]` · `[RESOURCE_n_EXCERPT]` — for n = 1 through 3
+**Health/education resource teasers** (`healthResources[1-3]`) `[RESOURCE_n_TITLE]` ·
+`[RESOURCE_n_EXCERPT]` · `[RESOURCE_n_IMAGE]`
 
-**FAQs** (`faqs[1-6]`)
-`[FAQ_n_QUESTION]` · `[FAQ_n_ANSWER]` — for n = 1 through 6 (leave the `category` field on each entry
-untouched — the FAQ page groups entries by that exact string)
+**Homepage review marquee** (`marqueeReviews[1-5]`) `[REVIEW_n_AUTHOR]` · `[REVIEW_n_SEGMENT]` ·
+`[REVIEW_n_QUOTE]`
 
-**About-page team grid** (`staff[1-3]`)
-`[STAFF_n_NAME]` · `[STAFF_n_TITLE]` · `[STAFF_n_BIO]` — for n = 1 through 3
+**FAQs** (`faqs[1-8]`) `[FAQ_n_QUESTION]` · `[FAQ_n_ANSWER]` (leave `category` untouched — the FAQ
+page groups entries by that exact string)
 
-**Team / provider profile pages** (`providers[1-3]`)
-`[PROVIDER_n_NAME]` · `[PROVIDER_n_SPECIALTY]` · `[PROVIDER_n_BIO]` — for n = 1 through 3
+**About-page team grid** (`staff[1-4]`) `[STAFF_n_NAME]` · `[STAFF_n_TITLE]` · `[STAFF_n_CREDENTIALS]` ·
+`[STAFF_n_BIO]` · `[STAFF_n_PHOTO]`
 
-**Emergency & after-hours referral**
-`[EMERGENCY_HOSPITAL_NAME]` · `[EMERGENCY_PHONE]` · `[EMERGENCY_PHONE_DIGITS]` · `[EMERGENCY_ADDRESS]`
+**Team / provider profile pages** (`providers[1-4]`) `[PROVIDER_n_NAME]` · `[PROVIDER_n_CREDENTIALS]` ·
+`[PROVIDER_n_SPECIALTY]` · `[PROVIDER_n_BIO]` · `[PROVIDER_n_INTEREST_1/2/3]` · `[PROVIDER_n_PHOTO]`
 
-**About-page values grid** (`aboutValues[1-3]`)
-`[ABOUT_VALUE_n_TITLE]` · `[ABOUT_VALUE_n_COPY]` — for n = 1 through 3
+**Emergency & after-hours referral** (`emergencyInfo`) `[EMERGENCY_HEADING]` · `[EMERGENCY_NOTE]` ·
+`[EMERGENCY_REFERRAL_NAME]` · `[EMERGENCY_REFERRAL_PHONE]` · `[EMERGENCY_REFERRAL_PHONE_DIGITS]` ·
+`[EMERGENCY_REFERRAL_ADDRESS]` · `[EMERGENCY_INSTRUCTIONS]`
 
-**Partner/vendor brand marquee** (`industryBrands[1-7]`, in `industryBrands.ts`)
-`[PARTNER_BRAND_n]` — text-only tokens, no logo image files needed (see the
-`industryBrands.ts` section above)
+**Payment info** (`paymentInfo`) `[PAYMENT_INFO_HEADING]` · `[PAYMENT_INFO_NOTE]`
 
-**Section copy** (the `copy` object — every page's headlines/subheadlines)
+**About-page values grid** (`aboutValues[1-4]`) `[ABOUT_VALUE_n_TITLE]` · `[ABOUT_VALUE_n_DESCRIPTION]`
 
-- `copy.home`: `[HERO_HEADLINE]` · `[HERO_SUBHEADLINE]` · `[HERO_STAT_VALUE]` · `[HERO_STAT_CAPTION]` ·
-  `[HERO_BADGE_TEXT]` · `[TRUST_STATS_SECTION_TITLE]` · `[SERVICES_SECTION_TITLE]` ·
-  `[SERVICES_SECTION_SUBTITLE]` · `[WHY_US_TITLE]` · `[WHY_US_SUBTITLE]` · `[TEAM_SECTION_TITLE]` ·
-  `[TEAM_SECTION_SUBTITLE]` · `[HOW_IT_WORKS_TITLE]` · `[HOW_IT_WORKS_SUBTITLE]` ·
-  `[FACILITY_SECTION_TITLE]` · `[SUCCESS_STORIES_SECTION_TITLE]` · `[REVIEWS_SECTION_TITLE]` ·
-  `[REVIEWS_SECTION_SUBTITLE]` · `[RESOURCES_SECTION_TITLE]` · `[RESOURCES_SECTION_SUBTITLE]` ·
-  `[CARE_PLANS_SECTION_TITLE]` · `[FAQ_SECTION_TITLE]` · `[FAQ_SECTION_SUBTITLE]` ·
-  `[LOCATION_SECTION_TITLE]` · `[FINAL_CTA_TITLE]` · `[FINAL_CTA_SUBTITLE]`
-- `copy.about`: `[ABOUT_HERO_TITLE]` · `[ABOUT_HERO_SUBTITLE]` · `[ABOUT_VALUES_TITLE]` ·
-  `[ABOUT_APPROACH_PARAGRAPH_1]` · `[ABOUT_APPROACH_PARAGRAPH_2]` · `[ABOUT_STAFF_TITLE]` ·
-  `[ABOUT_CTA_TITLE]`
-- `copy.services`: `[SERVICES_HERO_TITLE]` · `[SERVICES_HERO_SUBTITLE]` · `[SERVICES_CTA_TITLE]`
-- `copy.serviceDetail`: `[SERVICE_PROCESS_TITLE]`
-- `copy.team`: `[TEAM_HERO_TITLE]` · `[TEAM_HERO_SUBTITLE]` · `[TEAM_GRID_TITLE]` · `[TEAM_CTA_TITLE]`
-- `copy.proof`: `[PROOF_HERO_TITLE]` · `[PROOF_HERO_SUBTITLE]` · `[PROOF_STATS_TITLE]` ·
-  `[PROOF_CTA_TITLE]`
-- `copy.faq`: `[FAQ_HERO_TITLE]` · `[FAQ_HERO_SUBTITLE]` · `[FAQ_CONTACT_TITLE]` · `[FAQ_CTA_TITLE]`
-- `copy.location`: `[LOCATION_HERO_TITLE]` · `[LOCATION_HERO_SUBTITLE]` · `[LOCATION_START_TITLE]` ·
-  `[LOCATION_DIRECTIONS_TITLE]` · `[LOCATION_HOURS_TITLE]` · `[LOCATION_EMERGENCY_TITLE]`
-- `copy.resources`: `[RESOURCES_HERO_TITLE]` · `[RESOURCES_HERO_SUBTITLE]` · `[RESOURCES_GRID_TITLE]` ·
-  `[RESOURCES_CTA_TITLE]`
-- `copy.articleDetail`: `[ARTICLE_RELATED_TITLE]` · `[ARTICLE_CTA_TITLE]`
-- `copy.newClients`: `[NEW_CLIENTS_HERO_TITLE]` · `[NEW_CLIENTS_HERO_SUBTITLE]` ·
-  `[NEW_CLIENTS_STEPS_TITLE]` · `[NEW_CLIENTS_BRING_TITLE]` · `[NEW_CLIENTS_CTA_TITLE]`
-- `copy.notFound`: `[NOT_FOUND_HERO_TITLE]` · `[NOT_FOUND_HERO_SUBTITLE]` · `[NOT_FOUND_CTA_TITLE]`
+**Resources / blog articles** (`articles[1-4]`) `[ARTICLE_n_TITLE]` · `[ARTICLE_n_CATEGORY]` ·
+`[ARTICLE_n_AUTHOR]` · `[ARTICLE_n_DATE]` · `[ARTICLE_n_READING_TIME]` · `[ARTICLE_n_EXCERPT]` ·
+`[ARTICLE_n_BODY_PARAGRAPH_1-5]` · `[RESOURCE_n_IMAGE]`
 
-**Other files**
-- `client/src/lib/booking.ts` → `[EXTERNAL_BOOKING_OR_CALENDLY_URL]`
-- `client/index.html` → `[CLINIC_NAME]` (page `<title>` and meta description)
-- `client/src/index.css` → `[CLINIC_NAME]` (top-of-file comment only, cosmetic)
-- `client/src/pages/Location.tsx` → `[GOOGLE_MAPS_EMBED_URL]` (the map `<iframe>` src — paste the
-  client's "Embed a map" URL from Google Maps) and `[NEARBY_LANDMARK_NAME]` (an optional nearby
-  landmark used in the directions copy)
+**Care plans** (`carePlans[1-3]`) `[CARE_PLAN_n_TITLE]` · `[CARE_PLAN_n_SUBTITLE]` ·
+`[CARE_PLAN_n_BULLET_1-4]`
 
-Button labels (e.g. "Book an Appointment"), nav item labels, and generic educational content
-(`articles`, `carePlans`, `newClientSteps`, `whatToBring`, `clinicExperienceFeatures`) are reusable
-boilerplate and do not need to change unless you want to. Every visible section headline and
-subheadline, by contrast, is a `[PLACEHOLDER]` token in `copy` and must be filled in — see the
-**Section copy** checklist above.
+**New-client onboarding steps** (`newClientSteps[1-5]`) `[NEW_CLIENT_STEP_n_TITLE]` ·
+`[NEW_CLIENT_STEP_n_DESCRIPTION]`
 
-## 4. Replace image placeholders
+**What to bring** (`whatToBring[1-5]`) `[WHAT_TO_BRING_ITEM_n]`
+
+**Facility/experience features** (`clinicExperienceFeatures[1-5]`) `[EXPERIENCE_FEATURE_n_TITLE]` ·
+`[EXPERIENCE_FEATURE_n_DESCRIPTION]` · `[CLINIC_n_IMAGE]`
+
+**Client success stories** (`clientStories[1-3]`) `[CLIENT_STORY_n_NAME]` · `[CLIENT_STORY_n_SEGMENT]` ·
+`[CLIENT_STORY_n_CATEGORY]` · `[CLIENT_STORY_n_TEXT]` · `[CLIENT_n_PHOTO]`
+
+**Insurance providers** (`src/data/insurance.ts`, `insuranceProviders[1-8]`)
+`[INSURANCE_PROVIDER_n_NAME]`
+
+**Locations** (`src/data/locations.ts`, `locations[1-2]` by default) `[LOCATION_n_NAME]` ·
+`[LOCATION_n_ADDRESS]` · `[LOCATION_n_CITY]` · `[LOCATION_n_PHONE]` · `[LOCATION_n_PHONE_DIGITS]` ·
+`[LOCATION_n_EMAIL]` · `[LOCATION_n_LANDMARK]` · `[LOCATION_n_DESCRIPTION]` ·
+`[LOCATION_n_HOURS_ROW_1-3_DAYS/HOURS]` · `[LOCATION_n_IMAGE]`
+
+**Simulated activity feed** (`src/data/sampleActivity.ts`, optional) `[SAMPLE_ACTIVITY_NAME_n]` ·
+`[SAMPLE_ACTIVITY_LOCATION_n]`
+
+**Partner/vendor brand marquee** (`src/lib/industryBrands.ts`) `[PARTNER_BRAND_n]`
+
+**Section copy** (the `copy` object — every page's headlines/subheadlines) — search for `[` inside
+each nested key (`copy.home`, `copy.about`, `copy.services`, `copy.serviceDetail`, `copy.team`,
+`copy.proof`, `copy.faq`, `copy.locations`, `copy.location`, `copy.resources`, `copy.articleDetail`,
+`copy.newClients`, `copy.notFound`, `copy.siteShell`, `copy.chat`, `copy.booking`) — every value is a
+placeholder token that must be filled in.
+
+Button labels (e.g. "Book an Appointment"), nav item labels, and structural copy are reusable
+boilerplate and do not need to change unless you want to.
+
+## 4. Configure Supabase (booking flow)
+
+The booking modal (`src/components/booking/BookingModal.tsx`) POSTs to `/api/booking`, which writes to
+Supabase. The site **runs fine with no Supabase configured** — the booking form still renders, but
+submissions fail gracefully with an error toast instead of persisting anywhere. To make bookings work:
+
+1. Create a Supabase project.
+2. Run `supabase/schema.sql` in the Supabase SQL editor (Dashboard → SQL Editor → New Query). This
+   creates `bookings`, `appointments`, and `chat_interactions`.
+3. Set these in `.env.local` (and in your host's environment variables for production):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+4. (Optional) Set `GOOGLE_SHEETS_SCRIPT_URL` to a Google Apps Script web app URL to also mirror every
+   booking to a Google Sheet as a best-effort secondary sync (never blocks the booking response).
+
+See `.env.example` for the full list of environment variables, all optional except the three Supabase
+keys above (and those are only required if you want bookings to persist).
+
+## 5. Replace image placeholders
 
 Every image slot in this template renders a dashed `ImagePlaceholder` block
-(`client/src/components/ImagePlaceholder.tsx`) instead of a real photo, so no demo client/business
-images ship in the template. Each block shows a label and a bracketed token telling you exactly
-what belongs there.
+(`src/components/ImagePlaceholder.tsx`) instead of a real photo, so no demo client/business images
+ship in the template. Each block shows a label and a bracketed token telling you exactly what belongs
+there.
 
-To swap a slot for a real photo, drop the client's file in `client/public/images/` (create the
-folder) and replace the matching `<ImagePlaceholder ... />` usage with an `<img src="/images/your-file.jpg" ... />`,
+To swap a slot for a real photo, drop the client's file in `public/images/` (create the folder) and
+replace the matching `<ImagePlaceholder ... />` usage with Next's `<Image src="/images/your-file.jpg" ... />`,
 keeping the wrapping `className` (sizing, `rounded-*`, `object-cover`) so the layout doesn't shift.
-Most image slots are wired through `imageKey` tokens on entries in `client/src/lib/business-content.ts`
-(services, providers, staff, articles, etc.) — you can either swap those call sites directly in each
-page/component, or keep the token as a lookup key into your own image map.
+Most image slots are wired through `imageKey` tokens on entries in `business-content.ts` and
+`src/data/locations.ts` — you can either swap those call sites directly in each page/component, or
+keep the token as a lookup key into your own image map.
 
 **Recommended aspect ratios / sizes**
-- Hero images (`[HERO_IMAGE]`, `[ABOUT_IMAGE]`, `[TEAM_IMAGE]`): 4:3, at least 1200×900px
-- Service card/detail images (`[SERVICE_IMAGE]`, `[SERVICE_1_IMAGE]`…`[SERVICE_6_IMAGE]`): 4:3, at least 800×600px
-- Provider / staff photos (`[PROVIDER_1_PHOTO]`…`[PROVIDER_3_PHOTO]`, `[STAFF_1_PHOTO]`…`[STAFF_3_PHOTO]`): square or 4:3, at least 600×600px, headshot-style
-- Resource / article images (`[RESOURCE_IMAGE]`, `[RESOURCE_1_IMAGE]`…`[RESOURCE_5_IMAGE]`): 4:3, at least 800×600px
-- Business interior images (`[CLINIC_IMAGE]`, `[CLINIC_1_IMAGE]`…`[CLINIC_5_IMAGE]`): 4:3, at least 1000×750px
-- Client photos (`[CLIENT_1_PHOTO]`…`[CLIENT_3_PHOTO]`): 4:3, at least 800×600px
-- Business logo (`[CLINIC_LOGO]`): swap the small dashed square in `ClinicMark` inside
-  `client/src/components/SiteShell.tsx` for a square logo mark (SVG or PNG, ~64×64px, transparent background)
+- Hero images: 4:3, at least 1200×900px
+- Service card/detail images: 4:3, at least 800×600px
+- Provider / staff photos: square or 4:3, at least 600×600px, headshot-style
+- Resource / article images: 4:3, at least 800×600px
+- Location images: 4:3, at least 1000×750px
+- Client story photos: 4:3, at least 800×600px
+- Business logo: swap the small dashed square in `ClinicMark` inside
+  `src/components/layout/Header.tsx` for a square logo mark (SVG or PNG, ~64×64px, transparent background)
 
-**Map**
-`client/src/pages/Location.tsx` already renders the embedded map as an iframe pointed at the
-literal placeholder `[GOOGLE_MAPS_EMBED_URL]` (see step 3 above) — paste the client's real "Embed a
-map" URL there. No `[MAP_EMBED]` image placeholder is needed since the iframe itself is the
-placeholder.
+## 6. Update the theme color
 
-## 5. Update the theme color
-
-Brand color is driven by CSS custom properties in `client/src/index.css`. The primary color is an
+Brand color is driven by CSS custom properties in `src/app/globals.css`. The primary color is an
 HSL triplet (hue saturation% lightness%, no commas) set under `:root` and mirrored under `.dark`:
 
 ```css
 :root {
-  --primary: 160 84% 39%;   /* light mode brand color */
-  --ring: 160 70% 40%;
+  --primary: 173 77% 26%;   /* light mode brand color */
 }
 .dark {
-  --primary: 160 65% 48%;   /* dark mode brand color */
-  --ring: 160 65% 48%;
+  --primary: 173 60% 45%;   /* dark mode brand color */
 }
 ```
 
 Convert the client's brand hex color to HSL (e.g. via `https://hslpicker.com`) and replace the three
-numbers on `--primary` (and `--ring`, which should stay close to `--primary`) in both blocks. All
-buttons, links, and accents read from this variable automatically — no other CSS changes are needed.
+numbers on `--primary` in both blocks. All buttons, links, and accents read from this variable
+automatically — no other CSS changes are needed.
 
-## 6. Run, test, and deploy
+## 7. Run, test, and deploy
 
 ```bash
 npm run check     # TypeScript typecheck — should report zero errors
-npm run build     # Production build (Vite client + server bundle)
+npm run build     # Production build
 npm run dev        # Local dev server for manual QA
-npm test           # Run the test suite, if present
+npm run lint       # ESLint — should report zero errors/warnings
 ```
 
 **Deploying to Vercel**
 1. Push the repo to GitHub/GitLab/Bitbucket.
-2. Import the project in Vercel and set the build command to `npm run build` and the output
-   directory to `dist/public` (Vite's client build output).
-3. Add any required environment variables (e.g. `VITE_BOOKING_URL`) in the Vercel project settings.
+2. Import the project in Vercel — it auto-detects Next.js, no build command overrides needed.
+3. Add the environment variables from `.env.example` (Supabase keys, etc.) in the Vercel project
+   settings.
 4. Deploy.
 
-**Deploying to Netlify**
-1. Push the repo to your git provider.
-2. In Netlify, set the build command to `npm run build` and the publish directory to `dist/public`.
-3. Add the same environment variables under Site settings → Environment variables.
-4. Deploy.
-
-After deploying, update `client/public/sitemap.xml`, `client/public/robots.txt`, and the
-`SITE_ORIGIN` constants in `client/src/components/PageMeta.tsx` and
-`client/src/lib/business-content.ts` to the client's real production domain.
+After deploying, update the `SITE_ORIGIN` constant in `src/lib/business-content.ts` to the client's
+real production domain (used in JSON-LD structured data and canonical URLs).
