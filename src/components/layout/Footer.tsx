@@ -73,12 +73,12 @@ function FooterEmailCapture() {
   }
 
   if (status === "success") {
-    return <p className="text-sm text-background/80">{copy.siteShell.emailCaptureSuccessMessage}</p>;
+    return <p className="min-w-0 break-words text-sm text-background/80">{copy.siteShell.emailCaptureSuccessMessage}</p>;
   }
 
   return (
     <form onSubmit={handleSubmit} className="mt-1 flex min-w-0 flex-col gap-2">
-      <span className="text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.emailCaptureHeading}</span>
+      <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.emailCaptureHeading}</span>
       <p className="min-w-0 break-words text-xs leading-relaxed text-background/60">{copy.siteShell.emailCaptureBody}</p>
       <div className="flex min-w-0 gap-2">
         <Label htmlFor={inputId} className="sr-only">
@@ -98,7 +98,7 @@ function FooterEmailCapture() {
         </Button>
       </div>
       {status === "error" && (
-        <p className="text-xs text-destructive-foreground/80">
+        <p className="min-w-0 break-words text-xs text-destructive-foreground/80">
           {isConfigured ? "Something went wrong. Please try again." : "Signup is not yet configured."}
         </p>
       )}
