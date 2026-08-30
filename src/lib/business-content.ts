@@ -350,7 +350,22 @@ function serviceProcess(serviceNumber: number, steps: [string, string][]) {
   }));
 }
 
-export const services = [
+export type Service = {
+  number: string;
+  slug: string;
+  title: string;
+  short: string;
+  detail: string;
+  category: string;
+  benefits: string[];
+  process: { step: string; title: string; description: string }[];
+  duration: string;
+  imageKey: string;
+  /** Optional 2-3 short "good fit if..." phrases. Omit to hide the "Who this is for" section. */
+  bestFor?: string[];
+};
+
+export const services: Service[] = [
   {
     number: "01",
     slug: "service-1",
@@ -366,6 +381,7 @@ export const services = [
     ]),
     duration: "[SERVICE_1_DURATION]",
     imageKey: "[SERVICE_1_IMAGE]",
+    bestFor: ["[SERVICE_1_BEST_FOR_1]", "[SERVICE_1_BEST_FOR_2]"],
   },
   {
     number: "02",
@@ -382,6 +398,7 @@ export const services = [
     ]),
     duration: "[SERVICE_2_DURATION]",
     imageKey: "[SERVICE_2_IMAGE]",
+    bestFor: ["[SERVICE_2_BEST_FOR_1]", "[SERVICE_2_BEST_FOR_2]"],
   },
   {
     number: "03",
@@ -398,6 +415,7 @@ export const services = [
     ]),
     duration: "[SERVICE_3_DURATION]",
     imageKey: "[SERVICE_3_IMAGE]",
+    bestFor: ["[SERVICE_3_BEST_FOR_1]", "[SERVICE_3_BEST_FOR_2]"],
   },
   {
     number: "04",
@@ -414,6 +432,7 @@ export const services = [
     ]),
     duration: "[SERVICE_4_DURATION]",
     imageKey: "[SERVICE_4_IMAGE]",
+    bestFor: ["[SERVICE_4_BEST_FOR_1]", "[SERVICE_4_BEST_FOR_2]"],
   },
   {
     number: "05",
@@ -430,6 +449,7 @@ export const services = [
     ]),
     duration: "[SERVICE_5_DURATION]",
     imageKey: "[SERVICE_5_IMAGE]",
+    bestFor: ["[SERVICE_5_BEST_FOR_1]", "[SERVICE_5_BEST_FOR_2]"],
   },
   {
     number: "06",
@@ -446,6 +466,7 @@ export const services = [
     ]),
     duration: "[SERVICE_6_DURATION]",
     imageKey: "[SERVICE_6_IMAGE]",
+    bestFor: ["[SERVICE_6_BEST_FOR_1]", "[SERVICE_6_BEST_FOR_2]"],
   },
   {
     number: "07",
@@ -462,6 +483,7 @@ export const services = [
     ]),
     duration: "[SERVICE_7_DURATION]",
     imageKey: "[SERVICE_7_IMAGE]",
+    bestFor: ["[SERVICE_7_BEST_FOR_1]", "[SERVICE_7_BEST_FOR_2]"],
   },
   {
     number: "08",
@@ -478,6 +500,7 @@ export const services = [
     ]),
     duration: "[SERVICE_8_DURATION]",
     imageKey: "[SERVICE_8_IMAGE]",
+    bestFor: ["[SERVICE_8_BEST_FOR_1]", "[SERVICE_8_BEST_FOR_2]"],
   },
   {
     number: "09",
@@ -494,10 +517,9 @@ export const services = [
     ]),
     duration: "[SERVICE_9_DURATION]",
     imageKey: "[SERVICE_9_IMAGE]",
+    // Intentionally no bestFor — demonstrates the "who this is for" section stays hidden when absent.
   },
-] as const;
-
-export type Service = (typeof services)[number];
+];
 
 export function getServiceBySlug(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);
@@ -560,11 +582,20 @@ export const marqueeReviews = [
   { author: "[REVIEW_5_AUTHOR]", segment: "[REVIEW_5_SEGMENT]", quote: "[REVIEW_5_QUOTE]", rating: 5, service: "Physical Therapy" },
 ] as { author: string; segment: string; quote: string; rating: number; service?: string }[];
 
-export const faqs = [
+export type Faq = {
+  question: string;
+  answer: string;
+  category: string;
+  /** Optional link to a Service.slug — powers the per-service FAQ section on /services/[slug]. */
+  serviceSlug?: string;
+};
+
+export const faqs: Faq[] = [
   {
     question: "[FAQ_1_QUESTION]",
     answer: "[FAQ_1_ANSWER]",
     category: "Requests & visits",
+    serviceSlug: "service-1",
   },
   {
     question: "[FAQ_2_QUESTION]",
@@ -600,8 +631,9 @@ export const faqs = [
     question: "[FAQ_8_QUESTION]",
     answer: "[FAQ_8_ANSWER]",
     category: "First visit",
+    serviceSlug: "service-1",
   },
-] as const;
+];
 
 export const staff = [
   {
