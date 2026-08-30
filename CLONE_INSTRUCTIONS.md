@@ -37,7 +37,10 @@ The primary content file. Exports:
 - `copy` — every routed page's section headlines/subheadlines, keyed by page: `copy.home`,
   `copy.about`, `copy.services`, `copy.serviceDetail`, `copy.team`, `copy.proof`, `copy.faq`,
   `copy.locations`, `copy.location`, `copy.resources`, `copy.articleDetail`, `copy.newClients`,
-  `copy.notFound`, `copy.siteShell`, `copy.chat`, `copy.booking`.
+  `copy.notFound`, `copy.privacyPolicy`, `copy.termsAndConditions`, `copy.siteShell`, `copy.chat`,
+  `copy.booking`. `copy.privacyPolicy` and `copy.termsAndConditions` back the standalone
+  `/privacy-policy` and `/terms-and-conditions` pages, linked from the footer's legal link row
+  (the footer no longer opens a policy dialog).
 - Content arrays: `aboutValues`, `services`, `trustStats`, `differentiators`, `howItWorks`,
   `healthResources`, `marqueeReviews`, `faqs`, `staff`, `emergencyInfo`, `paymentInfo`, `providers`,
   `articles` (doubles as the blog — see `/resources`), `carePlans`, `newClientSteps`, `whatToBring`,
@@ -180,8 +183,8 @@ page groups entries by that exact string)
 **Section copy** (the `copy` object — every page's headlines/subheadlines) — search for `[` inside
 each nested key (`copy.home`, `copy.about`, `copy.services`, `copy.serviceDetail`, `copy.team`,
 `copy.proof`, `copy.faq`, `copy.locations`, `copy.location`, `copy.resources`, `copy.articleDetail`,
-`copy.newClients`, `copy.notFound`, `copy.siteShell`, `copy.chat`, `copy.booking`) — every value is a
-placeholder token that must be filled in.
+`copy.newClients`, `copy.notFound`, `copy.privacyPolicy`, `copy.termsAndConditions`, `copy.siteShell`,
+`copy.chat`, `copy.booking`) — every value is a placeholder token that must be filled in.
 
 Button labels (e.g. "Book an Appointment"), nav item labels, and structural copy are reusable
 boilerplate and do not need to change unless you want to.

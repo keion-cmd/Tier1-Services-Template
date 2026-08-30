@@ -1,8 +1,8 @@
 /**
- * Site footer — nav links, contact/hours, booking-details dialog, cancellation-policy
- * dialog, social links. Ported from the old SiteShell.tsx's footer half. The
- * PolicyDialog uses shadcn Dialog (Radix, client-only), so this file needs "use client";
- * everything else here is static markup.
+ * Site footer — nav links, contact/hours, booking-details text, social links,
+ * and legal links to the privacy policy and terms pages. Ported from the old
+ * SiteShell.tsx's footer half. The email-capture form is client-only, so this
+ * file needs "use client"; everything else here is static markup.
  */
 "use client";
 
@@ -10,14 +10,6 @@ import { useId, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -44,40 +36,6 @@ function InstagramIcon(props: { className?: string }) {
       <circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" strokeWidth="1.8" />
       <circle cx="17.6" cy="6.6" r="1.1" fill="currentColor" />
     </svg>
-  );
-}
-
-function PolicyDialog() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <button
-          type="button"
-          className="w-fit min-w-0 break-words text-left text-sm text-background/70 underline underline-offset-4 transition-colors hover:text-primary-foreground"
-        >
-          {copy.siteShell.policyDetailsLinkLabel}
-        </button>
-      </DialogTrigger>
-      <DialogContent className="max-h-[min(620px,calc(100dvh-2rem))] overflow-y-auto rounded-2xl">
-        <DialogHeader>
-          <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary uppercase">
-            {copy.siteShell.policyDetailsBadge}
-          </span>
-          <DialogTitle className="text-2xl font-semibold tracking-tight">{copy.siteShell.policyDetailsTitle}</DialogTitle>
-          <DialogDescription>{copy.siteShell.policyDetailsDescription}</DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 pt-1">
-          <section className="rounded-xl bg-muted p-4">
-            <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.bookingChangesHeading}</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">{copy.siteShell.bookingChangesBody}</p>
-          </section>
-          <section className="rounded-xl bg-muted p-4">
-            <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.contactingClinicHeading}</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">{copy.siteShell.contactingClinicBody}</p>
-          </section>
-        </div>
-      </DialogContent>
-    </Dialog>
   );
 }
 
@@ -206,7 +164,6 @@ export function Footer() {
           <div className="flex min-w-0 flex-col gap-2.5">
             <span className="text-xs font-semibold tracking-wide text-primary uppercase">Booking details</span>
             <p className="min-w-0 break-words text-sm leading-relaxed text-background/70">{copy.siteShell.bookingDetailsText}</p>
-            <PolicyDialog />
             <div className="mt-2 flex items-center gap-3">
               {clinic.socialLinks.map((social) => (
                 <a
@@ -234,6 +191,16 @@ export function Footer() {
         <div className="flex min-w-0 flex-col gap-2 text-xs text-background/55 sm:flex-row sm:items-center sm:justify-between">
           <span className="min-w-0 break-words">{clinic.name} is a customizable service-business template.</span>
           <span className="min-w-0 break-words">© 2026 {clinic.name} {clinic.descriptor}</span>
+        </div>
+
+        <div className="mt-3 flex min-w-0 flex-wrap items-center gap-2 text-xs text-background/55">
+          <Link href="/privacy-policy" className="underline underline-offset-4 hover:text-background/80">
+            Privacy Policy
+          </Link>
+          <span aria-hidden="true">&middot;</span>
+          <Link href="/terms-and-conditions" className="underline underline-offset-4 hover:text-background/80">
+            Terms and Conditions
+          </Link>
         </div>
 
         <div className="mt-4 text-xs text-background/40">
