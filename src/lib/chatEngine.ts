@@ -235,7 +235,13 @@ export function getChatResponse(userMessage: string): ChatResponse {
     };
   }
 
-  if (includesAny(normalized, EMERGENCY_KEYWORDS)) {
+  // Content-completeness gate, not a sectionVisibility toggle: skips this specific answer
+  // (falling through to later handlers) only while emergencyInfo still holds unfilled clone
+  // placeholder tokens, so a visitor never sees literal "[EMERGENCY_NOTE]"-style bracket text.
+  if (
+    includesAny(normalized, EMERGENCY_KEYWORDS) &&
+    ![emergencyInfo.note, emergencyInfo.referralLocationName, emergencyInfo.referralLocationPhone].some((v) => /^\[.*\]$/.test(v))
+  ) {
     return {
       text: `${emergencyInfo.note} For urgent help, contact ${emergencyInfo.referralLocationName} at ${emergencyInfo.referralLocationPhone}.`,
       topic: "contact",
@@ -260,7 +266,10 @@ export function getChatResponse(userMessage: string): ChatResponse {
     };
   }
 
-  if (includesAny(normalized, PAYMENT_KEYWORDS)) {
+  // Content-completeness gate, not a sectionVisibility toggle: skips this specific answer
+  // (falling through to later handlers) only while paymentInfo.insuranceNote still holds an
+  // unfilled clone placeholder token, so a visitor never sees literal "[PAYMENT_INFO_NOTE]".
+  if (includesAny(normalized, PAYMENT_KEYWORDS) && !/^\[.*\]$/.test(paymentInfo.insuranceNote)) {
     // TODO (Phase 6): once data/insurance.ts (canonical insurance provider list) exists,
     // answer with the actual accepted-plans list here instead of the generic note below.
     return {

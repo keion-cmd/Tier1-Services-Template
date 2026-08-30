@@ -349,13 +349,19 @@ export default function Home() {
                   <p className="text-sm leading-relaxed break-words text-muted-foreground">{clinic.hours}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <AlertTriangle size={20} className="mt-0.5 shrink-0 text-primary" />
-                <div className="min-w-0">
-                  <span className="text-xs font-semibold tracking-wide text-primary uppercase">Emergency</span>
-                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{emergencyInfo.note}</p>
+              {/* Content-completeness gate, not a sectionVisibility toggle: hides this
+                  subsection only while emergencyInfo.note is still an unfilled clone
+                  placeholder token (e.g. "[EMERGENCY_NOTE]"), so real visitors never see
+                  literal bracket text on this emergency-procedures subsection. */}
+              {!/^\[.*\]$/.test(emergencyInfo.note) && (
+                <div className="flex items-start gap-3">
+                  <AlertTriangle size={20} className="mt-0.5 shrink-0 text-primary" />
+                  <div className="min-w-0">
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Emergency</span>
+                    <p className="text-sm leading-relaxed break-words text-muted-foreground">{emergencyInfo.note}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <Link
               href="/locations"
