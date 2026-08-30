@@ -51,10 +51,12 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
           <>
             {provider.name}
             <br />
-            <span className="text-primary">{provider.credentials}</span>
+            <Badge variant="outline" className="mt-1 rounded-full px-4 py-1.5 text-base font-semibold">
+              {provider.credentials}
+            </Badge>
           </>
         }
-        description={provider.bio}
+        description={provider.fullBio ?? provider.bio}
         cta={<BookingButton label="Schedule With Our Team" />}
         backLink={{ href: "/team", label: "Our Team" }}
         image={{ label: "Provider photo", token: provider.imageKey }}

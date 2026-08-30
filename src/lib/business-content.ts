@@ -159,6 +159,7 @@ export const copy = {
       successMessage: "[HOME_LEAD_FORM_SUCCESS_MESSAGE]",
       privacyNote: "[HOME_LEAD_FORM_PRIVACY_NOTE]",
     },
+    insuranceCtaPrompt: "[HOME_INSURANCE_CTA_PROMPT]",
   },
   about: {
     heroEyebrow: "[ABOUT_HERO_EYEBROW]",
@@ -172,6 +173,14 @@ export const copy = {
     approachParagraph2: "[ABOUT_APPROACH_PARAGRAPH_2]",
     staffEyebrow: "[ABOUT_STAFF_EYEBROW]",
     staffTitle: "[ABOUT_STAFF_TITLE]",
+    exploreEyebrow: "[ABOUT_EXPLORE_EYEBROW]",
+    exploreTitle: "[ABOUT_EXPLORE_TITLE]",
+    exploreTeamLabel: "[ABOUT_EXPLORE_TEAM_LABEL]",
+    exploreTeamDescription: "[ABOUT_EXPLORE_TEAM_DESCRIPTION]",
+    exploreServicesLabel: "[ABOUT_EXPLORE_SERVICES_LABEL]",
+    exploreServicesDescription: "[ABOUT_EXPLORE_SERVICES_DESCRIPTION]",
+    exploreResourcesLabel: "[ABOUT_EXPLORE_RESOURCES_LABEL]",
+    exploreResourcesDescription: "[ABOUT_EXPLORE_RESOURCES_DESCRIPTION]",
     ctaTitle: "[ABOUT_CTA_TITLE]",
   },
   services: {
@@ -694,6 +703,7 @@ export const providers = [
     credentials: "[PROVIDER_1_CREDENTIALS]",
     specialty: "[PROVIDER_1_SPECIALTY]",
     bio: "[PROVIDER_1_BIO]",
+    fullBio: "[PROVIDER_1_FULL_BIO]",
     yearsExperience: 12,
     areasOfInterest: ["[PROVIDER_1_INTEREST_1]", "[PROVIDER_1_INTEREST_2]", "[PROVIDER_1_INTEREST_3]"],
     imageKey: "[PROVIDER_1_PHOTO]",
@@ -705,6 +715,7 @@ export const providers = [
     credentials: "[PROVIDER_2_CREDENTIALS]",
     specialty: "[PROVIDER_2_SPECIALTY]",
     bio: "[PROVIDER_2_BIO]",
+    fullBio: "[PROVIDER_2_FULL_BIO]",
     yearsExperience: 10,
     areasOfInterest: ["[PROVIDER_2_INTEREST_1]", "[PROVIDER_2_INTEREST_2]", "[PROVIDER_2_INTEREST_3]"],
     imageKey: "[PROVIDER_2_PHOTO]",
@@ -732,7 +743,7 @@ export const providers = [
     imageKey: "[PROVIDER_4_PHOTO]",
     placeholder: true,
   },
-] as { slug: string; name: string; credentials: string; specialty: string; bio: string; yearsExperience: number; areasOfInterest: string[]; imageKey: string; placeholder: boolean }[];
+] as { slug: string; name: string; credentials: string; specialty: string; bio: string; fullBio?: string; yearsExperience: number; areasOfInterest: string[]; imageKey: string; placeholder: boolean }[];
 
 export type Provider = (typeof providers)[number];
 
