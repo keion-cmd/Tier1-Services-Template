@@ -164,7 +164,10 @@ Formal type: `IndustryBrand` interface at [industryBrands.ts:1-4](src/lib/indust
 
 ## 13. `marqueeReviews` — [business-content.ts:523-529](src/lib/business-content.ts#L523)
 
-Shape: `{ author, segment, quote, rating }[]`, implicit.
+Shape: `{ author, segment, quote, rating, service? }[]`, implicit. `service` is optional (added for
+service-tagged reviews) — `ReviewsMarquee.tsx` renders it appended to the byline (`· {segment} ·
+{service}`) when present, and falls back to the original `· {segment}`-only line when absent, so
+existing clone data without this field renders unchanged.
 
 **Gating: boolean+length.** `sectionVisibility.reviewsMarquee && marqueeReviews.length > 0` (homepage — consumed by `ReviewsMarquee.tsx`). Not used on `/proof`, which shows a separate Google-reviews link/widget driven by `businessConfig.googleReviewUrl`, not this array.
 
@@ -190,19 +193,32 @@ Shape: `{ label, note }[]`, implicit.
 
 Shape: `{ value, label }[]`, implicit.
 
-**Gating: boolean+length.** `sectionVisibility.trustStats && trustStats.length > 0` (homepage — [page.tsx:84](src/app/page.tsx#L84)). Also imported into `chatEngine.ts` for use in chat responses (unconditional there, no gating in a chat-response context).
+**Gating: boolean+length.** `sectionVisibility.trustStats && trustStats.length > 0` (homepage — [page.tsx:118](src/app/page.tsx#L118)). Also imported into `chatEngine.ts` for use in chat responses (unconditional there, no gating in a chat-response context).
+
+## 17b. `trustBadges` — [business-content.ts](src/lib/business-content.ts)
+
+Shape: `{ icon, label }[]`, implicit. New, small credential-word strip (`"Licensed"`, `"Insured"`,
+`"Certified"`, `"24/7 Support"`) rendered by `TrustBadgeRow` in `PageBlocks.tsx`, directly under
+the hero and above the numeric `trustStats` bar — distinct data from `trustStats`. `icon` is a
+lucide-react icon name looked up against the same `iconMap` used by `StepList`/`FeatureCard`.
+
+**Gating: boolean+length.** `sectionVisibility.trustBadges && trustBadges.length > 0` (homepage — [page.tsx:106](src/app/page.tsx#L106)).
 
 ## 18. `differentiators` — [business-content.ts:489-496](src/lib/business-content.ts#L489)
 
-Shape: `{ title, copy }[]`, implicit.
+Shape: `{ title, copy, icon? }[]`, implicit. Trimmed to 4 entries in this template's own demo data
+(was 6). `icon` is optional — a lucide-react icon name rendered above the title by `FeatureCard`;
+omit it and the card renders with no icon, unchanged from prior behavior.
 
-**Gating: boolean+length.** `sectionVisibility.whyChooseUs && differentiators.length > 0` ([page.tsx:109](src/app/page.tsx#L109)).
+**Gating: boolean+length.** `sectionVisibility.whyChooseUs && differentiators.length > 0` ([page.tsx:159](src/app/page.tsx#L159)).
 
 ## 19. `howItWorks` — [business-content.ts:498-503](src/lib/business-content.ts#L498)
 
-Shape: `{ step, title, copy }[]`, implicit.
+Shape: `{ step, title, copy, icon? }[]`, implicit. `icon` is optional — a lucide-react icon name
+rendered by `StepList` in place of the numeral when present; omit it and the numeral (`step`)
+renders as before.
 
-**Gating: boolean+length.** `sectionVisibility.howItWorks && howItWorks.length > 0` ([page.tsx:192](src/app/page.tsx#L192)). Also imported into `chatEngine.ts`, unconditional there.
+**Gating: boolean+length.** `sectionVisibility.howItWorks && howItWorks.length > 0` ([page.tsx:130](src/app/page.tsx#L130)). Also imported into `chatEngine.ts`, unconditional there. Repositioned on the homepage to render between the Trust Stats bar and Services (previously rendered after Team/before Clinic Experience).
 
 ## 20. `healthResources` — [business-content.ts:505-521](src/lib/business-content.ts#L505)
 

@@ -10,7 +10,7 @@ import { LogoMarquee } from "@/components/LogoMarquee";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { JsonLd } from "@/components/JsonLd";
-import { Section, SectionHeading, Eyebrow, FeatureCard, StepList, StatBlock, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, Eyebrow, FeatureCard, StepList, StatBlock, TrustBadgeRow, PageOutro } from "@/components/blocks/PageBlocks";
 import {
   buildLocalBusinessSchema,
   carePlans,
@@ -29,6 +29,7 @@ import {
   LOCATIONS_ADJACENT_MARQUEE_ID,
   marqueeReviews,
   sectionVisibility,
+  trustBadges,
   trustStats,
 } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
@@ -102,6 +103,18 @@ export default function Home() {
           />
         ))}
 
+      {/* 1c. Trust Badge Row */}
+      {sectionVisibility.trustBadges && trustBadges.length > 0 && (
+        <ScrollReveal>
+          <Section className="py-8 md:py-10" aria-labelledby="home-trust-badges-title">
+            <span id="home-trust-badges-title" className="sr-only">
+              {copy.home.trustBadgesTitle}
+            </span>
+            <TrustBadgeRow badges={trustBadges} />
+          </Section>
+        </ScrollReveal>
+      )}
+
       {/* 2. Trust Stats Bar */}
       {sectionVisibility.trustStats && trustStats.length > 0 && (
         <ScrollReveal>
@@ -112,6 +125,18 @@ export default function Home() {
             <StatBlock stats={trustStats} />
           </Section>
         </ScrollReveal>
+      )}
+
+      {/* 2b. How It Works */}
+      {sectionVisibility.howItWorks && howItWorks.length > 0 && (
+        <Section className="bg-secondary/30" aria-labelledby="home-how-it-works-title">
+          <SectionHeading
+            eyebrow={copy.home.howItWorksEyebrow}
+            title={<span id="home-how-it-works-title">{copy.home.howItWorksTitle}</span>}
+            description={copy.home.howItWorksSubtitle}
+          />
+          <StepList steps={howItWorks} />
+        </Section>
       )}
 
       {/* 3. Services Showcase */}
@@ -142,7 +167,7 @@ export default function Home() {
             />
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {differentiators.map((item) => (
-                <FeatureCard key={item.title} title={item.title} description={item.copy} />
+                <FeatureCard key={item.title} title={item.title} description={item.copy} icon={item.icon} />
               ))}
             </div>
           </Section>
@@ -216,18 +241,6 @@ export default function Home() {
           </div>
         </Section>
         </ScrollReveal>
-      )}
-
-      {/* 5. How It Works */}
-      {sectionVisibility.howItWorks && howItWorks.length > 0 && (
-        <Section className="bg-secondary/30" aria-labelledby="home-how-it-works-title">
-          <SectionHeading
-            eyebrow={copy.home.howItWorksEyebrow}
-            title={<span id="home-how-it-works-title">{copy.home.howItWorksTitle}</span>}
-            description={copy.home.howItWorksSubtitle}
-          />
-          <StepList steps={howItWorks} />
-        </Section>
       )}
 
       {/* 5b. Designed Around Your Comfort */}

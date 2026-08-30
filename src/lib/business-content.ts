@@ -90,6 +90,7 @@ export const logoMarquees: LogoMarqueeGroup[] = [
 // hide that section without deleting code or data.
 export const sectionVisibility = {
   trustStats: true,
+  trustBadges: true,
   whyChooseUs: true,
   meetTheTeam: true,
   howItWorks: true,
@@ -119,6 +120,7 @@ export const copy = {
     heroStatCaption: "[HOME_HERO_STAT_CAPTION]",
     heroBadgeText: "[HOME_HERO_BADGE_TEXT]",
     trustStatsTitle: "[HOME_TRUST_STATS_TITLE]",
+    trustBadgesTitle: "[HOME_TRUST_BADGES_TITLE]",
     servicesEyebrow: "[HOME_SERVICES_EYEBROW]",
     servicesTitle: "[HOME_SERVICES_TITLE]",
     servicesSubtitle: "[HOME_SERVICES_SUBTITLE]",
@@ -274,6 +276,8 @@ export const copy = {
     stepsTitle: "[NEW_CLIENTS_STEPS_TITLE]",
     bringEyebrow: "[NEW_CLIENTS_BRING_EYEBROW]",
     bringTitle: "[NEW_CLIENTS_BRING_TITLE]",
+    faqPrompt: "[NEW_CLIENTS_FAQ_PROMPT]",
+    servicesPrompt: "[NEW_CLIENTS_SERVICES_PROMPT]",
     ctaTitle: "[NEW_CLIENTS_CTA_TITLE]",
   },
   notFound: {
@@ -508,20 +512,27 @@ export const trustStats = [
 ] as { value: string; label: string }[];
 
 export const differentiators = [
-  { title: "[DIFFERENTIATOR_1_TITLE]", copy: "[DIFFERENTIATOR_1_DESCRIPTION]" },
-  { title: "[DIFFERENTIATOR_2_TITLE]", copy: "[DIFFERENTIATOR_2_DESCRIPTION]" },
-  { title: "[DIFFERENTIATOR_3_TITLE]", copy: "[DIFFERENTIATOR_3_DESCRIPTION]" },
-  { title: "[DIFFERENTIATOR_4_TITLE]", copy: "[DIFFERENTIATOR_4_DESCRIPTION]" },
-  { title: "[DIFFERENTIATOR_5_TITLE]", copy: "[DIFFERENTIATOR_5_DESCRIPTION]" },
-  { title: "[DIFFERENTIATOR_6_TITLE]", copy: "[DIFFERENTIATOR_6_DESCRIPTION]" },
-] as { title: string; copy: string }[];
+  { title: "[DIFFERENTIATOR_1_TITLE]", copy: "[DIFFERENTIATOR_1_DESCRIPTION]", icon: "ShieldCheck" },
+  { title: "[DIFFERENTIATOR_2_TITLE]", copy: "[DIFFERENTIATOR_2_DESCRIPTION]", icon: "Clock3" },
+  { title: "[DIFFERENTIATOR_3_TITLE]", copy: "[DIFFERENTIATOR_3_DESCRIPTION]", icon: "Award" },
+  { title: "[DIFFERENTIATOR_4_TITLE]", copy: "[DIFFERENTIATOR_4_DESCRIPTION]", icon: "Heart" },
+] as { title: string; copy: string; icon?: string }[];
 
 export const howItWorks = [
-  { step: "01", title: "[HOW_IT_WORKS_STEP_1_TITLE]", copy: "[HOW_IT_WORKS_STEP_1_DESCRIPTION]" },
-  { step: "02", title: "[HOW_IT_WORKS_STEP_2_TITLE]", copy: "[HOW_IT_WORKS_STEP_2_DESCRIPTION]" },
-  { step: "03", title: "[HOW_IT_WORKS_STEP_3_TITLE]", copy: "[HOW_IT_WORKS_STEP_3_DESCRIPTION]" },
-  { step: "04", title: "[HOW_IT_WORKS_STEP_4_TITLE]", copy: "[HOW_IT_WORKS_STEP_4_DESCRIPTION]" },
-] as { step: string; title: string; copy: string }[];
+  { step: "01", title: "[HOW_IT_WORKS_STEP_1_TITLE]", copy: "[HOW_IT_WORKS_STEP_1_DESCRIPTION]", icon: "PhoneCall" },
+  { step: "02", title: "[HOW_IT_WORKS_STEP_2_TITLE]", copy: "[HOW_IT_WORKS_STEP_2_DESCRIPTION]", icon: "CalendarCheck" },
+  { step: "03", title: "[HOW_IT_WORKS_STEP_3_TITLE]", copy: "[HOW_IT_WORKS_STEP_3_DESCRIPTION]", icon: "Stethoscope" },
+  { step: "04", title: "[HOW_IT_WORKS_STEP_4_TITLE]", copy: "[HOW_IT_WORKS_STEP_4_DESCRIPTION]", icon: "ClipboardCheck" },
+] as { step: string; title: string; copy: string; icon?: string }[];
+
+// Compact credential-word trust strip rendered directly under the hero (distinct from the
+// numeric trustStats bar below it). Gated by sectionVisibility.trustBadges + length check.
+export const trustBadges = [
+  { icon: "ShieldCheck", label: "Licensed" },
+  { icon: "FileCheck", label: "Insured" },
+  { icon: "Award", label: "Certified" },
+  { icon: "Clock3", label: "24/7 Support" },
+] as { icon: string; label: string }[];
 
 export const healthResources = [
   {
@@ -542,12 +553,12 @@ export const healthResources = [
 ] as { title: string; excerpt: string; imageKey: string }[];
 
 export const marqueeReviews = [
-  { author: "[REVIEW_1_AUTHOR]", segment: "[REVIEW_1_SEGMENT]", quote: "[REVIEW_1_QUOTE]", rating: 5 },
-  { author: "[REVIEW_2_AUTHOR]", segment: "[REVIEW_2_SEGMENT]", quote: "[REVIEW_2_QUOTE]", rating: 5 },
-  { author: "[REVIEW_3_AUTHOR]", segment: "[REVIEW_3_SEGMENT]", quote: "[REVIEW_3_QUOTE]", rating: 5 },
-  { author: "[REVIEW_4_AUTHOR]", segment: "[REVIEW_4_SEGMENT]", quote: "[REVIEW_4_QUOTE]", rating: 5 },
-  { author: "[REVIEW_5_AUTHOR]", segment: "[REVIEW_5_SEGMENT]", quote: "[REVIEW_5_QUOTE]", rating: 5 },
-] as { author: string; segment: string; quote: string; rating: number }[];
+  { author: "[REVIEW_1_AUTHOR]", segment: "[REVIEW_1_SEGMENT]", quote: "[REVIEW_1_QUOTE]", rating: 5, service: "Annual Physical" },
+  { author: "[REVIEW_2_AUTHOR]", segment: "[REVIEW_2_SEGMENT]", quote: "[REVIEW_2_QUOTE]", rating: 5, service: "Preventive Care" },
+  { author: "[REVIEW_3_AUTHOR]", segment: "[REVIEW_3_SEGMENT]", quote: "[REVIEW_3_QUOTE]", rating: 5, service: "Same-Day Visit" },
+  { author: "[REVIEW_4_AUTHOR]", segment: "[REVIEW_4_SEGMENT]", quote: "[REVIEW_4_QUOTE]", rating: 5, service: "Specialist Consultation" },
+  { author: "[REVIEW_5_AUTHOR]", segment: "[REVIEW_5_SEGMENT]", quote: "[REVIEW_5_QUOTE]", rating: 5, service: "Physical Therapy" },
+] as { author: string; segment: string; quote: string; rating: number; service?: string }[];
 
 export const faqs = [
   {

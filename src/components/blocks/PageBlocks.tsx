@@ -4,11 +4,38 @@
  */
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import {
+  ArrowLeft,
+  Award,
+  CalendarCheck,
+  Clock3,
+  FileCheck,
+  Heart,
+  PhoneCall,
+  ShieldCheck,
+  Stethoscope,
+  ClipboardCheck,
+  type LucideIcon,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { cn } from "@/lib/utils";
+
+// String-keyed lookup so business-content.ts can reference an icon by name without importing
+// lucide-react directly. Extend this map (reusing lucide-react, not a new icon system) when a
+// clone needs an icon not yet listed here.
+const iconMap: Record<string, LucideIcon> = {
+  ShieldCheck,
+  Clock3,
+  Award,
+  Heart,
+  PhoneCall,
+  CalendarCheck,
+  Stethoscope,
+  ClipboardCheck,
+  FileCheck,
+};
 
 export function Section({
   className,
@@ -118,15 +145,18 @@ interface FeatureCardProps {
   label?: ReactNode;
   title: ReactNode;
   description?: ReactNode;
+  icon?: string;
   as?: ElementType;
   href?: string;
   className?: string;
 }
 
-export function FeatureCard({ label, title, description, className }: FeatureCardProps) {
+export function FeatureCard({ label, title, description, icon, className }: FeatureCardProps) {
+  const Icon = icon ? iconMap[icon] : undefined;
   return (
     <Card className={cn("h-full min-w-0 transition-colors hover:border-primary/40", className)}>
       <CardContent className="flex h-full min-w-0 flex-col gap-3">
+        {Icon && <Icon className="text-primary" size={24} />}
         {label && <span className="text-xs font-semibold tracking-wide break-words text-primary uppercase">{label}</span>}
         <h3 className="text-lg leading-snug font-semibold break-words text-foreground">{title}</h3>
         {description && <p className="text-sm leading-relaxed break-words text-muted-foreground">{description}</p>}
@@ -135,7 +165,7 @@ export function FeatureCard({ label, title, description, className }: FeatureCar
   );
 }
 
-export function StepList({ steps }: { steps: { step: string; title: string; copy: string }[] }) {
+export function StepList({ steps }: { steps: { step: string; title: string; copy: string; icon?: string }[] }) {
   const count = steps.length;
   const colsClass =
     count >= 5
@@ -147,13 +177,36 @@ export function StepList({ steps }: { steps: { step: string; title: string; copy
           : "sm:grid-cols-2";
   return (
     <div className={cn("grid gap-8", colsClass)}>
-      {steps.map((item) => (
-        <div key={item.step} className="flex min-w-0 flex-col gap-3 border-t-2 border-border pt-5">
-          <span className="text-3xl font-bold break-words text-primary">{item.step}</span>
-          <h3 className="text-lg font-semibold break-words text-foreground">{item.title}</h3>
-          <p className="text-sm leading-relaxed break-words text-muted-foreground">{item.copy}</p>
-        </div>
-      ))}
+      {steps.map((item) => {
+        const Icon = item.icon ? iconMap[item.icon] : undefined;
+        return (
+          <div key={item.step} className="flex min-w-0 flex-col gap-3 border-t-2 border-border pt-5">
+            {Icon ? (
+              <Icon className="text-primary" size={30} />
+            ) : (
+              <span className="text-3xl font-bold break-words text-primary">{item.step}</span>
+            )}
+            <h3 className="text-lg font-semibold break-words text-foreground">{item.title}</h3>
+            <p className="text-sm leading-relaxed break-words text-muted-foreground">{item.copy}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export function TrustBadgeRow({ badges }: { badges: { icon: string; label: string }[] }) {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+      {badges.map((badge) => {
+        const Icon = iconMap[badge.icon];
+        return (
+          <span key={badge.label} className="inline-flex items-center gap-2 text-sm font-semibold break-words text-foreground">
+            {Icon && <Icon className="text-primary" size={18} />}
+            {badge.label}
+          </span>
+        );
+      })}
     </div>
   );
 }

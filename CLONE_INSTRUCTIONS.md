@@ -41,7 +41,7 @@ The primary content file. Exports:
   `copy.booking`. `copy.privacyPolicy` and `copy.termsAndConditions` back the standalone
   `/privacy-policy` and `/terms-and-conditions` pages, linked from the footer's legal link row
   (the footer no longer opens a policy dialog).
-- Content arrays: `aboutValues`, `services`, `trustStats`, `differentiators`, `howItWorks`,
+- Content arrays: `aboutValues`, `services`, `trustStats`, `trustBadges`, `differentiators`, `howItWorks`,
   `healthResources`, `marqueeReviews`, `faqs`, `staff`, `emergencyInfo`, `paymentInfo`, `providers`,
   `articles` (doubles as the blog — see `/resources`), `carePlans`, `newClientSteps`, `whatToBring`,
   `clinicExperienceFeatures`, `clientStories`.
@@ -142,15 +142,24 @@ unless noted otherwise.
 
 **Trust stats bar** (`trustStats[1-5]`) `[TRUST_STAT_n_VALUE]` · `[TRUST_STAT_n_LABEL]`
 
-**Why choose us** (`differentiators[1-6]`) `[DIFFERENTIATOR_n_TITLE]` · `[DIFFERENTIATOR_n_DESCRIPTION]`
+**Trust badge row** (`trustBadges[]`, homepage, directly under the hero) — plain-text `label`
+(e.g. `"Licensed"`, `"Insured"`, `"Certified"`) plus an `icon` string naming a lucide-react icon
+already registered in the `iconMap` in `src/components/blocks/PageBlocks.tsx`. Not
+token-placeholder content — replace with the client's real credential words. Add/remove entries
+freely; gated by `sectionVisibility.trustBadges` + `trustBadges.length > 0`.
+
+**Why choose us** (`differentiators[1-4]`) `[DIFFERENTIATOR_n_TITLE]` · `[DIFFERENTIATOR_n_DESCRIPTION]`
+· optional `icon` (lucide-react icon name from the same `iconMap`; omit to render no icon on that card).
 
 **How it works** (`howItWorks[1-4]`) `[HOW_IT_WORKS_STEP_n_TITLE]` · `[HOW_IT_WORKS_STEP_n_DESCRIPTION]`
+· optional `icon` (lucide-react icon name from the same `iconMap`; omit to fall back to the numeral).
 
 **Health/education resource teasers** (`healthResources[1-3]`) `[RESOURCE_n_TITLE]` ·
 `[RESOURCE_n_EXCERPT]` · `[RESOURCE_n_IMAGE]`
 
 **Homepage review marquee** (`marqueeReviews[1-5]`) `[REVIEW_n_AUTHOR]` · `[REVIEW_n_SEGMENT]` ·
-`[REVIEW_n_QUOTE]`
+`[REVIEW_n_QUOTE]` · optional `service` (plain text naming the specific service reviewed, e.g.
+`"Annual Physical"` — renders as `· {segment} · {service}`; omit to keep the current two-part line)
 
 **FAQs** (`faqs[1-8]`) `[FAQ_n_QUESTION]` · `[FAQ_n_ANSWER]` (leave `category` untouched — the FAQ
 page groups entries by that exact string)

@@ -29,7 +29,10 @@ export function ReviewsMarquee({ heading, supportingText }: ReviewsMarqueeProps)
             <p className="text-sm leading-relaxed break-words text-background/85">&ldquo;{review.quote}&rdquo;</p>
             <div className="text-sm break-words">
               <strong className="font-semibold text-background">{review.author}</strong>{" "}
-              <span className="text-background/55">· {review.segment}</span>
+              <span className="text-background/55">
+                · {review.segment}
+                {review.service && ` · ${review.service}`}
+              </span>
             </div>
           </Card>
         ))}
