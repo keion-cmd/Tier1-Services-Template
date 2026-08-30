@@ -47,7 +47,11 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
       <div
         className={cn(
           "grid gap-5",
-          variant === "home" ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3"
+          visibleServices.length === 1
+            ? "mx-auto max-w-md"
+            : variant === "home"
+              ? "sm:grid-cols-2 lg:grid-cols-4"
+              : "sm:grid-cols-2 lg:grid-cols-3"
         )}
       >
         {visibleServices.map((service) => {

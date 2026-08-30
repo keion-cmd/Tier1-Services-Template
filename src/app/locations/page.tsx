@@ -7,6 +7,7 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { clinic, copy } from "@/lib/business-content";
 import { locations } from "@/data/locations";
 import { buildMetadata } from "@/lib/metadata";
+import { cn } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: `Locations — ${clinic.name} ${clinic.descriptor}`,
@@ -30,7 +31,7 @@ export default function Locations() {
           eyebrow={copy.locations.gridEyebrow}
           title={<span id="locations-grid-title">{copy.locations.gridTitle}</span>}
         />
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className={cn("grid gap-5", locations.length === 1 ? "mx-auto max-w-md" : "sm:grid-cols-2")}>
           {locations.map((location) => (
             <Link key={location.slug} href={`/locations/${location.slug}`}>
               <Card className="h-full gap-0 overflow-hidden p-0 transition-shadow hover:shadow-md">
