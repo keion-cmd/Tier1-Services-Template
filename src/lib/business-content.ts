@@ -1,3 +1,6 @@
+import { industryBrands } from "@/lib/industryBrands";
+import { insuranceProviders } from "@/data/insurance";
+
 export const businessConfig = {
   // "modal" (default) opens the in-page Supabase-backed BookingModal from every CTA.
   // "external" makes every CTA link out to BOOKING_URL (src/lib/booking.ts) instead.
@@ -31,12 +34,38 @@ export const businessConfig = {
 /** Backward-compatible alias — prefer `businessConfig` in new code. */
 export const clinic = businessConfig;
 
+// Generalized, repeatable homepage logo-marquee groups (Partners, Insurance, Awards,
+// "As Seen In", etc). Add or remove groups freely — a group is shown only when its
+// `items` array is non-empty (see LogoMarquee.tsx's empty-array guard).
+export type LogoMarqueeGroup = {
+  id: string;
+  heading: string;
+  subheading: string;
+  items: { name: string }[];
+};
+
+export const logoMarquees: LogoMarqueeGroup[] = [
+  {
+    id: "partners",
+    heading: "[HOME_INDUSTRY_BRANDS_TITLE]",
+    subheading: "[HOME_INDUSTRY_BRANDS_SUBTITLE]",
+    items: industryBrands,
+  },
+  {
+    id: "insurance",
+    heading: "[HOME_INSURANCE_TITLE]",
+    subheading: "[HOME_INSURANCE_SUBTITLE]",
+    // Derived from insuranceProviders (also used by InsuranceCombobox) — not a
+    // separate data source. "Other / Not Listed" is a form placeholder, not a
+    // real provider, so it's excluded from the marquee.
+    items: insuranceProviders.filter((p) => p.id !== "other").map((p) => ({ name: p.name })),
+  },
+];
+
 // Per-section visibility toggles for optional homepage/proof/about/team sections. Every key
 // defaults to true; set a key to false, or empty its backing data array where applicable, to
 // hide that section without deleting code or data.
 export const sectionVisibility = {
-  industryBrandsMarquee: true,
-  insuranceMarquee: true,
   trustStats: true,
   whyChooseUs: true,
   meetTheTeam: true,
@@ -97,10 +126,6 @@ export const copy = {
     locationTitle: "[HOME_LOCATION_TITLE]",
     finalCtaTitle: "[HOME_FINAL_CTA_TITLE]",
     finalCtaSubtitle: "[HOME_FINAL_CTA_SUBTITLE]",
-    industryBrandsHeadline: "[HOME_INDUSTRY_BRANDS_TITLE]",
-    industryBrandsSubheadline: "[HOME_INDUSTRY_BRANDS_SUBTITLE]",
-    insuranceHeadline: "[HOME_INSURANCE_TITLE]",
-    insuranceSubheadline: "[HOME_INSURANCE_SUBTITLE]",
     leadGenForm: {
       heading: "[HOME_LEAD_FORM_HEADING]",
       subheading: "[HOME_LEAD_FORM_SUBHEADING]",

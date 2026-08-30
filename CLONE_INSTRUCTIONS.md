@@ -45,6 +45,7 @@ The primary content file. Exports:
   `healthResources`, `marqueeReviews`, `faqs`, `staff`, `emergencyInfo`, `paymentInfo`, `providers`,
   `articles` (doubles as the blog — see `/resources`), `carePlans`, `newClientSteps`, `whatToBring`,
   `clinicExperienceFeatures`, `clientStories`.
+- `logoMarquees` — the homepage's logo-marquee groups (see below).
 
 Replace every `[PLACEHOLDER]` token — in the data arrays **and** in `copy` — with real,
 client-approved copy, and set `businessConfig.descriptor` to the client's niche. Replace **all**
@@ -64,11 +65,29 @@ set `NEXT_PUBLIC_BOOKING_URL` to the client's real scheduler URL (Calendly, etc.
 
 ### `src/data/insurance.ts`
 
-Feeds both the homepage `InsuranceMarquee` and the `InsuranceCombobox` used in the booking modal.
-Replace each `[INSURANCE_PROVIDER_n_NAME]` token with a real accepted provider/payer name. Add or
-remove entries freely — both the marquee and the combobox re-flow automatically. Leave the
-`"Other / Not Listed"` entry in place; the booking form's "specify your provider" field depends on
-that exact string.
+Feeds both the homepage's insurance logo-marquee group and the `InsuranceCombobox` used in the
+booking modal. Replace each `[INSURANCE_PROVIDER_n_NAME]` token with a real accepted provider/payer
+name. Add or remove entries freely — both the marquee group and the combobox re-flow automatically.
+Leave the `"Other / Not Listed"` entry in place; the booking form's "specify your provider" field
+depends on that exact string (the marquee excludes this entry automatically since it's a form
+placeholder, not a real provider).
+
+### `logoMarquees` (`src/lib/business-content.ts`)
+
+The homepage renders any number of logo-marquee groups (Partners, Insurance, Awards,
+Certifications, "As Seen In", etc.) from a single `logoMarquees` array — each entry is
+`{ id, heading, subheading, items: { name: string }[] }`. A group is shown only when its `items`
+array is non-empty, so there's no separate visibility toggle to manage.
+
+- **Add a group**: push a new object onto `logoMarquees` with a unique `id`, a heading/subheading,
+  and an `items` array of `{ name }` entries (no logo files required — items render as
+  text/placeholder cards, same as `industryBrands`).
+- **Remove a group**: delete its object from the array, or empty its `items` array.
+- The default `"partners"` group's `items` reference `industryBrands` (`src/lib/industryBrands.ts`)
+  directly — edit that file, not `logoMarquees`, to change its content.
+- The default `"insurance"` group's `items` are *derived* from `insuranceProviders`
+  (`src/data/insurance.ts`) — it is not separately maintained data. Edit `insurance.ts` to change
+  what appears in both the marquee and the booking form's provider dropdown.
 
 ### `src/data/megaMenus.ts`
 
@@ -95,10 +114,10 @@ proof — otherwise leave the placeholders, or remove `<ActivityNotification />`
 
 ### `src/lib/industryBrands.ts`
 
-The `industryBrands` array feeds the homepage's partner-marks marquee (`IndustryBrandMarquee.tsx`).
-Each entry is `{ name: string }` only — **no logo image file is required**; every brand renders as a
-bordered text/placeholder card. Replace each token with the real partner/vendor name, or empty the
-array if the client has no partner marks to show.
+The `industryBrands` array feeds the `"partners"` entry in `logoMarquees` (see above). Each entry is
+`{ name: string }` only — **no logo image file is required**; every brand renders as a bordered
+text/placeholder card. Replace each token with the real partner/vendor name, or empty the array if
+the client has no partner marks to show (the group disappears automatically).
 
 ### `src/lib/booking.ts`
 

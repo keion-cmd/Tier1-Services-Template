@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertTriangle, ArrowUpRight, Clock3, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Clock3, MapPin, Phone } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
@@ -23,12 +23,11 @@ import {
   faqs,
   healthResources,
   howItWorks,
+  logoMarquees,
   marqueeReviews,
   sectionVisibility,
   trustStats,
 } from "@/lib/business-content";
-import { industryBrands } from "@/lib/industryBrands";
-import { insuranceProviders } from "@/data/insurance";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -68,29 +67,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1b. Industry Partner Marquee */}
-      {sectionVisibility.industryBrandsMarquee && (
-        <LogoMarquee
-          ariaId="industry-brand-marquee-title"
-          items={industryBrands.map((brand) => ({ key: brand.name, label: brand.name }))}
-          heading={copy.home.industryBrandsHeadline}
-          supportingText={copy.home.industryBrandsSubheadline}
-        />
-      )}
-
-      {/* 1c. Insurance Marquee */}
-      {sectionVisibility.insuranceMarquee && (
-        <LogoMarquee
-          ariaId="insurance-marquee-title"
-          items={insuranceProviders.map((provider) => ({
-            key: provider.id,
-            label: provider.name,
-            icon: <ShieldCheck size={16} className="shrink-0 text-muted-foreground" aria-hidden />,
-          }))}
-          heading={copy.home.insuranceHeadline}
-          supportingText={copy.home.insuranceSubheadline}
-        />
-      )}
+      {/* 1b. Logo Marquee Groups (Partners, Insurance, Awards, etc.) */}
+      {logoMarquees
+        .filter((group) => group.items.length > 0)
+        .map((group) => (
+          <LogoMarquee
+            key={group.id}
+            ariaId={`${group.id}-marquee-title`}
+            items={group.items.map((item) => ({ key: item.name, label: item.name }))}
+            heading={group.heading}
+            supportingText={group.subheading}
+          />
+        ))}
 
       {/* 2. Trust Stats Bar */}
       {sectionVisibility.trustStats && trustStats.length > 0 && (
