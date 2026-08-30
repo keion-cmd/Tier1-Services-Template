@@ -32,10 +32,6 @@ required.
   (`supabase/schema.sql` + env vars, see `CLONE_INSTRUCTIONS.md` step 4) is what makes bookings
   actually persist. Treat "Supabase configured" as an explicit go-live checklist item, not an
   assumption.
-- **`<ActivityNotification />`** (mounted in `src/app/layout.tsx`) — simulated "recent booking"
-  social-proof toast. Uses `src/data/sampleActivity.ts`, always `isSimulated: true`. Remove the
-  mount in `layout.tsx` to disable; do not present simulated activity as real without the client's
-  explicit sign-off.
 - **AI-adjacent chatbot** (`ChatWidget`, mounted in `layout.tsx`) — client-side rule/keyword matching
   against `business-content.ts` (FAQs, services). No LLM call, no external API. Optional
   `/api/chat/message` and `/api/chat/route.ts` server routes exist for a clone that wants

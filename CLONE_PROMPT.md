@@ -30,9 +30,6 @@ All client content lives in `src/lib/business-content.ts` plus these sibling fil
 - `src/data/locations.ts` — one object per physical location (`slug`, `name`, `address`, `city`,
   `phone`, `email`, `mapsUrl`, `landmark`, `description`, `servicesOffered[]`, `businessHours[]`,
   `imageKey`). A single-location clone keeps one entry; a multi-location clone adds more.
-- `src/data/sampleActivity.ts` — optional simulated "recent booking" social-proof feed. Every entry is
-  `isSimulated: true`. Only replace placeholders with real names/locations if the client has
-  consented to this kind of social proof.
 - `src/lib/industryBrands.ts` — the homepage partner-marks marquee. Each entry is `{ name: string }`
   only; there is no logo image file to source, upload, or size.
 - `src/lib/booking.ts` — an optional fallback external scheduler URL (not the primary booking flow,
@@ -93,7 +90,6 @@ deciding whether the client's real content means you must expand, shrink, or ful
 | `healthResources[]` | 3 | `title`, `excerpt`, `imageKey` |
 | `insuranceProviders[]` (`src/data/insurance.ts`) | 8 + "Other" | `id`, `name` |
 | `locations[]` (`src/data/locations.ts`) | 2 | `slug`, `name`, `address`, `city`, `phone`, `phoneDigits`, `email`, `mapsUrl`, `landmark`, `description`, `servicesOffered[]`, `businessHours[]`, `imageKey` |
-| `sampleActivity[]` (`src/data/sampleActivity.ts`) | 8 | `id`, `name`, `location`, `service`, `minutesAgo`, `isSimulated` |
 
 Sizing rules:
 

@@ -113,14 +113,6 @@ a multi-location clone adds one object per location. Fields: `slug`, `name`, `ad
 `businessHours[]`, `imageKey`. `mapsUrl` doubles as the directions link; the embedded map on the
 detail page is generated automatically from `address` + `city`, no manual embed URL needed.
 
-### `src/data/sampleActivity.ts`
-
-Simulated "recent booking" social-proof feed shown by `<ActivityNotification />` (bottom-left toast
-that cycles fake bookings). Every entry is explicitly `isSimulated: true`. Replace the placeholder
-names/locations with real ones only if the client has consented to displaying this kind of social
-proof — otherwise leave the placeholders, or remove `<ActivityNotification />` from
-`src/app/layout.tsx` entirely to disable the feature.
-
 ### `src/lib/industryBrands.ts`
 
 The `industryBrands` array feeds the `"partners"` entry in `logoMarquees` (see above). Each entry is
@@ -202,9 +194,6 @@ page groups entries by that exact string)
 `[LOCATION_n_ADDRESS]` · `[LOCATION_n_CITY]` · `[LOCATION_n_PHONE]` · `[LOCATION_n_PHONE_DIGITS]` ·
 `[LOCATION_n_EMAIL]` · `[LOCATION_n_LANDMARK]` · `[LOCATION_n_DESCRIPTION]` ·
 `[LOCATION_n_HOURS_ROW_1-3_DAYS/HOURS]` · `[LOCATION_n_IMAGE]`
-
-**Simulated activity feed** (`src/data/sampleActivity.ts`, optional) `[SAMPLE_ACTIVITY_NAME_n]` ·
-`[SAMPLE_ACTIVITY_LOCATION_n]`
 
 **Partner/vendor brand marquee** (`src/lib/industryBrands.ts`) `[PARTNER_BRAND_n]`
 
