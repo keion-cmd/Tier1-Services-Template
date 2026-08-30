@@ -24,6 +24,7 @@ import {
   healthResources,
   howItWorks,
   logoMarquees,
+  LOCATIONS_ADJACENT_MARQUEE_ID,
   marqueeReviews,
   sectionVisibility,
   trustStats,
@@ -67,9 +68,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1b. Logo Marquee Groups (Partners, Insurance, Awards, etc.) */}
+      {/* 1b. Logo Marquee Groups (Partners, Awards, etc.) — the Locations-adjacent group
+          (see LOCATIONS_ADJACENT_MARQUEE_ID) renders separately below Locations instead. */}
       {logoMarquees
-        .filter((group) => group.items.length > 0)
+        .filter((group) => group.items.length > 0 && group.id !== LOCATIONS_ADJACENT_MARQUEE_ID)
         .map((group) => (
           <LogoMarquee
             key={group.id}
@@ -380,6 +382,20 @@ export default function Home() {
           </dl>
         </div>
       </Section>
+
+      {/* 9a. Locations-adjacent Logo Marquee Group (e.g. Insurance) */}
+      {logoMarquees
+        .filter((group) => group.items.length > 0 && group.id === LOCATIONS_ADJACENT_MARQUEE_ID)
+        .map((group) => (
+          <LogoMarquee
+            key={group.id}
+            ariaId={`${group.id}-marquee-title`}
+            items={group.items.map((item) => ({ key: item.name, label: item.name }))}
+            heading={group.heading}
+            supportingText={group.subheading}
+            className="bg-secondary/30"
+          />
+        ))}
 
       {/* 9b. Lead Generation Form */}
       <Section id="contact-form" className="bg-secondary/30" aria-labelledby="home-lead-form-title">

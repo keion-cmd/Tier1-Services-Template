@@ -48,6 +48,10 @@ export type LogoMarqueeGroup = {
   items: { name: string }[];
 };
 
+// Which logoMarquees group (by id) renders below the Locations section instead of at the
+// top of the homepage. Change this if a clone renames/replaces the "insurance" group.
+export const LOCATIONS_ADJACENT_MARQUEE_ID = "insurance";
+
 export const logoMarquees: LogoMarqueeGroup[] = [
   {
     id: "partners",

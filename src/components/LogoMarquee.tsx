@@ -11,14 +11,15 @@ interface LogoMarqueeProps {
   heading: string;
   supportingText?: string;
   ariaId: string;
+  className?: string;
 }
 
-export function LogoMarquee({ items, heading, supportingText, ariaId }: LogoMarqueeProps) {
+export function LogoMarquee({ items, heading, supportingText, ariaId, className = "bg-secondary/40" }: LogoMarqueeProps) {
   if (items.length === 0) return null;
   const groups = [items, items];
 
   return (
-    <section className="bg-secondary/40 py-10 md:py-14" aria-labelledby={ariaId}>
+    <section className={`${className} py-10 md:py-14`} aria-labelledby={ariaId}>
       <div className="mx-auto mb-8 max-w-md min-w-0 px-6 text-center">
         <h2 id={ariaId} className="break-words text-lg font-semibold text-foreground">
           {heading}
