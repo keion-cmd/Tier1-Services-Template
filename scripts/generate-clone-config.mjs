@@ -13,9 +13,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 
 // Section keys/order must match sectionVisibility in src/lib/business-content.ts exactly.
+// Verified against the drift guard below every run — see assertSectionKeysMatchSource().
 const SECTION_KEYS = [
-  "industryBrandsMarquee",
-  "insuranceMarquee",
   "trustStats",
   "whyChooseUs",
   "meetTheTeam",
@@ -30,7 +29,36 @@ const SECTION_KEYS = [
   "proofCareStats",
   "aboutTeamGrid",
   "teamProvidersGrid",
+  "providerAreasOfInterest",
+  "relatedArticles",
+  "locationServicesAndHours",
 ];
+
+// Fails loudly instead of silently generating a wrong snippet if SECTION_KEYS above ever
+// drifts from the real `sectionVisibility` export in business-content.ts (e.g. a key gets
+// renamed/added/removed there and this script isn't updated to match).
+function assertSectionKeysMatchSource() {
+  const sourcePath = path.join(rootDir, "src", "lib", "business-content.ts");
+  const source = readFileSync(sourcePath, "utf8");
+  const match = source.match(/export const sectionVisibility = \{([\s\S]*?)\n\};/);
+  if (!match) {
+    fail(`Could not locate "export const sectionVisibility = { ... };" in ${path.relative(rootDir, sourcePath)}.`);
+  }
+  const realKeys = [...match[1].matchAll(/^\s*(\w+):/gm)].map((m) => m[1]);
+
+  const missing = realKeys.filter((key) => !SECTION_KEYS.includes(key));
+  const stale = SECTION_KEYS.filter((key) => !realKeys.includes(key));
+  if (missing.length > 0 || stale.length > 0) {
+    fail(
+      "SECTION_KEYS in this script has drifted from the real sectionVisibility export in business-content.ts. " +
+        `Missing (in source but not here): ${missing.join(", ") || "(none)"}. ` +
+        `Stale (here but not in source): ${stale.join(", ") || "(none)"}. ` +
+        "Update SECTION_KEYS to match before running this script."
+    );
+  }
+}
+
+assertSectionKeysMatchSource();
 
 function loadEnvFile(filename) {
   const filePath = path.join(rootDir, filename);

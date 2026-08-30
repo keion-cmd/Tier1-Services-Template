@@ -5,6 +5,10 @@ export const businessConfig = {
   // "modal" (default) opens the in-page Supabase-backed BookingModal from every CTA.
   // "external" makes every CTA link out to BOOKING_URL (src/lib/booking.ts) instead.
   bookingMode: "modal" as "modal" | "external",
+  // Gates <TemplateSelfPromo /> in Footer.tsx (the "this is a template, get one for your
+  // business" strip). Must stay false in every clone — only this template's own
+  // business-content.ts sets it to true. See CLONE_INSTRUCTIONS.md.
+  isTemplateDemo: true,
   name: "[BUSINESS_NAME]",
   shortName: "[BUSINESS_SHORT_NAME]",
   tagline: "[BUSINESS_TAGLINE]",

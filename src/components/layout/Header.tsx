@@ -20,21 +20,28 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { BookingButton } from "@/components/BookingButton";
 import { MegaMenuDesktop, MegaMenuMobile } from "@/components/nav/MegaMenu";
-import { clinic } from "@/lib/business-content";
+import { articles, clinic, providers } from "@/lib/business-content";
+import { locations } from "@/data/locations";
 import { servicesMegaMenu, resourcesMegaMenu, locationsMegaMenu, type MegaMenuConfig } from "@/data/megaMenus";
 import { cn } from "@/lib/utils";
 
-export const navItems: { href: string; label: string; megaMenu?: MegaMenuConfig }[] = [
+// Data-backed nav items are dropped entirely (not just left as empty dropdowns) when their
+// backing content array is empty, so a clone with e.g. no team members doesn't advertise a
+// "Team" link to a blank page. Desktop nav, the mobile Sheet, and Footer's nav list all read
+// this same already-filtered array, so there's nothing to keep in sync separately.
+const allNavItems: { href: string; label: string; megaMenu?: MegaMenuConfig; visible?: boolean }[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services", megaMenu: servicesMegaMenu },
-  { href: "/team", label: "Team" },
-  { href: "/resources", label: "Resources", megaMenu: resourcesMegaMenu },
+  { href: "/team", label: "Team", visible: providers.length > 0 },
+  { href: "/resources", label: "Resources", megaMenu: resourcesMegaMenu, visible: articles.length > 0 },
   { href: "/proof", label: "Reviews" },
   { href: "/faq", label: "FAQ" },
   { href: "/new-clients", label: "New Clients" },
-  { href: "/locations", label: "Locations", megaMenu: locationsMegaMenu },
+  { href: "/locations", label: "Locations", megaMenu: locationsMegaMenu, visible: locations.length > 0 },
 ];
+
+export const navItems = allNavItems.filter((item) => item.visible !== false);
 
 export function ClinicMark({ dark = false }: { dark?: boolean }) {
   return (
