@@ -1,11 +1,11 @@
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading } from "@/components/blocks/PageBlocks";
-import { clinic, copy } from "@/lib/business-content";
+import { copy, getBusinessTagline } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Privacy Policy — ${clinic.name} ${clinic.descriptor}`,
-  description: `How ${clinic.name} ${clinic.descriptor} collects, uses, and protects your information.`,
+  title: `Privacy Policy — ${getBusinessTagline()}`,
+  description: `How ${getBusinessTagline()} collects, uses, and protects your information.`,
   path: "/privacy-policy",
 });
 

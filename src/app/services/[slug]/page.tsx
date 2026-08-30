@@ -4,7 +4,7 @@ import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
 import { Card, CardContent } from "@/components/ui/card";
-import { buildBreadcrumbSchema, clinic, copy, getServiceBySlug, services } from "@/lib/business-content";
+import { buildBreadcrumbSchema, copy, getBusinessTagline, getServiceBySlug, services } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 type Params = { slug: string };
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   if (!service) return {};
 
   return buildMetadata({
-    title: `${service.title} — ${clinic.name} ${clinic.descriptor}`,
+    title: `${service.title} — ${getBusinessTagline()}`,
     description: service.short,
     path: `/services/${service.slug}`,
   });
@@ -42,7 +42,7 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
       />
 
       <PageHero
-        eyebrow={`${service.number} · Care path · ${service.duration}`}
+        eyebrow={`${service.number} · ${copy.services.cardLabel} · ${service.duration}`}
         title={service.title}
         description={service.detail}
         cta={<BookingButton label="Book an Appointment" />}
@@ -88,7 +88,7 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
       </Section>
 
       <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        eyebrow={getBusinessTagline()}
         title={
           <>
             Ready to talk through <span className="text-primary-foreground/80">{service.title.toLowerCase()}?</span>

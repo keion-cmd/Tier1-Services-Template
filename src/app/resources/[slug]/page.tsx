@@ -6,7 +6,7 @@ import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { articles, buildArticleSchema, buildBreadcrumbSchema, clinic, copy, getArticleBySlug, sectionVisibility } from "@/lib/business-content";
+import { articles, buildArticleSchema, buildBreadcrumbSchema, copy, getArticleBySlug, getBusinessTagline, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 type Params = { slug: string };
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   if (!article) return {};
 
   return buildMetadata({
-    title: `${article.title} — ${clinic.name} ${clinic.descriptor}`,
+    title: `${article.title} — ${getBusinessTagline()}`,
     description: article.excerpt,
     path: `/resources/${article.slug}`,
   });
@@ -103,7 +103,7 @@ export default async function ArticleDetail({ params }: { params: Promise<Params
       )}
 
       <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        eyebrow={getBusinessTagline()}
         title={copy.articleDetail.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />

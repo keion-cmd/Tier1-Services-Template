@@ -3,6 +3,7 @@
 // Rendered as a flat single-column list (no category grouping) under one eyebrow label.
 import { services, articles } from "@/lib/business-content";
 import { locations } from "@/data/locations";
+import { isPlaceholderToken } from "@/lib/utils";
 
 export interface MegaMenuItem {
   title: string;
@@ -25,14 +26,14 @@ export const servicesMegaMenu: MegaMenuConfig = {
 
 export const resourcesMegaMenu: MegaMenuConfig = {
   eyebrow: "Resources",
-  items: articles.map((a) => ({ title: a.title, href: `/resources/${a.slug}` })),
+  items: articles.filter((a) => !isPlaceholderToken(a.title)).map((a) => ({ title: a.title, href: `/resources/${a.slug}` })),
   viewAllHref: "/resources",
   viewAllLabel: "View all resources",
 };
 
 export const locationsMegaMenu: MegaMenuConfig = {
   eyebrow: "Locations",
-  items: locations.map((l) => ({ title: l.name, href: `/locations/${l.slug}` })),
+  items: locations.filter((l) => !isPlaceholderToken(l.name)).map((l) => ({ title: l.name, href: `/locations/${l.slug}` })),
   viewAllHref: "/locations",
   viewAllLabel: "View all locations",
 };

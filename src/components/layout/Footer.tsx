@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import { BookingButton } from "@/components/BookingButton";
 import { ClinicMark, navItems } from "@/components/layout/Header";
 import { TemplateSelfPromo } from "@/components/layout/TemplateSelfPromo";
-import { businessConfig, clinic, copy } from "@/lib/business-content";
+import { businessConfig, clinic, copy, getBusinessTagline } from "@/lib/business-content";
 import { FOOTER_SIGNUP_ENDPOINT_URL } from "@/lib/footerSignup";
 
 function FacebookIcon(props: { className?: string }) {
@@ -192,7 +192,7 @@ export function Footer() {
         {businessConfig.isTemplateDemo && <TemplateSelfPromo />}
 
         <div className="flex min-w-0 flex-col gap-2 text-xs text-background/55 sm:flex-row sm:items-center sm:justify-between">
-          <span className="min-w-0 break-words">© 2026 {clinic.name} {clinic.descriptor}</span>
+          <span className="min-w-0 break-words">© 2026 {getBusinessTagline()}</span>
         </div>
 
         <div className="mt-3 flex min-w-0 flex-wrap items-center gap-2 text-xs text-background/55">

@@ -14,7 +14,14 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InsuranceCombobox } from "@/components/insurance/InsuranceCombobox";
 import { businessConfig, copy, services } from "@/lib/business-content";
+import { insuranceProviders } from "@/data/insurance";
+import { isPlaceholderToken } from "@/lib/utils";
 import type { BookingFormData } from "@/types/booking";
+
+// Insurance is only a real, required field when the clone has actually listed at least one
+// real (non-placeholder) provider — a non-medical business that never fills this in shouldn't
+// have booking blocked on an "Insurance Provider" field it has no use for.
+const hasInsuranceProviders = insuranceProviders.some((p) => p.id !== "other" && !isPlaceholderToken(p.name));
 
 const schema = z
   .object({
@@ -22,12 +29,15 @@ const schema = z
     phone: z.string().min(10, "Please enter a valid phone number").max(20),
     email: z.string().email("Please enter a valid email address"),
     serviceInterest: z.string().min(1, "Please select a service"),
-    insuranceProvider: z.string().min(1, "Please select your insurance provider"),
+    insuranceProvider: z.string().optional(),
     otherInsurance: z.string().optional(),
     notes: z.string().min(10, "Please provide at least 10 characters").max(1000),
     smsConsent: z.boolean().refine((val) => val === true, { message: "Please confirm SMS consent to continue." }),
   })
   .superRefine((data, ctx) => {
+    if (hasInsuranceProviders && !data.insuranceProvider?.trim()) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please select your insurance provider.", path: ["insuranceProvider"] });
+    }
     if (data.insuranceProvider === "Other / Not Listed" && !data.otherInsurance?.trim()) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please specify your insurance provider.", path: ["otherInsurance"] });
     }
@@ -247,15 +257,17 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             ))}
                           </select>
                         </Field>
-                        <Field label="Insurance Provider" id="insuranceProvider" error={errors.insuranceProvider?.message} icon={Shield}>
-                          <Controller
-                            name="insuranceProvider"
-                            control={control}
-                            render={({ field }) => (
-                              <InsuranceCombobox value={field.value || ""} onChange={field.onChange} onBlur={field.onBlur} hasError={!!errors.insuranceProvider} />
-                            )}
-                          />
-                        </Field>
+                        {hasInsuranceProviders && (
+                          <Field label="Insurance Provider" id="insuranceProvider" error={errors.insuranceProvider?.message} icon={Shield}>
+                            <Controller
+                              name="insuranceProvider"
+                              control={control}
+                              render={({ field }) => (
+                                <InsuranceCombobox value={field.value || ""} onChange={field.onChange} onBlur={field.onBlur} hasError={!!errors.insuranceProvider} />
+                              )}
+                            />
+                          </Field>
+                        )}
                         {showOtherInsurance && (
                           <Field label="Other Insurance Provider" id="otherInsurance" error={errors.otherInsurance?.message} icon={Shield}>
                             <Input id="otherInsurance" placeholder="Name your insurance provider" {...register("otherInsurance")} aria-invalid={!!errors.otherInsurance} />

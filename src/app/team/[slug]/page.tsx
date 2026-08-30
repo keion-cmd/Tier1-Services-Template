@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
-import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getProviderBySlug, providers, sectionVisibility } from "@/lib/business-content";
+import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getBusinessTagline, getProviderBySlug, providers, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 type Params = { slug: string };
@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   if (!provider) return {};
 
   return buildMetadata({
-    title: `${provider.name}, ${provider.credentials} — ${businessConfig.name} ${businessConfig.descriptor}`,
-    description: `${provider.name}, ${provider.credentials} — ${provider.specialty} at ${businessConfig.name} ${businessConfig.descriptor}.`,
+    title: `${provider.name}, ${provider.credentials} — ${getBusinessTagline()}`,
+    description: `${provider.name}, ${provider.credentials} — ${provider.specialty} at ${getBusinessTagline()}.`,
     path: `/team/${provider.slug}`,
   });
 }
@@ -101,7 +101,7 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
       )}
 
       <PageOutro
-        eyebrow={`${businessConfig.name} ${businessConfig.descriptor}`}
+        eyebrow={getBusinessTagline()}
         title={
           <>
             Ready to talk with <span className="text-primary-foreground/80">{provider.name}?</span>

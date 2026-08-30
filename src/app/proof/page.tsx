@@ -5,12 +5,12 @@ import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/blocks/PageBlocks";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { clinic, copy, proofCareStats, proofPageStories, proofStatHighlight, sectionVisibility } from "@/lib/business-content";
+import { clinic, copy, getBusinessTagline, proofCareStats, proofPageStories, proofStatHighlight, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Proof & Reviews — ${clinic.name} ${clinic.descriptor}`,
-  description: `Trust markers, care statistics, and verified patient stories from ${clinic.name} ${clinic.descriptor}.`,
+  title: `Proof & Reviews — ${getBusinessTagline()}`,
+  description: `Trust markers, care statistics, and verified patient stories from ${getBusinessTagline()}.`,
   path: "/proof",
 });
 
@@ -83,7 +83,7 @@ export default function Proof() {
 
       <ScrollReveal>
         <PageOutro
-          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          eyebrow={getBusinessTagline()}
           title={copy.proof.ctaTitle}
           cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
         />

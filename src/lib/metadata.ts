@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { clinic, SITE_ORIGIN } from "@/lib/business-content";
+import { getBusinessTagline, SITE_ORIGIN } from "@/lib/business-content";
 
 /**
  * Shared per-page metadata builder. Every routed page should call this instead of
@@ -32,7 +32,7 @@ export function buildMetadata({
       description,
       url: canonicalUrl,
       type: "website",
-      siteName: `${clinic.name} ${clinic.descriptor}`,
+      siteName: getBusinessTagline(),
       ...(image ? { images: [{ url: image }] } : {}),
     },
     twitter: {

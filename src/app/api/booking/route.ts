@@ -2,18 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { syncBookingToSheets, syncAppointmentToSheets } from "@/lib/googleSheets";
+import { insuranceProviders } from "@/data/insurance";
+import { isPlaceholderToken } from "@/lib/utils";
 import type { BookingRecord } from "@/types/booking";
+
+// Mirrors BookingModal.tsx's client-side schema: insurance is only required server-side when
+// the clone actually has real (non-placeholder) providers listed.
+const hasInsuranceProviders = insuranceProviders.some((p) => p.id !== "other" && !isPlaceholderToken(p.name));
 
 const bookingSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters").max(100),
   phone: z.string().min(10, "Please enter a valid phone number").max(20),
   email: z.string().email("Please enter a valid email address"),
   serviceInterest: z.string().min(1, "Please select a service"),
-  insuranceProvider: z.string().min(1, "Please select an insurance provider"),
+  insuranceProvider: z.string().optional(),
   otherInsurance: z.string().optional(),
   notes: z.string().min(10, "Please provide at least 10 characters").max(1000),
   pageSource: z.string().optional(),
   smsConsent: z.boolean().optional(),
+}).superRefine((data, ctx) => {
+  if (hasInsuranceProviders && !data.insuranceProvider?.trim()) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please select an insurance provider", path: ["insuranceProvider"] });
+  }
 });
 
 export async function POST(request: NextRequest) {

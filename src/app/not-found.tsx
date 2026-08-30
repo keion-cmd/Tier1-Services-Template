@@ -2,11 +2,11 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHero, PageOutro } from "@/components/blocks/PageBlocks";
-import { clinic, copy } from "@/lib/business-content";
+import { clinic, copy, getBusinessTagline } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Page not found — ${clinic.name} ${clinic.descriptor}`,
+  title: `Page not found — ${getBusinessTagline()}`,
   description: `This page could not be found. Return to the ${clinic.name} homepage or browse our services.`,
 });
 
@@ -27,7 +27,7 @@ export default function NotFound() {
       />
 
       <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        eyebrow={getBusinessTagline()}
         title={copy.notFound.ctaTitle}
         cta={
           <div className="flex flex-wrap gap-4">

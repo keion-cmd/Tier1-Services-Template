@@ -3,7 +3,7 @@ import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { buildFaqSchema, clinic, copy, faqs } from "@/lib/business-content";
+import { buildFaqSchema, clinic, copy, faqs, getBusinessTagline } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 const categoryOrder = ["Requests & visits", "First visit", "Emergency", "Payment & insurance"] as const;
@@ -12,8 +12,8 @@ const categories = categoryOrder
   .filter((category) => category.items.length);
 
 export const metadata = buildMetadata({
-  title: `FAQ — ${clinic.name} ${clinic.descriptor}`,
-  description: `Answers to common questions about requesting a visit at ${clinic.name} ${clinic.descriptor}.`,
+  title: `FAQ — ${getBusinessTagline()}`,
+  description: `Answers to common questions about requesting a visit at ${getBusinessTagline()}.`,
   path: "/faq",
 });
 
@@ -73,7 +73,7 @@ export default function FAQ() {
 
       <ScrollReveal>
         <PageOutro
-          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          eyebrow={getBusinessTagline()}
           title={copy.faq.ctaTitle}
           cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
         />

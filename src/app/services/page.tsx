@@ -2,11 +2,11 @@ import { InteractiveServiceGallery } from "@/components/InteractiveServiceGaller
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, PageOutro } from "@/components/blocks/PageBlocks";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { clinic, copy, services } from "@/lib/business-content";
+import { clinic, copy, getBusinessTagline, services } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Services — ${clinic.name} ${clinic.descriptor}`,
+  title: `Services — ${getBusinessTagline()}`,
   description: `Explore ${services.length} thoughtfully organized care pathways at ${clinic.name}.`,
   path: "/services",
 });
@@ -15,7 +15,7 @@ export default function Services() {
   return (
     <main>
       <PageHero
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        eyebrow={getBusinessTagline()}
         title={copy.services.heroTitle}
         description={copy.services.heroSubtitle}
         cta={<BookingButton label="Book an Appointment" />}
@@ -41,7 +41,7 @@ export default function Services() {
 
       <ScrollReveal>
         <PageOutro
-          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          eyebrow={getBusinessTagline()}
           title={copy.services.ctaTitle}
           cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
         />

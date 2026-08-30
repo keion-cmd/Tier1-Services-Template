@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
-import { buildBreadcrumbSchema, clinic, copy, sectionVisibility } from "@/lib/business-content";
+import { buildBreadcrumbSchema, clinic, copy, getBusinessTagline, sectionVisibility } from "@/lib/business-content";
 import { locations, getLocationBySlug } from "@/data/locations";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   if (!location) return {};
 
   return buildMetadata({
-    title: `${location.name} — ${clinic.name} ${clinic.descriptor}`,
+    title: `${location.name} — ${getBusinessTagline()}`,
     description: `Find ${clinic.name} at ${location.address}, ${location.city}.`,
     path: `/locations/${location.slug}`,
   });
@@ -175,7 +175,7 @@ export default async function LocationDetail({ params }: { params: Promise<Param
       )}
 
       <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        eyebrow={getBusinessTagline()}
         title={copy.location.heroTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />

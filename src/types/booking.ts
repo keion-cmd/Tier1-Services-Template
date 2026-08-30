@@ -3,7 +3,7 @@ export interface BookingFormData {
   phone: string;
   email: string;
   serviceInterest: string;
-  insuranceProvider: string;
+  insuranceProvider?: string;
   otherInsurance?: string;
   notes: string;
   smsConsent: boolean;

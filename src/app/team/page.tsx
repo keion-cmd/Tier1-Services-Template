@@ -5,11 +5,11 @@ import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { clinic, copy, providers, sectionVisibility } from "@/lib/business-content";
+import { clinic, copy, getBusinessTagline, providers, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Meet Our Team — ${clinic.name} ${clinic.descriptor}`,
+  title: `Meet Our Team — ${getBusinessTagline()}`,
   description: `Meet the professional team at ${clinic.name}, including primary care, diagnostics, and preventive care specialists.`,
   path: "/team",
 });
@@ -77,7 +77,7 @@ export default function Team() {
 
       <ScrollReveal>
         <PageOutro
-          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          eyebrow={getBusinessTagline()}
           title={copy.team.ctaTitle}
           cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
         />

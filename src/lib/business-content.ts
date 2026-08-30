@@ -38,6 +38,21 @@ export const businessConfig = {
 /** Backward-compatible alias — prefer `businessConfig` in new code. */
 export const clinic = businessConfig;
 
+/**
+ * Combines businessConfig.name + businessConfig.descriptor for display, but skips the
+ * descriptor when its words are already substantially contained in the name (e.g. a business
+ * named "Nova Padel Club" with descriptor "Padel Club" would otherwise render
+ * "Nova Padel Club Padel Club").
+ */
+export function getBusinessTagline(): string {
+  const { name, descriptor } = businessConfig;
+  const normalize = (value: string) => value.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
+  const nameWords = new Set(normalize(name));
+  const descriptorWords = normalize(descriptor);
+  const isRedundant = descriptorWords.length > 0 && descriptorWords.every((word) => nameWords.has(word));
+  return isRedundant ? name : `${name} ${descriptor}`.trim();
+}
+
 // Generalized, repeatable homepage logo-marquee groups (Partners, Insurance, Awards,
 // "As Seen In", etc). Add or remove groups freely — a group is shown only when its
 // `items` array is non-empty (see LogoMarquee.tsx's empty-array guard).
@@ -121,6 +136,7 @@ export const copy = {
     successStoriesTitle: "[HOME_SUCCESS_STORIES_TITLE]",
     reviewsTitle: "[HOME_REVIEWS_TITLE]",
     reviewsSubtitle: "[HOME_REVIEWS_SUBTITLE]",
+    reviewsLinkLabel: "[HOME_REVIEWS_LINK_LABEL]",
     resourcesEyebrow: "[HOME_RESOURCES_EYEBROW]",
     resourcesTitle: "[HOME_RESOURCES_TITLE]",
     resourcesSubtitle: "[HOME_RESOURCES_SUBTITLE]",
@@ -161,6 +177,7 @@ export const copy = {
     heroSubtitle: "[SERVICES_HERO_SUBTITLE]",
     introText: "[SERVICES_INTRO_TEXT]",
     ctaTitle: "[SERVICES_CTA_TITLE]",
+    cardLabel: "[SERVICES_CARD_LABEL]",
   },
   serviceDetail: {
     benefitsEyebrow: "[SERVICE_DETAIL_BENEFITS_EYEBROW]",

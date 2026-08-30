@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { services } from "@/lib/business-content";
+import { copy as siteCopy, services } from "@/lib/business-content";
 import { cn } from "@/lib/utils";
 
 const categoryFilters = ["All", "Category 1", "Category 2", "Category 3", "Category 4", "Category 5"] as const;
@@ -77,7 +77,7 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
             <Card key={service.title} className="card-hover flex flex-col overflow-hidden gap-0 py-0">
               <div className="flex min-w-0 items-center justify-between gap-2 px-5 pt-4">
                 <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
-                  {service.number} · Care path
+                  {service.number} · {siteCopy.services.cardLabel}
                 </span>
                 <BookingButton
                   label="Book Now"

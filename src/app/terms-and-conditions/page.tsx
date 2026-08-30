@@ -1,11 +1,11 @@
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section } from "@/components/blocks/PageBlocks";
-import { clinic, copy } from "@/lib/business-content";
+import { copy, getBusinessTagline } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Terms and Conditions — ${clinic.name} ${clinic.descriptor}`,
-  description: `Booking and contact terms for ${clinic.name} ${clinic.descriptor}.`,
+  title: `Terms and Conditions — ${getBusinessTagline()}`,
+  description: `Booking and contact terms for ${getBusinessTagline()}.`,
   path: "/terms-and-conditions",
 });
 

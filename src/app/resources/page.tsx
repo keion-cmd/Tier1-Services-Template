@@ -4,12 +4,12 @@ import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { articles, clinic, copy } from "@/lib/business-content";
+import { articles, copy, getBusinessTagline } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Health & Wellness Resources — ${clinic.name} ${clinic.descriptor}`,
-  description: `General educational articles on wellness, preventive care, and long-term care from ${clinic.name} ${clinic.descriptor}.`,
+  title: `Health & Wellness Resources — ${getBusinessTagline()}`,
+  description: `General educational articles on wellness, preventive care, and long-term care from ${getBusinessTagline()}.`,
   path: "/resources",
 });
 
@@ -61,7 +61,7 @@ export default function Resources() {
       </Section>
 
       <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
+        eyebrow={getBusinessTagline()}
         title={copy.resources.ctaTitle}
         cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
       />

@@ -5,14 +5,14 @@ import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { clinic, copy } from "@/lib/business-content";
+import { copy, getBusinessTagline } from "@/lib/business-content";
 import { locations } from "@/data/locations";
 import { buildMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
 
 export const metadata = buildMetadata({
-  title: `Locations — ${clinic.name} ${clinic.descriptor}`,
-  description: `Find a ${clinic.name} ${clinic.descriptor} location near you.`,
+  title: `Locations — ${getBusinessTagline()}`,
+  description: `Find a ${getBusinessTagline()} location near you.`,
   path: "/locations",
 });
 
@@ -61,7 +61,7 @@ export default function Locations() {
 
       <ScrollReveal>
         <PageOutro
-          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          eyebrow={getBusinessTagline()}
           title={copy.locations.ctaTitle}
           cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
         />

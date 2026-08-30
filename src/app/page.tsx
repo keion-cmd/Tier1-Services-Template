@@ -22,6 +22,7 @@ import {
   providers,
   emergencyInfo,
   faqs,
+  getBusinessTagline,
   healthResources,
   howItWorks,
   logoMarquees,
@@ -33,7 +34,7 @@ import {
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `${clinic.name} ${clinic.descriptor}`,
+  title: getBusinessTagline(),
   description: "Thoughtful care conversations, clear service pathways, and a simple visit request process.",
   path: "/",
 });
@@ -55,7 +56,7 @@ export default function Home() {
                 {copy.home.heroBadgeText}
               </span>
             )}
-            <Eyebrow>{clinic.name} {clinic.descriptor}</Eyebrow>
+            <Eyebrow>{getBusinessTagline()}</Eyebrow>
             <h1 className="font-heading text-6xl leading-[1.02] font-semibold tracking-tight text-foreground break-words sm:text-7xl">
               {copy.home.heroHeadline}
             </h1>
@@ -274,7 +275,7 @@ export default function Home() {
           <ReviewsMarquee heading={copy.home.reviewsTitle} supportingText={copy.home.reviewsSubtitle} />
           <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
             <Link href="/proof" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-              Read verified patient stories <ArrowUpRight size={15} />
+              {copy.home.reviewsLinkLabel} <ArrowUpRight size={15} />
             </Link>
           </div>
         </>
@@ -492,7 +493,7 @@ export default function Home() {
       {/* 10. Final CTA */}
       <ScrollReveal>
         <PageOutro
-          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          eyebrow={getBusinessTagline()}
           title={copy.home.finalCtaTitle}
           cta={
             <div className="flex flex-col gap-3">

@@ -23,7 +23,7 @@ import { MegaMenuDesktop, MegaMenuMobile } from "@/components/nav/MegaMenu";
 import { articles, clinic, providers } from "@/lib/business-content";
 import { locations } from "@/data/locations";
 import { servicesMegaMenu, resourcesMegaMenu, locationsMegaMenu, type MegaMenuConfig } from "@/data/megaMenus";
-import { cn } from "@/lib/utils";
+import { cn, hasRealEntries } from "@/lib/utils";
 
 // Data-backed nav items are dropped entirely (not just left as empty dropdowns) when their
 // backing content array is empty, so a clone with e.g. no team members doesn't advertise a
@@ -33,12 +33,12 @@ const allNavItems: { href: string; label: string; megaMenu?: MegaMenuConfig; vis
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services", megaMenu: servicesMegaMenu },
-  { href: "/team", label: "Team", visible: providers.length > 0 },
-  { href: "/resources", label: "Resources", megaMenu: resourcesMegaMenu, visible: articles.length > 0 },
+  { href: "/team", label: "Team", visible: hasRealEntries(providers, (p) => p.name) },
+  { href: "/resources", label: "Resources", megaMenu: resourcesMegaMenu, visible: hasRealEntries(articles, (a) => a.title) },
   { href: "/proof", label: "Reviews" },
   { href: "/faq", label: "FAQ" },
   { href: "/new-clients", label: "New Clients" },
-  { href: "/locations", label: "Locations", megaMenu: locationsMegaMenu, visible: locations.length > 0 },
+  { href: "/locations", label: "Locations", megaMenu: locationsMegaMenu, visible: hasRealEntries(locations, (l) => l.name) },
 ];
 
 export const navItems = allNavItems.filter((item) => item.visible !== false);
