@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
@@ -82,6 +83,26 @@ export default function About() {
         </Section>
         </ScrollReveal>
       )}
+
+      <ScrollReveal>
+        <Section aria-labelledby="about-explore-title">
+          <SectionHeading
+            eyebrow={copy.about.exploreEyebrow}
+            title={<span id="about-explore-title">{copy.about.exploreTitle}</span>}
+          />
+          <div className="grid gap-5 sm:grid-cols-3">
+            <Link href="/team" className="block h-full">
+              <FeatureCard className="card-hover" title={copy.about.exploreTeamLabel} description={copy.about.exploreTeamDescription} />
+            </Link>
+            <Link href="/services" className="block h-full">
+              <FeatureCard className="card-hover" title={copy.about.exploreServicesLabel} description={copy.about.exploreServicesDescription} />
+            </Link>
+            <Link href="/resources" className="block h-full">
+              <FeatureCard className="card-hover" title={copy.about.exploreResourcesLabel} description={copy.about.exploreResourcesDescription} />
+            </Link>
+          </div>
+        </Section>
+      </ScrollReveal>
 
       <ScrollReveal>
         <PageOutro
