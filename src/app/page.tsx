@@ -432,14 +432,21 @@ export default function Home() {
       {logoMarquees
         .filter((group) => group.items.length > 0 && group.id === LOCATIONS_ADJACENT_MARQUEE_ID)
         .map((group) => (
-          <LogoMarquee
-            key={group.id}
-            ariaId={`${group.id}-marquee-title`}
-            items={group.items.map((item) => ({ key: item.name, label: item.name }))}
-            heading={group.heading}
-            supportingText={group.subheading}
-            className="bg-secondary/30"
-          />
+          <div key={group.id}>
+            <LogoMarquee
+              ariaId={`${group.id}-marquee-title`}
+              items={group.items.map((item) => ({ key: item.name, label: item.name }))}
+              heading={group.heading}
+              supportingText={group.subheading}
+              className="bg-secondary/30"
+            />
+            <p className="bg-secondary/30 pb-10 text-center text-sm text-muted-foreground">
+              {copy.home.insuranceCtaPrompt}{" "}
+              <a href={`tel:${clinic.phoneDigits}`} className="font-semibold text-primary hover:underline">
+                {clinic.phone}
+              </a>
+            </p>
+          </div>
         ))}
 
       {/* 9b. Lead Generation Form */}
