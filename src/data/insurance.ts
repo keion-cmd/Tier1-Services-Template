@@ -7,14 +7,6 @@ export interface InsuranceProvider {
 }
 
 export const insuranceProviders: InsuranceProvider[] = [
-  { id: "provider-1", name: "[INSURANCE_PROVIDER_1_NAME]" },
-  { id: "provider-2", name: "[INSURANCE_PROVIDER_2_NAME]" },
-  { id: "provider-3", name: "[INSURANCE_PROVIDER_3_NAME]" },
-  { id: "provider-4", name: "[INSURANCE_PROVIDER_4_NAME]" },
-  { id: "provider-5", name: "[INSURANCE_PROVIDER_5_NAME]" },
-  { id: "provider-6", name: "[INSURANCE_PROVIDER_6_NAME]" },
-  { id: "provider-7", name: "[INSURANCE_PROVIDER_7_NAME]" },
-  { id: "provider-8", name: "[INSURANCE_PROVIDER_8_NAME]" },
   { id: "other", name: "Other / Not Listed" },
 ];
 

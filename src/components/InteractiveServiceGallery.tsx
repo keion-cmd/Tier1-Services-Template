@@ -12,7 +12,7 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { services } from "@/lib/business-content";
 import { cn } from "@/lib/utils";
 
-const categoryFilters = ["All", "Category 1", "Category 2", "Category 3", "Category 4", "Category 5"] as const;
+const categoryFilters = ["All", "Play", "Coaching", "Youth"] as const;
 
 type InteractiveServiceGalleryProps = { variant: "home" | "services"; count?: number };
 

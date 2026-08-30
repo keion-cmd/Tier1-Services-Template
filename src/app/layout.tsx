@@ -26,9 +26,8 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "[BUSINESS_NAME] | [BUSINESS_DESCRIPTOR]",
-  description:
-    "[BUSINESS_DESCRIPTOR] — professional services for homes and businesses. Replace this description before launch.",
+  title: "Nova Padel Club | Padel Club",
+  description: "Padel Club — championship-grade courts, real coaching, and a club that plays as hard as you do.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -41,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Skip to content
         </a>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="dark">
           <Header />
           <div id="main-content">{children}</div>
           <Footer />

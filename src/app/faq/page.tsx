@@ -6,7 +6,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { buildFaqSchema, clinic, copy, faqs } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
-const categoryOrder = ["Requests & visits", "First visit", "Emergency", "Payment & insurance"] as const;
+const categoryOrder = ["General", "Booking", "Coaching"] as const;
 const categories = categoryOrder
   .map((label) => ({ label, items: faqs.filter((faq) => faq.category === label) }))
   .filter((category) => category.items.length);

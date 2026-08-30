@@ -53,32 +53,32 @@
   --card-foreground: 120 10% 94%;
   --popover: 200 18% 11%;
   --popover-foreground: 120 10% 94%;
-  --primary: 173 60% 45%;
-  --primary-foreground: 200 22% 8%;
-  --secondary: 200 16% 16%;
-  --secondary-foreground: 120 10% 94%;
+  --primary: 43 51% 51%;
+  --primary-foreground: 43 30% 10%;
+  --secondary: 43 25% 18%;
+  --secondary-foreground: 43 60% 88%;
   --muted: 200 16% 16%;
   --muted-foreground: 210 10% 65%;
-  --accent: 173 30% 20%;
-  --accent-foreground: 150 55% 85%;
+  --accent: 43 30% 20%;
+  --accent-foreground: 43 60% 85%;
   --destructive: 4 72% 55%;
   --destructive-foreground: 0 0% 100%;
   --border: 200 14% 20%;
   --input: 200 14% 20%;
-  --ring: 173 60% 45%;
-  --chart-1: 173 60% 50%;
+  --ring: 43 51% 51%;
+  --chart-1: 43 51% 51%;
   --chart-2: 200 60% 55%;
   --chart-3: 35 70% 60%;
   --chart-4: 280 40% 65%;
   --chart-5: 340 55% 60%;
   --sidebar: 200 18% 11%;
   --sidebar-foreground: 120 10% 94%;
-  --sidebar-primary: 173 60% 45%;
-  --sidebar-primary-foreground: 200 22% 8%;
-  --sidebar-accent: 200 16% 16%;
-  --sidebar-accent-foreground: 120 10% 94%;
+  --sidebar-primary: 43 51% 51%;
+  --sidebar-primary-foreground: 43 30% 10%;
+  --sidebar-accent: 43 25% 18%;
+  --sidebar-accent-foreground: 43 60% 88%;
   --sidebar-border: 200 14% 20%;
-  --sidebar-ring: 173 60% 45%;
+  --sidebar-ring: 43 51% 51%;
 }
 
 @theme inline {
