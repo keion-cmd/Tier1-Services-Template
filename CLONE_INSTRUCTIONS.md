@@ -55,6 +55,15 @@ CTA heading/subheading all read from `copy`. Do not rename the exported constant
 `slug` values — routes and the service/team/resources/locations detail pages
 (`/services/[slug]`, `/team/[slug]`, `/resources/[slug]`, `/locations/[slug]`) depend on them.
 
+### `businessConfig.isTemplateDemo`
+
+Controls whether the Footer renders `<TemplateSelfPromo />` — the "this is a customizable
+service-business template, want a site like this? Get started" strip meant only for this
+template's own demo/marketing site. It defaults to `false`, which is already correct for a
+clone — **confirm it stays `false`** in a real client clone's `business-content.ts`. Setting it
+to `true` on a client site would advertise the template to that client's actual customers, so it
+must never be `true` outside of this template's own repo.
+
 ### Booking mode
 
 `businessConfig.bookingMode` (`src/lib/business-content.ts`) controls what every "Book" CTA

@@ -15,7 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { BookingButton } from "@/components/BookingButton";
 import { ClinicMark, navItems } from "@/components/layout/Header";
-import { clinic, copy } from "@/lib/business-content";
+import { TemplateSelfPromo } from "@/components/layout/TemplateSelfPromo";
+import { businessConfig, clinic, copy } from "@/lib/business-content";
 import { FOOTER_SIGNUP_ENDPOINT_URL } from "@/lib/footerSignup";
 
 function FacebookIcon(props: { className?: string }) {
@@ -188,8 +189,9 @@ export function Footer() {
 
         <Separator className="my-10 bg-background/15" />
 
+        {businessConfig.isTemplateDemo && <TemplateSelfPromo />}
+
         <div className="flex min-w-0 flex-col gap-2 text-xs text-background/55 sm:flex-row sm:items-center sm:justify-between">
-          <span className="min-w-0 break-words">{clinic.name} is a customizable service-business template.</span>
           <span className="min-w-0 break-words">© 2026 {clinic.name} {clinic.descriptor}</span>
         </div>
 
@@ -200,13 +202,6 @@ export function Footer() {
           <span aria-hidden="true">&middot;</span>
           <Link href="/terms-and-conditions" className="underline underline-offset-4 hover:text-background/80">
             Terms and Conditions
-          </Link>
-        </div>
-
-        <div className="mt-4 text-xs text-background/40">
-          Want a site like this for your business?{" "}
-          <Link href="/get-started" className="underline underline-offset-4 hover:text-background/70">
-            Get started
           </Link>
         </div>
       </div>
