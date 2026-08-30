@@ -9,7 +9,11 @@ import { cn } from "@/lib/utils";
 import type { MegaMenuConfig } from "@/data/megaMenus";
 
 // Desktop flyout content, rendered inside a NavigationMenuItem's <NavigationMenuContent>.
+// Header.tsx already drops the parent nav item when its backing array is empty, so this is a
+// defensive fallback, not the primary gate.
 export function MegaMenuDesktop({ config }: { config: MegaMenuConfig }) {
+  if (config.items.length === 0) return null;
+
   return (
     <NavigationMenuContent>
       <div className="grid w-[280px] gap-1 p-4">
@@ -51,6 +55,8 @@ export function MegaMenuMobile({
   onOpenChange: (open: boolean) => void;
   active: boolean;
 }) {
+  if (config.items.length === 0) return null;
+
   return (
     <Collapsible open={open} onOpenChange={onOpenChange}>
       <CollapsibleTrigger
