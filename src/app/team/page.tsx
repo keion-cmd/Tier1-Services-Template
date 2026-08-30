@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { clinic, copy, providers, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -41,6 +42,7 @@ export default function Team() {
       </div>
 
       {sectionVisibility.teamProvidersGrid && providers.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="team-grid-title">
           <SectionHeading
             eyebrow={copy.team.gridEyebrow}
@@ -48,8 +50,8 @@ export default function Team() {
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {providers.map((provider) => (
-              <Card key={provider.slug} className="gap-3 p-4">
-                <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="aspect-[4/3] w-full rounded-xl" />
+              <Card key={provider.slug} className="card-hover gap-3 p-4">
+                <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="card-hover-image aspect-[4/3] w-full rounded-xl" />
                 <div className="flex min-w-0 flex-col gap-1.5 px-1">
                   <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
                     {provider.specialty}
@@ -70,13 +72,16 @@ export default function Team() {
             ))}
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
-      <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={copy.team.ctaTitle}
-        cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          title={copy.team.ctaTitle}
+          cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

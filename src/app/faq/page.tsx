@@ -2,6 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { buildFaqSchema, clinic, copy, faqs } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -29,6 +30,7 @@ export default function FAQ() {
         image={{ label: "Clinic image", token: "[CLINIC_IMAGE]" }}
       />
 
+      <ScrollReveal>
       <Section containerClassName="max-w-4xl">
         {categories.map((category, index) => (
           <div key={category.label} className={index > 0 ? "mt-10" : undefined} aria-labelledby={`faq-${category.label}`}>
@@ -46,7 +48,9 @@ export default function FAQ() {
           </div>
         ))}
       </Section>
+      </ScrollReveal>
 
+      <ScrollReveal>
       <Section className="bg-secondary/30" aria-labelledby="faq-contact-title">
         <SectionHeading
           eyebrow={copy.faq.contactEyebrow}
@@ -65,12 +69,15 @@ export default function FAQ() {
           />
         </div>
       </Section>
+      </ScrollReveal>
 
-      <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={copy.faq.ctaTitle}
-        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          title={copy.faq.ctaTitle}
+          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

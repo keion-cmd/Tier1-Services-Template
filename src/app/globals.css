@@ -133,6 +133,60 @@
   font-family: var(--font-heading);
 }
 
+/* animation-play-state utilities, used by the marquee components' `running hover:paused`
+   classes to let a visitor pause a scrolling logo/quote strip by hovering it. */
+@utility running {
+  animation-play-state: running;
+}
+
+@utility paused {
+  animation-play-state: paused;
+}
+
+/* Shared card hover treatment: subtle lift + shadow, reused by Services, Team,
+   Location, and Care Plan cards so the motion feel stays identical everywhere.
+   Pairs with .card-hover-image, which scales only the card's image on hover
+   (not the whole card) so surrounding layout never shifts. */
+.card-hover {
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -12px hsl(var(--foreground) / 0.18);
+}
+
+.card-hover-image {
+  transition: transform 300ms ease;
+}
+
+.card-hover:hover .card-hover-image {
+  transform: scale(1.03);
+}
+
+/* CTA icon micro-interaction: nudges a trailing arrow/chevron icon a few px on
+   hover of its clickable container. Keyed on lucide's auto-applied icon class
+   so every existing "text + arrow icon" CTA gets it with no per-instance markup. */
+.lucide-arrow-up-right,
+.lucide-arrow-right,
+.lucide-chevron-right {
+  transition: transform 200ms ease;
+}
+
+a:hover > .lucide-arrow-up-right,
+button:hover > .lucide-arrow-up-right,
+span:hover > .lucide-arrow-up-right,
+a:hover > .lucide-arrow-right,
+button:hover > .lucide-arrow-right,
+span:hover > .lucide-arrow-right,
+a:hover > .lucide-chevron-right,
+button:hover > .lucide-chevron-right,
+span:hover > .lucide-chevron-right {
+  transform: translateX(3px);
+}
+
 html {
   scroll-behavior: smooth;
 }

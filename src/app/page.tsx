@@ -3,6 +3,7 @@ import { AlertTriangle, ArrowUpRight, Clock3, MapPin, Phone } from "lucide-react
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { LeadGenForm } from "@/components/LeadGenForm";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
 import { LogoMarquee } from "@/components/LogoMarquee";
@@ -46,6 +47,14 @@ export default function Home() {
       <section className="relative overflow-hidden border-b border-border bg-secondary/40">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-14 md:grid-cols-2 md:items-center md:py-20 lg:px-8">
           <div className="flex min-w-0 flex-col gap-5">
+            {/* Content-completeness gate, matching the emergencyInfo pattern below: hides
+                the eyebrow badge pill only while heroBadgeText is still an unfilled clone
+                placeholder token, so real visitors never see literal bracket text. */}
+            {!/^\[.*\]$/.test(copy.home.heroBadgeText) && (
+              <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide break-words text-primary">
+                {copy.home.heroBadgeText}
+              </span>
+            )}
             <Eyebrow>{clinic.name} {clinic.descriptor}</Eyebrow>
             <h1 className="text-5xl leading-[1.03] font-extrabold tracking-tight text-foreground break-words sm:text-6xl">
               {copy.home.heroHeadline}
@@ -62,8 +71,18 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="min-w-0 overflow-hidden rounded-3xl border border-border shadow-sm">
-            <ImagePlaceholder label="Hero image" token="[HERO_IMAGE]" className="aspect-[4/3] h-full w-full border-0" />
+          <div className="relative min-w-0 pb-6 pr-6">
+            <div className="overflow-hidden rounded-3xl border border-border shadow-sm">
+              <ImagePlaceholder label="Hero image" token="[HERO_IMAGE]" className="aspect-[4/3] h-full w-full border-0" />
+            </div>
+            {/* Same content-completeness gate as the badge above, applied to both stat fields
+                so the floating stat card never shows literal placeholder brackets. */}
+            {!/^\[.*\]$/.test(copy.home.heroStatValue) && !/^\[.*\]$/.test(copy.home.heroStatCaption) && (
+              <div className="absolute bottom-0 right-0 w-44 min-w-0 rounded-2xl border border-border bg-card p-4 shadow-lg sm:w-48">
+                <strong className="block break-words text-2xl font-bold text-primary sm:text-3xl">{copy.home.heroStatValue}</strong>
+                <span className="text-xs font-medium break-words text-muted-foreground">{copy.home.heroStatCaption}</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -84,43 +103,49 @@ export default function Home() {
 
       {/* 2. Trust Stats Bar */}
       {sectionVisibility.trustStats && trustStats.length > 0 && (
-        <Section className="py-12 md:py-16" aria-labelledby="home-trust-stats-title">
-          <span id="home-trust-stats-title" className="sr-only">
-            {copy.home.trustStatsTitle}
-          </span>
-          <StatBlock stats={trustStats} />
-        </Section>
+        <ScrollReveal>
+          <Section className="py-12 md:py-16" aria-labelledby="home-trust-stats-title">
+            <span id="home-trust-stats-title" className="sr-only">
+              {copy.home.trustStatsTitle}
+            </span>
+            <StatBlock stats={trustStats} />
+          </Section>
+        </ScrollReveal>
       )}
 
       {/* 3. Services Showcase */}
-      <Section aria-labelledby="home-services-title">
-        <SectionHeading
-          eyebrow={copy.home.servicesEyebrow}
-          title={<span id="home-services-title">{copy.home.servicesTitle}</span>}
-          description={copy.home.servicesSubtitle}
-          action={
-            <Link href="/services" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-              See all services <ArrowUpRight size={15} />
-            </Link>
-          }
-        />
-        <InteractiveServiceGallery variant="home" count={4} />
-      </Section>
+      <ScrollReveal>
+        <Section aria-labelledby="home-services-title">
+          <SectionHeading
+            eyebrow={copy.home.servicesEyebrow}
+            title={<span id="home-services-title">{copy.home.servicesTitle}</span>}
+            description={copy.home.servicesSubtitle}
+            action={
+              <Link href="/services" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                See all services <ArrowUpRight size={15} />
+              </Link>
+            }
+          />
+          <InteractiveServiceGallery variant="home" count={4} />
+        </Section>
+      </ScrollReveal>
 
       {/* 4. Why Choose Us */}
       {sectionVisibility.whyChooseUs && differentiators.length > 0 && (
-        <Section className="bg-secondary/30" aria-labelledby="home-why-choose-title">
-          <SectionHeading
-            eyebrow={copy.home.whyUsEyebrow}
-            title={<span id="home-why-choose-title">{copy.home.whyUsTitle}</span>}
-            description={copy.home.whyUsSubtitle}
-          />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {differentiators.map((item) => (
-              <FeatureCard key={item.title} title={item.title} description={item.copy} />
-            ))}
-          </div>
-        </Section>
+        <ScrollReveal>
+          <Section className="bg-secondary/30" aria-labelledby="home-why-choose-title">
+            <SectionHeading
+              eyebrow={copy.home.whyUsEyebrow}
+              title={<span id="home-why-choose-title">{copy.home.whyUsTitle}</span>}
+              description={copy.home.whyUsSubtitle}
+            />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {differentiators.map((item) => (
+                <FeatureCard key={item.title} title={item.title} description={item.copy} />
+              ))}
+            </div>
+          </Section>
+        </ScrollReveal>
       )}
 
       {/* 4a. Proactive Care for Every Stage */}
@@ -132,7 +157,7 @@ export default function Home() {
           />
           <div className="grid gap-5 sm:grid-cols-3">
             {carePlans.map((plan) => (
-              <Card key={plan.title} className="p-6">
+              <Card key={plan.title} className="card-hover p-6">
                 <span className="text-sm break-words text-muted-foreground">{plan.subtitle}</span>
                 <h3 className="text-xl font-semibold break-words text-foreground">{plan.title}</h3>
                 <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed break-words text-muted-foreground">
@@ -156,6 +181,7 @@ export default function Home() {
 
       {/* 4b. Meet Our Team */}
       {sectionVisibility.meetTheTeam && providers.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="home-team-title">
           <SectionHeading
             eyebrow={copy.home.teamEyebrow}
@@ -169,8 +195,8 @@ export default function Home() {
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {providers.map((provider) => (
-              <Card key={provider.slug} className="gap-3 p-4">
-                <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="aspect-[4/3] w-full rounded-xl" />
+              <Card key={provider.slug} className="card-hover gap-3 p-4">
+                <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="card-hover-image aspect-[4/3] w-full rounded-xl" />
                 <div className="flex min-w-0 flex-col gap-1.5 px-1">
                   <span className="text-xs font-semibold tracking-wide break-words text-primary uppercase">{provider.specialty}</span>
                   <h3 className="text-lg font-semibold break-words text-foreground">
@@ -188,6 +214,7 @@ export default function Home() {
             ))}
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
       {/* 5. How It Works */}
@@ -305,6 +332,7 @@ export default function Home() {
 
       {/* 8. FAQ Teaser */}
       {sectionVisibility.faqTeaser && faqs.length > 0 && (
+        <ScrollReveal>
         <Section className="bg-secondary/30">
           <SectionHeading eyebrow={copy.home.faqTeaserEyebrow} title={copy.home.faqTeaserTitle} description={copy.home.faqTeaserSubtitle} />
           <Accordion type="single" collapsible className="mx-auto max-w-3xl border-t border-border">
@@ -321,9 +349,11 @@ export default function Home() {
             </Link>
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
       {/* 9. Visit Our Clinic */}
+      <ScrollReveal>
       <Section aria-labelledby="home-location-title">
         <div className="grid gap-10 md:grid-cols-2">
           <div className="flex flex-col gap-5">
@@ -382,6 +412,7 @@ export default function Home() {
           </dl>
         </div>
       </Section>
+      </ScrollReveal>
 
       {/* 9a. Locations-adjacent Logo Marquee Group (e.g. Insurance) */}
       {logoMarquees
@@ -459,16 +490,18 @@ export default function Home() {
       </Section>
 
       {/* 10. Final CTA */}
-      <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={copy.home.finalCtaTitle}
-        cta={
-          <div className="flex flex-col gap-3">
-            <p className="max-w-sm text-sm leading-relaxed break-words text-primary-foreground/85">{copy.home.finalCtaSubtitle}</p>
-            <BookingButton label="Book an Appointment" variant="secondary" size="lg" className="w-fit" />
-          </div>
-        }
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          title={copy.home.finalCtaTitle}
+          cta={
+            <div className="flex flex-col gap-3">
+              <p className="max-w-sm text-sm leading-relaxed break-words text-primary-foreground/85">{copy.home.finalCtaSubtitle}</p>
+              <BookingButton label="Book an Appointment" variant="secondary" size="lg" className="w-fit" />
+            </div>
+          }
+        />
+      </ScrollReveal>
     </main>
   );
 }

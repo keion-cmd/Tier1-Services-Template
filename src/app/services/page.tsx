@@ -1,6 +1,7 @@
 import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, PageOutro } from "@/components/blocks/PageBlocks";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { clinic, copy, services } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -32,15 +33,19 @@ export default function Services() {
         </div>
       </div>
 
-      <Section className="pt-0 md:pt-0">
-        <InteractiveServiceGallery variant="services" />
-      </Section>
+      <ScrollReveal>
+        <Section className="pt-0 md:pt-0">
+          <InteractiveServiceGallery variant="services" />
+        </Section>
+      </ScrollReveal>
 
-      <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={copy.services.ctaTitle}
-        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          title={copy.services.ctaTitle}
+          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

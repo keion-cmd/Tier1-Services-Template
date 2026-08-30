@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { aboutValues, clinic, copy, sectionVisibility, staff } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -22,6 +23,7 @@ export default function About() {
         image={{ label: "About image", token: "[ABOUT_IMAGE]" }}
       />
 
+      <ScrollReveal>
       <Section aria-labelledby="about-values-title">
         <SectionHeading
           eyebrow={copy.about.valuesEyebrow}
@@ -33,7 +35,9 @@ export default function About() {
           ))}
         </div>
       </Section>
+      </ScrollReveal>
 
+      <ScrollReveal>
       <Section className="bg-secondary/30" aria-labelledby="about-team-title">
         <SectionHeading eyebrow={copy.about.approachEyebrow} title={<span id="about-team-title" className="sr-only">{copy.about.approachEyebrow}</span>} className="mb-6" />
         <div className="grid gap-5 sm:grid-cols-2">
@@ -49,8 +53,10 @@ export default function About() {
           </Card>
         </div>
       </Section>
+      </ScrollReveal>
 
       {sectionVisibility.aboutTeamGrid && staff.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="about-staff-title">
           <SectionHeading
             eyebrow={copy.about.staffEyebrow}
@@ -74,13 +80,16 @@ export default function About() {
             ))}
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
-      <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={copy.about.ctaTitle}
-        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          title={copy.about.ctaTitle}
+          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

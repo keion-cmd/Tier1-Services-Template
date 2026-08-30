@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { clinic, copy } from "@/lib/business-content";
 import { locations } from "@/data/locations";
 import { buildMetadata } from "@/lib/metadata";
@@ -26,6 +27,7 @@ export default function Locations() {
         image={{ label: "Locations image", token: "[LOCATIONS_IMAGE]" }}
       />
 
+      <ScrollReveal>
       <Section aria-labelledby="locations-grid-title">
         <SectionHeading
           eyebrow={copy.locations.gridEyebrow}
@@ -34,8 +36,8 @@ export default function Locations() {
         <div className={cn("grid gap-5", locations.length === 1 ? "mx-auto max-w-md" : "sm:grid-cols-2")}>
           {locations.map((location) => (
             <Link key={location.slug} href={`/locations/${location.slug}`}>
-              <Card className="h-full gap-0 overflow-hidden p-0 transition-shadow hover:shadow-md">
-                <ImagePlaceholder label="Location image" token={location.imageKey} className="aspect-[16/9] w-full border-0" />
+              <Card className="card-hover h-full gap-0 overflow-hidden p-0">
+                <ImagePlaceholder label="Location image" token={location.imageKey} className="card-hover-image aspect-[16/9] w-full border-0" />
                 <div className="flex min-w-0 flex-col gap-2 p-5">
                   <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">{location.name}</h3>
                   <p className="flex min-w-0 items-start gap-2 text-sm leading-relaxed break-words text-muted-foreground">
@@ -55,12 +57,15 @@ export default function Locations() {
           ))}
         </div>
       </Section>
+      </ScrollReveal>
 
-      <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={copy.locations.ctaTitle}
-        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          title={copy.locations.ctaTitle}
+          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

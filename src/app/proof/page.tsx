@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/blocks/PageBlocks";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { clinic, copy, proofCareStats, proofPageStories, proofStatHighlight, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -38,6 +39,7 @@ export default function Proof() {
       </div>
 
       {sectionVisibility.proofCareStats && proofCareStats.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="proof-stats-title">
           <SectionHeading
             eyebrow={copy.proof.statsEyebrow}
@@ -49,11 +51,13 @@ export default function Proof() {
             ))}
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
       <ReviewsSection />
 
       {sectionVisibility.proofStories && proofPageStories.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="proof-stories-title">
           <Eyebrow>{copy.proof.storiesEyebrow}</Eyebrow>
           <h2 id="proof-stories-title" className="sr-only">
@@ -74,13 +78,16 @@ export default function Proof() {
             client-approved, consented stories before launch.
           </p>
         </Section>
+        </ScrollReveal>
       )}
 
-      <PageOutro
-        eyebrow={`${clinic.name} ${clinic.descriptor}`}
-        title={copy.proof.ctaTitle}
-        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={`${clinic.name} ${clinic.descriptor}`}
+          title={copy.proof.ctaTitle}
+          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

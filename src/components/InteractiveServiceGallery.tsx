@@ -62,7 +62,7 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
               <ImagePlaceholder
                 label="Service image"
                 token={`[SERVICE_${index + 1}_IMAGE]`}
-                className="h-full w-full border-0 transition-transform duration-500 group-hover:scale-105"
+                className="card-hover-image h-full w-full border-0"
               />
             </div>
           );
@@ -74,7 +74,7 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
           );
 
           return (
-            <Card key={service.title} className="group flex flex-col overflow-hidden gap-0 py-0 transition-shadow hover:shadow-md">
+            <Card key={service.title} className="card-hover flex flex-col overflow-hidden gap-0 py-0">
               <div className="flex min-w-0 items-center justify-between gap-2 px-5 pt-4">
                 <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">
                   {service.number} · Care path
