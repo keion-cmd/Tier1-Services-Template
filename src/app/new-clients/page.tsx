@@ -1,4 +1,6 @@
-import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { PageHero, Section, SectionHeading, StepList, PageOutro } from "@/components/blocks/PageBlocks";
@@ -52,6 +54,19 @@ export default function NewClients() {
           </div>
         </Section>
       )}
+
+      <Section className="flex flex-wrap items-center justify-center gap-4 text-center">
+        <Button asChild size="lg" variant="outline" className="rounded-full">
+          <Link href="/faq">
+            {copy.newClients.faqPrompt} <ArrowUpRight size={16} />
+          </Link>
+        </Button>
+        <Button asChild size="lg" variant="outline" className="rounded-full">
+          <Link href="/services">
+            {copy.newClients.servicesPrompt} <ArrowUpRight size={16} />
+          </Link>
+        </Button>
+      </Section>
 
       <PageOutro
         eyebrow={getBusinessTagline()}

@@ -69,7 +69,22 @@ export function InteractiveServiceGallery({ variant, count = services.length }: 
           const copy = (
             <CardContent className="flex min-w-0 flex-1 flex-col gap-2 pt-4">
               <h3 className="text-xl leading-snug font-semibold tracking-tight text-foreground break-words">{service.title}</h3>
+              {service.duration && (
+                <span className="min-w-0 break-words text-xs font-medium text-muted-foreground">{service.duration}</span>
+              )}
               <p className="text-sm leading-relaxed break-words text-muted-foreground">{service.short}</p>
+              {service.benefits && service.benefits.length > 0 && (
+                <ul className="flex flex-wrap gap-1.5">
+                  {service.benefits.slice(0, 2).map((benefit) => (
+                    <li
+                      key={benefit}
+                      className="min-w-0 max-w-full truncate rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                    >
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </CardContent>
           );
 
