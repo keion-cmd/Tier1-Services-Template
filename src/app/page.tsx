@@ -56,7 +56,7 @@ export default function Home() {
               </span>
             )}
             <Eyebrow>{clinic.name} {clinic.descriptor}</Eyebrow>
-            <h1 className="text-5xl leading-[1.03] font-extrabold tracking-tight text-foreground break-words sm:text-6xl">
+            <h1 className="font-heading text-6xl leading-[1.02] font-semibold tracking-tight text-foreground break-words sm:text-7xl">
               {copy.home.heroHeadline}
             </h1>
             <p className="max-w-md text-base leading-relaxed break-words text-muted-foreground">{copy.home.heroSubheadline}</p>
