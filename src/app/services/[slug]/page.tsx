@@ -96,7 +96,7 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
       </Section>
 
       {service.bestFor && service.bestFor.length > 0 && (
-        <Section className="bg-secondary/30" aria-labelledby="service-best-for-title">
+        <Section aria-labelledby="service-best-for-title">
           <SectionHeading
             eyebrow="Is this right for you?"
             title={<span id="service-best-for-title">This service is a good fit if...</span>}

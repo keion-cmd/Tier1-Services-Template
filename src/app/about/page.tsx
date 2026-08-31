@@ -85,7 +85,7 @@ export default function About() {
       )}
 
       <ScrollReveal>
-        <Section aria-labelledby="about-explore-title">
+        <Section className="bg-secondary/30" aria-labelledby="about-explore-title">
           <SectionHeading
             eyebrow={copy.about.exploreEyebrow}
             title={<span id="about-explore-title">{copy.about.exploreTitle}</span>}
