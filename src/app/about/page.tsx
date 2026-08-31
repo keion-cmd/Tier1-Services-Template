@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
+import { EditorialStatement, EditorialSplit, EditorialList } from "@/components/blocks/EditorialBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -27,33 +28,27 @@ export default function About() {
       />
 
       <ScrollReveal>
-      <Section aria-labelledby="about-values-title">
-        <SectionHeading
-          eyebrow={copy.about.valuesEyebrow}
-          title={<span id="about-values-title">{copy.about.valuesTitle}</span>}
-        />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {aboutValues.map((value) => (
-            <FeatureCard key={value.title} label={copy.about.valueLabel} title={value.title} description={value.copy} />
-          ))}
-        </div>
-      </Section>
+        <EditorialStatement eyebrow={copy.about.approachEyebrow} statement={copy.about.approachParagraph1} />
       </ScrollReveal>
 
       <ScrollReveal>
-      <Section className="bg-secondary/30" aria-labelledby="about-team-title">
-        <SectionHeading eyebrow={copy.about.approachEyebrow} title={<span id="about-team-title" className="sr-only">{copy.about.approachEyebrow}</span>} className="mb-6" />
-        <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-center">
-          <p className="font-heading min-w-0 break-words text-2xl leading-tight font-semibold tracking-tight text-foreground sm:text-3xl">
-            {copy.about.approachParagraph1}
-          </p>
-          <Card>
-            <CardContent className="min-w-0">
-              <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph2}</p>
-            </CardContent>
-          </Card>
-        </div>
-      </Section>
+        <EditorialSplit
+          className="bg-secondary/30"
+          eyebrow="Our story"
+          body={<p>{copy.about.approachParagraph2}</p>}
+          imageToken="[ABOUT_STORY_IMAGE]"
+          imageLabel="Company story image"
+        />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <Section aria-labelledby="about-values-title">
+          <SectionHeading
+            eyebrow={copy.about.valuesEyebrow}
+            title={<span id="about-values-title">{copy.about.valuesTitle}</span>}
+          />
+          <EditorialList items={aboutValues.map((value) => ({ title: value.title, description: value.copy }))} />
+        </Section>
       </ScrollReveal>
 
       {sectionVisibility.aboutTeamGrid && staff.length > 0 && (

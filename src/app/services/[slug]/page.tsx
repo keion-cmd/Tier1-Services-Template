@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { JsonLd } from "@/components/JsonLd";
-import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
+import { EditorialStatement, EditorialList, EditorialTimeline } from "@/components/blocks/EditorialBlocks";
+import { ImmersiveHero } from "@/components/ImmersiveHero";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { Card, CardContent } from "@/components/ui/card";
-import { buildBreadcrumbSchema, copy, faqs, getBusinessTagline, getServiceBySlug, services } from "@/lib/business-content";
+import { buildBreadcrumbSchema, copy, faqs, getBusinessTagline, getProvidersByService, getServiceBySlug, services } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 type Params = { slug: string };
@@ -38,6 +41,7 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
     .filter((other) => other.slug !== service.slug && other.category === service.category)
     .slice(0, 3);
   const serviceFaqs = faqs.filter((faq) => faq.serviceSlug === service.slug);
+  const serviceProviders = getProvidersByService(service.slug);
 
   return (
     <main>
@@ -49,73 +53,99 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
         ])}
       />
 
-      <PageHero
-        eyebrow={`${service.number} · ${copy.services.cardLabel} · ${service.duration}`}
-        title={service.title}
-        description={service.detail}
-        cta={<BookingButton label="Book an Appointment" />}
-        backLink={{ href: "/services", label: "All Services" }}
-        image={{ label: "Service image", token: service.imageKey }}
+      <ImmersiveHero
+        eyebrow={`${service.number} · ${copy.services.cardLabel}`}
+        headline={service.title}
+        subheadline={service.detail}
+        imageToken={service.imageKey}
+        imageLabel="Service image"
+        cta={<BookingButton label="Book an Appointment" size="lg" />}
+        stat={{ value: service.duration, caption: "typical duration" }}
       />
 
-      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
-        <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex min-w-0 items-baseline gap-2">
-            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{service.number}</strong>
-            <span className="text-sm font-semibold text-muted-foreground">care path</span>
-          </div>
-          <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">{service.short}</p>
+      <div className="mx-auto max-w-7xl px-6 pt-8 lg:px-8">
+        <div className="flex flex-wrap items-center justify-between gap-6 border-b border-border pb-6">
+          <Link href="/services" className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+            <ArrowLeft size={15} /> All Services
+          </Link>
           <BookingButton label="Schedule Your Care" variant="link" iconSize={15} className="h-auto p-0" />
         </div>
       </div>
 
-      <Section aria-labelledby="service-benefits-title">
-        <SectionHeading eyebrow={copy.serviceDetail.benefitsEyebrow} title={<span id="service-benefits-title" className="sr-only">{copy.serviceDetail.benefitsEyebrow}</span>} className="mb-6" />
-        <div className="grid gap-4 sm:grid-cols-3">
-          {service.benefits.map((benefit) => (
-            <Card key={benefit}>
-              <CardContent className="flex min-w-0 items-start gap-3">
-                <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-primary" />
-                <p className="min-w-0 break-words text-sm leading-relaxed text-foreground">{benefit}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      <Section className="bg-secondary/30" aria-labelledby="service-process-title">
-        <SectionHeading
-          eyebrow={copy.serviceDetail.processEyebrow}
-          title={<span id="service-process-title">{copy.serviceDetail.processTitle}</span>}
-        />
-        <div className="grid gap-5 sm:grid-cols-3">
-          {service.process.map((step) => (
-            <FeatureCard key={step.step} label={`Step ${step.step}`} title={step.title} description={step.description} />
-          ))}
-        </div>
-      </Section>
+      <ScrollReveal>
+        <EditorialStatement eyebrow="About this service" statement={service.short} />
+      </ScrollReveal>
 
       {service.bestFor && service.bestFor.length > 0 && (
-        <Section aria-labelledby="service-best-for-title">
+        <ScrollReveal>
+        <Section className="bg-secondary/30" aria-labelledby="service-best-for-title">
           <SectionHeading
             eyebrow="Is this right for you?"
             title={<span id="service-best-for-title">This service is a good fit if...</span>}
             className="mb-6"
           />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="flex flex-wrap gap-3">
             {service.bestFor.map((reason) => (
-              <Card key={reason}>
-                <CardContent className="flex min-w-0 items-start gap-3">
-                  <Sparkles size={20} className="mt-0.5 shrink-0 text-primary" />
-                  <p className="min-w-0 break-words text-sm leading-relaxed text-foreground">{reason}</p>
-                </CardContent>
-              </Card>
+              <span
+                key={reason}
+                className="inline-flex min-w-0 max-w-full items-center gap-2 rounded-full border border-primary/30 bg-card px-4 py-2.5 text-sm leading-snug break-words text-foreground"
+              >
+                <Sparkles size={16} className="shrink-0 text-primary" />
+                {reason}
+              </span>
             ))}
           </div>
         </Section>
+        </ScrollReveal>
+      )}
+
+      <ScrollReveal>
+        <Section aria-labelledby="service-benefits-title">
+          <SectionHeading eyebrow={copy.serviceDetail.benefitsEyebrow} title={<span id="service-benefits-title" className="sr-only">{copy.serviceDetail.benefitsEyebrow}</span>} className="mb-6" />
+          <EditorialList items={service.benefits.map((benefit) => ({ title: benefit }))} />
+        </Section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <Section className="bg-secondary/30" aria-labelledby="service-process-title">
+          <SectionHeading
+            eyebrow={copy.serviceDetail.processEyebrow}
+            title={<span id="service-process-title">{copy.serviceDetail.processTitle}</span>}
+          />
+          <EditorialTimeline
+            items={service.process.map((step) => ({ label: `Step ${step.step}`, title: step.title, description: step.description }))}
+          />
+        </Section>
+      </ScrollReveal>
+
+      {serviceProviders.length > 0 && (
+        <ScrollReveal>
+        <Section className="bg-secondary/30" aria-labelledby="service-providers-title">
+          <SectionHeading
+            eyebrow="Meet the team"
+            title={<span id="service-providers-title">Who provides {service.title.toLowerCase()}</span>}
+          />
+          <div className={`grid gap-5 ${serviceProviders.length === 1 ? "mx-auto max-w-sm" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
+            {serviceProviders.map((provider) => (
+              <Link key={provider.slug} href={`/team/${provider.slug}`} aria-label={`View ${provider.name}'s profile`}>
+                <Card className="card-hover gap-3 p-4">
+                  <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="card-hover-image aspect-[4/3] w-full rounded-xl" />
+                  <div className="flex min-w-0 flex-col gap-1.5 px-1">
+                    <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{provider.specialty}</span>
+                    <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">
+                      {provider.name}, {provider.credentials}
+                    </h3>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </Section>
+        </ScrollReveal>
       )}
 
       {serviceFaqs.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="service-faq-title">
           <SectionHeading eyebrow="Common questions" title={<span id="service-faq-title">FAQs about {service.title}</span>} className="mb-2" />
           <Accordion type="single" collapsible className="mt-3 border-t border-border">
@@ -127,9 +157,11 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
             ))}
           </Accordion>
         </Section>
+        </ScrollReveal>
       )}
 
       {relatedServices.length > 0 && (
+        <ScrollReveal>
         <Section className="bg-secondary/30" aria-labelledby="related-services-title">
           <SectionHeading
             eyebrow={copy.services.cardLabel}
@@ -161,17 +193,20 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
             ))}
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
-      <PageOutro
-        eyebrow={getBusinessTagline()}
-        title={
-          <>
-            Ready to talk through <span className="text-primary-foreground/80">{service.title.toLowerCase()}?</span>
-          </>
-        }
-        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={getBusinessTagline()}
+          title={
+            <>
+              Ready to talk through <span className="text-primary-foreground/80">{service.title.toLowerCase()}?</span>
+            </>
+          }
+          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

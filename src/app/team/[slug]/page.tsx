@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
-import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
-import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getBusinessTagline, getProviderBySlug, providers, sectionVisibility } from "@/lib/business-content";
+import { Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
+import { ImmersiveHero } from "@/components/ImmersiveHero";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getBusinessTagline, getProviderBySlug, getServiceBySlug, providers, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 type Params = { slug: string };
@@ -32,6 +34,10 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
 
   if (!provider) notFound();
 
+  const relatedServices = (provider.relatedServiceSlugs ?? [])
+    .map((slug) => getServiceBySlug(slug))
+    .filter((service): service is NonNullable<typeof service> => Boolean(service));
+
   return (
     <main>
       <JsonLd
@@ -45,9 +51,9 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
         ]}
       />
 
-      <PageHero
+      <ImmersiveHero
         eyebrow={provider.specialty + (provider.placeholder ? " · Demo profile" : "")}
-        title={
+        headline={
           <>
             {provider.name}
             <br />
@@ -56,18 +62,18 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
             </Badge>
           </>
         }
-        description={provider.fullBio ?? provider.bio}
-        cta={<BookingButton label="Schedule With Our Team" />}
-        backLink={{ href: "/team", label: "Our Team" }}
-        image={{ label: "Provider photo", token: provider.imageKey }}
+        subheadline={provider.fullBio ?? provider.bio}
+        imageToken={provider.imageKey}
+        imageLabel="Provider photo"
+        cta={<BookingButton label="Schedule With Our Team" size="lg" />}
+        stat={{ value: String(provider.yearsExperience), caption: "years experience" }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex min-w-0 items-baseline gap-2">
-            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{provider.yearsExperience}</strong>
-            <span className="text-sm font-semibold text-muted-foreground">years experience</span>
-          </div>
+          <Link href="/team" className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+            <ArrowLeft size={15} /> Our Team
+          </Link>
           <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">
             {provider.specialty} at {businessConfig.name}, with a steady, unhurried approach to every visit.
           </p>
@@ -78,6 +84,7 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
       </div>
 
       {sectionVisibility.providerAreasOfInterest && provider.areasOfInterest.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="provider-interests-title">
           <SectionHeading
             eyebrow="Areas of interest"
@@ -100,17 +107,38 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
             ))}
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
-      <PageOutro
-        eyebrow={getBusinessTagline()}
-        title={
-          <>
-            Ready to talk with <span className="text-primary-foreground/80">{provider.name}?</span>
-          </>
-        }
-        cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
-      />
+      {relatedServices.length > 0 && (
+        <ScrollReveal>
+        <Section className="bg-secondary/30" aria-labelledby="provider-services-title">
+          <SectionHeading
+            eyebrow="Works with"
+            title={<span id="provider-services-title">Services {provider.name} offers</span>}
+          />
+          <div className={`grid gap-5 ${relatedServices.length === 1 ? "mx-auto max-w-md" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
+            {relatedServices.map((service) => (
+              <Link key={service.slug} href={`/services/${service.slug}`} aria-label={`View details about ${service.title}`}>
+                <FeatureCard label={service.category} title={service.title} description={service.short} />
+              </Link>
+            ))}
+          </div>
+        </Section>
+        </ScrollReveal>
+      )}
+
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={getBusinessTagline()}
+          title={
+            <>
+              Ready to talk with <span className="text-primary-foreground/80">{provider.name}?</span>
+            </>
+          }
+          cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "check": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "validate:clients": "tsc scripts/validate-clients.ts --target es2020 --module commonjs --moduleResolution node --esModuleInterop --resolveJsonModule --skipLibCheck --outDir .tmp-validate && node .tmp-validate/scripts/validate-clients.js && node -e \"require('fs').rmSync('.tmp-validate',{recursive:true,force:true})\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

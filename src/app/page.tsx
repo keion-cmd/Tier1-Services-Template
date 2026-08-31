@@ -33,6 +33,7 @@ import {
   trustStats,
 } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
+import { cn } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: getBusinessTagline(),
@@ -100,7 +101,7 @@ export default function Home() {
       {/* 1c. Approach — alternating dark section (Tier1's own .dark palette, scoped to this
           subtree). Reuses facilityEyebrow/whyUsTitle/whyUsSubtitle and the first 3
           clinicExperienceFeatures images rather than introducing new required fields. */}
-      {clinicExperienceFeatures.length >= 3 && (
+      {clinicExperienceFeatures.length > 0 && (
         <section className="dark border-b border-border bg-background text-foreground">
           <div className="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:px-8">
             <div className="grid gap-6 md:grid-cols-2 md:gap-16">
@@ -114,7 +115,16 @@ export default function Home() {
                 {copy.home.whyUsSubtitle}
               </p>
             </div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            {/* Grid density adapts to however many features the client actually provided
+                (1-3+) instead of requiring exactly 3 or hiding the whole section. */}
+            <div
+              className={cn(
+                "mt-10 grid gap-4",
+                clinicExperienceFeatures.length === 1 && "max-w-md sm:grid-cols-1",
+                clinicExperienceFeatures.length === 2 && "sm:grid-cols-2",
+                clinicExperienceFeatures.length >= 3 && "sm:grid-cols-3"
+              )}
+            >
               {clinicExperienceFeatures.slice(0, 3).map((feature) => (
                 <div key={feature.title} className="overflow-hidden rounded-2xl">
                   <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="aspect-[4/3] w-full border-0" />
@@ -162,7 +172,7 @@ export default function Home() {
               </Link>
             }
           />
-          <InteractiveServiceGallery variant="home" count={4} />
+          <InteractiveServiceGallery count={4} />
         </Section>
       </ScrollReveal>
 
@@ -254,13 +264,16 @@ export default function Home() {
       )}
 
       {/* 5b. Designed Around Your Comfort */}
-      {sectionVisibility.clinicExperience && clinicExperienceFeatures.length >= 4 && (
+      {sectionVisibility.clinicExperience && clinicExperienceFeatures.length > 0 && (
         <Section aria-labelledby="home-clinic-experience-title">
           <SectionHeading
             eyebrow={copy.home.facilityEyebrow}
             title={<span id="home-clinic-experience-title">{copy.home.facilityTitle}</span>}
           />
-          <div className="grid gap-4 md:grid-cols-[1.3fr_1fr]">
+          {/* Layout degrades to however many features exist: a lone feature is a single full
+              image, 2-3 add a secondary column, 4+ adds the trailing caption row — instead of
+              the whole section disappearing below a fixed minimum count. */}
+          <div className={cn("grid gap-4", clinicExperienceFeatures.length > 1 && "md:grid-cols-[1.3fr_1fr]")}>
             <figure className="relative min-h-[200px] overflow-hidden rounded-2xl md:min-h-[320px]">
               <ImagePlaceholder
                 label="Clinic image"
@@ -271,24 +284,28 @@ export default function Home() {
                 {clinicExperienceFeatures[0].title}
               </figcaption>
             </figure>
-            <div className="grid grid-rows-2 gap-4">
-              {clinicExperienceFeatures.slice(1, 3).map((feature) => (
-                <figure key={feature.title} className="relative min-h-[140px] overflow-hidden rounded-2xl">
-                  <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="h-full w-full border-0" />
-                  <figcaption className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold break-words text-background">
-                    {feature.title}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
+            {clinicExperienceFeatures.length > 1 && (
+              <div className={cn("grid gap-4", clinicExperienceFeatures.length >= 3 ? "grid-rows-2" : "grid-rows-1")}>
+                {clinicExperienceFeatures.slice(1, 3).map((feature) => (
+                  <figure key={feature.title} className="relative min-h-[140px] overflow-hidden rounded-2xl">
+                    <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="h-full w-full border-0" />
+                    <figcaption className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold break-words text-background">
+                      {feature.title}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
           </div>
-          <p className="mt-7 flex flex-wrap gap-x-8 gap-y-2 text-sm leading-relaxed break-words text-muted-foreground">
-            {clinicExperienceFeatures.slice(3).map((feature) => (
-              <span key={feature.title}>
-                <strong className="font-semibold text-foreground">{feature.title}.</strong> {feature.copy}
-              </span>
-            ))}
-          </p>
+          {clinicExperienceFeatures.length > 3 && (
+            <p className="mt-7 flex flex-wrap gap-x-8 gap-y-2 text-sm leading-relaxed break-words text-muted-foreground">
+              {clinicExperienceFeatures.slice(3).map((feature) => (
+                <span key={feature.title}>
+                  <strong className="font-semibold text-foreground">{feature.title}.</strong> {feature.copy}
+                </span>
+              ))}
+            </p>
+          )}
         </Section>
       )}
 
@@ -347,10 +364,15 @@ export default function Home() {
               </Card>
             ))}
           </div>
-          <p className="mt-6 min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
-            {clinic.name} is a template demonstration business; these demo client stories are illustrative placeholders,
-            not real outcomes.
-          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <Link href="/success-stories" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+              View all stories <ArrowUpRight size={15} />
+            </Link>
+            <p className="min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
+              {clinic.name} is a template demonstration business; these demo client stories are illustrative placeholders,
+              not real outcomes.
+            </p>
+          </div>
         </Section>
       )}
 

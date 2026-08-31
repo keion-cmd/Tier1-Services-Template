@@ -1,12 +1,15 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { ArrowUpRight, Star } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
-import { PageHero, Section, SectionHeading, FeatureCard, Eyebrow, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, Eyebrow, PageOutro } from "@/components/blocks/PageBlocks";
+import { EditorialStats, EditorialList } from "@/components/blocks/EditorialBlocks";
+import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { clinic, copy, getBusinessTagline, proofCareStats, proofPageStories, proofStatHighlight, sectionVisibility } from "@/lib/business-content";
+import { clinic, copy, getBusinessTagline, getServiceBySlug, marqueeReviews, proofCareStats, proofPageStories, proofStatHighlight, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
+import { isPlaceholderToken } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: `Proof & Reviews — ${getBusinessTagline()}`,
@@ -15,22 +18,29 @@ export const metadata = buildMetadata({
 });
 
 export default function Proof() {
+  const reviewsByService = marqueeReviews
+    .filter((review) => review.serviceSlug && !isPlaceholderToken(review.quote))
+    .reduce<Record<string, typeof marqueeReviews>>((groups, review) => {
+      const service = getServiceBySlug(review.serviceSlug!);
+      if (!service) return groups;
+      groups[service.title] = [...(groups[service.title] ?? []), review];
+      return groups;
+    }, {});
+
   return (
     <main>
-      <PageHero
+      <ImmersiveHero
         eyebrow={copy.proof.heroEyebrow}
-        title={copy.proof.heroTitle}
-        description={copy.proof.heroSubtitle}
-        cta={<BookingButton label="Book an Appointment" />}
-        image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
+        headline={copy.proof.heroTitle}
+        subheadline={copy.proof.heroSubtitle}
+        imageToken="[SERVICE_IMAGE]"
+        imageLabel="Service image"
+        cta={<BookingButton label="Book an Appointment" size="lg" />}
+        stat={{ value: proofStatHighlight.number, caption: proofStatHighlight.label }}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-6 border-b border-border pb-8">
-          <div className="flex min-w-0 items-baseline gap-2">
-            <strong className="min-w-0 break-words text-5xl font-bold text-primary">{proofStatHighlight.number}</strong>
-            <span className="min-w-0 break-words text-sm font-semibold text-muted-foreground">{proofStatHighlight.label}</span>
-          </div>
           <p className="min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">{copy.proof.statsCaption}</p>
           <Link href="/faq" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
             Read common questions <ArrowUpRight size={15} />
@@ -45,16 +55,40 @@ export default function Proof() {
             eyebrow={copy.proof.statsEyebrow}
             title={<span id="proof-stats-title">{copy.proof.statsTitle}</span>}
           />
-          <div className="grid gap-5 sm:grid-cols-3">
-            {proofCareStats.map((stat) => (
-              <FeatureCard key={stat.label} label={copy.proof.statCardLabel} title={stat.value} description={stat.label} />
-            ))}
-          </div>
+          <EditorialStats stats={proofCareStats} />
         </Section>
         </ScrollReveal>
       )}
 
       <ReviewsSection />
+
+      {Object.keys(reviewsByService).length > 0 && (
+        <ScrollReveal>
+          <Section className="bg-secondary/30" aria-labelledby="proof-by-service-title">
+            <SectionHeading eyebrow="Trust, by service" title={<span id="proof-by-service-title">Reviews by service</span>} />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {Object.entries(reviewsByService).map(([service, reviews]) => (
+                <Card key={service} className="gap-3 p-5">
+                  <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{service}</span>
+                  {reviews.map((review) => (
+                    <div key={review.author} className="flex min-w-0 flex-col gap-1.5">
+                      <div className="flex gap-0.5 text-primary">
+                        {Array.from({ length: review.rating }).map((_, starIndex) => (
+                          <Star key={starIndex} size={13} fill="currentColor" />
+                        ))}
+                      </div>
+                      <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">&ldquo;{review.quote}&rdquo;</p>
+                      <span className="min-w-0 break-words text-xs font-semibold text-foreground">
+                        {review.author} · {review.segment}
+                      </span>
+                    </div>
+                  ))}
+                </Card>
+              ))}
+            </div>
+          </Section>
+        </ScrollReveal>
+      )}
 
       {sectionVisibility.proofStories && proofPageStories.length > 0 && (
         <ScrollReveal>
@@ -63,16 +97,10 @@ export default function Proof() {
           <h2 id="proof-stories-title" className="sr-only">
             {copy.proof.storiesEyebrow}
           </h2>
-          <div className="mt-5 grid gap-5 sm:grid-cols-3">
-            {proofPageStories.map((story) => (
-              <Card key={story.label}>
-                <CardContent className="flex min-w-0 flex-col gap-2">
-                  <Eyebrow>{story.label}</Eyebrow>
-                  <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{story.note}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <EditorialList
+            className="mt-5"
+            items={proofPageStories.map((story) => ({ title: story.label, description: story.note }))}
+          />
           <p className="mt-6 min-w-0 break-words text-xs leading-relaxed text-muted-foreground">
             {clinic.name} is a template demonstration business; these stories are illustrative placeholders. Replace with
             client-approved, consented stories before launch.

@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowUpRight, Info } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Info } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { JsonLd } from "@/components/JsonLd";
-import { PageHero, Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
+import { ImmersiveHero } from "@/components/ImmersiveHero";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { articles, buildArticleSchema, buildBreadcrumbSchema, copy, getArticleBySlug, getBusinessTagline, sectionVisibility } from "@/lib/business-content";
+import { articles, buildArticleSchema, buildBreadcrumbSchema, copy, getArticleBySlug, getBusinessTagline, getServiceBySlug, sectionVisibility } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 type Params = { slug: string };
@@ -34,6 +36,9 @@ export default async function ArticleDetail({ params }: { params: Promise<Params
   if (!article) notFound();
 
   const related = articles.filter((entry) => entry.slug !== article.slug).slice(0, 3);
+  const relatedServices = (article.relatedServiceSlugs ?? [])
+    .map((slug) => getServiceBySlug(slug))
+    .filter((service): service is NonNullable<typeof service> => Boolean(service));
 
   return (
     <main>
@@ -48,32 +53,59 @@ export default async function ArticleDetail({ params }: { params: Promise<Params
         ]}
       />
 
-      <PageHero
+      <ImmersiveHero
         eyebrow={`${article.category} · By ${article.author} · ${article.date} · ${article.readingTime}`}
-        title={article.title}
-        description={article.excerpt}
-        cta={<BookingButton label="Book an Appointment" />}
-        backLink={{ href: "/resources", label: "All Resources" }}
-        image={{ label: "Resource image", token: article.imageKey }}
+        headline={article.title}
+        subheadline={article.excerpt}
+        imageToken={article.imageKey}
+        imageLabel="Resource image"
+        cta={<BookingButton label="Book an Appointment" size="lg" />}
       />
 
-      <Section aria-labelledby="article-body-title">
-        <SectionHeading eyebrow={copy.articleDetail.bodyEyebrow} title={<span id="article-body-title" className="sr-only">{copy.articleDetail.bodyEyebrow}</span>} className="mb-6" />
-        <div className="flex min-w-0 max-w-180 flex-col gap-4">
-          {article.body.map((paragraph, index) => (
-            <p key={index} className="min-w-0 break-words text-base leading-relaxed text-foreground">
-              {paragraph}
+      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
+        <Link href="/resources" className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+          <ArrowLeft size={15} /> All Resources
+        </Link>
+      </div>
+
+      <ScrollReveal>
+        <Section aria-labelledby="article-body-title">
+          <SectionHeading eyebrow={copy.articleDetail.bodyEyebrow} title={<span id="article-body-title" className="sr-only">{copy.articleDetail.bodyEyebrow}</span>} className="mb-6" />
+          <div className="flex min-w-0 max-w-180 flex-col gap-4">
+            {article.body.map((paragraph, index) => (
+              <p key={index} className="min-w-0 break-words text-base leading-relaxed text-foreground">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          {article.disclaimer && (
+            <p className="mt-6 flex min-w-0 max-w-180 items-start gap-2 text-xs leading-relaxed break-words text-muted-foreground">
+              <Info size={16} className="mt-0.5 shrink-0" /> {copy.articleDetail.disclaimerText}
             </p>
-          ))}
-        </div>
-        {article.disclaimer && (
-          <p className="mt-6 flex min-w-0 max-w-180 items-start gap-2 text-xs leading-relaxed break-words text-muted-foreground">
-            <Info size={16} className="mt-0.5 shrink-0" /> {copy.articleDetail.disclaimerText}
-          </p>
-        )}
-      </Section>
+          )}
+        </Section>
+      </ScrollReveal>
+
+      {relatedServices.length > 0 && (
+        <ScrollReveal>
+        <Section aria-labelledby="article-related-service-title">
+          <SectionHeading
+            eyebrow="Related service"
+            title={<span id="article-related-service-title">What this article relates to</span>}
+          />
+          <div className={`grid gap-5 ${relatedServices.length === 1 ? "mx-auto max-w-md" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
+            {relatedServices.map((service) => (
+              <Link key={service.slug} href={`/services/${service.slug}`} aria-label={`View details about ${service.title}`}>
+                <FeatureCard label={service.category} title={service.title} description={service.short} />
+              </Link>
+            ))}
+          </div>
+        </Section>
+        </ScrollReveal>
+      )}
 
       {sectionVisibility.relatedArticles && related.length > 0 && (
+        <ScrollReveal>
         <Section className="bg-secondary/30" aria-labelledby="article-related-title">
           <SectionHeading
             eyebrow={copy.articleDetail.relatedEyebrow}
@@ -100,13 +132,16 @@ export default async function ArticleDetail({ params }: { params: Promise<Params
             ))}
           </div>
         </Section>
+        </ScrollReveal>
       )}
 
-      <PageOutro
-        eyebrow={getBusinessTagline()}
-        title={copy.articleDetail.ctaTitle}
-        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={getBusinessTagline()}
+          title={copy.articleDetail.ctaTitle}
+          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }

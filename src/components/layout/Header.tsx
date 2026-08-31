@@ -20,7 +20,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { BookingButton } from "@/components/BookingButton";
 import { MegaMenuDesktop, MegaMenuMobile } from "@/components/nav/MegaMenu";
-import { articles, clinic, providers } from "@/lib/business-content";
+import { articles, clientStories, clinic, providers } from "@/lib/business-content";
 import { locations } from "@/data/locations";
 import { servicesMegaMenu, resourcesMegaMenu, locationsMegaMenu, type MegaMenuConfig } from "@/data/megaMenus";
 import { cn, hasRealEntries } from "@/lib/utils";
@@ -36,9 +36,15 @@ const allNavItems: { href: string; label: string; megaMenu?: MegaMenuConfig; vis
   { href: "/team", label: "Team", visible: hasRealEntries(providers, (p) => p.name) },
   { href: "/resources", label: "Resources", megaMenu: resourcesMegaMenu, visible: hasRealEntries(articles, (a) => a.title) },
   { href: "/proof", label: "Reviews" },
+  {
+    href: "/success-stories",
+    label: "Client Stories",
+    visible: hasRealEntries(clientStories, (s) => s.clientName),
+  },
   { href: "/faq", label: "FAQ" },
   { href: "/new-clients", label: "New Clients" },
   { href: "/locations", label: "Locations", megaMenu: locationsMegaMenu, visible: hasRealEntries(locations, (l) => l.name) },
+  { href: "/contact", label: "Contact" },
 ];
 
 export const navItems = allNavItems.filter((item) => item.visible !== false);

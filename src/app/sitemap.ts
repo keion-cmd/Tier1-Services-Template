@@ -3,7 +3,19 @@ import { SITE_ORIGIN, services, providers, articles } from "@/lib/business-conte
 import { locations } from "@/data/locations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["/", "/about", "/services", "/team", "/resources", "/locations", "/proof", "/faq", "/new-clients"];
+  const staticPaths = [
+    "/",
+    "/about",
+    "/services",
+    "/team",
+    "/resources",
+    "/locations",
+    "/proof",
+    "/success-stories",
+    "/faq",
+    "/new-clients",
+    "/contact",
+  ];
 
   const dynamicPaths = [
     ...services.map((s) => `/services/${s.slug}`),

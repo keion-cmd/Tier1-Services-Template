@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
-import { PageHero, Section, SectionHeading, StepList, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, StepList, PageOutro } from "@/components/blocks/PageBlocks";
+import { EditorialList } from "@/components/blocks/EditorialBlocks";
+import { ImmersiveHero } from "@/components/ImmersiveHero";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { clinic, copy, getBusinessTagline, newClientSteps, whatToBring } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -16,15 +18,18 @@ export const metadata = buildMetadata({
 export default function NewClients() {
   return (
     <main>
-      <PageHero
+      <ImmersiveHero
         eyebrow={copy.newClients.heroEyebrow}
-        title={copy.newClients.heroTitle}
-        description={copy.newClients.heroSubtitle}
-        cta={<BookingButton label="Book Your First Visit" />}
-        image={{ label: "Service image", token: "[SERVICE_IMAGE]" }}
+        headline={copy.newClients.heroTitle}
+        subheadline={copy.newClients.heroSubtitle}
+        imageToken="[SERVICE_IMAGE]"
+        imageLabel="Service image"
+        cta={<BookingButton label="Book Your First Visit" size="lg" />}
+        stat={{ value: String(newClientSteps.length), caption: "simple steps" }}
       />
 
       {newClientSteps.length > 0 && (
+        <ScrollReveal>
         <Section aria-labelledby="new-clients-steps-title">
           <SectionHeading
             eyebrow={copy.newClients.stepsEyebrow}
@@ -33,46 +38,44 @@ export default function NewClients() {
           />
           <StepList steps={newClientSteps} />
         </Section>
+        </ScrollReveal>
       )}
 
       {whatToBring.length > 0 && (
+        <ScrollReveal>
         <Section className="bg-secondary/30" aria-labelledby="new-clients-bring-title">
           <SectionHeading
             eyebrow={copy.newClients.bringEyebrow}
-            title={<span id="new-clients-bring-title" className="sr-only">{copy.newClients.bringTitle}</span>}
+            title={<span id="new-clients-bring-title">{copy.newClients.bringTitle}</span>}
             className="mb-6"
           />
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {whatToBring.map((item) => (
-              <Card key={item}>
-                <CardContent className="flex min-w-0 items-start gap-3">
-                  <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-primary" />
-                  <p className="min-w-0 break-words text-sm leading-relaxed text-foreground">{item}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <EditorialList items={whatToBring.map((item) => ({ title: item }))} />
         </Section>
+        </ScrollReveal>
       )}
 
-      <Section className="flex flex-wrap items-center justify-center gap-4 text-center">
-        <Button asChild size="lg" variant="outline" className="rounded-full">
-          <Link href="/faq">
-            {copy.newClients.faqPrompt} <ArrowUpRight size={16} />
-          </Link>
-        </Button>
-        <Button asChild size="lg" variant="outline" className="rounded-full">
-          <Link href="/services">
-            {copy.newClients.servicesPrompt} <ArrowUpRight size={16} />
-          </Link>
-        </Button>
-      </Section>
+      <ScrollReveal>
+        <Section className="flex flex-wrap items-center justify-center gap-4 text-center">
+          <Button asChild size="lg" variant="outline" className="rounded-full">
+            <Link href="/faq">
+              {copy.newClients.faqPrompt} <ArrowUpRight size={16} />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="rounded-full">
+            <Link href="/services">
+              {copy.newClients.servicesPrompt} <ArrowUpRight size={16} />
+            </Link>
+          </Button>
+        </Section>
+      </ScrollReveal>
 
-      <PageOutro
-        eyebrow={getBusinessTagline()}
-        title={copy.newClients.ctaTitle}
-        cta={<BookingButton label="Book Your First Visit" variant="secondary" size="lg" />}
-      />
+      <ScrollReveal>
+        <PageOutro
+          eyebrow={getBusinessTagline()}
+          title={copy.newClients.ctaTitle}
+          cta={<BookingButton label="Book Your First Visit" variant="secondary" size="lg" />}
+        />
+      </ScrollReveal>
     </main>
   );
 }
