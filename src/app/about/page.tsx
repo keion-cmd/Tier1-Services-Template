@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
-import { PageHero, Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { aboutValues, copy, getBusinessTagline, sectionVisibility, staff } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
@@ -16,12 +17,13 @@ export const metadata = buildMetadata({
 export default function About() {
   return (
     <main>
-      <PageHero
+      <ImmersiveHero
         eyebrow={copy.about.heroEyebrow}
-        title={copy.about.heroTitle}
-        description={copy.about.heroSubtitle}
-        cta={<BookingButton label="Book an Appointment" />}
-        image={{ label: "About image", token: "[ABOUT_IMAGE]" }}
+        headline={copy.about.heroTitle}
+        subheadline={copy.about.heroSubtitle}
+        imageToken="[ABOUT_IMAGE]"
+        imageLabel="About image"
+        cta={<BookingButton label="Book an Appointment" size="lg" />}
       />
 
       <ScrollReveal>
@@ -41,12 +43,10 @@ export default function About() {
       <ScrollReveal>
       <Section className="bg-secondary/30" aria-labelledby="about-team-title">
         <SectionHeading eyebrow={copy.about.approachEyebrow} title={<span id="about-team-title" className="sr-only">{copy.about.approachEyebrow}</span>} className="mb-6" />
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Card>
-            <CardContent className="min-w-0">
-              <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph1}</p>
-            </CardContent>
-          </Card>
+        <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] md:items-center">
+          <p className="font-heading min-w-0 break-words text-2xl leading-tight font-semibold tracking-tight text-foreground sm:text-3xl">
+            {copy.about.approachParagraph1}
+          </p>
           <Card>
             <CardContent className="min-w-0">
               <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{copy.about.approachParagraph2}</p>
