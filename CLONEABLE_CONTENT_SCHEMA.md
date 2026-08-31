@@ -195,15 +195,6 @@ Shape: `{ value, label }[]`, implicit.
 
 **Gating: boolean+length.** `sectionVisibility.trustStats && trustStats.length > 0` (homepage — [page.tsx:118](src/app/page.tsx#L118)). Also imported into `chatEngine.ts` for use in chat responses (unconditional there, no gating in a chat-response context).
 
-## 17b. `trustBadges` — [business-content.ts](src/lib/business-content.ts)
-
-Shape: `{ icon, label }[]`, implicit. New, small credential-word strip (`"Licensed"`, `"Insured"`,
-`"Certified"`, `"24/7 Support"`) rendered by `TrustBadgeRow` in `PageBlocks.tsx`, directly under
-the hero and above the numeric `trustStats` bar — distinct data from `trustStats`. `icon` is a
-lucide-react icon name looked up against the same `iconMap` used by `StepList`/`FeatureCard`.
-
-**Gating: boolean+length.** `sectionVisibility.trustBadges && trustBadges.length > 0` (homepage — [page.tsx:106](src/app/page.tsx#L106)).
-
 ## 18. `differentiators` — [business-content.ts:489-496](src/lib/business-content.ts#L489)
 
 Shape: `{ title, copy, icon? }[]`, implicit. Trimmed to 4 entries in this template's own demo data

@@ -90,7 +90,6 @@ export const logoMarquees: LogoMarqueeGroup[] = [
 // hide that section without deleting code or data.
 export const sectionVisibility = {
   trustStats: true,
-  trustBadges: true,
   whyChooseUs: true,
   meetTheTeam: true,
   howItWorks: true,
@@ -120,7 +119,6 @@ export const copy = {
     heroStatCaption: "[HOME_HERO_STAT_CAPTION]",
     heroBadgeText: "[HOME_HERO_BADGE_TEXT]",
     trustStatsTitle: "[HOME_TRUST_STATS_TITLE]",
-    trustBadgesTitle: "[HOME_TRUST_BADGES_TITLE]",
     servicesEyebrow: "[HOME_SERVICES_EYEBROW]",
     servicesTitle: "[HOME_SERVICES_TITLE]",
     servicesSubtitle: "[HOME_SERVICES_SUBTITLE]",
@@ -555,15 +553,6 @@ export const howItWorks = [
   { step: "03", title: "[HOW_IT_WORKS_STEP_3_TITLE]", copy: "[HOW_IT_WORKS_STEP_3_DESCRIPTION]", icon: "Stethoscope" },
   { step: "04", title: "[HOW_IT_WORKS_STEP_4_TITLE]", copy: "[HOW_IT_WORKS_STEP_4_DESCRIPTION]", icon: "ClipboardCheck" },
 ] as { step: string; title: string; copy: string; icon?: string }[];
-
-// Compact credential-word trust strip rendered directly under the hero (distinct from the
-// numeric trustStats bar below it). Gated by sectionVisibility.trustBadges + length check.
-export const trustBadges = [
-  { icon: "ShieldCheck", label: "Licensed" },
-  { icon: "FileCheck", label: "Insured" },
-  { icon: "Award", label: "Certified" },
-  { icon: "Clock3", label: "24/7 Support" },
-] as { icon: string; label: string }[];
 
 export const healthResources = [
   {
