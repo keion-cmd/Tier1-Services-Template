@@ -8,6 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { cn } from "@/lib/utils";
 
 export function Section({
@@ -90,9 +91,14 @@ export function SectionHeading({ eyebrow, title, description, action, align = "l
         className
       )}
     >
-      <div className={cn("flex min-w-0 max-w-2xl flex-col gap-3", align === "center" && "items-center")}>
+      <div className={cn("flex w-full min-w-0 max-w-2xl flex-col gap-3", align === "center" && "items-center")}>
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight text-foreground break-words sm:text-4xl">{title}</h2>
+        <AnimatedHeading
+          as="h2"
+          className="font-heading text-3xl leading-tight font-bold tracking-tight text-foreground break-words sm:text-4xl"
+        >
+          {title}
+        </AnimatedHeading>
         {description && <p className="text-base leading-relaxed break-words text-muted-foreground">{description}</p>}
       </div>
       {action}
@@ -170,10 +176,12 @@ export function StatBlock({ stats }: { stats: { value: string; label: string }[]
           ? "sm:grid-cols-3"
           : "sm:grid-cols-2";
   return (
-    <div className={cn("grid grid-cols-2 divide-x divide-y divide-border border-t border-border sm:divide-y-0", colsClass)}>
+    <div className={cn("grid grid-cols-2 gap-x-4 gap-y-8 border-t border-border pt-8", colsClass)}>
       {stats.map((stat) => (
-        <div key={stat.label} className="flex min-w-0 flex-col gap-2 px-4 py-6 first:pl-0 sm:px-6">
-          <strong className="text-3xl font-bold break-words text-primary sm:text-4xl">{stat.value}</strong>
+        <div key={stat.label} className="flex min-w-0 flex-col gap-2 border-t border-dashed border-border pt-3">
+          <strong className="font-heading text-4xl leading-none font-bold tracking-tight break-words text-foreground sm:text-6xl">
+            {stat.value}
+          </strong>
           <span className="text-sm font-medium break-words text-muted-foreground">{stat.label}</span>
         </div>
       ))}

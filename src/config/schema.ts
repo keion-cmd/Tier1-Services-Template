@@ -235,6 +235,7 @@ export type PageCopy = {
     insuranceCtaPrompt: string;
   };
   about: {
+    metaDescription: string;
     heroEyebrow: string;
     heroTitle: string;
     heroSubtitle: string;
@@ -321,6 +322,9 @@ export type PageCopy = {
     gridEyebrow: string;
     gridTitle: string;
     ctaTitle: string;
+    /** Shown on /locations only when the client has zero locations configured. */
+    emptyTitle: string;
+    emptyBody: string;
   };
   location: {
     heroEyebrow: string;
@@ -370,6 +374,11 @@ export type PageCopy = {
     whyTitle: string;
     methodsEyebrow: string;
     methodsTitle: string;
+    /** Heading for the "where do you operate" section — only rendered when the client has 1+ locations. */
+    visitEyebrow: string;
+    visitTitle: string;
+    /** Link label to the full /locations directory — only shown when the client has 2+ locations. */
+    viewAllLocationsLabel: string;
     formEyebrow: string;
     formTitle: string;
     ctaTitle: string;

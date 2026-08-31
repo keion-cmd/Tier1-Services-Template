@@ -160,6 +160,7 @@ export const copy = {
     insuranceCtaPrompt: "Curious what a cleaning costs? Get a free, no-obligation estimate.",
   },
   about: {
+    metaDescription: "The story and cleaning standards behind Clearview Home Cleaning.",
     heroEyebrow: "Our story",
     heroTitle: "A cleaning business built on showing up",
     heroSubtitle: "Clearview started with one person, one vacuum, and a promise to do the job right every single time.",
@@ -246,6 +247,8 @@ export const copy = {
     gridEyebrow: "Home base",
     gridTitle: "Our location",
     ctaTitle: "See if your address is in range",
+    emptyTitle: "No service area listed yet",
+    emptyBody: "We're still setting up our location details — reach out directly and we'll confirm whether we cover your address.",
   },
   location: {
     heroEyebrow: "Foster-Powell, Portland",
@@ -295,6 +298,9 @@ export const copy = {
     whyTitle: "How we can help",
     methodsEyebrow: "Get in touch",
     methodsTitle: "Ways to reach us",
+    visitEyebrow: "Service area",
+    visitTitle: "Where we clean",
+    viewAllLocationsLabel: "See our service area",
     formEyebrow: "Send a message",
     formTitle: "Tell us what you need",
     ctaTitle: "Prefer to just book directly?",

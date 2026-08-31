@@ -20,7 +20,7 @@ import { copy, services } from "@/lib/business-content";
 import { LEAD_FORM_ENDPOINT_URL } from "@/lib/leadForm";
 import { cn } from "@/lib/utils";
 
-export function LeadGenForm({ className }: { className?: string }) {
+export function LeadGenForm({ className, source = "homepage-lead-form" }: { className?: string; source?: string }) {
   const formId = useId();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,7 +66,7 @@ export function LeadGenForm({ className }: { className?: string }) {
           phone,
           service,
           message,
-          source: "homepage-lead-form",
+          source,
           submittedAt: new Date().toISOString(),
         }),
       });

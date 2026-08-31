@@ -1,34 +1,55 @@
 import Link from "next/link";
 import { ArrowUpRight, Star } from "lucide-react";
-import { Card } from "@/components/ui/card";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { BookingButton } from "@/components/BookingButton";
-import { Section, SectionHeading, Eyebrow, PageOutro } from "@/components/blocks/PageBlocks";
-import { EditorialStats, EditorialList } from "@/components/blocks/EditorialBlocks";
+import { JsonLd } from "@/components/JsonLd";
+import { Section, SectionHeading, Eyebrow } from "@/components/blocks/PageBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
+import { EditorialStats, EditorialList, EditorialSplit, EditorialQuote } from "@/components/blocks/EditorialBlocks";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { clinic, copy, getBusinessTagline, getServiceBySlug, marqueeReviews, proofCareStats, proofPageStories, proofStatHighlight, sectionVisibility } from "@/lib/business-content";
+import {
+  buildReviewSchema,
+  clinic,
+  copy,
+  getBusinessTagline,
+  getServiceBySlug,
+  marqueeReviews,
+  proofCareStats,
+  proofPageStories,
+  proofStatHighlight,
+  sectionVisibility,
+} from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 import { isPlaceholderToken } from "@/lib/utils";
+import type { Service } from "@/lib/business-content";
 
 export const metadata = buildMetadata({
   title: `Proof & Reviews — ${getBusinessTagline()}`,
-  description: `Trust markers, care statistics, and verified patient stories from ${getBusinessTagline()}.`,
+  description: copy.proof.heroSubtitle,
   path: "/proof",
 });
+
+type ServiceReviewGroup = { service: Service; reviews: typeof marqueeReviews };
 
 export default function Proof() {
   const reviewsByService = marqueeReviews
     .filter((review) => review.serviceSlug && !isPlaceholderToken(review.quote))
-    .reduce<Record<string, typeof marqueeReviews>>((groups, review) => {
+    .reduce<Record<string, ServiceReviewGroup>>((groups, review) => {
       const service = getServiceBySlug(review.serviceSlug!);
       if (!service) return groups;
-      groups[service.title] = [...(groups[service.title] ?? []), review];
+      const group = groups[service.slug] ?? { service, reviews: [] };
+      group.reviews.push(review);
+      groups[service.slug] = group;
       return groups;
     }, {});
+  const serviceReviewGroups = Object.values(reviewsByService);
+  const reviewSchema = buildReviewSchema();
 
   return (
     <main>
+      {reviewSchema && <JsonLd data={reviewSchema} />}
+
       <ImmersiveHero
         eyebrow={copy.proof.heroEyebrow}
         headline={copy.proof.heroTitle}
@@ -62,32 +83,53 @@ export default function Proof() {
 
       <ReviewsSection />
 
-      {Object.keys(reviewsByService).length > 0 && (
-        <ScrollReveal>
-          <Section className="bg-secondary/30" aria-labelledby="proof-by-service-title">
-            <SectionHeading eyebrow="Trust, by service" title={<span id="proof-by-service-title">Reviews by service</span>} />
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(reviewsByService).map(([service, reviews]) => (
-                <Card key={service} className="gap-3 p-5">
-                  <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{service}</span>
-                  {reviews.map((review) => (
-                    <div key={review.author} className="flex min-w-0 flex-col gap-1.5">
-                      <div className="flex gap-0.5 text-primary">
-                        {Array.from({ length: review.rating }).map((_, starIndex) => (
-                          <Star key={starIndex} size={13} fill="currentColor" />
-                        ))}
+      {serviceReviewGroups.length > 0 && (
+        <>
+          <ScrollReveal>
+            <Section aria-labelledby="proof-by-service-title">
+              <SectionHeading
+                eyebrow="Trust, by service"
+                title={<span id="proof-by-service-title">Proof, specific to what you need</span>}
+                description="Every review below comes from a client who booked the exact service it's attached to."
+              />
+            </Section>
+          </ScrollReveal>
+
+          {serviceReviewGroups.map((group, i) => (
+            <ScrollReveal key={group.service.slug}>
+              <EditorialSplit
+                className="pt-0 md:pt-0"
+                eyebrow={group.service.category}
+                title={group.service.title}
+                imageToken={group.service.imageKey}
+                imageLabel="Service image"
+                reverse={i % 2 === 1}
+                body={
+                  <div className="flex min-w-0 flex-col gap-8">
+                    {group.reviews.map((review) => (
+                      <div key={review.author} className="flex min-w-0 flex-col gap-2">
+                        <div className="flex gap-0.5 text-primary">
+                          {Array.from({ length: review.rating }).map((_, starIndex) => (
+                            <Star key={starIndex} size={13} fill="currentColor" />
+                          ))}
+                        </div>
+                        <EditorialQuote quote={review.quote} attribution={`${review.author} · ${review.segment}`} />
                       </div>
-                      <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">&ldquo;{review.quote}&rdquo;</p>
-                      <span className="min-w-0 break-words text-xs font-semibold text-foreground">
-                        {review.author} · {review.segment}
-                      </span>
-                    </div>
-                  ))}
-                </Card>
-              ))}
-            </div>
-          </Section>
-        </ScrollReveal>
+                    ))}
+                  </div>
+                }
+                extra={
+                  <Link
+                    href={`/services/${group.service.slug}`}
+                    className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                  >
+                    View {group.service.title} <ArrowUpRight size={15} />
+                  </Link>
+                }
+              />
+            </ScrollReveal>
+          ))}
+        </>
       )}
 
       {sectionVisibility.proofStories && proofPageStories.length > 0 && (
@@ -109,13 +151,11 @@ export default function Proof() {
         </ScrollReveal>
       )}
 
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={copy.proof.ctaTitle}
-          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-        />
-      </ScrollReveal>
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={copy.proof.ctaTitle}
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
     </main>
   );
 }

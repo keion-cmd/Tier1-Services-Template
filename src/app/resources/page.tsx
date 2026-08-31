@@ -1,15 +1,16 @@
 import { Info } from "lucide-react";
 import { BookingButton } from "@/components/BookingButton";
-import { Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading } from "@/components/blocks/PageBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { ResourceFilterGrid } from "@/components/ResourceFilterGrid";
+import { EditorialResourceIndex } from "@/components/EditorialResourceIndex";
 import { articles, copy, getBusinessTagline } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: `Health & Wellness Resources — ${getBusinessTagline()}`,
-  description: `General educational articles on wellness, preventive care, and long-term care from ${getBusinessTagline()}.`,
+  title: `${copy.resources.heroTitle} — ${getBusinessTagline()}`,
+  description: copy.resources.heroSubtitle,
   path: "/resources",
 });
 
@@ -23,7 +24,7 @@ export default function Resources() {
         imageToken="[RESOURCE_IMAGE]"
         imageLabel="Resource image"
         cta={<BookingButton label="Book an Appointment" size="lg" />}
-        stat={{ value: String(articles.length).padStart(2, "0"), caption: "articles" }}
+        stat={articles.length > 0 ? { value: String(articles.length).padStart(2, "0"), caption: "articles" } : undefined}
       />
 
       <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-8">
@@ -35,23 +36,23 @@ export default function Resources() {
         </div>
       </div>
 
-      <ScrollReveal>
-        <Section aria-labelledby="resources-grid-title">
-          <SectionHeading
-            eyebrow={copy.resources.gridEyebrow}
-            title={<span id="resources-grid-title">{copy.resources.gridTitle}</span>}
-          />
-          <ResourceFilterGrid />
-        </Section>
-      </ScrollReveal>
+      {articles.length > 0 && (
+        <ScrollReveal>
+          <Section aria-labelledby="resources-grid-title">
+            <SectionHeading
+              eyebrow={copy.resources.gridEyebrow}
+              title={<span id="resources-grid-title">{copy.resources.gridTitle}</span>}
+            />
+            <EditorialResourceIndex />
+          </Section>
+        </ScrollReveal>
+      )}
 
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={copy.resources.ctaTitle}
-          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-        />
-      </ScrollReveal>
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={copy.resources.ctaTitle}
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
     </main>
   );
 }

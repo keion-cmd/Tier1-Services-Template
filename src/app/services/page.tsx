@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { EditorialServiceIndex } from "@/components/EditorialServiceIndex";
 import { BookingButton } from "@/components/BookingButton";
-import { Section, SectionHeading, StepList, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, StepList } from "@/components/blocks/PageBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { clinic, copy, getBusinessTagline, serviceChoiceSteps, services } from "@/lib/business-content";
@@ -67,13 +68,11 @@ export default function Services() {
         </ScrollReveal>
       )}
 
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={copy.services.ctaTitle}
-          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-        />
-      </ScrollReveal>
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={copy.services.ctaTitle}
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
     </main>
   );
 }

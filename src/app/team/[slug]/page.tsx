@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BookingButton } from "@/components/BookingButton";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { JsonLd } from "@/components/JsonLd";
-import { Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, FeatureCard } from "@/components/blocks/PageBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { buildBreadcrumbSchema, buildPersonSchema, businessConfig, getBusinessTagline, getProviderBySlug, getServiceBySlug, providers, sectionVisibility } from "@/lib/business-content";
@@ -37,6 +39,10 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
   const relatedServices = (provider.relatedServiceSlugs ?? [])
     .map((slug) => getServiceBySlug(slug))
     .filter((service): service is NonNullable<typeof service> => Boolean(service));
+
+  const currentIndex = providers.findIndex((p) => p.slug === provider.slug);
+  const prevProvider = providers.length > 1 ? providers[(currentIndex - 1 + providers.length) % providers.length] : null;
+  const nextProvider = providers.length > 1 ? providers[(currentIndex + 1) % providers.length] : null;
 
   return (
     <main>
@@ -128,17 +134,48 @@ export default async function ProviderDetail({ params }: { params: Promise<Param
         </ScrollReveal>
       )}
 
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={
+      {prevProvider && nextProvider && (
+        <Section className="border-t border-border py-10 md:py-12" aria-label="More team members">
+          <div className="grid min-w-0 gap-4 sm:grid-cols-2">
+            <Link
+              href={`/team/${prevProvider.slug}`}
+              className="group flex min-w-0 items-center gap-4 rounded-2xl border border-border p-4 transition-colors hover:border-primary/40"
+            >
+              <ArrowLeft size={18} className="shrink-0 text-primary transition-transform duration-300 group-hover:-translate-x-1" />
+              <div className="relative aspect-square w-14 shrink-0 overflow-hidden rounded-lg border border-border">
+                <ImagePlaceholder label="Provider photo" token={prevProvider.imageKey} className="h-full w-full border-0" />
+              </div>
+              <div className="flex min-w-0 flex-col gap-0.5">
+                <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Previous</span>
+                <span className="min-w-0 truncate text-base font-semibold text-foreground">{prevProvider.name}</span>
+              </div>
+            </Link>
+            <Link
+              href={`/team/${nextProvider.slug}`}
+              className="group flex min-w-0 items-center justify-end gap-4 rounded-2xl border border-border p-4 text-right transition-colors hover:border-primary/40 sm:flex-row-reverse sm:text-left"
+            >
+              <ArrowRight size={18} className="shrink-0 text-primary transition-transform duration-300 group-hover:translate-x-1" />
+              <div className="relative aspect-square w-14 shrink-0 overflow-hidden rounded-lg border border-border">
+                <ImagePlaceholder label="Provider photo" token={nextProvider.imageKey} className="h-full w-full border-0" />
+              </div>
+              <div className="flex min-w-0 flex-col gap-0.5">
+                <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Next</span>
+                <span className="min-w-0 truncate text-base font-semibold text-foreground">{nextProvider.name}</span>
+              </div>
+            </Link>
+          </div>
+        </Section>
+      )}
+
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={
             <>
-              Ready to talk with <span className="text-primary-foreground/80">{provider.name}?</span>
+              Ready to talk with <span className="text-background/70">{provider.name}?</span>
             </>
           }
-          cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
-        />
-      </ScrollReveal>
+        cta={<BookingButton label="Schedule an Appointment" variant="secondary" size="lg" />}
+      />
     </main>
   );
 }

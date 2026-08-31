@@ -79,9 +79,13 @@ function FooterEmailCapture() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-1 flex min-w-0 flex-col gap-2">
-      <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{copy.siteShell.emailCaptureHeading}</span>
+      {/* text-[hsl(17,65%,58%)], not text-primary: this label sits on the footer's own dark
+          bg-foreground surface, where the root (light-surface-tuned) --primary fails contrast
+          (confirmed via axe-core); this is the same lighter shade the .dark theme already uses
+          for primary-as-text-on-dark. */}
+      <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">{copy.siteShell.emailCaptureHeading}</span>
       <p className="min-w-0 break-words text-xs leading-relaxed text-background/60">{copy.siteShell.emailCaptureBody}</p>
-      <div className="flex min-w-0 gap-2">
+      <div className="flex min-w-0 flex-wrap gap-2">
         <Label htmlFor={inputId} className="sr-only">
           Email address
         </Label>
@@ -94,7 +98,13 @@ function FooterEmailCapture() {
           placeholder={copy.siteShell.emailCapturePlaceholder}
           className="min-w-0 flex-1 border-background/25 bg-background/10 text-background placeholder:text-background/50"
         />
-        <Button type="submit" size="sm" variant="secondary" disabled={status === "submitting"} className="w-fit shrink-0">
+        <Button
+          type="submit"
+          size="sm"
+          variant="secondary"
+          disabled={status === "submitting"}
+          className="h-auto w-fit max-w-full shrink-0 min-w-0 whitespace-normal break-words text-center"
+        >
           {copy.siteShell.emailCaptureSubmitButton}
         </Button>
       </div>
@@ -112,14 +122,14 @@ export function Footer() {
     <footer className="bg-foreground text-background">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid gap-10 md:grid-cols-4">
-          <div className="flex flex-col gap-4 md:col-span-1">
+          <div className="flex min-w-0 flex-col gap-4 md:col-span-1">
             <ClinicMark dark />
             <p className="max-w-[240px] min-w-0 text-sm leading-relaxed break-words text-background/70">{copy.siteShell.footerTagline}</p>
             <BookingButton label="Book an Appointment" size="sm" iconSize={14} className="w-fit" />
           </div>
 
-          <nav aria-label="Footer navigation" className="flex flex-col gap-2.5">
-            <span className="text-xs font-semibold tracking-wide text-primary uppercase">Explore</span>
+          <nav aria-label="Footer navigation" className="flex min-w-0 flex-col gap-2.5">
+            <span className="text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">Explore</span>
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -131,8 +141,8 @@ export function Footer() {
             ))}
           </nav>
 
-          <div className="flex flex-col gap-2.5">
-            <span className="text-xs font-semibold tracking-wide text-primary uppercase">Contact</span>
+          <div className="flex min-w-0 flex-col gap-2.5">
+            <span className="text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">Contact</span>
             <a
               href={clinic.mapsUrl}
               target="_blank"
@@ -163,7 +173,7 @@ export function Footer() {
           </div>
 
           <div className="flex min-w-0 flex-col gap-2.5">
-            <span className="text-xs font-semibold tracking-wide text-primary uppercase">Booking details</span>
+            <span className="text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">Booking details</span>
             <p className="min-w-0 break-words text-sm leading-relaxed text-background/70">{copy.siteShell.bookingDetailsText}</p>
             <div className="mt-2 flex items-center gap-3">
               {clinic.socialLinks.map((social) => (

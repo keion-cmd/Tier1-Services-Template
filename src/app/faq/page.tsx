@@ -30,8 +30,8 @@ export default function FAQ() {
         eyebrow={copy.faq.heroEyebrow}
         headline={copy.faq.heroTitle}
         subheadline={copy.faq.heroSubtitle}
-        imageToken="[CLINIC_IMAGE]"
-        imageLabel="Clinic image"
+        imageToken="[BUSINESS_IMAGE]"
+        imageLabel="Business image"
         cta={<BookingButton label="Book an Appointment" size="lg" />}
         stat={{ value: String(faqs.length), caption: "questions answered" }}
       />

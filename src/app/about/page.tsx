@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
-import { Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
-import { EditorialStatement, EditorialSplit, EditorialList } from "@/components/blocks/EditorialBlocks";
+import { Section, SectionHeading, FeatureCard } from "@/components/blocks/PageBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
+import { EditorialStatement, ImageStory, EditorialList } from "@/components/blocks/EditorialBlocks";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -11,7 +12,7 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
   title: `About — ${getBusinessTagline()}`,
-  description: `The story, care philosophy, and clinical standards behind ${getBusinessTagline()}.`,
+  description: copy.about.metaDescription,
   path: "/about",
 });
 
@@ -31,15 +32,14 @@ export default function About() {
         <EditorialStatement eyebrow={copy.about.approachEyebrow} statement={copy.about.approachParagraph1} />
       </ScrollReveal>
 
-      <ScrollReveal>
-        <EditorialSplit
-          className="bg-secondary/30"
-          eyebrow="Our story"
-          body={<p>{copy.about.approachParagraph2}</p>}
-          imageToken="[ABOUT_STORY_IMAGE]"
-          imageLabel="Company story image"
-        />
-      </ScrollReveal>
+      <ImageStory
+        className="bg-secondary/30"
+        eyebrow="Our story"
+        title="How we approach care"
+        body={<p>{copy.about.approachParagraph2}</p>}
+        imageToken="[ABOUT_STORY_IMAGE]"
+        imageLabel="Company story image"
+      />
 
       <ScrollReveal>
         <Section aria-labelledby="about-values-title">
@@ -99,13 +99,11 @@ export default function About() {
         </Section>
       </ScrollReveal>
 
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={copy.about.ctaTitle}
-          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-        />
-      </ScrollReveal>
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={copy.about.ctaTitle}
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
     </main>
   );
 }

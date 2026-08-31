@@ -28,7 +28,7 @@ export default function Locations() {
         imageToken="[LOCATIONS_IMAGE]"
         imageLabel="Locations image"
         cta={<BookingButton label="Book an Appointment" size="lg" />}
-        stat={{ value: String(locations.length).padStart(2, "0"), caption: locations.length === 1 ? "location" : "locations" }}
+        stat={locations.length > 0 ? { value: String(locations.length).padStart(2, "0"), caption: locations.length === 1 ? "location" : "locations" } : undefined}
       />
 
       <ScrollReveal>
@@ -37,6 +37,12 @@ export default function Locations() {
           eyebrow={copy.locations.gridEyebrow}
           title={<span id="locations-grid-title">{copy.locations.gridTitle}</span>}
         />
+        {locations.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border px-6 py-16 text-center">
+            <p className="text-lg font-semibold text-foreground">{copy.locations.emptyTitle}</p>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">{copy.locations.emptyBody}</p>
+          </div>
+        ) : (
         <div className={cn("grid gap-5", locations.length === 1 ? "mx-auto max-w-md" : "sm:grid-cols-2")}>
           {locations.map((location) => {
             const locationServices = location.serviceSlugs
@@ -95,6 +101,7 @@ export default function Locations() {
             );
           })}
         </div>
+        )}
       </Section>
       </ScrollReveal>
 

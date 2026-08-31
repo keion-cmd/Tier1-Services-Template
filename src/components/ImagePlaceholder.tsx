@@ -28,8 +28,10 @@ export function ImagePlaceholder({ label, token, aspect = "aspect-[4/3]", classN
     >
       <ImageOff size={18} strokeWidth={1.5} className="shrink-0 text-muted-foreground/40" />
       <span className="max-w-full break-words text-[11px] font-bold tracking-wide text-muted-foreground uppercase">{label}</span>
-      {token && <code className="max-w-full break-words text-[10px] font-mono text-muted-foreground/60">{token}</code>}
-      <span className="text-[10px] leading-snug text-muted-foreground/50">Replace with client photo</span>
+      {/* Full-opacity text-muted-foreground, not a diluted /50-/60 variant — confirmed via
+          axe-core that anything past ~/90 fails WCAG AA's 4.5:1 at this font size. */}
+      {token && <code className="max-w-full break-words text-[10px] font-mono text-muted-foreground">{token}</code>}
+      <span className="text-[10px] leading-snug text-muted-foreground">Replace with client photo</span>
     </div>
   );
 }

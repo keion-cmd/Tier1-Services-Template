@@ -124,6 +124,7 @@ export const template: ClientConfig = {
       insuranceCtaPrompt: "[HOME_INSURANCE_CTA_PROMPT]",
     },
     about: {
+      metaDescription: "[ABOUT_META_DESCRIPTION]",
       heroEyebrow: "[ABOUT_HERO_EYEBROW]",
       heroTitle: "[ABOUT_HERO_TITLE]",
       heroSubtitle: "[ABOUT_HERO_SUBTITLE]",
@@ -210,6 +211,8 @@ export const template: ClientConfig = {
       gridEyebrow: "[LOCATIONS_GRID_EYEBROW]",
       gridTitle: "[LOCATIONS_GRID_TITLE]",
       ctaTitle: "[LOCATIONS_CTA_TITLE]",
+      emptyTitle: "[LOCATIONS_EMPTY_TITLE]",
+      emptyBody: "[LOCATIONS_EMPTY_BODY]",
     },
     location: {
       heroEyebrow: "[LOCATION_HERO_EYEBROW]",
@@ -259,6 +262,9 @@ export const template: ClientConfig = {
       whyTitle: "How we can help",
       methodsEyebrow: "Get in touch",
       methodsTitle: "Ways to reach us",
+      visitEyebrow: "[CONTACT_VISIT_EYEBROW]",
+      visitTitle: "[CONTACT_VISIT_TITLE]",
+      viewAllLocationsLabel: "[CONTACT_VIEW_ALL_LOCATIONS_LABEL]",
       formEyebrow: "Send a message",
       formTitle: "Tell us what you need",
       ctaTitle: "[CONTACT_CTA_TITLE]",

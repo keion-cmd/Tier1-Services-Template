@@ -11,7 +11,9 @@
   --card-foreground: 210 24% 16%;
   --popover: 0 0% 100%;
   --popover-foreground: 210 24% 16%;
-  --primary: 17 60% 47%;
+  /* Lightness 44% (not the original 47%) — the minimum needed for text-primary-on-background and
+     primary-foreground-on-primary to both clear WCAG AA's 4.5:1, confirmed via axe-core audit. */
+  --primary: 17 60% 44%;
   --primary-foreground: 0 0% 100%;
   --secondary: 17 35% 94%;
   --secondary-foreground: 17 45% 22%;
@@ -35,7 +37,7 @@
   --chart-5: 340 60% 55%;
   --sidebar: 0 0% 100%;
   --sidebar-foreground: 210 24% 16%;
-  --sidebar-primary: 17 60% 47%;
+  --sidebar-primary: 17 60% 44%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 17 45% 92%;
   --sidebar-accent-foreground: 17 60% 24%;
@@ -44,6 +46,21 @@
   --z-nav: 40;
   --z-widget: 50;
   --z-modal: 100;
+}
+
+/*
+ * Every "inverted" dark surface (Footer, marquees, EditorialBlocks' dark section, FinalCTA,
+ * LocationMap) sets bg-foreground/text-background directly rather than toggling the `.dark`
+ * theme class, so ImagePlaceholder's caption text still inherited the LIGHT theme's
+ * --muted-foreground — too dark to read against its own dark background (confirmed via
+ * axe-core). Re-point it at the value the .dark theme already uses for light-text-on-dark.
+ * (--primary/--primary-foreground are deliberately NOT overridden here: those also drive
+ * bg-primary buttons, e.g. the footer's BookingButton, which need the root, darker --primary
+ * to keep their own white text passing contrast — see Footer.tsx for the few standalone
+ * accent-text labels that need a dark-surface-specific color instead.)
+ */
+.bg-foreground {
+  --muted-foreground: 210 10% 65%;
 }
 
 .dark {
@@ -122,6 +139,8 @@
   --radius-xl: var(--radius);
   --animate-marquee: marquee 35s linear infinite;
   --animate-marquee-slow: marquee 45s linear infinite;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 * {
@@ -187,40 +206,62 @@ span:hover > .lucide-chevron-right {
   transform: translateX(3px);
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/*
+ * @layer base, not unlayered: per the CSS Cascade Layers spec, ANY unlayered rule beats EVERY
+ * `@layer`-wrapped rule regardless of selector specificity or source order. Tailwind's utilities
+ * (from `@import "tailwindcss"` above) live in `@layer utilities`, so an unlayered `a { color:
+ * inherit; }` here was silently winning over every `text-primary`/`text-primary-foreground`
+ * utility applied directly to an `<a>` (confirmed via axe-core + computed-style inspection: e.g.
+ * the /proof page's "Leave us a review" button and every card's "View profile" link were
+ * rendering in the inherited --foreground navy, not their intended brand-orange color). Wrapping
+ * these resets in `@layer base` restores Tailwind's normal base-then-utilities precedence.
+ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Safety net: no single fluid layout can be proven overflow-proof against every
+       possible piece of client copy (e.g. an unbroken placeholder token wider than
+       the viewport). Clip at the document level so an edge case degrades to a
+       clipped edge instead of a page-wide horizontal scrollbar. */
+    overflow-x: hidden;
+  }
 
-body {
-  margin: 0;
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.5;
-}
+  body {
+    margin: 0;
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    /* Mirrors html's overflow-x: hidden above. html-only wasn't enough — confirmed via
+       Playwright that window.scrollTo/touch panning could still shift scrollX past 0
+       (the browser treats body, not html, as the actual scrolling box when body has no
+       overflow of its own), silently reaching the exact whitespace this rule exists to hide. */
+    overflow-x: hidden;
+  }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 
-a {
-  color: inherit;
-}
+  a {
+    color: inherit;
+  }
 
-img {
-  display: block;
-  max-width: 100%;
-}
+  img {
+    display: block;
+    max-width: 100%;
+  }
 
-h1,
-h2,
-h3,
-p {
-  margin-top: 0;
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
 }
 
 button:focus-visible,
@@ -259,4 +300,111 @@ select:focus-visible {
 
 .animate-marquee-slow {
   animation: marquee 45s linear infinite !important;
+}
+
+/* Cinematic hero entrance choreography: background scales down slightly from an
+   oversized crop, and the content column reveals upward in a soft stagger. Reused
+   only by ImmersiveHero so the "expensive" feel stays reserved for the one true
+   full-bleed moment on each page, per the "don't over-animate" design direction. */
+@keyframes hero-image-in {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-image-in {
+  animation: hero-image-in 1400ms var(--ease-out-expo) both;
+}
+
+.hero-content-in > * {
+  opacity: 0;
+  animation: hero-content-in 800ms var(--ease-out-quart) both;
+}
+
+.hero-content-in > *:nth-child(1) {
+  animation-delay: 120ms;
+}
+.hero-content-in > *:nth-child(2) {
+  animation-delay: 220ms;
+}
+.hero-content-in > *:nth-child(3) {
+  animation-delay: 320ms;
+}
+.hero-content-in > *:nth-child(4) {
+  animation-delay: 420ms;
+}
+.hero-content-in > *:nth-child(5) {
+  animation-delay: 520ms;
+}
+
+.hero-fade-in {
+  opacity: 0;
+  animation: hero-content-in 800ms var(--ease-out-quart) both;
+}
+
+/* Line-by-line heading motion (AnimatedHeading). Each line sits in an overflow-hidden mask so
+   its inner span can rise from just below the baseline without ever affecting layout height —
+   the mask's height is set by the line's own content, so variable-length headings and mobile
+   rewrapping both just add/remove masks rather than needing per-client tuning. */
+.line-motion-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.line-motion-inner {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition:
+    transform 700ms var(--ease-out-quart),
+    opacity 700ms var(--ease-out-quart);
+}
+
+.line-motion-inner.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image-in {
+    animation: none;
+  }
+  .hero-content-in > * {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+  .hero-fade-in {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+
+  /* Explicit clean-rest-state reset for the marquee strips: the blanket 0.01ms rule above
+     stops the drift but can leave the track parked mid-translate; force it back to the
+     start position so the (deduplicated, first-copy-visible) content reads normally. */
+  .animate-marquee,
+  .animate-marquee-slow {
+    animation: none !important;
+    transform: none;
+  }
+
+  .line-motion-inner {
+    opacity: 1;
+    transform: none;
+  }
 }

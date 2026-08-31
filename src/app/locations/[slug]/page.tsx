@@ -5,10 +5,11 @@ import { Card } from "@/components/ui/card";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { JsonLd } from "@/components/JsonLd";
+import { LocationMap } from "@/components/LocationMap";
 import { Section, SectionHeading, FeatureCard, PageOutro } from "@/components/blocks/PageBlocks";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { buildBreadcrumbSchema, clinic, copy, getBusinessTagline, getProviderBySlug, getServiceBySlug, sectionVisibility } from "@/lib/business-content";
+import { buildBreadcrumbSchema, buildLocationSchema, clinic, copy, getBusinessTagline, getProviderBySlug, getServiceBySlug, sectionVisibility } from "@/lib/business-content";
 import { locations, getLocationBySlug } from "@/data/locations";
 import { buildMetadata } from "@/lib/metadata";
 import { isPlaceholderToken } from "@/lib/utils";
@@ -31,36 +32,6 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   });
 }
 
-function LocationMap({ address, city, landmark }: { address: string; city: string; landmark: string }) {
-  const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(`${address}, ${city}`)}&z=15&output=embed`;
-  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${address}, ${city}`)}`;
-
-  return (
-    <Card className="relative min-h-[400px] gap-0 overflow-hidden p-0 md:min-h-[510px]">
-      <div className="absolute top-4 left-4 z-10 grid max-w-[calc(100%-2rem)] min-w-0 gap-0.5 rounded-xl bg-foreground/85 px-3.5 py-2.5 text-background">
-        <span className="text-[10px] font-bold tracking-wide text-primary-foreground/70 uppercase">Nearby landmark</span>
-        <strong className="min-w-0 break-words text-lg font-medium">{landmark}</strong>
-      </div>
-      <iframe
-        className="h-full min-h-[400px] w-full border-0 md:min-h-[510px]"
-        title={`Google Maps location for ${address}, ${city}`}
-        src={embedUrl}
-        loading="lazy"
-        allowFullScreen
-        referrerPolicy="strict-origin-when-cross-origin"
-      />
-      <a
-        className="absolute bottom-6 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-primary-foreground shadow-md hover:bg-primary/90"
-        href={directionsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Open driving directions <ArrowUpRight size={14} />
-      </a>
-    </Card>
-  );
-}
-
 export default async function LocationDetail({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const location = getLocationBySlug(slug);
@@ -77,11 +48,14 @@ export default async function LocationDetail({ params }: { params: Promise<Param
   return (
     <main>
       <JsonLd
-        data={buildBreadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Locations", path: "/locations" },
-          { name: location.name, path: `/locations/${location.slug}` },
-        ])}
+        data={[
+          buildLocationSchema(location),
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Locations", path: "/locations" },
+            { name: location.name, path: `/locations/${location.slug}` },
+          ]),
+        ]}
       />
 
       <ImmersiveHero
@@ -100,7 +74,11 @@ export default async function LocationDetail({ params }: { params: Promise<Param
       </div>
 
       <ScrollReveal>
-      <Section aria-label="Location details and map">
+      <Section aria-labelledby="location-details-title">
+        <SectionHeading
+          eyebrow={copy.location.directionsEyebrow}
+          title={<span id="location-details-title">{copy.location.directionsTitle}</span>}
+        />
         <div className="grid gap-5 md:grid-cols-2">
           <Card className="gap-0 overflow-hidden p-0">
             <div className="flex min-w-0 flex-col gap-5 p-6">
@@ -110,7 +88,7 @@ export default async function LocationDetail({ params }: { params: Promise<Param
                 <div className="flex min-w-0 items-start gap-3">
                   <MapPin size={20} className="mt-0.5 shrink-0 text-primary" />
                   <div className="min-w-0">
-                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">Address</span>
+                    <span className="text-xs font-semibold tracking-wide text-primary uppercase">{copy.location.addressLabel}</span>
                     <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">
                       <a href={location.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary">
                         {location.address}
@@ -161,7 +139,12 @@ export default async function LocationDetail({ params }: { params: Promise<Param
               <BookingButton label="Book an Appointment" className="w-fit" />
             </div>
           </Card>
-          <LocationMap address={location.address} city={location.city} landmark={location.landmark} />
+          <LocationMap
+            address={location.address}
+            city={location.city}
+            landmark={location.landmark}
+            landmarkLabel={copy.location.landmarkLabel}
+          />
         </div>
       </Section>
       </ScrollReveal>
@@ -170,7 +153,7 @@ export default async function LocationDetail({ params }: { params: Promise<Param
         <ScrollReveal>
         <Section className="bg-secondary/30" aria-labelledby="location-services-title">
           <SectionHeading
-            eyebrow={copy.location.directionsEyebrow}
+            eyebrow="Available here"
             title={<span id="location-services-title">Services offered at this location</span>}
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -222,7 +205,6 @@ export default async function LocationDetail({ params }: { params: Promise<Param
             <SectionHeading
               eyebrow={copy.location.hoursEyebrow}
               title={<span id="location-hours-title">{copy.location.hoursTitle}</span>}
-              description={`These are template hours for ${location.name}. Confirm client-approved hours before any production launch.`}
               className="mb-0"
             />
           </div>

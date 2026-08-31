@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 
 interface ImmersiveHeroStat {
   value: string;
@@ -40,12 +41,18 @@ export function ImmersiveHero({
   return (
     <>
       <section className="relative isolate overflow-hidden border-b border-border">
-        <div className="absolute inset-0 -z-10">
-          <ImagePlaceholder label={imageLabel} token={imageToken} className="h-full w-full border-0" />
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="hero-image-in h-full w-full">
+            <ImagePlaceholder label={imageLabel} token={imageToken} className="h-full w-full border-0" />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/25 to-foreground/5" />
+          {/* Dedicated top-edge gradient — keeps the transparent nav's white text legible
+              over the hero regardless of the underlying image, independent of the bottom
+              overlay above (which is intentionally near-transparent near the top). */}
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-foreground/60 to-transparent" />
         </div>
 
-        <div className="mx-auto flex min-h-[560px] max-w-7xl flex-col justify-end px-6 pt-24 pb-16 sm:min-h-[640px] lg:px-8 lg:pb-20">
+        <div className="hero-content-in mx-auto flex min-h-[620px] max-w-7xl flex-col justify-end px-6 pt-28 pb-16 sm:min-h-[720px] lg:px-8 lg:pb-20">
           {showBadge && (
             <span className="mb-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide break-words text-white backdrop-blur-sm">
               {badgeText}
@@ -54,15 +61,20 @@ export function ImmersiveHero({
           <span className="mb-3 inline-flex w-fit min-w-0 items-center text-xs font-semibold tracking-wider break-words text-white/80 uppercase">
             {eyebrow}
           </span>
-          <h1 className="font-heading max-w-2xl text-5xl leading-[1.02] font-semibold tracking-tight break-words text-white sm:text-7xl">
+          <AnimatedHeading
+            as="h1"
+            trigger="load"
+            delay={260}
+            className="font-heading max-w-3xl text-6xl leading-[0.98] font-semibold tracking-tight break-words text-white sm:text-7xl lg:text-8xl"
+          >
             {headline}
-          </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed break-words text-white/80">{subheadline}</p>
-          {cta && <div className="mt-7 flex flex-wrap items-center gap-5">{cta}</div>}
+          </AnimatedHeading>
+          <p className="mt-6 max-w-md text-base leading-relaxed break-words text-white/80">{subheadline}</p>
+          {cta && <div className="mt-8 flex flex-wrap items-center gap-5">{cta}</div>}
         </div>
 
         {showStat && (
-          <div className="absolute top-8 right-6 w-44 min-w-0 rounded-2xl border border-border bg-card p-4 shadow-lg sm:top-10 sm:right-8 sm:w-48">
+          <div className="hero-fade-in absolute top-8 right-6 w-44 min-w-0 rounded-2xl border border-border bg-card p-4 shadow-lg [animation-delay:620ms] sm:top-10 sm:right-8 sm:w-48">
             <strong className="block break-words text-2xl font-bold text-primary sm:text-3xl">{stat.value}</strong>
             <span className="text-xs font-medium break-words text-muted-foreground">{stat.caption}</span>
           </div>

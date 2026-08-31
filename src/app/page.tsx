@@ -2,7 +2,7 @@ import Link from "next/link";
 import { AlertTriangle, ArrowUpRight, Clock3, MapPin, Phone } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
-import { InteractiveServiceGallery } from "@/components/InteractiveServiceGallery";
+import { EditorialServiceRows } from "@/components/EditorialServiceRows";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { LeadGenForm } from "@/components/LeadGenForm";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
@@ -11,7 +11,9 @@ import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { JsonLd } from "@/components/JsonLd";
-import { Section, SectionHeading, Eyebrow, FeatureCard, StepList, StatBlock, PageOutro } from "@/components/blocks/PageBlocks";
+import { EditorialImageGrid } from "@/components/blocks/EditorialBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
+import { Section, SectionHeading, Eyebrow, FeatureCard, StepList, StatBlock } from "@/components/blocks/PageBlocks";
 import {
   buildLocalBusinessSchema,
   carePlans,
@@ -30,6 +32,7 @@ import {
   LOCATIONS_ADJACENT_MARQUEE_ID,
   marqueeReviews,
   sectionVisibility,
+  services,
   trustStats,
 } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
@@ -127,7 +130,7 @@ export default function Home() {
             >
               {clinicExperienceFeatures.slice(0, 3).map((feature) => (
                 <div key={feature.title} className="overflow-hidden rounded-2xl">
-                  <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="aspect-[4/3] w-full border-0" />
+                  <ImagePlaceholder label="Business image" token={feature.imageKey} className="aspect-[4/3] w-full border-0" />
                 </div>
               ))}
             </div>
@@ -159,20 +162,19 @@ export default function Home() {
         </Section>
       )}
 
-      {/* 3. Services Showcase */}
+      {/* 3. Services — editorial row list: sticky heading + hover-revealed
+          preview image on desktop, plain vertical list on mobile. */}
       <ScrollReveal>
         <Section aria-labelledby="home-services-title">
-          <SectionHeading
+          <h2 id="home-services-title" className="sr-only">
+            {copy.home.servicesTitle}
+          </h2>
+          <EditorialServiceRows
+            services={services.slice(0, 5)}
             eyebrow={copy.home.servicesEyebrow}
-            title={<span id="home-services-title">{copy.home.servicesTitle}</span>}
+            title={copy.home.servicesTitle}
             description={copy.home.servicesSubtitle}
-            action={
-              <Link href="/services" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-                See all services <ArrowUpRight size={15} />
-              </Link>
-            }
           />
-          <InteractiveServiceGallery count={4} />
         </Section>
       </ScrollReveal>
 
@@ -220,7 +222,7 @@ export default function Home() {
             href="/new-clients"
             className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
           >
-            Explore Preventive Care <ArrowUpRight size={15} />
+            Explore New Client Info <ArrowUpRight size={15} />
           </Link>
         </Section>
       )}
@@ -270,33 +272,16 @@ export default function Home() {
             eyebrow={copy.home.facilityEyebrow}
             title={<span id="home-clinic-experience-title">{copy.home.facilityTitle}</span>}
           />
-          {/* Layout degrades to however many features exist: a lone feature is a single full
-              image, 2-3 add a secondary column, 4+ adds the trailing caption row — instead of
-              the whole section disappearing below a fixed minimum count. */}
-          <div className={cn("grid gap-4", clinicExperienceFeatures.length > 1 && "md:grid-cols-[1.3fr_1fr]")}>
-            <figure className="relative min-h-[200px] overflow-hidden rounded-2xl md:min-h-[320px]">
-              <ImagePlaceholder
-                label="Clinic image"
-                token={clinicExperienceFeatures[0].imageKey}
-                className="h-full w-full border-0"
-              />
-              <figcaption className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded-full bg-foreground/85 px-4 py-1.5 text-sm font-semibold break-words text-background">
-                {clinicExperienceFeatures[0].title}
-              </figcaption>
-            </figure>
-            {clinicExperienceFeatures.length > 1 && (
-              <div className={cn("grid gap-4", clinicExperienceFeatures.length >= 3 ? "grid-rows-2" : "grid-rows-1")}>
-                {clinicExperienceFeatures.slice(1, 3).map((feature) => (
-                  <figure key={feature.title} className="relative min-h-[140px] overflow-hidden rounded-2xl">
-                    <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="h-full w-full border-0" />
-                    <figcaption className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold break-words text-background">
-                      {feature.title}
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Layout degrades to however many features exist via EditorialImageGrid: a lone
+              feature is a single full image, 2-3 add supporting images alongside it — instead
+              of the whole section disappearing below a fixed minimum count. */}
+          <EditorialImageGrid
+            images={clinicExperienceFeatures.slice(0, 3).map((feature) => ({
+              token: feature.imageKey,
+              label: "Business image",
+              caption: feature.title,
+            }))}
+          />
           {clinicExperienceFeatures.length > 3 && (
             <p className="mt-7 flex flex-wrap gap-x-8 gap-y-2 text-sm leading-relaxed break-words text-muted-foreground">
               {clinicExperienceFeatures.slice(3).map((feature) => (
@@ -307,18 +292,6 @@ export default function Home() {
             </p>
           )}
         </Section>
-      )}
-
-      {/* 6. Infinite Reviews Marquee */}
-      {sectionVisibility.reviewsMarquee && marqueeReviews.length > 0 && (
-        <>
-          <ReviewsMarquee heading={copy.home.reviewsTitle} supportingText={copy.home.reviewsSubtitle} />
-          <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
-            <Link href="/proof" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-              {copy.home.reviewsLinkLabel} <ArrowUpRight size={15} />
-            </Link>
-          </div>
-        </>
       )}
 
       {/* 7. Health & Wellness Resources */}
@@ -460,7 +433,21 @@ export default function Home() {
       </Section>
       </ScrollReveal>
 
-      {/* 9a. Locations-adjacent Logo Marquee Group (e.g. Insurance) */}
+      {/* 9a. Trust/Reviews Marquee — sits directly under the location section rather than
+          as an arbitrary hero/global strip, so it reads as "here's proof, right where you're
+          deciding whether to visit." */}
+      {sectionVisibility.reviewsMarquee && marqueeReviews.length > 0 && (
+        <>
+          <ReviewsMarquee heading={copy.home.reviewsTitle} supportingText={copy.home.reviewsSubtitle} />
+          <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+            <Link href="/proof" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+              {copy.home.reviewsLinkLabel} <ArrowUpRight size={15} />
+            </Link>
+          </div>
+        </>
+      )}
+
+      {/* 9b. Locations-adjacent Logo Marquee Group (e.g. Insurance) */}
       {logoMarquees
         .filter((group) => group.items.length > 0 && group.id === LOCATIONS_ADJACENT_MARQUEE_ID)
         .map((group) => (
@@ -481,7 +468,7 @@ export default function Home() {
           </div>
         ))}
 
-      {/* 9b. Lead Generation Form */}
+      {/* 9c. Lead Generation Form */}
       <Section id="contact-form" className="bg-secondary/30" aria-labelledby="home-lead-form-title">
         <SectionHeading
           align="center"
@@ -543,18 +530,17 @@ export default function Home() {
       </Section>
 
       {/* 10. Final CTA */}
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={copy.home.finalCtaTitle}
-          cta={
-            <div className="flex flex-col gap-3">
-              <p className="max-w-sm text-sm leading-relaxed break-words text-primary-foreground/85">{copy.home.finalCtaSubtitle}</p>
-              <BookingButton label="Book an Appointment" variant="secondary" size="lg" className="w-fit" />
-            </div>
-          }
-        />
-      </ScrollReveal>
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={copy.home.finalCtaTitle}
+        decorative={clinic.shortName}
+        cta={
+          <div className="flex flex-col gap-3">
+            <p className="max-w-sm text-sm leading-relaxed break-words text-background/75">{copy.home.finalCtaSubtitle}</p>
+            <BookingButton label="Book an Appointment" variant="secondary" size="lg" className="w-fit" />
+          </div>
+        }
+      />
     </main>
   );
 }

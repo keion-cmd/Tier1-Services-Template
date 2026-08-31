@@ -1,12 +1,16 @@
 import Link from "next/link";
-import { ArrowUpRight, Clock3, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Clock3, Mail, MapPin, Navigation, Phone } from "lucide-react";
 import { LeadGenForm } from "@/components/LeadGenForm";
 import { BookingButton } from "@/components/BookingButton";
-import { Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
+import { JsonLd } from "@/components/JsonLd";
+import { LocationMap } from "@/components/LocationMap";
+import { Section, SectionHeading } from "@/components/blocks/PageBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
 import { EditorialList } from "@/components/blocks/EditorialBlocks";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { clinic, copy, differentiators, faqs, getBusinessTagline, services } from "@/lib/business-content";
+import { buildLocalBusinessSchema, clinic, copy, differentiators, faqs, getBusinessTagline, services } from "@/lib/business-content";
+import { locations } from "@/data/locations";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -18,12 +22,14 @@ export const metadata = buildMetadata({
 export default function Contact() {
   return (
     <main>
+      <JsonLd data={buildLocalBusinessSchema()} />
+
       <ImmersiveHero
         eyebrow={copy.contact.heroEyebrow}
         headline={copy.contact.heroTitle}
         subheadline={copy.contact.heroSubtitle}
-        imageToken="[CLINIC_IMAGE]"
-        imageLabel="Clinic image"
+        imageToken="[BUSINESS_IMAGE]"
+        imageLabel="Business image"
         cta={<BookingButton label="Book an Appointment" size="lg" />}
       />
 
@@ -60,16 +66,75 @@ export default function Contact() {
         </Section>
       </ScrollReveal>
 
+      {locations.length === 1 && (
+        <ScrollReveal>
+          <Section aria-labelledby="contact-visit-title">
+            <SectionHeading
+              eyebrow={copy.contact.visitEyebrow}
+              title={<span id="contact-visit-title">{copy.contact.visitTitle}</span>}
+              action={
+                <Link href={`/locations/${locations[0].slug}`} className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                  View full location details <ArrowUpRight size={15} />
+                </Link>
+              }
+            />
+            <LocationMap
+              address={locations[0].address}
+              city={locations[0].city}
+              landmark={locations[0].landmark}
+              landmarkLabel={copy.location.landmarkLabel}
+            />
+          </Section>
+        </ScrollReveal>
+      )}
+
+      {locations.length > 1 && (
+        <ScrollReveal>
+          <Section aria-labelledby="contact-visit-title">
+            <SectionHeading
+              eyebrow={copy.contact.visitEyebrow}
+              title={<span id="contact-visit-title">{copy.contact.visitTitle}</span>}
+              action={
+                <Link href="/locations" className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                  {copy.contact.viewAllLocationsLabel} <ArrowUpRight size={15} />
+                </Link>
+              }
+            />
+            <div className="grid min-w-0 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {locations.map((location) => (
+                <div key={location.slug} className="flex min-w-0 flex-col gap-2 rounded-2xl border border-border p-5">
+                  <Link href={`/locations/${location.slug}`} className="min-w-0">
+                    <h3 className="min-w-0 break-words text-base font-semibold text-foreground hover:text-primary">{location.name}</h3>
+                  </Link>
+                  <p className="flex min-w-0 items-start gap-2 text-sm leading-relaxed break-words text-muted-foreground">
+                    <MapPin size={16} className="mt-0.5 shrink-0 text-primary" />
+                    {location.address}, {location.city}
+                  </p>
+                  <a
+                    href={location.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                  >
+                    Get Directions <Navigation size={14} />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </Section>
+        </ScrollReveal>
+      )}
+
       <ScrollReveal>
-        <Section aria-labelledby="contact-form-title">
+        <Section className={locations.length > 0 ? "bg-secondary/30" : undefined} aria-labelledby="contact-form-title">
           <SectionHeading eyebrow={copy.contact.formEyebrow} title={<span id="contact-form-title">{copy.contact.formTitle}</span>} align="center" />
-          <LeadGenForm />
+          <LeadGenForm source="contact-page-form" />
         </Section>
       </ScrollReveal>
 
       {services.length > 0 && (
         <ScrollReveal>
-          <Section className="bg-secondary/30 flex flex-wrap items-center justify-between gap-4">
+          <Section className="flex flex-wrap items-center justify-between gap-4">
             <p className="min-w-0 max-w-2xl break-words text-sm leading-relaxed text-muted-foreground">
               Not sure which service fits your needs?
             </p>
@@ -93,13 +158,11 @@ export default function Contact() {
         </ScrollReveal>
       )}
 
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={copy.contact.ctaTitle}
-          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-        />
-      </ScrollReveal>
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={copy.contact.ctaTitle}
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
     </main>
   );
 }

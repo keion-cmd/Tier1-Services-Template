@@ -1,17 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft, Sparkles, Star } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { JsonLd } from "@/components/JsonLd";
-import { Section, SectionHeading, PageOutro } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading } from "@/components/blocks/PageBlocks";
+import { FinalCTA } from "@/components/blocks/FinalCTA";
 import { EditorialStatement, EditorialList, EditorialTimeline } from "@/components/blocks/EditorialBlocks";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Card, CardContent } from "@/components/ui/card";
-import { buildBreadcrumbSchema, copy, faqs, getBusinessTagline, getProvidersByService, getServiceBySlug, services } from "@/lib/business-content";
+import { buildBreadcrumbSchema, copy, faqs, getBusinessTagline, getProvidersByService, getServiceBySlug, marqueeReviews, services } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
+import { isPlaceholderToken } from "@/lib/utils";
 
 type Params = { slug: string };
 
@@ -42,6 +44,9 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
     .slice(0, 3);
   const serviceFaqs = faqs.filter((faq) => faq.serviceSlug === service.slug);
   const serviceProviders = getProvidersByService(service.slug);
+  const serviceReviews = marqueeReviews.filter(
+    (review) => review.serviceSlug === service.slug && !isPlaceholderToken(review.quote)
+  );
 
   return (
     <main>
@@ -117,6 +122,32 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
           />
         </Section>
       </ScrollReveal>
+
+      {serviceReviews.length > 0 && (
+        <ScrollReveal>
+        <Section aria-labelledby="service-proof-title">
+          <SectionHeading
+            eyebrow="Client feedback"
+            title={<span id="service-proof-title">What clients say about {service.title.toLowerCase()}</span>}
+          />
+          <div className={`grid gap-5 ${serviceReviews.length === 1 ? "max-w-md" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
+            {serviceReviews.map((review) => (
+              <Card key={review.author} className="gap-3 p-5">
+                <div className="flex gap-0.5 text-primary">
+                  {Array.from({ length: review.rating }).map((_, starIndex) => (
+                    <Star key={starIndex} size={13} fill="currentColor" />
+                  ))}
+                </div>
+                <p className="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">&ldquo;{review.quote}&rdquo;</p>
+                <span className="min-w-0 break-words text-xs font-semibold text-foreground">
+                  {review.author} · {review.segment}
+                </span>
+              </Card>
+            ))}
+          </div>
+        </Section>
+        </ScrollReveal>
+      )}
 
       {serviceProviders.length > 0 && (
         <ScrollReveal>
@@ -196,17 +227,15 @@ export default async function ServiceDetail({ params }: { params: Promise<Params
         </ScrollReveal>
       )}
 
-      <ScrollReveal>
-        <PageOutro
-          eyebrow={getBusinessTagline()}
-          title={
+      <FinalCTA
+        eyebrow={getBusinessTagline()}
+        title={
             <>
-              Ready to talk through <span className="text-primary-foreground/80">{service.title.toLowerCase()}?</span>
+              Ready to talk through <span className="text-background/70">{service.title.toLowerCase()}?</span>
             </>
           }
-          cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
-        />
-      </ScrollReveal>
+        cta={<BookingButton label="Book an Appointment" variant="secondary" size="lg" />}
+      />
     </main>
   );
 }

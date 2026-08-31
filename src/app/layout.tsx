@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { CustomCursor } from "@/components/CustomCursor";
 
 // Phase 2: full SiteShell port — html/body shell, font loading, ThemeProvider/Toaster,
 // Header/Footer. Phase 4: ChatWidget mounted globally below.
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Footer />
           <ChatWidget />
           <Toaster />
+          <CustomCursor />
         </ThemeProvider>
       </body>
     </html>

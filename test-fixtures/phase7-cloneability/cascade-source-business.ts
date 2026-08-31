@@ -160,6 +160,7 @@ export const copy = {
     insuranceCtaPrompt: "Check if your insurance plan is in-network before you book.",
   },
   about: {
+    metaDescription: "The story, care philosophy, and clinical team behind Cascade Point Physical Therapy & Wellness.",
     heroEyebrow: "About Cascade Point",
     heroTitle: "Physical therapy the way it should have been all along",
     heroSubtitle: "Founded in 2014 by Dr. Emily Chan, Cascade Point exists because too many patients were being rushed through 15-minute visits and handed off to aides. We built a clinic where the doctor of physical therapy who evaluates you is the same one who treats you every visit.",
@@ -246,6 +247,8 @@ export const copy = {
     gridEyebrow: "Our clinics",
     gridTitle: "Find the location nearest you",
     ctaTitle: "Book at either location in under two minutes",
+    emptyTitle: "No clinics listed yet",
+    emptyBody: "We're finalizing our clinic details — call us directly and we'll help you find the nearest location.",
   },
   location: {
     heroEyebrow: "This location",
@@ -295,6 +298,9 @@ export const copy = {
     whyTitle: "How we can help",
     methodsEyebrow: "Get in touch",
     methodsTitle: "Ways to reach us",
+    visitEyebrow: "Our clinics",
+    visitTitle: "Two locations serving the Brightwater area",
+    viewAllLocationsLabel: "View all locations",
     formEyebrow: "Send a message",
     formTitle: "Tell us what you need",
     ctaTitle: "Prefer to just book directly?",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getBusinessTagline, SITE_ORIGIN } from "@/lib/business-content";
+import { businessConfig, getBusinessTagline, SITE_ORIGIN } from "@/lib/business-content";
 
 /**
  * Shared per-page metadata builder. Every routed page should call this instead of
@@ -27,6 +27,9 @@ export function buildMetadata({
     alternates: {
       canonical: canonicalUrl,
     },
+    // Belt-and-suspenders alongside robots.ts: an un-cloned template deployment ships
+    // placeholder-token content and must never be indexed.
+    ...(businessConfig.isTemplateDemo ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       title,
       description,

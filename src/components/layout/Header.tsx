@@ -49,6 +49,29 @@ const allNavItems: { href: string; label: string; megaMenu?: MegaMenuConfig; vis
 
 export const navItems = allNavItems.filter((item) => item.visible !== false);
 
+// Routes that start with the full-bleed, dark-overlaid ImmersiveHero — the nav can float
+// transparent with white text over these until the visitor scrolls. Everything else (light
+// PageHero pages, the plain get-started form, 404) defaults to solid nav from the first frame,
+// since we can't guarantee contrast against an unknown or non-dark background.
+const IMMERSIVE_HERO_PATHS = new Set([
+  "/",
+  "/about",
+  "/services",
+  "/team",
+  "/proof",
+  "/resources",
+  "/contact",
+  "/locations",
+  "/faq",
+  "/new-clients",
+  "/success-stories",
+]);
+const IMMERSIVE_HERO_PREFIXES = ["/services/", "/team/", "/resources/", "/locations/"];
+
+function pathHasImmersiveHero(pathname: string) {
+  return IMMERSIVE_HERO_PATHS.has(pathname) || IMMERSIVE_HERO_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
+
 export function ClinicMark({ dark = false }: { dark?: boolean }) {
   return (
     <Link href="/" className="inline-flex shrink-0 items-center gap-2" aria-label={`${clinic.name} home`}>
@@ -58,7 +81,7 @@ export function ClinicMark({ dark = false }: { dark?: boolean }) {
           dark ? "border-background/40 text-background/70" : "border-muted-foreground/40 text-muted-foreground"
         )}
         aria-hidden="true"
-        title="[CLINIC_LOGO]"
+        title="[BUSINESS_LOGO]"
       >
         Logo
       </span>
@@ -89,6 +112,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
+
+  const transparent = !scrolled && !mobileOpen && pathHasImmersiveHero(pathname);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 24);
@@ -130,13 +155,16 @@ export function Header() {
 
       <header
         className={cn(
-          "sticky top-0 z-50 border-b transition-colors",
-          scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-transparent bg-background"
+          "z-50 w-full border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+          pathHasImmersiveHero(pathname) ? "fixed top-0" : "sticky top-0",
+          transparent
+            ? "border-transparent bg-transparent"
+            : "border-border bg-background/90 backdrop-blur-md"
         )}
       >
         <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-7xl min-w-0 items-center justify-between gap-3 px-6 lg:h-[var(--header-height)] xl:gap-4 xl:px-5 2xl:max-w-[1440px] 2xl:px-8">
           <div className="shrink-0">
-            <ClinicMark />
+            <ClinicMark dark={transparent} />
           </div>
 
           <NavigationMenu viewport={false} className="hidden min-w-0 max-w-none flex-1 justify-center xl:flex">
@@ -147,7 +175,8 @@ export function Header() {
                     <NavigationMenuTrigger
                       className={cn(
                         "whitespace-nowrap bg-transparent px-2 text-[13px] font-semibold 2xl:px-3 2xl:text-sm",
-                        pathname === item.href && "text-primary"
+                        transparent ? "text-white hover:text-white" : "text-foreground",
+                        pathname === item.href && !transparent && "text-primary"
                       )}
                     >
                       {item.label}
@@ -160,8 +189,9 @@ export function Header() {
                       <Link
                         href={item.href}
                         className={cn(
-                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-2 text-[13px] font-semibold text-foreground hover:bg-accent 2xl:px-3 2xl:text-sm",
-                          pathname === item.href && "text-primary"
+                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-2 text-[13px] font-semibold 2xl:px-3 2xl:text-sm",
+                          transparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent",
+                          pathname === item.href && !transparent && "text-primary"
                         )}
                       >
                         {item.label}
@@ -179,7 +209,12 @@ export function Header() {
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="xl:hidden" aria-label="Open menu">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn("xl:hidden", transparent && "text-white hover:bg-white/10 hover:text-white")}
+                aria-label="Open menu"
+              >
                 <Menu size={22} />
               </Button>
             </SheetTrigger>

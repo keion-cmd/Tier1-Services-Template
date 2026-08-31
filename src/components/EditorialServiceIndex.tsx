@@ -53,10 +53,9 @@ export function EditorialServiceIndex() {
           {filtered.map((service) => {
             const isActive = service.slug === active?.slug;
             return (
+              <div key={service.slug} role="listitem">
               <Link
-                key={service.slug}
                 href={`/services/${service.slug}`}
-                role="listitem"
                 onMouseEnter={() => setActiveSlug(service.slug)}
                 onFocus={() => setActiveSlug(service.slug)}
                 className={cn(
@@ -80,6 +79,7 @@ export function EditorialServiceIndex() {
                 </div>
                 <ArrowUpRight size={18} className="shrink-0 text-primary" />
               </Link>
+              </div>
             );
           })}
         </div>

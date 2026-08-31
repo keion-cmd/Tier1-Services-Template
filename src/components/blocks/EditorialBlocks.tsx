@@ -7,6 +7,7 @@
  */
 import type { ReactNode } from "react";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { ScrollClipReveal } from "@/components/ScrollReveal";
 import { Section } from "@/components/blocks/PageBlocks";
 import { cn } from "@/lib/utils";
 
@@ -210,6 +211,101 @@ export function EditorialQuote({
       </p>
       {attribution && <footer className="mt-4 min-w-0 break-words text-sm text-muted-foreground">{attribution}</footer>}
     </blockquote>
+  );
+}
+
+/**
+ * Asymmetric editorial image composition: one large feature image plus 1-2
+ * smaller supporting/portrait images, each with its own scroll-in clip reveal.
+ * Replaces equal-sized image card grids for sections that have 2-3 images
+ * (clinic/facility imagery, proof imagery, about imagery) without inventing
+ * extra image slots — layout adapts to however many `images` are passed.
+ */
+export function EditorialImageGrid({
+  images,
+  className,
+}: {
+  images: { token: string; label?: string; caption?: ReactNode; span?: "feature" | "portrait" | "wide" }[];
+  className?: string;
+}) {
+  if (images.length === 0) return null;
+  const [first, ...rest] = images;
+
+  return (
+    <div className={cn("grid min-w-0 gap-4 md:grid-cols-2", className)}>
+      <ScrollClipReveal
+        className={cn(
+          "relative min-h-[260px] overflow-hidden rounded-2xl border border-border shadow-sm",
+          rest.length === 0 ? "md:col-span-2 md:aspect-[16/9]" : "md:row-span-2 md:min-h-[420px]"
+        )}
+      >
+        <ImagePlaceholder label={first.label ?? "Feature image"} token={first.token} className="h-full w-full border-0" />
+        {first.caption && (
+          <figcaption className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded-full bg-foreground/85 px-4 py-1.5 text-sm font-semibold break-words text-background">
+            {first.caption}
+          </figcaption>
+        )}
+      </ScrollClipReveal>
+      {rest.map((image, i) => (
+        <ScrollClipReveal
+          key={image.token}
+          delay={120 * (i + 1)}
+          className={cn(
+            "relative min-h-[200px] overflow-hidden rounded-2xl border border-border shadow-sm",
+            image.span === "portrait" && "md:aspect-[3/4]"
+          )}
+        >
+          <ImagePlaceholder label={image.label ?? "Supporting image"} token={image.token} className="h-full w-full border-0" />
+          {image.caption && (
+            <figcaption className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold break-words text-background">
+              {image.caption}
+            </figcaption>
+          )}
+        </ScrollClipReveal>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Editorial image + copy story block: a portrait/feature image on one side
+ * with a large statement and short body on the other, each revealing on
+ * scroll independently (image via clip-reveal, copy via a slight delayed
+ * fade). Distinct from EditorialSplit in that the image is intentionally
+ * asymmetric (portrait ratio) rather than matching the text column height.
+ */
+export function ImageStory({
+  eyebrow,
+  title,
+  body,
+  imageToken,
+  imageLabel = "Story image",
+  reverse = false,
+  className,
+}: {
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  body: ReactNode;
+  imageToken: string;
+  imageLabel?: string;
+  reverse?: boolean;
+  className?: string;
+}) {
+  return (
+    <Section className={className}>
+      <div className={cn("grid min-w-0 items-center gap-10 md:grid-cols-[0.85fr_1fr] md:gap-16", reverse && "md:[&>*:first-child]:order-2")}>
+        <ScrollClipReveal className="relative aspect-[3/4] min-w-0 overflow-hidden rounded-2xl border border-border shadow-sm md:aspect-[4/5]">
+          <ImagePlaceholder label={imageLabel} token={imageToken} className="h-full w-full border-0" />
+        </ScrollClipReveal>
+        <div className="flex min-w-0 flex-col gap-5">
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          <p className="font-heading min-w-0 break-words text-3xl leading-[1.15] font-semibold tracking-tight text-foreground sm:text-4xl">
+            {title}
+          </p>
+          <div className="min-w-0 space-y-4 text-base leading-relaxed break-words text-muted-foreground">{body}</div>
+        </div>
+      </div>
+    </Section>
   );
 }
 

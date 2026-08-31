@@ -160,6 +160,7 @@ export const copy = {
     insuranceCtaPrompt: "Rebuilding after storm or water damage? We coordinate directly with your carrier.",
   },
   about: {
+    metaDescription: "The story and project standards behind Amberlyn Home Renovation & Design Studio.",
     heroEyebrow: "Our story",
     heroTitle: "Built by a carpenter who got tired of watching good design fall apart on site",
     heroSubtitle: "Amberlyn started in 2011 as a two-person framing crew and grew into a full design-build studio because our founder kept seeing beautiful renderings get value-engineered into disappointing houses.",
@@ -246,6 +247,8 @@ export const copy = {
     gridEyebrow: "Our locations",
     gridTitle: "Find the location closest to your project",
     ctaTitle: "Ready to schedule a walkthrough?",
+    emptyTitle: "No locations listed yet",
+    emptyBody: "We're finalizing our studio details — reach out directly and we'll point you to the nearest team.",
   },
   location: {
     heroEyebrow: "This location",
@@ -295,6 +298,9 @@ export const copy = {
     whyTitle: "How we can help",
     methodsEyebrow: "Get in touch",
     methodsTitle: "Ways to reach us",
+    visitEyebrow: "Where to find us",
+    visitTitle: "Studio, design center & project offices",
+    viewAllLocationsLabel: "View all locations",
     formEyebrow: "Send a message",
     formTitle: "Tell us what you need",
     ctaTitle: "Prefer to just pick up the phone?",
