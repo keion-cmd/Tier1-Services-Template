@@ -9,6 +9,7 @@ import { ReviewsMarquee } from "@/components/ReviewsMarquee";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { JsonLd } from "@/components/JsonLd";
 import { Section, SectionHeading, Eyebrow, FeatureCard, StepList, StatBlock, PageOutro } from "@/components/blocks/PageBlocks";
 import {
@@ -53,30 +54,17 @@ export default function Home() {
       <JsonLd data={buildLocalBusinessSchema()} />
 
       {/* 1. Hero — full-bleed image with headline anchored lower-left, stat card floating
-          upper-right, reusing the existing heroBadgeText/heroStatValue/heroStatCaption fields. */}
-      <section className="relative isolate overflow-hidden border-b border-border">
-        <div className="absolute inset-0 -z-10">
-          <ImagePlaceholder label="Hero image" token="[HERO_IMAGE]" className="h-full w-full border-0" />
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/25 to-foreground/5" />
-        </div>
-
-        <div className="mx-auto flex min-h-[560px] max-w-7xl flex-col justify-end px-6 pt-24 pb-16 sm:min-h-[640px] lg:px-8 lg:pb-20">
-          {/* Content-completeness gate, matching the emergencyInfo pattern below: hides
-              the eyebrow badge pill only while heroBadgeText is still an unfilled clone
-              placeholder token, so real visitors never see literal bracket text. */}
-          {!/^\[.*\]$/.test(copy.home.heroBadgeText) && (
-            <span className="mb-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide break-words text-white backdrop-blur-sm">
-              {copy.home.heroBadgeText}
-            </span>
-          )}
-          <span className="mb-3 inline-flex w-fit min-w-0 items-center text-xs font-semibold tracking-wider break-words text-white/80 uppercase">
-            {getBusinessTagline()}
-          </span>
-          <h1 className="font-heading max-w-2xl text-5xl leading-[1.02] font-semibold tracking-tight break-words text-white sm:text-7xl">
-            {copy.home.heroHeadline}
-          </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed break-words text-white/80">{copy.home.heroSubheadline}</p>
-          <div className="mt-7 flex flex-wrap items-center gap-5">
+          upper-right, reusing the existing heroBadgeText/heroStatValue/heroStatCaption fields.
+          1b. Trust/Logo Strip — the primary logo-marquee group repositioned into a rounded card
+          that overlaps the hero's bottom edge. */}
+      <ImmersiveHero
+        eyebrow={getBusinessTagline()}
+        headline={copy.home.heroHeadline}
+        subheadline={copy.home.heroSubheadline}
+        imageToken="[HERO_IMAGE]"
+        badgeText={copy.home.heroBadgeText}
+        cta={
+          <>
             <BookingButton label="Book an Appointment" size="lg" />
             <Link
               href="/services"
@@ -84,24 +72,11 @@ export default function Home() {
             >
               Explore Services <ArrowUpRight size={15} />
             </Link>
-          </div>
-        </div>
-
-        {/* Same content-completeness gate as the badge above, applied to both stat fields
-            so the floating stat card never shows literal placeholder brackets. */}
-        {!/^\[.*\]$/.test(copy.home.heroStatValue) && !/^\[.*\]$/.test(copy.home.heroStatCaption) && (
-          <div className="absolute top-8 right-6 w-44 min-w-0 rounded-2xl border border-border bg-card p-4 shadow-lg sm:top-10 sm:right-8 sm:w-48">
-            <strong className="block break-words text-2xl font-bold text-primary sm:text-3xl">{copy.home.heroStatValue}</strong>
-            <span className="text-xs font-medium break-words text-muted-foreground">{copy.home.heroStatCaption}</span>
-          </div>
-        )}
-      </section>
-
-      {/* 1b. Trust/Logo Strip — the primary logo-marquee group repositioned into a rounded card
-          that overlaps the hero's bottom edge. */}
-      {primaryMarqueeGroup && (
-        <div className="relative z-10 mx-auto -mt-14 max-w-6xl px-6 sm:-mt-16 lg:px-8">
-          <div className="overflow-hidden rounded-3xl border border-border shadow-xl">
+          </>
+        }
+        stat={{ value: copy.home.heroStatValue, caption: copy.home.heroStatCaption }}
+        trustStrip={
+          primaryMarqueeGroup && (
             <LogoMarquee
               ariaId={`${primaryMarqueeGroup.id}-marquee-title`}
               items={primaryMarqueeGroup.items.map((item) => ({ key: item.name, label: item.name }))}
@@ -109,9 +84,9 @@ export default function Home() {
               supportingText={primaryMarqueeGroup.subheading}
               className="bg-card"
             />
-          </div>
-        </div>
-      )}
+          )
+        }
+      />
       {otherMarqueeGroups.map((group) => (
         <LogoMarquee
           key={group.id}
