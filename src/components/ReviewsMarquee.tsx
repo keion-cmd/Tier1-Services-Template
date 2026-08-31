@@ -11,7 +11,10 @@ interface ReviewsMarqueeProps {
 
 export function ReviewsMarquee({ heading, supportingText }: ReviewsMarqueeProps) {
   return (
-    <section className="overflow-hidden bg-foreground py-12 md:py-16" aria-label="Verified client reviews">
+    <section
+      className="overflow-hidden border-y border-background/10 bg-foreground py-12 md:py-16"
+      aria-label="Verified client reviews"
+    >
       {(heading || supportingText) && (
         <div className="mx-auto mb-8 max-w-md px-6 text-center">
           {heading && <h2 className="text-lg font-semibold break-words text-background">{heading}</h2>}

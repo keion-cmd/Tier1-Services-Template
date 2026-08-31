@@ -243,7 +243,7 @@ export default function Home() {
       {/* 4b. Meet Our Team */}
       {sectionVisibility.meetTheTeam && providers.length > 0 && (
         <ScrollReveal>
-        <Section aria-labelledby="home-team-title">
+        <Section className="bg-secondary/30" aria-labelledby="home-team-title">
           <SectionHeading
             eyebrow={copy.home.teamEyebrow}
             title={<span id="home-team-title">{copy.home.teamTitle}</span>}
@@ -286,7 +286,7 @@ export default function Home() {
             title={<span id="home-clinic-experience-title">{copy.home.facilityTitle}</span>}
           />
           <div className="grid gap-4 md:grid-cols-[1.3fr_1fr]">
-            <figure className="relative min-h-[260px] overflow-hidden rounded-2xl md:min-h-[420px]">
+            <figure className="relative min-h-[200px] overflow-hidden rounded-2xl md:min-h-[320px]">
               <ImagePlaceholder
                 label="Clinic image"
                 token={clinicExperienceFeatures[0].imageKey}
@@ -298,7 +298,7 @@ export default function Home() {
             </figure>
             <div className="grid grid-rows-2 gap-4">
               {clinicExperienceFeatures.slice(1, 3).map((feature) => (
-                <figure key={feature.title} className="relative min-h-[160px] overflow-hidden rounded-2xl">
+                <figure key={feature.title} className="relative min-h-[140px] overflow-hidden rounded-2xl">
                   <ImagePlaceholder label="Clinic image" token={feature.imageKey} className="h-full w-full border-0" />
                   <figcaption className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold break-words text-background">
                     {feature.title}
