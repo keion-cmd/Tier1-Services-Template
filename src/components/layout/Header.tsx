@@ -49,10 +49,10 @@ const allNavItems: { href: string; label: string; megaMenu?: MegaMenuConfig; vis
 
 export const navItems = allNavItems.filter((item) => item.visible !== false);
 
-// Routes that start with the full-bleed, dark-overlaid ImmersiveHero — the nav can float
-// transparent with white text over these until the visitor scrolls. Everything else (light
-// PageHero pages, the plain get-started form, 404) defaults to solid nav from the first frame,
-// since we can't guarantee contrast against an unknown or non-dark background.
+// Routes that start with the full-bleed, dark-overlaid ImmersiveHero — the nav renders as a
+// solid white pill floating with a gap inside the hero frame on these routes. Everything else
+// (light PageHero pages, the plain get-started form, 404) keeps the original full-width sticky
+// bar, unchanged.
 const IMMERSIVE_HERO_PATHS = new Set([
   "/",
   "/about",
@@ -109,18 +109,10 @@ export function ClinicMark({ dark = false }: { dark?: boolean }) {
 
 export function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
 
-  const transparent = !scrolled && !mobileOpen && pathHasImmersiveHero(pathname);
-
-  useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 24);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
+  const immersiveHero = pathHasImmersiveHero(pathname);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -155,16 +147,19 @@ export function Header() {
 
       <header
         className={cn(
-          "z-50 w-full border-b transition-[background-color,border-color,backdrop-filter] duration-300",
-          pathHasImmersiveHero(pathname) ? "fixed top-0" : "sticky top-0",
-          transparent
-            ? "border-transparent bg-transparent"
-            : "border-border bg-background/90 backdrop-blur-md"
+          "z-50 border transition-[background-color,border-color,box-shadow] duration-300",
+          // Immersive-hero pages: fixed and inset with a gap beyond ImmersiveHero's own
+          // mx-3/mt-3 (sm:6, lg:8) frame margins, so the header reads as a solid white pill
+          // floating inside the hero card rather than capping it. Non-immersive pages keep
+          // the original full-width sticky bar (unchanged).
+          immersiveHero
+            ? "fixed top-6 right-3 left-3 rounded-full border-border/40 bg-background shadow-lg sm:top-9 sm:right-6 sm:left-6 lg:top-12 lg:right-8 lg:left-8"
+            : "sticky top-0 w-full border-transparent border-b-border bg-background/90 backdrop-blur-md"
         )}
       >
         <div className="mx-auto flex h-[var(--header-height-mobile)] max-w-7xl min-w-0 items-center justify-between gap-3 px-6 lg:h-[var(--header-height)] xl:gap-4 xl:px-5 2xl:max-w-[1440px] 2xl:px-8">
           <div className="shrink-0">
-            <ClinicMark dark={transparent} />
+            <ClinicMark />
           </div>
 
           <NavigationMenu viewport={false} className="hidden min-w-0 max-w-none flex-1 justify-center xl:flex">
@@ -174,9 +169,8 @@ export function Header() {
                   <NavigationMenuItem key={item.href}>
                     <NavigationMenuTrigger
                       className={cn(
-                        "whitespace-nowrap bg-transparent px-2 text-[13px] font-semibold 2xl:px-3 2xl:text-sm",
-                        transparent ? "text-white hover:text-white" : "text-foreground",
-                        pathname === item.href && !transparent && "text-primary"
+                        "whitespace-nowrap bg-transparent px-2 text-[13px] font-semibold text-foreground 2xl:px-3 2xl:text-sm",
+                        pathname === item.href && "text-primary"
                       )}
                     >
                       {item.label}
@@ -189,9 +183,8 @@ export function Header() {
                       <Link
                         href={item.href}
                         className={cn(
-                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-2 text-[13px] font-semibold 2xl:px-3 2xl:text-sm",
-                          transparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent",
-                          pathname === item.href && !transparent && "text-primary"
+                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-2 text-[13px] font-semibold text-foreground hover:bg-accent 2xl:px-3 2xl:text-sm",
+                          pathname === item.href && "text-primary"
                         )}
                       >
                         {item.label}
@@ -212,7 +205,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className={cn("xl:hidden", transparent && "text-white hover:bg-white/10 hover:text-white")}
+                className="xl:hidden"
                 aria-label="Open menu"
               >
                 <Menu size={22} />
