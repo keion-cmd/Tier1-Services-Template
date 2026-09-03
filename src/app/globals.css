@@ -228,7 +228,11 @@ span:hover > .lucide-chevron-right {
 
   body {
     margin: 0;
-    background: hsl(var(--background));
+    /* Page-frame color: shows through the hero's inset margins as a designed
+       canvas border rather than the site starting flush at the viewport edge.
+       Reuses the existing dark inverted-surface token (same one Footer/marquees/
+       FinalCTA already use) instead of introducing a new brand color. */
+    background: hsl(var(--foreground));
     color: hsl(var(--foreground));
     font-family: var(--font-sans);
     font-size: 16px;
@@ -367,6 +371,8 @@ select:focus-visible {
 
 .line-motion-inner {
   display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   transform: translateY(100%);
   opacity: 0;
   transition:

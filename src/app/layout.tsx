@@ -44,7 +44,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
         <ThemeProvider>
           <Header />
-          <div id="main-content">{children}</div>
+          {/* Explicit bg-background: body's own background is now the dark page-frame
+              color (see globals.css) so it shows through the hero's inset margins.
+              Section content that doesn't set its own background (the common case)
+              would otherwise silently inherit that dark frame color instead of the
+              intended light surface. */}
+          <div id="main-content" className="bg-background">
+            {children}
+          </div>
           <Footer />
           <ChatWidget />
           <Toaster />

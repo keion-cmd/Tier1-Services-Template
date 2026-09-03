@@ -27,19 +27,28 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 export function EditorialStatement({
   eyebrow,
   statement,
+  cta,
   className,
 }: {
   eyebrow?: ReactNode;
   statement: ReactNode;
+  /** Rendered independently below the statement, not centered under it — a supporting action, not a caption. */
+  cta?: ReactNode;
   className?: string;
 }) {
   return (
     <Section className={className}>
-      <div className="flex max-w-4xl min-w-0 flex-col gap-6">
-        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <p className="font-heading min-w-0 break-words text-3xl leading-[1.15] font-semibold tracking-tight text-foreground sm:text-5xl">
-          {statement}
-        </p>
+      <div className="flex min-w-0 flex-col gap-10 md:flex-row md:items-end md:justify-between md:gap-16">
+        <div className="flex max-w-4xl min-w-0 flex-col gap-6">
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          <p
+            className="font-heading min-w-0 break-words leading-[1.15] font-semibold tracking-tight text-foreground"
+            style={{ fontSize: "clamp(1.875rem, 1.4rem + 2.2vw, 3rem)" }}
+          >
+            {statement}
+          </p>
+        </div>
+        {cta && <div className="shrink-0">{cta}</div>}
       </div>
     </Section>
   );
@@ -104,13 +113,19 @@ export function EditorialList({
   items,
   className,
 }: {
-  items: { title: ReactNode; description?: ReactNode; index?: string }[];
+  items: { title: ReactNode; description?: ReactNode; index?: string; trailing?: ReactNode }[];
   className?: string;
 }) {
   return (
     <div className={cn("min-w-0 divide-y divide-border border-t border-border", className)}>
       {items.map((item, i) => (
-        <div key={i} className="grid min-w-0 grid-cols-[3rem_1fr] gap-4 py-6 sm:grid-cols-[4rem_1fr] sm:gap-8 sm:py-8">
+        <div
+          key={i}
+          className={cn(
+            "grid min-w-0 grid-cols-[3rem_1fr] gap-4 py-6 sm:grid-cols-[4rem_1fr] sm:gap-8 sm:py-8",
+            item.trailing && "sm:grid-cols-[4rem_1fr_auto]"
+          )}
+        >
           <span className="font-heading min-w-0 text-2xl font-semibold text-primary/60 sm:text-3xl">
             {item.index ?? String(i + 1).padStart(2, "0")}
           </span>
@@ -122,6 +137,9 @@ export function EditorialList({
               </p>
             )}
           </div>
+          {item.trailing && (
+            <div className="col-span-2 min-w-0 sm:col-span-1 sm:self-center sm:text-right">{item.trailing}</div>
+          )}
         </div>
       ))}
     </div>
@@ -215,11 +233,12 @@ export function EditorialQuote({
 }
 
 /**
- * Asymmetric editorial image composition: one large feature image plus 1-2
- * smaller supporting/portrait images, each with its own scroll-in clip reveal.
- * Replaces equal-sized image card grids for sections that have 2-3 images
- * (clinic/facility imagery, proof imagery, about imagery) without inventing
- * extra image slots — layout adapts to however many `images` are passed.
+ * Editorial image filmstrip: a horizontal row of large portrait crops,
+ * uneven widths, that read as artwork rather than compared side-by-side
+ * cards. Replaces equal-sized image card grids for sections that have 2+
+ * images (clinic/facility imagery, proof imagery, about imagery) — layout
+ * adapts to however many `images` are passed, scrolling horizontally on
+ * narrow viewports instead of stacking.
  */
 export function EditorialImageGrid({
   images,
@@ -229,33 +248,20 @@ export function EditorialImageGrid({
   className?: string;
 }) {
   if (images.length === 0) return null;
-  const [first, ...rest] = images;
 
   return (
-    <div className={cn("grid min-w-0 gap-4 md:grid-cols-2", className)}>
-      <ScrollClipReveal
-        className={cn(
-          "relative min-h-[260px] overflow-hidden rounded-2xl border border-border shadow-sm",
-          rest.length === 0 ? "md:col-span-2 md:aspect-[16/9]" : "md:row-span-2 md:min-h-[420px]"
-        )}
-      >
-        <ImagePlaceholder label={first.label ?? "Feature image"} token={first.token} className="h-full w-full border-0" />
-        {first.caption && (
-          <figcaption className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded-full bg-foreground/85 px-4 py-1.5 text-sm font-semibold break-words text-background">
-            {first.caption}
-          </figcaption>
-        )}
-      </ScrollClipReveal>
-      {rest.map((image, i) => (
+    <div className={cn("-mx-6 flex min-w-0 snap-x snap-mandatory gap-1.5 overflow-x-auto px-6 pb-2 sm:mx-0 sm:gap-1.5 sm:overflow-visible sm:px-0", className)}>
+      {images.map((image, i) => (
         <ScrollClipReveal
           key={image.token}
-          delay={120 * (i + 1)}
+          delay={100 * i}
           className={cn(
-            "relative min-h-[200px] overflow-hidden rounded-2xl border border-border shadow-sm",
-            image.span === "portrait" && "md:aspect-[3/4]"
+            "relative aspect-[3/4] min-w-[70%] shrink-0 snap-start overflow-hidden rounded-md sm:min-w-0 sm:flex-1",
+            image.span === "wide" && "sm:flex-[1.6]",
+            i === 0 && "sm:flex-[1.3]"
           )}
         >
-          <ImagePlaceholder label={image.label ?? "Supporting image"} token={image.token} className="h-full w-full border-0" />
+          <ImagePlaceholder label={image.label ?? "Editorial image"} token={image.token} className="h-full w-full border-0" />
           {image.caption && (
             <figcaption className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] rounded-full bg-foreground/85 px-3.5 py-1 text-xs font-semibold break-words text-background">
               {image.caption}
@@ -324,12 +330,13 @@ export function EditorialStats({
   const count = stats.length;
   const colsClass = count >= 4 ? "sm:grid-cols-2 lg:grid-cols-4" : count === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2";
   return (
-    <div className={cn("grid min-w-0 gap-8 border-t border-border pt-10", colsClass, className)}>
+    <div className={cn("grid min-w-0 gap-10 border-t border-border pt-10", colsClass, className)}>
       {stats.map((stat, i) => (
-        <div key={i} className="flex min-w-0 flex-col gap-2">
-          <strong className="font-heading min-w-0 break-words text-4xl font-bold text-primary sm:text-5xl">
+        <div key={i} className="flex min-w-0 flex-col gap-3">
+          <strong className="font-heading min-w-0 break-words text-5xl leading-none font-bold text-foreground sm:text-6xl">
             {stat.value}
           </strong>
+          <hr className="w-8 border-t-2 border-dotted border-border" />
           <span className="min-w-0 break-words text-sm font-semibold text-foreground">{stat.label}</span>
           {stat.description && (
             <p className="min-w-0 max-w-xs break-words text-sm leading-relaxed text-muted-foreground">

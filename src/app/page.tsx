@@ -3,6 +3,8 @@ import { AlertTriangle, ArrowUpRight, Clock3, MapPin, Phone } from "lucide-react
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { EditorialServiceRows } from "@/components/EditorialServiceRows";
+import { TeamMemberRows } from "@/components/TeamMemberRows";
+import { HealthResourceRows } from "@/components/HealthResourceRows";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { LeadGenForm } from "@/components/LeadGenForm";
 import { ReviewsMarquee } from "@/components/ReviewsMarquee";
@@ -11,9 +13,9 @@ import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { JsonLd } from "@/components/JsonLd";
-import { EditorialImageGrid } from "@/components/blocks/EditorialBlocks";
+import { EditorialImageGrid, EditorialList, EditorialStatement, EditorialStats } from "@/components/blocks/EditorialBlocks";
 import { FinalCTA } from "@/components/blocks/FinalCTA";
-import { Section, SectionHeading, Eyebrow, FeatureCard, StepList, StatBlock } from "@/components/blocks/PageBlocks";
+import { Section, SectionHeading, Eyebrow, StepList } from "@/components/blocks/PageBlocks";
 import {
   buildLocalBusinessSchema,
   carePlans,
@@ -36,7 +38,6 @@ import {
   trustStats,
 } from "@/lib/business-content";
 import { buildMetadata } from "@/lib/metadata";
-import { cn } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: getBusinessTagline(),
@@ -79,6 +80,11 @@ export default function Home() {
           </>
         }
         stat={{ value: copy.home.heroStatValue, caption: copy.home.heroStatCaption }}
+        utilityItems={[
+          { label: "Call", value: clinic.phone },
+          { label: "Hours", value: clinic.hours },
+          { label: "Visit", value: clinic.city },
+        ]}
         trustStrip={
           primaryMarqueeGroup && (
             <LogoMarquee
@@ -101,58 +107,79 @@ export default function Home() {
         />
       ))}
 
-      {/* 1c. Approach — alternating dark section (Tier1's own .dark palette, scoped to this
-          subtree). Reuses facilityEyebrow/whyUsTitle/whyUsSubtitle and the first 3
-          clinicExperienceFeatures images rather than introducing new required fields. */}
-      {clinicExperienceFeatures.length > 0 && (
-        <section className="dark border-b border-border bg-background text-foreground">
-          <div className="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:px-8">
-            <div className="grid gap-6 md:grid-cols-2 md:gap-16">
-              <div className="flex min-w-0 flex-col gap-3">
-                <Eyebrow>{copy.home.facilityEyebrow}</Eyebrow>
-                <h2 className="font-heading text-3xl leading-tight font-bold tracking-tight break-words sm:text-4xl">
-                  {copy.home.whyUsTitle}
-                </h2>
-              </div>
-              <p className="min-w-0 break-words text-base leading-relaxed text-muted-foreground md:pt-1">
-                {copy.home.whyUsSubtitle}
-              </p>
+      {/* 2. Editorial Statement — a single large-type claim (not a generic centered
+          section), with a supporting CTA aligned independently alongside it rather
+          than centered underneath. Reuses whyUsEyebrow/whyUsTitle/whyUsSubtitle. */}
+      <ScrollReveal>
+        <EditorialStatement
+          eyebrow={copy.home.whyUsEyebrow}
+          statement={copy.home.whyUsTitle}
+          cta={
+            <div className="flex flex-col gap-3">
+              <p className="max-w-sm text-sm leading-relaxed break-words text-muted-foreground">{copy.home.whyUsSubtitle}</p>
+              <Link href="/about" className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                More about us <ArrowUpRight size={15} />
+              </Link>
             </div>
-            {/* Grid density adapts to however many features the client actually provided
-                (1-3+) instead of requiring exactly 3 or hiding the whole section. */}
-            <div
-              className={cn(
-                "mt-10 grid gap-4",
-                clinicExperienceFeatures.length === 1 && "max-w-md sm:grid-cols-1",
-                clinicExperienceFeatures.length === 2 && "sm:grid-cols-2",
-                clinicExperienceFeatures.length >= 3 && "sm:grid-cols-3"
-              )}
-            >
-              {clinicExperienceFeatures.slice(0, 3).map((feature) => (
-                <div key={feature.title} className="overflow-hidden rounded-2xl">
-                  <ImagePlaceholder label="Business image" token={feature.imageKey} className="aspect-[4/3] w-full border-0" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+          }
+        />
+      </ScrollReveal>
+
+      {/* 3. Image Story — asymmetric editorial image composition (one feature image
+          plus supporting images), not a set of equal-sized cards. Reuses
+          facilityEyebrow/facilityTitle and clinicExperienceFeatures. */}
+      {sectionVisibility.clinicExperience && clinicExperienceFeatures.length > 0 && (
+        <Section aria-labelledby="home-clinic-experience-title">
+          <SectionHeading
+            eyebrow={copy.home.facilityEyebrow}
+            title={<span id="home-clinic-experience-title">{copy.home.facilityTitle}</span>}
+          />
+          <EditorialImageGrid
+            images={clinicExperienceFeatures.slice(0, 3).map((feature) => ({
+              token: feature.imageKey,
+              label: "Business image",
+              caption: feature.title,
+            }))}
+          />
+        </Section>
       )}
 
-      {/* 2. Trust Stats Bar */}
+      {/* 4. Stats — minimal horizontal number layout with thin rules, not stat cards. */}
       {sectionVisibility.trustStats && trustStats.length > 0 && (
         <ScrollReveal>
           <Section className="py-12 md:py-16" aria-labelledby="home-trust-stats-title">
             <span id="home-trust-stats-title" className="sr-only">
               {copy.home.trustStatsTitle}
             </span>
-            <StatBlock stats={trustStats} />
+            <EditorialStats stats={trustStats.map((stat) => ({ value: stat.value, label: stat.label }))} />
           </Section>
         </ScrollReveal>
       )}
 
-      {/* 2b. How It Works */}
+      {/* 5. Dark Editorial Services — full-bleed dark chapter (Tier1's own .dark palette,
+          scoped to this subtree) with an oversized heading and the editorial service
+          row list, instead of a generic light-background card grid. */}
+      <div className="dark border-y border-border bg-background text-foreground">
+        <ScrollReveal>
+          <Section aria-labelledby="home-services-title">
+            <h2 id="home-services-title" className="sr-only">
+              {copy.home.servicesTitle}
+            </h2>
+            <EditorialServiceRows
+              services={services.slice(0, 5)}
+              eyebrow={copy.home.servicesEyebrow}
+              title={copy.home.servicesTitle}
+              description={copy.home.servicesSubtitle}
+            />
+          </Section>
+        </ScrollReveal>
+      </div>
+
+      {/* 5b. How It Works — optional, only rendered when the client has process-step
+          content and the section is enabled; continues the established visual language
+          rather than being auto-inserted. */}
       {sectionVisibility.howItWorks && howItWorks.length > 0 && (
-        <Section className="bg-secondary/30" aria-labelledby="home-how-it-works-title">
+        <Section aria-labelledby="home-how-it-works-title">
           <SectionHeading
             eyebrow={copy.home.howItWorksEyebrow}
             title={<span id="home-how-it-works-title">{copy.home.howItWorksTitle}</span>}
@@ -162,62 +189,52 @@ export default function Home() {
         </Section>
       )}
 
-      {/* 3. Services — editorial row list: sticky heading + hover-revealed
-          preview image on desktop, plain vertical list on mobile. */}
-      <ScrollReveal>
-        <Section aria-labelledby="home-services-title">
-          <h2 id="home-services-title" className="sr-only">
-            {copy.home.servicesTitle}
-          </h2>
-          <EditorialServiceRows
-            services={services.slice(0, 5)}
-            eyebrow={copy.home.servicesEyebrow}
-            title={copy.home.servicesTitle}
-            description={copy.home.servicesSubtitle}
-          />
-        </Section>
-      </ScrollReveal>
-
-      {/* 4. Why Choose Us */}
+      {/* 6. Why Choose Us — numbered editorial rows instead of an equal-width
+          white-card grid, consistent with the rest of the homepage's editorial
+          language (rules + large type rather than boxed UI). */}
       {sectionVisibility.whyChooseUs && differentiators.length > 0 && (
         <ScrollReveal>
-          <Section className="bg-secondary/30" aria-labelledby="home-why-choose-title">
+          <Section aria-labelledby="home-why-choose-title">
             <SectionHeading
               eyebrow={copy.home.whyUsEyebrow}
               title={<span id="home-why-choose-title">{copy.home.whyUsTitle}</span>}
               description={copy.home.whyUsSubtitle}
             />
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {differentiators.map((item) => (
-                <FeatureCard key={item.title} title={item.title} description={item.copy} icon={item.icon} />
-              ))}
-            </div>
+            <EditorialList
+              items={differentiators.map((item) => ({ title: item.title, description: item.copy }))}
+            />
           </Section>
         </ScrollReveal>
       )}
 
-      {/* 4a. Proactive Care for Every Stage */}
+      {/* 6a. Proactive Care for Every Stage — numbered editorial rows (title +
+          bullets, right-aligned on desktop) instead of a 3-card grid, consistent
+          with EditorialList used elsewhere on the page. */}
       {sectionVisibility.carePlans && carePlans.length > 0 && (
         <Section aria-labelledby="home-care-plans-title">
           <SectionHeading
             eyebrow={copy.home.carePlansEyebrow}
             title={<span id="home-care-plans-title">{copy.home.carePlansTitle}</span>}
           />
-          <div className="grid gap-5 sm:grid-cols-3">
-            {carePlans.map((plan) => (
-              <Card key={plan.title} className="card-hover p-6">
-                <span className="text-sm break-words text-muted-foreground">{plan.subtitle}</span>
-                <h3 className="text-xl font-semibold break-words text-foreground">{plan.title}</h3>
-                <ul className="mt-1 flex flex-col gap-1.5 pl-4 text-sm leading-relaxed break-words text-muted-foreground">
+          <EditorialList
+            items={carePlans.map((plan) => ({
+              title: (
+                <>
+                  {plan.title}
+                  <span className="ml-2 font-sans text-sm font-normal text-muted-foreground">{plan.subtitle}</span>
+                </>
+              ),
+              trailing: (
+                <ul className="flex min-w-0 flex-col gap-1 sm:items-end">
                   {plan.bullets.map((bullet) => (
-                    <li key={bullet} className="list-disc">
+                    <li key={bullet} className="max-w-xs min-w-0 break-words text-sm leading-relaxed text-muted-foreground sm:text-right">
                       {bullet}
                     </li>
                   ))}
                 </ul>
-              </Card>
-            ))}
-          </div>
+              ),
+            }))}
+          />
           <Link
             href="/new-clients"
             className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
@@ -227,13 +244,19 @@ export default function Home() {
         </Section>
       )}
 
-      {/* 4b. Meet Our Team */}
+      {/* 6b. Meet Our Team — reuses TeamMemberRows (same hover-reveal editorial
+          list as the /team page) instead of a 4-card grid, so the homepage
+          teaser and the full team index read as one system. */}
       {sectionVisibility.meetTheTeam && providers.length > 0 && (
         <ScrollReveal>
         <Section className="bg-secondary/30" aria-labelledby="home-team-title">
-          <SectionHeading
+          <h2 id="home-team-title" className="sr-only">
+            {copy.home.teamTitle}
+          </h2>
+          <TeamMemberRows
+            providers={providers.slice(0, 4)}
             eyebrow={copy.home.teamEyebrow}
-            title={<span id="home-team-title">{copy.home.teamTitle}</span>}
+            title={copy.home.teamTitle}
             description={copy.home.teamSubtitle}
             action={
               <Link href="/team" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
@@ -241,100 +264,74 @@ export default function Home() {
               </Link>
             }
           />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {providers.map((provider) => (
-              <Card key={provider.slug} className="card-hover gap-3 p-4">
-                <ImagePlaceholder label="Provider photo" token={provider.imageKey} className="card-hover-image aspect-[4/3] w-full rounded-xl" />
-                <div className="flex min-w-0 flex-col gap-1.5 px-1">
-                  <span className="text-xs font-semibold tracking-wide break-words text-primary uppercase">{provider.specialty}</span>
-                  <h3 className="text-lg font-semibold break-words text-foreground">
-                    {provider.name}, {provider.credentials}
-                  </h3>
-                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{provider.bio}</p>
-                  <Link
-                    href={`/team/${provider.slug}`}
-                    className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-                  >
-                    View profile <ArrowUpRight size={15} />
-                  </Link>
-                </div>
-              </Card>
-            ))}
-          </div>
         </Section>
         </ScrollReveal>
       )}
 
-      {/* 5b. Designed Around Your Comfort */}
-      {sectionVisibility.clinicExperience && clinicExperienceFeatures.length > 0 && (
-        <Section aria-labelledby="home-clinic-experience-title">
-          <SectionHeading
-            eyebrow={copy.home.facilityEyebrow}
-            title={<span id="home-clinic-experience-title">{copy.home.facilityTitle}</span>}
-          />
-          {/* Layout degrades to however many features exist via EditorialImageGrid: a lone
-              feature is a single full image, 2-3 add supporting images alongside it — instead
-              of the whole section disappearing below a fixed minimum count. */}
-          <EditorialImageGrid
-            images={clinicExperienceFeatures.slice(0, 3).map((feature) => ({
-              token: feature.imageKey,
-              label: "Business image",
-              caption: feature.title,
-            }))}
-          />
-          {clinicExperienceFeatures.length > 3 && (
-            <p className="mt-7 flex flex-wrap gap-x-8 gap-y-2 text-sm leading-relaxed break-words text-muted-foreground">
-              {clinicExperienceFeatures.slice(3).map((feature) => (
-                <span key={feature.title}>
-                  <strong className="font-semibold text-foreground">{feature.title}.</strong> {feature.copy}
-                </span>
-              ))}
-            </p>
-          )}
+      {/* Remaining clinicExperienceFeatures beyond the 3 used in the Image Story above
+          (rendered earlier in the page) still get their copy surfaced, inline, so no
+          client-provided content is silently dropped. */}
+      {sectionVisibility.clinicExperience && clinicExperienceFeatures.length > 3 && (
+        <Section aria-labelledby="home-clinic-experience-more-title">
+          <span id="home-clinic-experience-more-title" className="sr-only">
+            {copy.home.facilityTitle}
+          </span>
+          <p className="flex flex-wrap gap-x-8 gap-y-2 text-sm leading-relaxed break-words text-muted-foreground">
+            {clinicExperienceFeatures.slice(3).map((feature) => (
+              <span key={feature.title}>
+                <strong className="font-semibold text-foreground">{feature.title}.</strong> {feature.copy}
+              </span>
+            ))}
+          </p>
         </Section>
       )}
 
-      {/* 7. Health & Wellness Resources */}
+      {/* 7. Health & Wellness Resources — numbered rows with a hover image
+          reveal (matching EditorialServiceRows' pattern) instead of a 3-card
+          grid; links out to the full /resources index since this teaser's
+          data (healthResources) has no per-article slug of its own. */}
       {sectionVisibility.healthResources && healthResources.length > 0 && (
         <Section className="bg-secondary/30" aria-labelledby="home-health-resources-title">
           <SectionHeading
             eyebrow={copy.home.resourcesEyebrow}
             title={<span id="home-health-resources-title">{copy.home.resourcesTitle}</span>}
             description={copy.home.resourcesSubtitle}
+            action={
+              <Link href="/resources" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                View all resources <ArrowUpRight size={15} />
+              </Link>
+            }
           />
-          <div className="grid gap-5 sm:grid-cols-3">
-            {healthResources.map((article) => (
-              <Card key={article.title} className="gap-0 overflow-hidden p-0">
-                <ImagePlaceholder label="Resource image" token={article.imageKey} className="aspect-[16/10] w-full border-0" />
-                <div className="flex min-w-0 flex-col gap-1.5 p-5">
-                  <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-primary uppercase">{copy.home.resourceCardLabel}</span>
-                  <h3 className="text-lg font-semibold break-words text-foreground">{article.title}</h3>
-                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{article.excerpt}</p>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <HealthResourceRows resources={healthResources} />
         </Section>
       )}
 
-      {/* 7b. Real Care. Real Stories. */}
+      {/* 7b. Real Care. Real Stories. — asymmetric editorial rows (large
+          pull-quote text + small inline photo) instead of equal-width white
+          cards, consistent with the rest of the homepage's editorial rhythm. */}
       {sectionVisibility.clientStories && clientStories.length > 0 && (
-        <Section className="bg-secondary/30" aria-labelledby="home-success-stories-title">
+        <Section aria-labelledby="home-success-stories-title">
           <Eyebrow>{copy.home.successStoriesTitle}</Eyebrow>
           <h2 id="home-success-stories-title" className="sr-only">
             {copy.home.successStoriesTitle}
           </h2>
-          <div className="mt-5 grid gap-5 sm:grid-cols-3">
+          <div className="mt-5 divide-y divide-border border-t border-border">
             {clientStories.map((story) => (
-              <Card key={story.clientName} className="gap-2.5 p-4">
-                <ImagePlaceholder label="Client photo" token={story.imageKey} className="aspect-[4/3] w-full rounded-xl" />
-                <div className="flex min-w-0 flex-col gap-1.5 px-1">
+              <div key={story.clientName} className="grid min-w-0 grid-cols-[4.5rem_1fr] items-start gap-4 py-6 sm:grid-cols-[6rem_1fr] sm:gap-8 sm:py-8">
+                <ImagePlaceholder
+                  label="Client photo"
+                  token={story.imageKey}
+                  className="aspect-square w-full rounded-full border-0"
+                />
+                <div className="flex min-w-0 flex-col gap-2">
+                  <p className="font-heading min-w-0 max-w-2xl break-words text-lg leading-snug font-medium text-foreground sm:text-xl">
+                    “{story.story}”
+                  </p>
                   <Eyebrow>
                     {story.clientName} · {story.segment} · {story.category}
                   </Eyebrow>
-                  <p className="text-sm leading-relaxed break-words text-muted-foreground">{story.story}</p>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
@@ -374,14 +371,14 @@ export default function Home() {
       {/* 9. Visit Our Clinic */}
       <ScrollReveal>
       <Section aria-labelledby="home-location-title">
-        <div className="grid gap-10 md:grid-cols-2">
-          <div className="flex flex-col gap-5">
+        <div className="grid min-w-0 gap-10 md:grid-cols-2">
+          <div className="flex min-w-0 flex-col gap-5">
             <SectionHeading
               eyebrow={copy.home.locationEyebrow}
               title={<span id="home-location-title">{copy.home.locationTitle}</span>}
               className="mb-0"
             />
-            <div className="flex flex-col gap-5">
+            <div className="flex min-w-0 flex-col gap-5">
               <div className="flex items-start gap-3">
                 <MapPin size={20} className="mt-0.5 shrink-0 text-primary" />
                 <div className="min-w-0">
@@ -423,9 +420,9 @@ export default function Home() {
           </div>
           <dl className="grid content-start divide-y divide-border border-t border-border">
             {clinic.businessHours.map((entry) => (
-              <div key={entry.days} className="flex items-center justify-between gap-4 py-4">
-                <dt className="text-sm font-semibold break-words text-foreground">{entry.days}</dt>
-                <dd className="text-sm font-semibold break-words text-right text-primary">{entry.hours}</dd>
+              <div key={entry.days} className="flex min-w-0 items-center justify-between gap-4 py-4">
+                <dt className="min-w-0 break-words text-sm font-semibold text-foreground">{entry.days}</dt>
+                <dd className="min-w-0 break-words text-right text-sm font-semibold text-primary">{entry.hours}</dd>
               </div>
             ))}
           </dl>

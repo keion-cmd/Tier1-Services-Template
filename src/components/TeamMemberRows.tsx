@@ -9,7 +9,7 @@
  * Mobile drops the hover dependency entirely and shows an inline thumbnail per
  * row, matching EditorialServiceRows' touch fallback.
  */
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -21,10 +21,16 @@ export function TeamMemberRows({
   providers,
   eyebrow,
   title,
+  description,
+  action,
 }: {
   providers: Provider[];
   eyebrow: string;
   title: string;
+  /** Optional supporting copy under the title — used by teaser placements that skip a separate SectionHeading. */
+  description?: string;
+  /** Optional CTA rendered under the title/description (e.g. "Meet the full team"). */
+  action?: ReactNode;
 }) {
   const [activeSlug, setActiveSlug] = useState<string>(providers[0]?.slug ?? "");
   const active = providers.find((p) => p.slug === activeSlug) ?? providers[0];
@@ -40,6 +46,10 @@ export function TeamMemberRows({
         <h2 className="font-heading mt-3 min-w-0 max-w-md break-words text-3xl leading-tight font-bold tracking-tight text-foreground sm:text-4xl">
           {title}
         </h2>
+        {description && (
+          <p className="mt-3 min-w-0 max-w-md break-words text-sm leading-relaxed text-muted-foreground">{description}</p>
+        )}
+        {action && <div className="mt-4">{action}</div>}
 
         {/* Desktop-only preview image, revealed per hovered/focused row. */}
         {active && (
