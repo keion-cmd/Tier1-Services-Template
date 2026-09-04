@@ -21,6 +21,8 @@ interface ImmersiveHeroProps {
   badgeText?: string;
   cta?: ReactNode;
   stat?: ImmersiveHeroStat;
+  /** Small pill tags rendered under the eyebrow — e.g. real service category names. */
+  tags?: string[];
   trustStrip?: ReactNode;
   /** Bottom utility row (e.g. phone / hours / address) rendered inside the hero frame itself. */
   utilityItems?: ImmersiveHeroUtilityItem[];
@@ -45,12 +47,14 @@ export function ImmersiveHero({
   badgeText,
   cta,
   stat,
+  tags,
   trustStrip,
   utilityItems,
 }: ImmersiveHeroProps) {
   const showBadge = badgeText && !/^\[.*\]$/.test(badgeText);
   const showStat = stat && !/^\[.*\]$/.test(stat.value) && !/^\[.*\]$/.test(stat.caption);
   const visibleUtilityItems = utilityItems?.filter((item) => !/^\[.*\]$/.test(item.value)) ?? [];
+  const visibleTags = tags?.filter((tag) => !/^\[.*\]$/.test(tag)) ?? [];
 
   return (
     <>
@@ -78,9 +82,21 @@ export function ImmersiveHero({
             </span>
           )}
           <span className="mb-3 inline-flex w-fit min-w-0 items-center gap-2 text-xs font-semibold tracking-wider break-words text-white/80 uppercase">
-            <span className="inline-block h-2 w-2 shrink-0 rounded-[2px] bg-primary" aria-hidden="true" />
+            <span className="text-primary" aria-hidden="true">/</span>
             {eyebrow}
           </span>
+          {visibleTags.length > 0 && (
+            <div className="mb-5 flex flex-wrap gap-2">
+              {visibleTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-semibold tracking-wide break-words text-white uppercase backdrop-blur-sm"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
             <AnimatedHeading
               as="h1"
@@ -111,7 +127,7 @@ export function ImmersiveHero({
         </div>
 
         {showStat && (
-          <div className="hero-fade-in absolute top-8 right-6 hidden w-44 min-w-0 rounded-2xl border border-border bg-card p-4 shadow-lg [animation-delay:620ms] sm:block sm:top-10 sm:right-8 sm:w-48">
+          <div className="hero-fade-in absolute top-8 right-6 hidden w-44 min-w-0 rounded-xl border border-border bg-card p-4 shadow-lg [animation-delay:620ms] sm:block sm:top-10 sm:right-8 sm:w-48">
             <strong className="block break-words text-2xl font-bold text-primary sm:text-3xl">{stat.value}</strong>
             <span className="text-xs font-medium break-words text-muted-foreground">{stat.caption}</span>
           </div>

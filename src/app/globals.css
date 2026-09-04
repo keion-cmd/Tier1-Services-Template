@@ -6,43 +6,48 @@
 
 :root {
   --background: 30 25% 97%;
-  --foreground: 210 24% 16%;
+  /* Doubles as this codebase's "dark surface" paint: Footer/marquees/EditorialBlocks'
+     dark section/FinalCTA/LocationMap invert via bg-foreground/text-background (see
+     comment below) instead of toggling .dark, and ImmersiveHero's overlay gradients
+     are literally foreground/NN — so this near-black maroon is what actually renders
+     as the dark editorial chapters and the full-bleed Hero, not --background. */
+  --foreground: 355 40% 6%;
   --card: 0 0% 100%;
-  --card-foreground: 210 24% 16%;
+  --card-foreground: 355 40% 6%;
   --popover: 0 0% 100%;
-  --popover-foreground: 210 24% 16%;
-  /* Lightness 44% (not the original 47%) — the minimum needed for text-primary-on-background and
-     primary-foreground-on-primary to both clear WCAG AA's 4.5:1, confirmed via axe-core audit. */
-  --primary: 17 60% 44%;
+  --popover-foreground: 355 40% 6%;
+  /* Crimson accent (Reload-inspired). Lightness held at 45% to keep white
+     primary-foreground text clearing WCAG AA's 4.5:1 (confirmed via axe-core). */
+  --primary: 355 75% 45%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 17 35% 94%;
-  --secondary-foreground: 17 45% 22%;
+  --secondary: 355 35% 95%;
+  --secondary-foreground: 355 45% 24%;
   --muted: 30 15% 95%;
-  --muted-foreground: 210 12% 42%;
-  --accent: 17 45% 92%;
-  --accent-foreground: 17 60% 24%;
+  --muted-foreground: 355 10% 42%;
+  --accent: 355 45% 94%;
+  --accent-foreground: 355 60% 26%;
   --destructive: 4 72% 51%;
   --destructive-foreground: 0 0% 100%;
   --border: 30 12% 90%;
   --input: 30 12% 90%;
-  --ring: 17 60% 42%;
-  --radius: 1rem;
+  --ring: 355 75% 42%;
+  --radius: 0.75rem;
   --header-height: 72px;
   --header-height-mobile: 64px;
   --mobile-bar-height: 52px;
-  --chart-1: 17 60% 42%;
+  --chart-1: 355 75% 45%;
   --chart-2: 200 65% 45%;
   --chart-3: 35 80% 55%;
   --chart-4: 280 40% 55%;
   --chart-5: 340 60% 55%;
   --sidebar: 0 0% 100%;
-  --sidebar-foreground: 210 24% 16%;
-  --sidebar-primary: 17 60% 44%;
+  --sidebar-foreground: 355 40% 6%;
+  --sidebar-primary: 355 75% 45%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 17 45% 92%;
-  --sidebar-accent-foreground: 17 60% 24%;
+  --sidebar-accent: 355 45% 94%;
+  --sidebar-accent-foreground: 355 60% 26%;
   --sidebar-border: 30 12% 90%;
-  --sidebar-ring: 17 60% 42%;
+  --sidebar-ring: 355 75% 42%;
   --z-nav: 40;
   --z-widget: 50;
   --z-modal: 100;
@@ -60,42 +65,42 @@
  * accent-text labels that need a dark-surface-specific color instead.)
  */
 .bg-foreground {
-  --muted-foreground: 210 10% 65%;
+  --muted-foreground: 355 10% 65%;
 }
 
 .dark {
-  --background: 200 22% 8%;
-  --foreground: 120 10% 94%;
-  --card: 200 18% 11%;
-  --card-foreground: 120 10% 94%;
-  --popover: 200 18% 11%;
-  --popover-foreground: 120 10% 94%;
-  --primary: 17 65% 58%;
-  --primary-foreground: 200 22% 8%;
-  --secondary: 200 16% 16%;
-  --secondary-foreground: 120 10% 94%;
-  --muted: 200 16% 16%;
-  --muted-foreground: 210 10% 65%;
-  --accent: 17 30% 22%;
-  --accent-foreground: 17 55% 88%;
+  --background: 355 40% 6%;
+  --foreground: 0 0% 98%;
+  --card: 355 32% 10%;
+  --card-foreground: 0 0% 98%;
+  --popover: 355 32% 10%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 355 70% 55%;
+  --primary-foreground: 355 40% 6%;
+  --secondary: 355 20% 16%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 355 20% 16%;
+  --muted-foreground: 355 10% 65%;
+  --accent: 355 30% 22%;
+  --accent-foreground: 355 55% 90%;
   --destructive: 4 72% 55%;
   --destructive-foreground: 0 0% 100%;
-  --border: 200 14% 20%;
-  --input: 200 14% 20%;
-  --ring: 17 65% 58%;
-  --chart-1: 17 65% 58%;
+  --border: 355 18% 20%;
+  --input: 355 18% 20%;
+  --ring: 355 70% 55%;
+  --chart-1: 355 70% 55%;
   --chart-2: 200 60% 55%;
   --chart-3: 35 70% 60%;
   --chart-4: 280 40% 65%;
   --chart-5: 340 55% 60%;
-  --sidebar: 200 18% 11%;
-  --sidebar-foreground: 120 10% 94%;
-  --sidebar-primary: 17 65% 58%;
-  --sidebar-primary-foreground: 200 22% 8%;
-  --sidebar-accent: 200 16% 16%;
-  --sidebar-accent-foreground: 120 10% 94%;
-  --sidebar-border: 200 14% 20%;
-  --sidebar-ring: 17 65% 58%;
+  --sidebar: 355 32% 10%;
+  --sidebar-foreground: 0 0% 98%;
+  --sidebar-primary: 355 70% 55%;
+  --sidebar-primary-foreground: 355 40% 6%;
+  --sidebar-accent: 355 20% 16%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 355 18% 20%;
+  --sidebar-ring: 355 70% 55%;
 }
 
 @theme inline {

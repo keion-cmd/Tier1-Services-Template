@@ -38,7 +38,11 @@ export const BookingButton = forwardRef<HTMLButtonElement, BookingButtonProps>(
           className={cn(buttonVariants({ variant, size }), "rounded-full", className)}
         >
           {label}
-          {icon && <ArrowUpRight size={iconSize} aria-hidden="true" />}
+          {icon && (
+            <span className="inline-flex items-center justify-center rounded-full bg-primary-foreground/15 p-1">
+              <ArrowUpRight size={iconSize} aria-hidden="true" />
+            </span>
+          )}
         </a>
       );
     }
@@ -53,7 +57,11 @@ export const BookingButton = forwardRef<HTMLButtonElement, BookingButtonProps>(
           {...props}
         >
           {label}
-          {icon && <ArrowUpRight size={iconSize} aria-hidden="true" />}
+          {icon && (
+            <span className="inline-flex items-center justify-center rounded-full bg-primary-foreground/15 p-1">
+              <ArrowUpRight size={iconSize} aria-hidden="true" />
+            </span>
+          )}
         </button>
         <BookingModal isOpen={isOpen} onClose={close} />
       </>

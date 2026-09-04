@@ -8,7 +8,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Phone } from "lucide-react";
+import { Menu, Phone, Facebook, Instagram, Linkedin, Twitter, Youtube, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -72,12 +72,47 @@ function pathHasImmersiveHero(pathname: string) {
   return IMMERSIVE_HERO_PATHS.has(pathname) || IMMERSIVE_HERO_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 }
 
+// Real social links come from businessConfig (clinic.socialLinks). Icon lookup by label,
+// falling back to a generic link glyph for any platform not in this short list.
+const SOCIAL_ICONS: Record<string, typeof Facebook> = {
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  x: Twitter,
+  youtube: Youtube,
+};
+
+function SocialIconLinks({ className }: { className?: string }) {
+  if (clinic.socialLinks.length === 0) return null;
+  return (
+    <div className={cn("flex items-center gap-2", className)}>
+      {clinic.socialLinks.map((link) => {
+        const Icon = SOCIAL_ICONS[link.label.toLowerCase()] ?? Link2;
+        return (
+          <Button
+            key={link.label}
+            asChild
+            variant="outline"
+            size="icon-circle"
+            className="border-border/60"
+          >
+            <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+              <Icon size={14} />
+            </a>
+          </Button>
+        );
+      })}
+    </div>
+  );
+}
+
 export function ClinicMark({ dark = false }: { dark?: boolean }) {
   return (
     <Link href="/" className="inline-flex shrink-0 items-center gap-2" aria-label={`${clinic.name} home`}>
       <span
         className={cn(
-          "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-dashed text-[7px] leading-none font-bold uppercase",
+          "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-dashed text-[7px] leading-none font-bold uppercase",
           dark ? "border-background/40 text-background/70" : "border-muted-foreground/40 text-muted-foreground"
         )}
         aria-hidden="true"
@@ -169,7 +204,7 @@ export function Header() {
                   <NavigationMenuItem key={item.href}>
                     <NavigationMenuTrigger
                       className={cn(
-                        "whitespace-nowrap bg-transparent px-2 text-[13px] font-semibold text-foreground 2xl:px-3 2xl:text-sm",
+                        "whitespace-nowrap bg-transparent px-2 text-[11px] font-bold tracking-wide text-foreground uppercase 2xl:px-3 2xl:text-xs",
                         pathname === item.href && "text-primary"
                       )}
                     >
@@ -183,7 +218,7 @@ export function Header() {
                       <Link
                         href={item.href}
                         className={cn(
-                          "inline-flex h-9 items-center whitespace-nowrap rounded-md bg-transparent px-2 text-[13px] font-semibold text-foreground hover:bg-accent 2xl:px-3 2xl:text-sm",
+                          "inline-flex h-9 items-center whitespace-nowrap rounded-full bg-transparent px-2 text-[11px] font-bold tracking-wide text-foreground uppercase hover:bg-accent 2xl:px-3 2xl:text-xs",
                           pathname === item.href && "text-primary"
                         )}
                       >
@@ -196,7 +231,8 @@ export function Header() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="hidden shrink-0 xl:block">
+          <div className="hidden shrink-0 items-center gap-3 xl:flex">
+            <SocialIconLinks className="hidden 2xl:flex" />
             <BookingButton label="Book an Appointment" size="default" iconSize={14} />
           </div>
 
@@ -232,7 +268,7 @@ export function Header() {
                       <Link
                         href={item.href}
                         className={cn(
-                          "flex items-center justify-between rounded-lg px-3 py-3 text-base font-semibold text-foreground hover:bg-accent",
+                          "flex items-center justify-between rounded-lg px-3 py-3 text-sm font-bold tracking-wide text-foreground uppercase hover:bg-accent",
                           pathname === item.href && "text-primary"
                         )}
                       >
@@ -242,8 +278,9 @@ export function Header() {
                   )
                 )}
               </nav>
-              <div className="border-t border-border p-4">
+              <div className="flex flex-col gap-4 border-t border-border p-4">
                 <BookingButton label="Book an Appointment" className="w-full justify-center" iconSize={16} />
+                <SocialIconLinks className="justify-center" />
               </div>
             </SheetContent>
           </Sheet>

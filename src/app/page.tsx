@@ -80,6 +80,7 @@ export default function Home() {
           </>
         }
         stat={{ value: copy.home.heroStatValue, caption: copy.home.heroStatCaption }}
+        tags={[...new Set(services.map((service) => service.category))].slice(0, 4)}
         utilityItems={[
           { label: "Call", value: clinic.phone },
           { label: "Hours", value: clinic.hours },
