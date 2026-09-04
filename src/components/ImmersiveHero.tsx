@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
+import { SocialIconLinks } from "@/components/layout/Header";
 
 interface ImmersiveHeroStat {
   value: string;
@@ -127,11 +128,13 @@ export function ImmersiveHero({
         </div>
 
         {showStat && (
-          <div className="hero-fade-in absolute top-8 right-6 hidden w-44 min-w-0 rounded-xl border border-border bg-card p-4 shadow-lg [animation-delay:620ms] sm:block sm:top-10 sm:right-8 sm:w-48">
-            <strong className="block break-words text-2xl font-bold text-primary sm:text-3xl">{stat.value}</strong>
-            <span className="text-xs font-medium break-words text-muted-foreground">{stat.caption}</span>
+          <div className="hero-fade-in absolute bottom-6 left-6 hidden min-w-0 items-center gap-3 rounded-2xl bg-background/95 p-4 shadow-lg backdrop-blur-sm [animation-delay:620ms] sm:flex sm:bottom-8 sm:left-8">
+            <strong className="block shrink-0 break-words text-2xl font-bold text-primary sm:text-3xl">{stat.value}</strong>
+            <span className="max-w-32 text-xs font-medium leading-snug break-words text-muted-foreground">{stat.caption}</span>
           </div>
         )}
+
+        <SocialIconLinks className="hero-fade-in absolute right-6 bottom-6 hidden [animation-delay:720ms] sm:right-8 sm:bottom-8 sm:flex [&_a]:border-white/30 [&_a]:bg-white/10 [&_a]:text-white [&_a:hover]:bg-white/20" />
       </section>
 
       {trustStrip}

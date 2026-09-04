@@ -83,7 +83,7 @@ const SOCIAL_ICONS: Record<string, typeof Facebook> = {
   youtube: Youtube,
 };
 
-function SocialIconLinks({ className }: { className?: string }) {
+export function SocialIconLinks({ className }: { className?: string }) {
   if (clinic.socialLinks.length === 0) return null;
   return (
     <div className={cn("flex items-center gap-2", className)}>
