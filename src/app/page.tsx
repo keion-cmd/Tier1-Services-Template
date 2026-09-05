@@ -72,17 +72,7 @@ export default function Home() {
         subheadline={copy.home.heroSubheadline}
         imageToken="[HERO_IMAGE]"
         badgeText={copy.home.heroBadgeText}
-        cta={
-          <>
-            <BookingButton label="Book an Appointment" size="lg" />
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:underline"
-            >
-              Explore Services <ArrowUpRight size={15} />
-            </Link>
-          </>
-        }
+        cta={<BookingButton label="Book an Appointment" size="lg" />}
         stat={{ value: copy.home.heroStatValue, caption: copy.home.heroStatCaption }}
         tags={[...new Set(services.map((service) => service.category))].slice(0, 4)}
         utilityItems={[
