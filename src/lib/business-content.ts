@@ -5,7 +5,7 @@
  * a new client and switch `ACTIVE_CLIENT` in `src/config/active-client.ts`.
  */
 import { clientConfig } from "@/config/active-client";
-import type { Article, Faq, LogoMarqueeGroup, Provider, Service } from "@/config/schema";
+import type { Article, Faq, LogoMarqueeGroup, Provider, Service, Testimonial } from "@/config/schema";
 import {
   buildArticleSchema,
   buildBreadcrumbSchema,
@@ -47,6 +47,7 @@ export const trustStats = clientConfig.content.trustStats;
 export const differentiators = clientConfig.content.differentiators;
 export const howItWorks = clientConfig.content.howItWorks;
 export const healthResources = clientConfig.content.healthResources;
+export type { Testimonial };
 export const marqueeReviews = clientConfig.testimonials;
 
 export type { Faq };

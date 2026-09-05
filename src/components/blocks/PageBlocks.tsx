@@ -31,6 +31,25 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Pill-shaped eyebrow badge — distinct from the plain-text `Eyebrow` above.
+ * Used by homepage sections whose reference layout calls for a bordered
+ * rounded-full label (About, Services, Testimonials, FAQ, Newsletter) rather
+ * than bare uppercase text.
+ */
+export function EyebrowPill({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex w-fit min-w-0 items-center gap-1.5 rounded-full border border-border bg-secondary/60 px-3.5 py-1.5 text-xs font-semibold tracking-wide break-words text-foreground uppercase",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
 interface PageHeroProps {
   eyebrow: ReactNode;
   title: ReactNode;

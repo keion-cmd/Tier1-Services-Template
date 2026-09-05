@@ -1,19 +1,21 @@
 import Link from "next/link";
 import { AlertTriangle, ArrowUpRight, Clock3, MapPin, Phone } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { EditorialServiceRows } from "@/components/EditorialServiceRows";
 import { TeamMemberRows } from "@/components/TeamMemberRows";
 import { HealthResourceRows } from "@/components/HealthResourceRows";
+import { HomeAbout } from "@/components/blocks/HomeAbout";
+import { HomeFaqSection } from "@/components/HomeFaqSection";
+import { HomeTestimonials } from "@/components/HomeTestimonials";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { LeadGenForm } from "@/components/LeadGenForm";
-import { ReviewsMarquee } from "@/components/ReviewsMarquee";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import { BookingButton } from "@/components/BookingButton";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { ImmersiveHero } from "@/components/ImmersiveHero";
 import { JsonLd } from "@/components/JsonLd";
-import { EditorialImageGrid, EditorialList, EditorialStatement, EditorialStats } from "@/components/blocks/EditorialBlocks";
+import { EditorialImageGrid, EditorialList } from "@/components/blocks/EditorialBlocks";
 import { FinalCTA } from "@/components/blocks/FinalCTA";
 import { Section, SectionHeading, Eyebrow, StepList } from "@/components/blocks/PageBlocks";
 import {
@@ -33,6 +35,7 @@ import {
   logoMarquees,
   LOCATIONS_ADJACENT_MARQUEE_ID,
   marqueeReviews,
+  proofStatHighlight,
   sectionVisibility,
   services,
   trustStats,
@@ -108,21 +111,20 @@ export default function Home() {
         />
       ))}
 
-      {/* 2. Editorial Statement — a single large-type claim (not a generic centered
-          section), with a supporting CTA aligned independently alongside it rather
-          than centered underneath. Reuses whyUsEyebrow/whyUsTitle/whyUsSubtitle. */}
+      {/* 2. About — eyebrow-pill + copy header, unequal 3-card row (dark feature
+          card from differentiators[0], photo card from clinicExperienceFeatures[0],
+          stat card from proofStatHighlight), plain divided trustStats row below.
+          No per-category breakdown field exists in the schema, so that optional
+          sub-list from the layout spec is skipped (see HomeAbout.tsx). */}
       <ScrollReveal>
-        <EditorialStatement
-          eyebrow={copy.home.whyUsEyebrow}
-          statement={copy.home.whyUsTitle}
-          cta={
-            <div className="flex flex-col gap-3">
-              <p className="max-w-sm text-sm leading-relaxed break-words text-muted-foreground">{copy.home.whyUsSubtitle}</p>
-              <Link href="/about" className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-                More about us <ArrowUpRight size={15} />
-              </Link>
-            </div>
-          }
+        <HomeAbout
+          businessName={clinic.shortName}
+          intro={copy.home.whyUsSubtitle}
+          featureCard={differentiators[0]}
+          photoCard={clinicExperienceFeatures[0] && { title: clinicExperienceFeatures[0].title, imageKey: clinicExperienceFeatures[0].imageKey }}
+          statCard={proofStatHighlight && { number: proofStatHighlight.number, label: proofStatHighlight.label }}
+          factsLabel="A few more facts..."
+          stats={sectionVisibility.trustStats ? trustStats : []}
         />
       </ScrollReveal>
 
@@ -145,17 +147,9 @@ export default function Home() {
         </Section>
       )}
 
-      {/* 4. Stats — minimal horizontal number layout with thin rules, not stat cards. */}
-      {sectionVisibility.trustStats && trustStats.length > 0 && (
-        <ScrollReveal>
-          <Section className="py-12 md:py-16" aria-labelledby="home-trust-stats-title">
-            <span id="home-trust-stats-title" className="sr-only">
-              {copy.home.trustStatsTitle}
-            </span>
-            <EditorialStats stats={trustStats.map((stat) => ({ value: stat.value, label: stat.label }))} />
-          </Section>
-        </ScrollReveal>
-      )}
+      {/* 4. Stats — folded into the new About section's "A few more facts..." row
+          above (spec section 2), so the standalone stat block that used to render
+          here has been removed to avoid showing the same trustStats twice in a row. */}
 
       {/* 5. Dark Editorial Services — full-bleed dark chapter (Tier1's own .dark palette,
           scoped to this subtree) with an oversized heading and the editorial service
@@ -347,25 +341,18 @@ export default function Home() {
         </Section>
       )}
 
-      {/* 8. FAQ Teaser */}
+      {/* 8. FAQ Teaser — eyebrow-pill header, 2-col photo + accordion (circular
+          +/- triggers), "Still have questions? / Get in touch" CTA row linking
+          to the real /contact route. */}
       {sectionVisibility.faqTeaser && faqs.length > 0 && (
         <ScrollReveal>
-        <Section className="bg-secondary/30">
-          <SectionHeading eyebrow={copy.home.faqTeaserEyebrow} title={copy.home.faqTeaserTitle} description={copy.home.faqTeaserSubtitle} />
-          <Accordion type="single" collapsible className="mx-auto max-w-3xl border-t border-border">
-            {faqs.slice(0, 3).map((faq, index) => (
-              <AccordionItem value={`faq-${index}`} key={faq.question}>
-                <AccordionTrigger className="text-base font-semibold">{faq.question}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-          <div className="mx-auto mt-6 max-w-3xl">
-            <Link href="/faq" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-              View all FAQs <ArrowUpRight size={15} />
-            </Link>
-          </div>
-        </Section>
+          <HomeFaqSection
+            eyebrow={copy.home.faqTeaserEyebrow}
+            title={copy.home.faqTeaserTitle}
+            description={copy.home.faqTeaserSubtitle}
+            faqs={faqs}
+            imageKey={clinicExperienceFeatures[1]?.imageKey}
+          />
         </ScrollReveal>
       )}
 
@@ -431,12 +418,13 @@ export default function Home() {
       </Section>
       </ScrollReveal>
 
-      {/* 9a. Trust/Reviews Marquee — sits directly under the location section rather than
-          as an arbitrary hero/global strip, so it reads as "here's proof, right where you're
-          deciding whether to visit." */}
+      {/* 9a. Testimonials — pull-quote + portrait 2-col layout with a page counter,
+          replacing the horizontal marquee (still the same marqueeReviews data),
+          sitting directly under the location section for the same "proof right
+          where you're deciding" reason as before. */}
       {sectionVisibility.reviewsMarquee && marqueeReviews.length > 0 && (
         <>
-          <ReviewsMarquee heading={copy.home.reviewsTitle} supportingText={copy.home.reviewsSubtitle} />
+          <HomeTestimonials eyebrow={copy.home.reviewsTitle} reviews={marqueeReviews} />
           <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
             <Link href="/proof" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
               {copy.home.reviewsLinkLabel} <ArrowUpRight size={15} />
@@ -538,6 +526,19 @@ export default function Home() {
             <BookingButton label="Book an Appointment" variant="secondary" size="lg" className="w-fit" />
           </div>
         }
+      />
+
+      {/* 11. Newsletter — net-new section (nothing like it existed on the homepage
+          before); reuses the same real siteShell.emailCapture* copy fields the old
+          embedded Footer form used, since no dedicated newsletter copy exists. */}
+      <NewsletterCTA
+        badgeLabel="Join Now"
+        heading={copy.siteShell.emailCaptureHeading}
+        body={copy.siteShell.emailCaptureBody}
+        placeholder={copy.siteShell.emailCapturePlaceholder}
+        submitLabel={copy.siteShell.emailCaptureSubmitButton}
+        successMessage={copy.siteShell.emailCaptureSuccessMessage}
+        imageKey={clinicExperienceFeatures[clinicExperienceFeatures.length - 1]?.imageKey}
       />
     </main>
   );
