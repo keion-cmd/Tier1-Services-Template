@@ -78,7 +78,7 @@ export function HomeAbout({
         {photoCard && (
           <div className="relative min-w-0 overflow-hidden rounded-xl border border-border">
             <ImagePlaceholder label="About photo" token={photoCard.imageKey} aspect="aspect-[4/5]" className="h-full w-full border-0" />
-            <span className="absolute top-1/2 left-1/2 max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-background/90 px-4 py-1.5 text-center text-xs font-semibold break-words text-foreground shadow-sm backdrop-blur-sm">
+            <span className="absolute top-8 left-1/2 max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-full bg-background/90 px-4 py-1.5 text-center text-xs font-semibold break-words text-foreground shadow-sm backdrop-blur-sm">
               {photoCard.title}
             </span>
           </div>

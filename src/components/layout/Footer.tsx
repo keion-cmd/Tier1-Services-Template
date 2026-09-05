@@ -18,16 +18,16 @@ import { SocialIconLinks, navItems } from "@/components/layout/Header";
 import { TemplateSelfPromo } from "@/components/layout/TemplateSelfPromo";
 import { businessConfig, clinic, copy, getBusinessTagline } from "@/lib/business-content";
 
-// Real navItems split across up to 3 columns (rather than one flat list) to
-// match the reference's grouped-nav-columns pattern; no per-column titles
-// since navItems carries no category/grouping field to label them by.
+// Real navItems split across 2 columns (rather than one flat list) to match
+// the reference's grouped-nav-columns pattern; no per-column titles since
+// navItems carries no category/grouping field to label them by.
 function chunk<T>(items: T[], columns: number): T[][] {
   const size = Math.ceil(items.length / columns);
   return Array.from({ length: columns }, (_, i) => items.slice(i * size, i * size + size)).filter((c) => c.length > 0);
 }
 
 export function Footer() {
-  const navColumns = chunk(navItems, 3);
+  const navColumns = chunk(navItems, 2);
 
   return (
     <footer className="bg-foreground text-background">
@@ -112,15 +112,9 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="mx-auto flex min-w-0 max-w-7xl flex-col gap-2 px-6 py-6 text-xs text-background/55 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <span className="min-w-0 break-words">© 2026 {getBusinessTagline()}</span>
-          <div className="flex min-w-0 flex-wrap items-center gap-2">
-            <Link href="/privacy-policy" className="underline underline-offset-4 hover:text-background/80">
-              Privacy Policy
-            </Link>
-            <span aria-hidden="true">&middot;</span>
-            <Link href="/terms-and-conditions" className="underline underline-offset-4 hover:text-background/80">
-              Terms and Conditions
-            </Link>
-          </div>
+          <Link href="/privacy-policy" className="w-fit underline underline-offset-4 hover:text-background/80">
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>

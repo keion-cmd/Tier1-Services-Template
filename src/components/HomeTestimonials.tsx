@@ -9,7 +9,8 @@
  * generic placeholder token rather than misattributing a client-story photo.
  */
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight, Search, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { EyebrowPill } from "@/components/blocks/PageBlocks";
@@ -86,8 +87,15 @@ export function HomeTestimonials({
             </div>
           </div>
 
-          <div className="relative aspect-[4/5] min-w-0 overflow-hidden rounded-xl border border-border">
-            <ImagePlaceholder label="Reviewer photo" token="[TESTIMONIAL_IMAGE]" className="h-full w-full border-0" />
+          <div className="relative min-w-0">
+            <div className="relative aspect-[4/5] min-w-0 overflow-hidden rounded-xl border border-border">
+              <ImagePlaceholder label="Reviewer photo" token="[TESTIMONIAL_IMAGE]" className="h-full w-full border-0" />
+            </div>
+            <Link href="/proof" className="absolute -bottom-4 -left-4">
+              <Button type="button" variant="default" size="icon-circle" aria-label="View all reviews">
+                <Search size={16} />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

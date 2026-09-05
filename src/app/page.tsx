@@ -6,6 +6,7 @@ import { TeamMemberRows } from "@/components/TeamMemberRows";
 import { HealthResourceRows } from "@/components/HealthResourceRows";
 import { HomeAbout } from "@/components/blocks/HomeAbout";
 import { HomeFaqSection } from "@/components/HomeFaqSection";
+import { HomeMembership } from "@/components/blocks/HomeMembership";
 import { HomeTestimonials } from "@/components/HomeTestimonials";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -202,41 +203,11 @@ export default function Home() {
         </ScrollReveal>
       )}
 
-      {/* 6a. Proactive Care for Every Stage — numbered editorial rows (title +
-          bullets, right-aligned on desktop) instead of a 3-card grid, consistent
-          with EditorialList used elsewhere on the page. */}
+      {/* 6a. Membership — featured plan card (2x2 feature grid, no price/badge
+          since carePlans has neither field) over collapsed plan rows, with a
+          decorative eyebrow+heading column alongside. */}
       {sectionVisibility.carePlans && carePlans.length > 0 && (
-        <Section aria-labelledby="home-care-plans-title">
-          <SectionHeading
-            eyebrow={copy.home.carePlansEyebrow}
-            title={<span id="home-care-plans-title">{copy.home.carePlansTitle}</span>}
-          />
-          <EditorialList
-            items={carePlans.map((plan) => ({
-              title: (
-                <>
-                  {plan.title}
-                  <span className="ml-2 font-sans text-sm font-normal text-muted-foreground">{plan.subtitle}</span>
-                </>
-              ),
-              trailing: (
-                <ul className="flex min-w-0 flex-col gap-1 sm:items-end">
-                  {plan.bullets.map((bullet) => (
-                    <li key={bullet} className="max-w-xs min-w-0 break-words text-sm leading-relaxed text-muted-foreground sm:text-right">
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              ),
-            }))}
-          />
-          <Link
-            href="/new-clients"
-            className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-          >
-            Explore New Client Info <ArrowUpRight size={15} />
-          </Link>
-        </Section>
+        <HomeMembership eyebrow={copy.home.carePlansEyebrow} title={copy.home.carePlansTitle} plans={carePlans} />
       )}
 
       {/* 6b. Meet Our Team — reuses TeamMemberRows (same hover-reveal editorial
