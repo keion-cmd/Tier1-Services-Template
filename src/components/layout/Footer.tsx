@@ -79,11 +79,11 @@ function FooterEmailCapture() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-1 flex min-w-0 flex-col gap-2">
-      {/* text-[hsl(17,65%,58%)], not text-primary: this label sits on the footer's own dark
+      {/* text-[hsl(200,80%,55%)], not text-primary: this label sits on the footer's own dark
           bg-foreground surface, where the root (light-surface-tuned) --primary fails contrast
-          (confirmed via axe-core); this is the same lighter shade the .dark theme already uses
-          for primary-as-text-on-dark. */}
-      <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">{copy.siteShell.emailCaptureHeading}</span>
+          (confirmed via axe-core); this is the same lighter sky-blue shade the .dark theme's
+          --primary already uses for primary-as-text-on-dark (~7.1:1 against this navy). */}
+      <span className="min-w-0 break-words text-xs font-semibold tracking-wide text-[hsl(200,80%,55%)] uppercase">{copy.siteShell.emailCaptureHeading}</span>
       <p className="min-w-0 break-words text-xs leading-relaxed text-background/60">{copy.siteShell.emailCaptureBody}</p>
       <div className="flex min-w-0 flex-wrap gap-2">
         <Label htmlFor={inputId} className="sr-only">
@@ -129,7 +129,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Footer navigation" className="flex min-w-0 flex-col gap-2.5">
-            <span className="text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">Explore</span>
+            <span className="text-xs font-semibold tracking-wide text-[hsl(200,80%,55%)] uppercase">Explore</span>
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -142,7 +142,7 @@ export function Footer() {
           </nav>
 
           <div className="flex min-w-0 flex-col gap-2.5">
-            <span className="text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">Contact</span>
+            <span className="text-xs font-semibold tracking-wide text-[hsl(200,80%,55%)] uppercase">Contact</span>
             <a
               href={clinic.mapsUrl}
               target="_blank"
@@ -173,7 +173,7 @@ export function Footer() {
           </div>
 
           <div className="flex min-w-0 flex-col gap-2.5">
-            <span className="text-xs font-semibold tracking-wide text-[hsl(17,65%,58%)] uppercase">Booking details</span>
+            <span className="text-xs font-semibold tracking-wide text-[hsl(200,80%,55%)] uppercase">Booking details</span>
             <p className="min-w-0 break-words text-sm leading-relaxed text-background/70">{copy.siteShell.bookingDetailsText}</p>
             <div className="mt-2 flex items-center gap-3">
               {clinic.socialLinks.map((social) => (
